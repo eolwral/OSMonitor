@@ -4,15 +4,23 @@ OS Monitor 3.0.0 for Android
 OS Monitor is a tool for monitoring your Android system.
 
 It offers the following information.
-> Process - monitor all processes.
-> Connection - display every network connection.
-> Misc - monitor processors, network interfaces and file system.
-> Message - search dmesg or logcat in real-time. 
+
+- Process - monitor all processes.
+- Connection - display every network connection.
+- Misc - monitor processors, network interfaces and file system.
+- Message - search dmesg or logcat in real-time. 
+
+
+Developed By
+=======
+
+* eolwral@gmail.com
+
 
 License
 =======
 
-    Copyright 2012 Kenney Lu
+    Copyright 2013 Kenney Lu
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

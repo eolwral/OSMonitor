@@ -1,4 +1,4 @@
-OS Monitor 3.0.0 for Android 
+OS Monitor for Android 
 =======
 
 OS Monitor is a tool for monitoring your Android system.
@@ -9,6 +9,32 @@ It offers the following information.
 - Connection - display every network connection.
 - Misc - monitor processors, network interfaces and file system.
 - Message - search dmesg or logcat in real-time. 
+
+Onoging
+======== 
+
+- I will upload source code and documentation later.
+
+
+Change Log
+======== 
+
+**Version 3.0.1**
+
+- [Modified] Fix landscape mode
+- [Modified] Better filter UI on Message (Thanks to Andreas)
+
+
+**Version 3.0.0**
+
+- [Removed] Set CPU Frequency
+- [Removed] Don't Support Android version 1.5~2.2
+- [Removed] Monitor Battery and Temperature 
+- [Removed] Save Log as HTML
+- [Modified] Replace JNI with Unix Socket IPC
+- [Modified] Better filter on Message
+- [Modified] New UI 
+- [Add] Monitor Top Process on Notification Bar
 
 
 Developed By

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/id_misc_item_network_main"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/spinner_ab_default_osmonitor"
+        android:gravity="center"
+        android:orientation="vertical" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+    
+	    <TextView
+    		   android:id="@+id/tx_network_interface"
+    		   android:layout_width="fill_parent"
+    		   android:layout_height="wrap_content"
+               android:layout_weight="2"
+               android:gravity="center"    	       
+    		   android:text="@string/ui_network_interface"
+    		   android:textAppearance="?android:attr/textAppearanceSmall" />
+	    
+    	<TextView
+    	       android:id="@+id/id_network_interface"
+    	       android:layout_width="fill_parent"
+    	       android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:gravity="left"    	       
+    	       android:text=""
+    	       android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+   </LinearLayout>
+    
+   <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+    
+    	<TextView
+        		android:id="@+id/tx_network_ip4"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"    	       
+        		android:text="@string/ui_network_ip4"
+        		android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+    		    android:id="@+id/id_network_ip4"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"    	       
+        		android:text=""
+        		android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    </LinearLayout>
+    
+   <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+   
+    	<TextView
+        		android:id="@+id/tx_network_ip6"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"    	          		
+        		android:text="@string/ui_network_ip6"
+        		android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+    		    android:id="@+id/id_network_ip6"
+        		android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"    	  		        
+		        android:text=""
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    </LinearLayout>
+    
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_misc_item_network_detail"        
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+    
+   
+	   <TextView
+    		    android:id="@+id/tx_network_mac"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"    	  		        
+		        android:text="@string/ui_network_mac"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    	<TextView
+        		android:id="@+id/id_network_mac"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"    	  		        
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+    	
+   </LinearLayout>
+
+   <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+    
+    
+	    <TextView
+    		    android:id="@+id/tx_network_rx"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"    	  		        
+        		android:text="@string/ui_network_rx"
+        		android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	    <TextView
+    		    android:id="@+id/id_network_rx"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"    	  		        
+        		android:text=""
+        		android:textAppearance="?android:attr/textAppearanceSmall" />
+  	</LinearLayout>
+	    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+    
+	    <TextView
+    		    android:id="@+id/tx_network_tx"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+                android:layout_weight="2"
+	            android:gravity="center"    	  		        
+        		android:text="@string/ui_network_tx"
+        		android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	    <TextView
+    		    android:id="@+id/id_network_tx"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"    	  		        
+		        android:text=""
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+  	</LinearLayout>
+	    
+   <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+    
+    
+    	<TextView
+		        android:id="@+id/tx_network_status"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"    	  		        
+		        android:text="@string/ui_network_status"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    	<TextView
+        		android:id="@+id/id_network_status"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"    	  		        
+		        android:text=""
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+  	</LinearLayout>
+  	
+  	</LinearLayout>
+   
+</LinearLayout>

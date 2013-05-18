@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Application -->
+<string name="ui_appname">OS Monitor</string>
+
+<!-- Tab -->
+<string name="ui_process_tab">序程</string>
+<string name="ui_network_tab">網路</string>
+<string name="ui_connection_tab">連線</string>
+<string name="ui_misc_tab">雜項</string>
+<string name="ui_debug_tab">訊息</string>
+
+<!-- Menu -->
+<string name="ui_menu_setting">設定</string>
+<string name="ui_menu_tools">工具</string>
+<string name="ui_menu_sort">排序</string>
+<string name="ui_menu_search">搜尋</string>
+<string name="ui_menu_stop">停止</string>
+<string name="ui_menu_help">幫助</string>
+<string name="ui_menu_logexport">匯出</string>
+
+<!-- Process Tab Start -->
+ 
+<!-- Header -->
+<string name="ui_process_count">程序:</string>
+<string name="ui_process_cpuusage">CPU 使用率:</string>
+
+<!-- Footer -->
+<string name="ui_process_memorytotal">記憶體 全部:</string>
+<string name="ui_process_memoryfree">剩餘:</string>
+
+<!-- Process Detail -->
+<string name="ui_process_sort_usage">使用率</string>
+<string name="ui_process_sort_memory">記憶體</string>
+<string name="ui_process_sort_pid">PID</string>
+
+<!-- Process Detail -->
+<string name="ui_process_detail_process">程序:</string>
+<string name="ui_process_detail_memory">記憶體:</string>
+<string name="ui_process_detail_ppid">父 PID:</string>
+<string name="ui_process_detail_thread">執行緒:</string>
+<string name="ui_process_detail_stime">系統時間:</string>
+<string name="ui_process_detail_utime">使用者時間:</string>
+<string name="ui_process_detail_nice">優先權:</string>
+<string name="ui_process_detail_user">使用者:</string>
+<string name="ui_process_detail_status">狀態:</string>
+<string name="ui_process_detail_time">啟動:</string>
+
+<!-- Process Status -->
+<string name="ui_process_status_zombie">Zombie</string>
+<string name="ui_process_status_sleep">Sleep</string>
+<string name="ui_process_status_running">Running</string>
+<string name="ui_process_status_waitio">Wait IO</string>
+<string name="ui_process_status_stop">Stop</string>
+<string name="ui_process_status_unknown">Unknown</string>
+
+<!-- Process Tab End -->
+
+
+<!-- Connection Tab Start -->
+
+<!-- Header -->
+<string name="ui_connection_protocol">協定</string>
+<string name="ui_connection_localremote">本地/遠端 IP</string>
+<string name="ui_connection_status">狀態</string>
+
+<!-- Connection Tab End -->
+
+<!-- Network Tab Start -->
+
+<!-- Header -->
+<string name="ui_network_interface">介面</string>
+<string name="ui_network_ip4">IPv4</string>
+<string name="ui_network_ip6">IPv6</string>
+
+<!-- Additional -->
+<string name="ui_network_mac">MAC</string>
+<string name="ui_network_rx">傳送</string>
+<string name="ui_network_tx">接收</string>
+<string name="ui_network_status">狀態</string>
+
+<!-- Status -->
+<string name="ui_network_status_up">up</string>
+<string name="ui_network_status_down">down</string>
+<string name="ui_network_status_broadcast">broadcast</string>
+<string name="ui_network_status_loopback">loopback</string>
+<string name="ui_network_status_p2p">point-to-point</string>
+<string name="ui_network_status_promisc">promisc</string>
+<string name="ui_network_status_running">running</string>
+<string name="ui_network_status_multicast">multicast</string>
+
+<!-- Network Tab End -->
+
+<!-- Misc Tab Start -->
+
+<string name="ui_memory_title">記憶體</string>
+<string name="ui_swap_title">Swap</string>
+<string name="ui_memory_total">全部</string>
+<string name="ui_memory_free">剩餘</string>
+<string name="ui_memory_shared">共用</string>
+<string name="ui_memory_buffered">緩衝</string>
+
+<!-- Uptime -->
+<string name="ui_system_uptime">啟動時間</string>
+
+<!-- CPU -->
+<string name="ui_processor_freq">頻率</string>
+<string name="ui_processor_scal">範圍</string>
+<string name="ui_processor_cur">目前</string>
+<string name="ui_processor_gov">調節政策</string>
+<string name="ui_processor_status">狀態</string>
+<string name="ui_processor_core">核心</string>
+
+<string name="ui_processor_status_online">上線</string>
+<string name="ui_processor_status_offline">下線</string>
+
+<!-- Misc Tab End -->
+
+<!-- Message Tab Start -->
+
+<!-- Header -->
+<string name="ui_message_count">訊息:</string>
+<string name="ui_message_filename">檔案</string>
+<string name="ui_message_fileexist">檔案己存在!</string>
+<string name="ui_message_exportdone">完成!</string>
+
+<!-- Message Tab End -->
+
+<!-- Preferences Start -->
+<string name="ui_preferences_update">更新速度</string>
+<string name="ui_preferences_update_detail">更新 UI 資料的速度</string>
+<string name="ui_preferences_cpuusage">顯示 CPU 使用率</string>
+<string name="ui_preferences_cpuusage_detail">在提示區顯示 CPU 使用率圖示</string>
+<string name="ui_preferences_autostart">自動啟動</string>
+<string name="ui_preferences_autostart_detail">跟著系統一起啟動</string>
+<string name="ui_preferences_color">CPU 圖示顏色</string>
+<string name="ui_preferences_color_detail">藍或綠</string>
+<string name="ui_preferences_expert">專家模式</string>
+<string name="ui_preferences_expert_detail">不進行資料整理, 顯示原始資料</string>
+<string name="ui_preferences_root">啟用 root 權限</string>
+<string name="ui_preferences_root_detail">使用 root 權限執行指令和收集資料</string>
+
+<!-- Preferences End -->
+
+<!-- Common Start -->
+<string name="ui_text_okay">確定</string>
+<string name="ui_text_cancel">取消</string>
+
+<string name="ui_text_zero">0</string>
+<string name="ui_text_refresh">請稍等..</string>
+<string name="ui_text_kill">結束  %1$d 程序..</string>
+<!-- Common End -->
+
+</resources>

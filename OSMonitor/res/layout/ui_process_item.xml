@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+   
+    <TextView
+        android:id="@+id/id_process_pid"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="left|center_vertical"
+        android:minEms="3"
+        android:padding="3dp" />
+
+    <ImageView
+        android:id="@+id/id_process_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/id_process_pid"
+        android:padding="3dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_process_console" />
+
+    <TextView
+        android:id="@+id/id_process_value"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:text="" />
+        
+    <TextView
+        android:id="@+id/id_process_name"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/id_process_value"
+        android:layout_toRightOf="@+id/id_process_icon"
+        android:gravity="center_vertical"
+        android:padding="3dp"
+        android:text="" />
+
+    <ViewStub
+        android:id="@+id/id_process_detail_viewstub"
+        android:inflatedId="@+id/id_process_detail_stub"
+        android:layout="@layout/ui_process_item_detail" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" 
+        android:layout_below="@+id/id_process_pid" />
+
+</RelativeLayout>

@@ -1,0 +1,18 @@
+package com.eolwral.osmonitor.core;
+
+message dmesgInfo {
+  enum dmesgLevel
+  {
+    EMERGENCY   = 0;  /**< emergency */
+    ALERT       = 1;  /**< alert */
+    CRITICAL    = 2;  /**< critical */
+    ERROR       = 3;  /**< error */
+    WARNING     = 4;  /**< warning */
+    NOTICE      = 5;  /**< notice */
+    INFORMATION = 6;  /**< information */
+    DEBUG       = 7;  /**< debug */
+  }
+  required dmesgLevel level = 1 [default = INFORMATION];  /**< message level */
+  required uint64 seconds = 2;        /**< passed seconds since boot */
+  required string message = 3;        /**< message */
+}

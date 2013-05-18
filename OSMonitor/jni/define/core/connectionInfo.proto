@@ -1,0 +1,39 @@
+package com.eolwral.osmonitor.core;
+
+message connectionInfo {
+  
+  enum connectionType {
+    TCPv4 = 0;      /**< TCP version 4 */
+    TCPv6 = 1;      /**< TCP version 6 */
+    UDPv4 = 2;      /**< UDP version 4 */
+    UDPv6 = 3;      /**< UDP version 6 */
+    RAWv4 = 4;      /**< RAW version 4 */
+    RAWv6 = 5;      /**< RAW version 6 */
+  } 
+  required connectionType Type = 1 [default = TCPv4];
+  
+  enum connectionStatus {
+    UNKNOWN     = 0;  /**< Unknown or undefined */
+    ESTABLISHED = 1;
+    SYN_SENT    = 2;
+    SYN_RECV    = 3;
+    FIN_WAIT1   = 4;
+    FIN_WAIT2   = 5;
+    TIME_WAIT   = 6;
+    CLOSE       = 7;
+    CLOSE_WAIT  = 8;
+    LAST_ACK    = 9;
+    LISTEN      = 10;
+    CLOSING     = 11;
+  } 
+  required connectionStatus Status = 2 [default = UNKNOWN];
+  
+  required string localIP = 3;
+  required uint32 localPort = 4;
+  
+  required string remoteIP = 5;
+  required uint32 remotePort = 6;
+  
+  required uint32 uid = 7;
+
+}

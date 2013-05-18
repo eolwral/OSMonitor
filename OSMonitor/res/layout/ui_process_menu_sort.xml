@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_process_sort_group"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/osmonitor_DorpDownMenu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RadioButton
+      		android:id="@+id/id_process_sort_usage"
+       		android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:text="@string/ui_process_sort_usage" />
+
+    <RadioButton
+       		android:id="@+id/id_process_sort_memory"
+       		android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:text="@string/ui_process_sort_memory" />
+
+    <RadioButton
+       		android:id="@+id/id_process_sort_pid"
+       		android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:text="@string/ui_process_sort_pid" />
+    
+</RadioGroup>

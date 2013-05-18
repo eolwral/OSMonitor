@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  </head>
+  <body>
+    <div id="mapdiv"></div>
+    <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+    <script>
+
+      var queryString = window.top.location.search.substring(1);
+      function getParameter ( queryString, parameterName ) {
+        // Add "=" to the parameter name (i.e. parameterName=value)
+        var parameterName = parameterName + "=";
+
+        if ( queryString.length > 0 ) {
+          // Find the beginning of the string
+          begin = queryString.indexOf ( parameterName );
+
+          // If the parameter name is not found, skip it, otherwise return the value
+          if ( begin != -1 ) {
+             
+            // Add the length (integer) to the beginning
+            begin += parameterName.length;
+            
+            // Multiple parameters are separated by the "&" sign
+            end = queryString.indexOf ( "&" , begin );
+            if ( end == -1 ) {
+              end = queryString.length
+            }
+            
+            // Return the string
+              return unescape ( queryString.substring ( begin, end ) );
+            }
+        
+            // Return "null" if no parameter has been found
+            return "null";
+          }
+        } 
+  
+        var msg = decodeURIComponent(getParameter(queryString, "msg"));
+        var lon = getParameter(queryString, "lon");
+        var lat = getParameter(queryString, "lat");
+
+        // The overlay layer for our marker, with a simple diamond as symbol
+        var overlay = new OpenLayers.Layer.Vector('Overlay', {
+          styleMap: new OpenLayers.StyleMap({
+            externalGraphic: 'http://openlayers.org/dev/img/marker.png',
+            graphicWidth: 20, graphicHeight: 24, graphicYOffset: -24,
+            title: '${tooltip}'
+        })
+      });
+
+      // The location of our marker and popup. We usually think in geographic
+      // coordinates ('EPSG:4326'), but the map is projected ('EPSG:3857').
+      var myLocation = new OpenLayers.Geometry.Point(lon, lat)
+                                     .transform('EPSG:4326', 'EPSG:3857');
+
+      // We add the marker with a tooltip text to the overlay
+      overlay.addFeatures([
+        new OpenLayers.Feature.Vector(myLocation, {tooltip: 'OpenLayers'})
+      ]);
+
+      // A popup with some information about our location
+      var popup = new OpenLayers.Popup.FramedCloud("Popup", 
+        myLocation.getBounds().getCenterLonLat(), null,
+        msg, null, false 
+      );
+
+      // Finally we create the map
+      map = new OpenLayers.Map({
+        div: "mapdiv", projection: "EPSG:3857",
+        layers: [new OpenLayers.Layer.OSM("OpenStreetMap", null, {
+                transitionEffect: 'resize' }), overlay],
+ 		controls: [
+            new OpenLayers.Control.TouchNavigation({
+                dragPanOptions: {
+                    enableKinetic: true
+                }
+            })
+        ],
+        center: myLocation.getBounds().getCenterLonLat()
+      });
+
+ 	  map.setCenter( myLocation.getBounds().getCenterLonLat(), 7);
+ 	  
+      // and add the popup to it.
+      map.addPopup(popup);
+      
+    </script>
+  </body>
+</html>

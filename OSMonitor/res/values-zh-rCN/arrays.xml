@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ui_message_type">
+        <item>Main</item>
+        <item>System</item>
+        <item>Events</item>
+        <item>Dmesg</item>
+    </string-array>
+    
+    <string-array name="ui_message_dmesg_level">
+		<item>Debug</item>
+		<item>Information</item>
+		<item>Notice</item>
+		<item>Warning</item>
+		<item>Alert</item>
+		<item>Emergency</item>
+		<item>Error</item>
+		<item>Critical</item>
+	</string-array>
+
+	<string-array name="ui_message_logcat_level">
+		<item>Debug</item>
+		<item>Verbose</item>
+		<item>Information</item>
+		<item>Warning</item>
+		<item>Error</item>
+		<item>Fatal</item>
+    </string-array>
+    
+	<string-array name="ui_misc_item">
+		<item>系统</item>
+		<item>CPU</item>
+		<item>内存</item>
+		<item>Swap</item>
+		<item>网络</item>
+	<!-- 	<item>Disk</item>  -->
+	</string-array>
+	
+	<string-array name="ui_process_menu_item">
+		<item>结束程序</item>
+		<item>切换至程序</item>
+		<item>检视 Log</item>
+		<item>设定优先权</item>
+	</string-array>
+
+	<string-array name="ui_preference_interval">
+		<item>快速</item>
+		<item>正常</item>
+		<item>较慢</item>
+	</string-array>
+
+	<string-array name="ui_preference_interval_value">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</string-array>
+	
+	<string-array name="ui_preference_color_base">
+		<item>绿</item>
+		<item>蓝</item>
+	</string-array>
+
+	<string-array name="ui_preference_color_value">
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+			
+	<string-array name="ui_process_prority_value">
+		<item>19</item>
+		<item>18</item>
+		<item>17</item>
+		<item>16</item>
+		<item>15</item>
+		<item>14</item>
+		<item>13</item>
+		<item>12</item>
+		<item>11</item>
+		<item>10</item>
+		<item>9</item>
+		<item>8</item>
+		<item>7</item>
+		<item>6</item>
+		<item>5</item>
+		<item>4</item>
+		<item>3</item>
+		<item>2</item>
+		<item>1</item>
+		<item>0</item>
+		<item>-1</item>
+		<item>-2</item>
+		<item>-3</item>
+		<item>-4</item>
+		<item>-5</item>
+		<item>-6</item>
+		<item>-7</item>
+		<item>-8</item>
+		<item>-9</item>
+		<item>-10</item>
+		<item>-11</item>
+		<item>-12</item>
+		<item>-13</item>
+		<item>-14</item>
+		<item>-15</item>
+		<item>-16</item>
+		<item>-17</item>
+		<item>-18</item>
+		<item>-19</item>
+		<item>-20</item>
+	</string-array>
+
+
+</resources>

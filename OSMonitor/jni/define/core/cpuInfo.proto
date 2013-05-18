@@ -1,0 +1,15 @@
+package com.eolwral.osmonitor.core;
+
+message cpuInfo {
+  required uint64 userTime = 1;     /**< normal processes executing in user mode */
+  required uint64 niceTime = 2;     /**< niced processes executing in user mode */
+  required uint64 systemTime = 3;   /**< processes executing in kernel mode */
+  required uint64 idleTime = 4;     /**< twiddling thumbs */
+  required uint64 ioWaitTime = 5;   /**< waiting for I/O to complete */
+  required uint64 irqTime = 6;      /**< servicing interrupts */
+  required uint64 softIRQTime = 7;  /**< servicing softirqs */
+  required float  cpuUtilization = 8; /**< CPU utilization */
+  required uint64 cpuTime = 9;      /**< CPU Time */
+  optional uint32 cpuNumber = 10;   /**< CPU Number */
+  optional bool offLine = 11;       /**< CPU Offline */
+}

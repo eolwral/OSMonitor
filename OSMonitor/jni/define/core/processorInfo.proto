@@ -1,0 +1,12 @@
+package com.eolwral.osmonitor.core;
+
+message processorInfo {
+  required uint32 maxFrequency = 1;          /**< Maximum Frequency */
+  required uint32 minFrequency = 2;          /**< Minimum Frequency */
+  required uint32 maxScaling = 3;            /**< Maximum Scaling Frequency */
+  required uint32 minScaling = 4;            /**< Minimum Scaling Frequency */
+  required uint32 currentScaling = 5;        /**< Current Scaling Frequency */
+  required string grovernors = 6;            /**< Current Grovernors */
+  required uint32 number = 7;                /**< Number */
+  required bool offLine = 8;                 /**< Off-line */
+}

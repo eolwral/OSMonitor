@@ -1,0 +1,82 @@
+<!DOCTYPE HTML> 
+<html>
+<head>
+<title>Help - Process</title>
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0, user-scalable=no'/> 
+<link href='style.css' rel='stylesheet'/>
+<style>
+
+/* Swipe 2 required styles */
+
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float:left;
+  width:100%;
+  position: relative;
+}
+
+.dotnav nav {
+	margin: 7px auto 0px; position:absolute; bottom:20px; width: 100%;
+}
+.dotnav nav a {
+	color: rgb(85, 85, 85) !important; font-style: normal;
+}
+.dotnav nav #position {
+	list-style: none; margin: 0px; padding: 0px; text-align: center;
+}
+.dotnav nav #position li {
+	background: rgb(20, 20, 20); margin: 0px 2px; border-radius: 10px; width: 10px; height: 10px; display: inline-block; cursor: pointer; box-shadow: inset 0px 1px 3px black, 0px 0px 1px 1px #202020;
+}
+.dotnav nav #position li.on {
+	box-shadow: inset 0px 1px 3px -1px #28b4ea, 0px 1px 2px rgba(0,0,0,0.5); background-image: -ms-linear-gradient(rgb(18, 147, 220), rgb(15, 98, 151)); background-color: rgb(18, 147, 220);
+}
+
+/* END required styles */
+
+</style>
+
+</head>
+<body style='background-color: black;'>
+<div id='slider' style='width:100%;margin:0 auto' class='swipe'>
+  <div class='swipe-wrap'>
+    <div><img src="image/Process-01.png" style='width:100%; margin:0 auto' /></div>
+    <div><img src="image/Process-02.png" style='width:100%; margin:0 auto' /></div>
+  </div>
+  <div class='dotnav'>
+	<nav>
+    	<ul id="position">
+      		<li class="on"></li>
+      	    <li></li>
+    	</ul>
+	</nav>
+  </div>
+</div>
+
+<script src="jquery.min.js"></script>
+<script src='swipe.js'></script>
+<script>
+
+var slider = 
+  Swipe(document.getElementById('slider'), {
+    callback: function(pos) {
+      var i = bullets.length;
+      while (i--) {
+        bullets[i].className = ' ';
+      }
+      bullets[pos].className = 'on';
+    }
+  });
+
+var bullets = document.getElementById('position').getElementsByTagName('li');
+</script>
+</body>
+</html>

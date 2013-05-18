@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <group android:id="@+id/ui_connection_menu_group">
+        
+        <item 
+            android:id="@+id/ui_menu_help" 
+            android:title="@string/ui_menu_help" 
+            android:showAsAction="ifRoom" 
+            android:icon="@drawable/ic_action_help" />
+        
+        <item android:id="@+id/ui_menu_setting" 
+            android:title="@string/ui_menu_setting" 
+            android:showAsAction="ifRoom" 
+            android:icon="@drawable/ic_action_option" />
+        
+        <item android:id="@+id/ui_menu_stop" 
+            android:title="@string/ui_menu_stop" 
+            android:showAsAction="ifRoom" 
+            android:icon="@drawable/ic_action_stop" />
+        
+    </group>
+ 
+</menu>

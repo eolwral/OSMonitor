@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+     <group android:id="@+id/ui_message_menu_group">
+         
+         
+         <item
+             android:id="@+id/ui_message_sort"
+             android:actionLayout="@layout/ui_message_options" 
+             android:title="@string/ui_menu_sort" android:showAsAction="ifRoom"/>
+         
+         <item
+             android:id="@+id/ui_message_search"
+             android:title="@string/ui_menu_search"
+             android:icon="@drawable/ic_action_search"
+             android:actionLayout="@layout/ui_message_action" android:showAsAction="ifRoom|collapseActionView"/>
+      </group><item android:id="@+id/ui_menu_help" android:title="@string/ui_menu_help" android:icon="@drawable/ic_action_help" android:showAsAction="ifRoom" />
+
+     <item 
+          android:id="@+id/ui_message_export"
+          android:title="@string/ui_menu_logexport"
+          android:showAsAction="ifRoom" 
+          android:icon="@drawable/ic_action_export"/>
+</menu>
+

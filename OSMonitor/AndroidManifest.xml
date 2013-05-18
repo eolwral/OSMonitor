@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.eolwral.osmonitor"
+      android:installLocation="auto" 
+      android:versionName="3.0.2" 
+      android:versionCode="32">
+
+    <uses-sdk android:minSdkVersion="9"
+              android:targetSdkVersion="17"
+              android:maxSdkVersion="17" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+   	
+   	<supports-screens android:resizeable="true"
+                      android:smallScreens="false" 
+                      android:normalScreens="true" 
+                      android:largeScreens="true"
+                      android:anyDensity="true" />
+    
+    
+    <application android:label="@string/ui_appname" 
+                 android:icon="@drawable/ic_launcher" 
+                 android:theme="@style/Theme.osmonitor" 
+                 android:allowBackup="true">
+                 
+    	<activity android:name="OSMonitor" android:configChanges="orientation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+	  	<service android:name="OSMonitorService" 
+	  	    android:process=":notification" 
+	  	    android:exported="false">
+    	</service>
+    	
+    	<receiver android:name="BootUpReceiver" 
+    	    android:enabled="true" 
+    	    android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+	  	    <intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+	  	</receiver>
+	  	
+    	<activity android:name=".preference.Preference" />
+        
+	  	<activity android:name=".ui.HelpWindows" 
+	  	    android:theme="@android:style/Theme.Dialog">
+	  	</activity>
+	  	
+    </application>
+    
+    	
+	
+</manifest>

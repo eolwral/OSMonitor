@@ -544,7 +544,7 @@ public class MiscFragment extends SherlockFragment
 							nwdata.add(nwInfo);
 					}					
 				}
-			} catch (InvalidProtocolBufferException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

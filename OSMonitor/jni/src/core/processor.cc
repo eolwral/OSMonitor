@@ -33,24 +33,25 @@ namespace core {
       unsigned int extractValue = 0;
 
       curProcessor->set_number(curNumber);
-
+      curProcessor->set_maxfrequency(0);
+      curProcessor->set_minfrequency(0);
+      curProcessor->set_currentscaling(0);
+      curProcessor->set_maxscaling(0);
+      curProcessor->set_minscaling(0);
+      curProcessor->set_grovernors("Unknown");
       curProcessor->set_offline(false);
 
       // get processor maximum frequency
       sprintf(buffer, PROCESSOR_FREQ_MAX, curNumber);
       FILE *processorFile = fopen(buffer, "r");
+
       if (!processorFile)
       {
         curProcessor->set_offline(true);
-        curProcessor->set_maxfrequency(0);
-        curProcessor->set_minfrequency(0);
-        curProcessor->set_currentscaling(0);
-        curProcessor->set_maxscaling(0);
-        curProcessor->set_minscaling(0);
-        curProcessor->set_grovernors("Unknown");
         this->_curProcessorList.push_back(curProcessor);
         continue;
       }
+
       fscanf(processorFile, "%d", &extractValue);
       curProcessor->set_maxfrequency(extractValue);
       fclose(processorFile);

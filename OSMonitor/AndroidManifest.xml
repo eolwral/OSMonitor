@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.eolwral.osmonitor"
       android:installLocation="auto" 
-      android:versionName="3.0.2" 
-      android:versionCode="32">
+      android:versionName="3.0.4" 
+      android:versionCode="34">
 
     <uses-sdk android:minSdkVersion="9"
               android:targetSdkVersion="17"
@@ -22,10 +22,10 @@
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
    	
    	<supports-screens android:resizeable="true"
-                      android:smallScreens="false" 
+                      android:smallScreens="true" 
                       android:normalScreens="true" 
                       android:largeScreens="true"
-                      android:anyDensity="true" />
+                      android:anyDensity="true" android:xlargeScreens="true"/>
     
     <application android:label="@string/ui_appname" 
                  android:icon="@drawable/ic_launcher" 

@@ -10,6 +10,8 @@ It offers the following information.
 - Misc - monitor processors, network interfaces and file system.
 - Messages - search dmesg or logcat in real-time. 
 
+if you would like to know that how it works, please check Wiki page!
+
 ### Ongoing ###
 
 - Preparing to upgrade table version.

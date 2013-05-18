@@ -27,7 +27,6 @@
                       android:largeScreens="true"
                       android:anyDensity="true" />
     
-    
     <application android:label="@string/ui_appname" 
                  android:icon="@drawable/ic_launcher" 
                  android:theme="@style/Theme.osmonitor" 

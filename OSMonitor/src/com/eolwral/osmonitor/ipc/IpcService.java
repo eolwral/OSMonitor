@@ -480,21 +480,22 @@ public class IpcService {
 		 * @return result the new data
 		 */
 		private ipcMessage sendMessage(QueuedTask job) {
-			// prepare ipcMessage
-			ipcMessage.Builder ipcmsg = ipcMessage.newBuilder();
-			ipcmsg.setType(ipcMessage.ipcType.ACTION);
-			for (int index = 0; index < job.action.length; index++) {
-				ipcData.Builder data = ipcData.newBuilder();
-				data.setAction(job.action[index]);
-				ipcmsg.addData(data);
-			} 
-			
-			// send message and wait result
 			ipcMessage result = null;
 			OutputStream outData = null;
 			InputStream inData = null; 
-			
+
 			try {
+				// prepare ipcMessage
+				ipcMessage.Builder ipcmsg = ipcMessage.newBuilder();
+				ipcmsg.setType(ipcMessage.ipcType.ACTION);
+				for (int index = 0; index < job.action.length; index++) {
+					ipcData.Builder data = ipcData.newBuilder();
+					data.setAction(job.action[index]);
+					ipcmsg.addData(data);
+				} 
+
+				// send message and wait result
+			
 				// send
 				outData = clientSocket.getOutputStream();
 				ipcmsg.build().writeTo(outData);

@@ -29,6 +29,7 @@
     
 	<string-array name="ui_misc_item">
 		<item>系統</item>
+		<item>電池</item>
 		<item>CPU</item>
 		<item>記憶體</item>
 		<item>Swap</item>

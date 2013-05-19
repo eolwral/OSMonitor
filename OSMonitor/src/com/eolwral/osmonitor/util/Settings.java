@@ -10,7 +10,9 @@ public class Settings {
 	final public static String PREFRENCE_INTERVAL = "id_preference_interval";
 	final public static String PREFERENCE_CPUUSAGE = "id_preference_cpuusage";
 	final public static String PREFERENCE_COLOR = "id_preference_color";
+	final public static String PREFERENCE_TEMPVALUE = "id_preference_tempvalue";
 	final public static String PREFERENCE_AUTOSTART = "id_preference_autostart";
+	final public static String PREFERENCE_MAP = "id_preference_map";
 	final public static String PREFERENCE_EXPERTMODE = "id_preference_expertmode";
 	final public static String PREFERENCE_ROOT = "id_preference_root";
 	final private static int MODE_MULTI_PROCESS = 4;
@@ -72,6 +74,14 @@ public class Settings {
 	 */
 	public boolean isRoot() {
 		return preferenceMgr.getBoolean(PREFERENCE_ROOT, false);
+	}
+	
+	/**
+	 * use Celsius
+	 * @return true == yes, false == no
+	 */
+	public boolean useCelsius() {
+		return preferenceMgr.getBoolean(PREFERENCE_TEMPVALUE, false);
 	}  
 
 	/**
@@ -92,6 +102,14 @@ public class Settings {
 		if(preferenceMgr.getString("token", "").length() == 0 )
 			setToken(java.util.UUID.randomUUID().toString());
 		return preferenceMgr.getString("token", "");
+	}
+	
+	/**
+	 * get map type
+	 * @return map
+	 */
+	public String getMapType() {
+		return preferenceMgr.getString(PREFERENCE_MAP, "GoogleMap");
 	}
 	
 	 

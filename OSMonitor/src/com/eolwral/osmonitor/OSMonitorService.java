@@ -1,5 +1,6 @@
 package com.eolwral.osmonitor;
 
+import com.eolwral.osmonitor.core.OsInfo.osInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
@@ -9,7 +10,6 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.Settings;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -27,17 +27,25 @@ public class OSMonitorService extends Service
 	private static final int NOTIFYID = 20100811;
 	private IpcService ipcService = null;
 	private int UpdateInterval = 2; 
-	
+	 
 	private boolean isRegistered = false;
 	private NotificationManager nManager = null;
 	private NotificationCompat.Builder nBuilder = null;
 	
-	// process 
+	// process   
 	private int iconColor = 0;
 	private float cpuUsage = 0;
 	private float [] topUsage = new float[3];
 	private String [] topProcess = new String[3];
 	
+	// memory
+	private long memoryFree = 0;
+
+	// battery
+	private boolean useCelsius = false;
+	private int battLevel = 0;  // percentage value or -1 for unknown
+	private int temperature = 0;
+
 	//private  
 	private OSMonitorService self = null;
 	private ProcessUtil infoHelper = null;
@@ -62,7 +70,7 @@ public class OSMonitorService extends Service
    		}
     	
     	self = this;
-    	refreshColor();
+    	refreshSettings();
     	initializeNotification();
 
     	ipcService = IpcService.getInstance();
@@ -71,7 +79,7 @@ public class OSMonitorService extends Service
     	initService();
     }
 
-	private void refreshColor() {
+	private void refreshSettings() {
 
    		Settings setting = new Settings(self);
     	switch(setting.chooseColor()) {
@@ -82,6 +90,8 @@ public class OSMonitorService extends Service
     		iconColor = R.drawable.ic_cpu_graph_blue;
     		break;
     	}
+
+    	useCelsius = setting.useCelsius();
 	}
     
     @Override
@@ -93,9 +103,9 @@ public class OSMonitorService extends Service
 	private void initializeNotification() { 
 		
 		Intent notificationIntent = new Intent(this, OSMonitor.class);
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 
-															PendingIntent.FLAG_CANCEL_CURRENT);
+															PendingIntent.FLAG_NO_CREATE);
 
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -136,15 +146,17 @@ public class OSMonitorService extends Service
 			registerScreenEvent();
     		isRegistered = true;
     	}
-    	  
+
     	wakeUp();
+
+    	startBatteryMonitor();
     }
 
 	private void wakeUp() {
 		ipcService.removeRequest(self);
 		Settings settings = new Settings(this);
 		UpdateInterval = settings.getInterval();
-       	ipcAction newCommand[] = { ipcAction.PROCESS };
+       	ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
     	ipcService.addRequest(newCommand, 0, self);
 	} 
      
@@ -159,13 +171,41 @@ public class OSMonitorService extends Service
     	
     	ipcService.removeRequest(self);
     	ipcService.disconnect();
+    	
+    	stopBatteryMonitor();
     }
+    
+    private void startBatteryMonitor()
+    {
+    	IntentFilter battFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+    	registerReceiver(battReceiver, battFilter);		        		
+    }
+    
+    private void stopBatteryMonitor()
+    {
+    	unregisterReceiver(battReceiver);
+    }
+    
+    private BroadcastReceiver battReceiver = new BroadcastReceiver() 
+	{
+		public void onReceive(Context context, Intent intent) {
+			
+			int rawlevel = intent.getIntExtra("level", -1);
+			int scale = intent.getIntExtra("scale", -1);
+			
+			temperature = intent.getIntExtra("temperature", -1);
+
+			if (rawlevel >= 0 && scale > 0) {
+				battLevel = (rawlevel * 100) / scale;
+			}
+		}
+	};
 
 	@Override
 	public void onRecvData(ipcMessage result) {
 		
 		if(result == null) {
-			ipcAction newCommand[] = { ipcAction.PROCESS };
+			ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
 			ipcService.addRequest(newCommand, UpdateInterval, this);
 			return;
 		}
@@ -182,6 +222,11 @@ public class OSMonitorService extends Service
 		for (int index = 0; index < result.getDataCount(); index++) {
 			try {
 				ipcData rawData = result.getData(index);
+				
+				if (rawData.getAction() == ipcAction.OS){
+					osInfo info = osInfo.parseFrom(rawData.getPayload(0));
+					memoryFree = info.getFreeMemory()+info.getBufferedMemory()+info.getCachedMemory();
+				}
 				
 				if (rawData.getAction() != ipcAction.PROCESS)
 					continue;
@@ -207,8 +252,7 @@ public class OSMonitorService extends Service
 					}
 				}
 				
-			} catch (InvalidProtocolBufferException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -216,13 +260,18 @@ public class OSMonitorService extends Service
 		refreshNotification();
 		
 		// send command again
-		ipcAction newCommand[] = { ipcAction.PROCESS };
+		ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
 		ipcService.addRequest(newCommand, UpdateInterval, this);
 	}
 
 	private void refreshNotification() {
 		
-		nBuilder.setContentText(CommonUtil.convertFloat(cpuUsage) + "% [ " +
+		if (useCelsius)
+			nBuilder.setContentTitle("Mem: "+CommonUtil.convertLong(memoryFree)+", Bat:"+battLevel+"% ("+temperature/10+"¢XC)" );
+		else
+			nBuilder.setContentTitle("Mem: "+CommonUtil.convertLong(memoryFree)+", Bat:"+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
+		
+		nBuilder.setContentText("CPU: "+CommonUtil.convertFloat(cpuUsage) + "% [ " +
 								CommonUtil.convertFloat(topUsage[0]) + "% "  + topProcess[0] + " ]");
 
 		nBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(

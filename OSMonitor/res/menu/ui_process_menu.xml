@@ -19,5 +19,9 @@
             android:icon="@drawable/ic_action_tools" 
             android:actionLayout="@layout/ui_process_action" />
     </group>
- 
+    
+    <item android:id="@+id/ui_menu_exit" 
+            android:title="@string/ui_menu_exit" 
+            android:showAsAction="ifRoom" 
+            android:icon="@drawable/ic_action_exit" />  
 </menu>

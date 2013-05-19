@@ -31,11 +31,15 @@ public final class OsInfo {
     boolean hasBufferedMemory();
     long getBufferedMemory();
     
-    // required uint64 totalSwap = 6;
+    // required uint64 cachedMemory = 6;
+    boolean hasCachedMemory();
+    long getCachedMemory();
+    
+    // required uint64 totalSwap = 7;
     boolean hasTotalSwap();
     long getTotalSwap();
     
-    // required uint64 freeSwap = 7;
+    // required uint64 freeSwap = 8;
     boolean hasFreeSwap();
     long getFreeSwap();
   }
@@ -118,21 +122,31 @@ public final class OsInfo {
       return bufferedMemory_;
     }
     
-    // required uint64 totalSwap = 6;
-    public static final int TOTALSWAP_FIELD_NUMBER = 6;
+    // required uint64 cachedMemory = 6;
+    public static final int CACHEDMEMORY_FIELD_NUMBER = 6;
+    private long cachedMemory_;
+    public boolean hasCachedMemory() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    public long getCachedMemory() {
+      return cachedMemory_;
+    }
+    
+    // required uint64 totalSwap = 7;
+    public static final int TOTALSWAP_FIELD_NUMBER = 7;
     private long totalSwap_;
     public boolean hasTotalSwap() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     public long getTotalSwap() {
       return totalSwap_;
     }
     
-    // required uint64 freeSwap = 7;
-    public static final int FREESWAP_FIELD_NUMBER = 7;
+    // required uint64 freeSwap = 8;
+    public static final int FREESWAP_FIELD_NUMBER = 8;
     private long freeSwap_;
     public boolean hasFreeSwap() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     public long getFreeSwap() {
       return freeSwap_;
@@ -144,6 +158,7 @@ public final class OsInfo {
       freeMemory_ = 0L;
       sharedMemory_ = 0L;
       bufferedMemory_ = 0L;
+      cachedMemory_ = 0L;
       totalSwap_ = 0L;
       freeSwap_ = 0L;
     }
@@ -169,6 +184,10 @@ public final class OsInfo {
         return false;
       }
       if (!hasBufferedMemory()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCachedMemory()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -203,10 +222,13 @@ public final class OsInfo {
         output.writeUInt64(5, bufferedMemory_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeUInt64(6, totalSwap_);
+        output.writeUInt64(6, cachedMemory_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeUInt64(7, freeSwap_);
+        output.writeUInt64(7, totalSwap_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeUInt64(8, freeSwap_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -239,11 +261,15 @@ public final class OsInfo {
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(6, totalSwap_);
+          .computeUInt64Size(6, cachedMemory_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(7, freeSwap_);
+          .computeUInt64Size(7, totalSwap_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(8, freeSwap_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -379,10 +405,12 @@ public final class OsInfo {
         bitField0_ = (bitField0_ & ~0x00000008);
         bufferedMemory_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000010);
-        totalSwap_ = 0L;
+        cachedMemory_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000020);
-        freeSwap_ = 0L;
+        totalSwap_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000040);
+        freeSwap_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
       
@@ -444,9 +472,13 @@ public final class OsInfo {
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.totalSwap_ = totalSwap_;
+        result.cachedMemory_ = cachedMemory_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
+        }
+        result.totalSwap_ = totalSwap_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
         }
         result.freeSwap_ = freeSwap_;
         result.bitField0_ = to_bitField0_;
@@ -480,6 +512,9 @@ public final class OsInfo {
         if (other.hasBufferedMemory()) {
           setBufferedMemory(other.getBufferedMemory());
         }
+        if (other.hasCachedMemory()) {
+          setCachedMemory(other.getCachedMemory());
+        }
         if (other.hasTotalSwap()) {
           setTotalSwap(other.getTotalSwap());
         }
@@ -508,6 +543,10 @@ public final class OsInfo {
           return false;
         }
         if (!hasBufferedMemory()) {
+          
+          return false;
+        }
+        if (!hasCachedMemory()) {
           
           return false;
         }
@@ -572,11 +611,16 @@ public final class OsInfo {
             }
             case 48: {
               bitField0_ |= 0x00000020;
-              totalSwap_ = input.readUInt64();
+              cachedMemory_ = input.readUInt64();
               break;
             }
             case 56: {
               bitField0_ |= 0x00000040;
+              totalSwap_ = input.readUInt64();
+              break;
+            }
+            case 64: {
+              bitField0_ |= 0x00000080;
               freeSwap_ = input.readUInt64();
               break;
             }
@@ -691,43 +735,64 @@ public final class OsInfo {
         return this;
       }
       
-      // required uint64 totalSwap = 6;
+      // required uint64 cachedMemory = 6;
+      private long cachedMemory_ ;
+      public boolean hasCachedMemory() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      public long getCachedMemory() {
+        return cachedMemory_;
+      }
+      public Builder setCachedMemory(long value) {
+        bitField0_ |= 0x00000020;
+        cachedMemory_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCachedMemory() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        cachedMemory_ = 0L;
+        onChanged();
+        return this;
+      }
+      
+      // required uint64 totalSwap = 7;
       private long totalSwap_ ;
       public boolean hasTotalSwap() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       public long getTotalSwap() {
         return totalSwap_;
       }
       public Builder setTotalSwap(long value) {
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         totalSwap_ = value;
         onChanged();
         return this;
       }
       public Builder clearTotalSwap() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         totalSwap_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint64 freeSwap = 7;
+      // required uint64 freeSwap = 8;
       private long freeSwap_ ;
       public boolean hasFreeSwap() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       public long getFreeSwap() {
         return freeSwap_;
       }
       public Builder setFreeSwap(long value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         freeSwap_ = value;
         onChanged();
         return this;
       }
       public Builder clearFreeSwap() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         freeSwap_ = 0L;
         onChanged();
         return this;
@@ -759,10 +824,11 @@ public final class OsInfo {
   static {
     java.lang.String[] descriptorData = {
       "\n\014osInfo.proto\022\032com.eolwral.osmonitor.co" +
-      "re\"\224\001\n\006osInfo\022\016\n\006uptime\030\001 \002(\004\022\023\n\013totalMe" +
+      "re\"\252\001\n\006osInfo\022\016\n\006uptime\030\001 \002(\004\022\023\n\013totalMe" +
       "mory\030\002 \002(\004\022\022\n\nfreeMemory\030\003 \002(\004\022\024\n\014shared" +
-      "Memory\030\004 \002(\004\022\026\n\016bufferedMemory\030\005 \002(\004\022\021\n\t" +
-      "totalSwap\030\006 \002(\004\022\020\n\010freeSwap\030\007 \002(\004"
+      "Memory\030\004 \002(\004\022\026\n\016bufferedMemory\030\005 \002(\004\022\024\n\014" +
+      "cachedMemory\030\006 \002(\004\022\021\n\ttotalSwap\030\007 \002(\004\022\020\n" +
+      "\010freeSwap\030\010 \002(\004"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -774,7 +840,7 @@ public final class OsInfo {
           internal_static_com_eolwral_osmonitor_core_osInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_eolwral_osmonitor_core_osInfo_descriptor,
-              new java.lang.String[] { "Uptime", "TotalMemory", "FreeMemory", "SharedMemory", "BufferedMemory", "TotalSwap", "FreeSwap", },
+              new java.lang.String[] { "Uptime", "TotalMemory", "FreeMemory", "SharedMemory", "BufferedMemory", "CachedMemory", "TotalSwap", "FreeSwap", },
               com.eolwral.osmonitor.core.OsInfo.osInfo.class,
               com.eolwral.osmonitor.core.OsInfo.osInfo.Builder.class);
           return null;

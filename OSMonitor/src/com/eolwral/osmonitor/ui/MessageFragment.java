@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -42,6 +43,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 
 
+import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo;
 import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo;
@@ -52,7 +54,6 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.Settings;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 public class MessageFragment extends SherlockListFragment 
                                 implements ipcClientListener {
@@ -124,6 +125,9 @@ public class MessageFragment extends SherlockListFragment
 		MenuItem exportItem = menu.findItem(R.id.ui_message_export);
 		exportItem.setOnMenuItemClickListener(new ExportMenuClickListener());
 
+		MenuItem exitMenu = menu.findItem(R.id.ui_menu_exit);
+		exitMenu.setOnMenuItemClickListener(new ExitMenuClickListener());
+
 		// sort extend menu
 		MenuItem expendMenu = menu.findItem(R.id.ui_message_sort);
 		Spinner expendItem = (Spinner) expendMenu.getActionView();
@@ -152,20 +156,25 @@ public class MessageFragment extends SherlockListFragment
 				switch(arg2) {
 				case 0:
 					logType = ipcAction.LOGCAT_MAIN;
+					viewLogcatData.clear();
 					break;
 				case 1:
 					logType = ipcAction.LOGCAT_SYSTEM;
+					viewLogcatData.clear();
 					break;
 				case 2:
 					logType = ipcAction.LOGCAT_EVENT;
+					viewLogcatData.clear();
 					break;
 				case 3:
 					logType = ipcAction.DMESG;
+					viewDmesgData.clear();
 					break;
 				}
 				
-				//reloadFilterSpinner();
-				
+				// reload
+				messageList.refresh();
+
 				// restart if it has been stopped 
 				if(!stopUpdate)
 					stopUpdate = false;
@@ -414,6 +423,17 @@ public class MessageFragment extends SherlockListFragment
 	  	return;
 	}
     
+	private class ExitMenuClickListener implements OnMenuItemClickListener {
+
+		@Override
+		public boolean onMenuItemClick(MenuItem item) {
+			getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
+			android.os.Process.killProcess(android.os.Process.myPid());
+			return false;
+		}
+		
+	}
+	
     private class ExportMenuClickListener implements OnMenuItemClickListener {
 		@Override
 		public boolean onMenuItemClick(MenuItem item) {
@@ -508,7 +528,7 @@ public class MessageFragment extends SherlockListFragment
 					} 
 				} 
  
-			} catch (InvalidProtocolBufferException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 

@@ -98,6 +98,13 @@ public class ProcessLogViewFragment extends DialogFragment
 	@Override
 	public void onRecvData(ipcMessage result) {
 		
+		if(result == null) {
+			ipcAction newCommand[] = new ipcAction[1];
+			newCommand [0] =  logType ; 
+			ipcService.addRequest(newCommand, settings.getInterval(), this);
+			return;
+		}
+		
 		// clean up
 		viewLogcatData.clear();
 

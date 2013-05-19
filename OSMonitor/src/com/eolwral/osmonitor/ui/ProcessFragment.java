@@ -49,6 +49,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 
+import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
@@ -61,7 +62,6 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.Settings;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ProcessFragment extends SherlockListFragment 
                              implements	ipcClientListener {
@@ -159,6 +159,9 @@ public class ProcessFragment extends SherlockListFragment
 		MenuItem toolsMenu = menu.findItem(R.id.ui_menu_tools);
 		toolsMenu.setOnActionExpandListener(new ToolActionExpandListener());
 		
+		MenuItem exitMenu = menu.findItem(R.id.ui_menu_exit);
+		exitMenu.setOnMenuItemClickListener(new ExitMenuClickListener());
+
 		ImageButton sortButton = (ImageButton) toolsMenu.getActionView().findViewById(R.id.id_action_sort);
 		sortButton.setOnClickListener( new SortMenuClickListener());
 
@@ -187,7 +190,18 @@ public class ProcessFragment extends SherlockListFragment
 
 		return; 
 	}
-	
+
+	private class ExitMenuClickListener implements OnMenuItemClickListener {
+
+		@Override
+		public boolean onMenuItemClick(MenuItem item) {
+			getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
+			android.os.Process.killProcess(android.os.Process.myPid());
+			return false;
+		}
+		
+	}
+
 	private class SettingMenuClickListener implements OnMenuItemClickListener {
 
 		@Override
@@ -438,7 +452,7 @@ public class ProcessFragment extends SherlockListFragment
 				if(!settings.useExpertMode())
 					data.add(syspsInfo.build());
 				
-			} catch (InvalidProtocolBufferException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -465,7 +479,9 @@ public class ProcessFragment extends SherlockListFragment
 		processCount.setText(CommonUtil.convertLong(data.size()));
 		cpuUsage.setText(CommonUtil.convertFloat(totalCPUUsage) + "%");
 		memoryTotal.setText(CommonUtil.convertLong(info.getTotalMemory()));
-		memoryFree.setText(CommonUtil.convertLong(info.getFreeMemory()	+ info.getBufferedMemory()));
+		memoryFree.setText(CommonUtil.convertLong(info.getFreeMemory()+
+				                                  info.getBufferedMemory()+
+				                                  info.getCachedMemory()));
 
 		getSherlockActivity().runOnUiThread( new Runnable() {
 			public void run() { 

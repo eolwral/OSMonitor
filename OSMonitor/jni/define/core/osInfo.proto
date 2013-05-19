@@ -7,6 +7,7 @@ message osInfo {
   required uint64 freeMemory = 3;       /**< free memory */
   required uint64 sharedMemory = 4;     /**< shared memory */
   required uint64 bufferedMemory = 5;   /**< buffered memory */
-  required uint64 totalSwap = 6;        /**< total swap size */
-  required uint64 freeSwap = 7;         /**< free swap size */
+  required uint64 cachedMemory = 6;     /**< shared memory */
+  required uint64 totalSwap = 7;        /**< total swap size */
+  required uint64 freeSwap = 8;         /**< free swap size */
 }

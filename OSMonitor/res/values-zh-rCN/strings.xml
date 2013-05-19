@@ -19,6 +19,7 @@
 <string name="ui_menu_stop">停止</string>
 <string name="ui_menu_help">帮助</string>
 <string name="ui_menu_logexport">汇出</string>
+<string name="ui_menu_exit">结束</string>
 
 <!-- Process Tab Start -->
  
@@ -115,6 +116,30 @@
 <string name="ui_processor_status_online">在线</string>
 <string name="ui_processor_status_offline">离线</string>
 
+<!-- Battery -->
+<string name="ui_battery">电池</string>
+<string name="ui_battery_health">健康情况</string>
+<string name="ui_battery_technology">种类</string>
+<string name="ui_battery_capacity">容量</string>
+<string name="ui_battery_voltage">电压</string>
+<string name="ui_battery_temperature">温度</string>
+<string name="ui_battery_acpower">交流电</string>
+<string name="ui_battery_usbpower">USB</string>
+<string name="ui_battery_status">状态</string>
+<string name="ui_battery_online">启用</string>
+<string name="ui_battery_offline">停用</string>
+<string name="ui_battery_status_unknown">未知</string>
+<string name="ui_battery_status_charging">充电中</string>
+<string name="ui_battery_status_discharging">无法充电</string>
+<string name="ui_battery_status_notcharging">未充电</string>
+<string name="ui_battery_status_full">全满</string>
+<string name="ui_battery_health_dead">损坏</string>
+<string name="ui_battery_health_good">良好</string>
+<string name="ui_battery_health_overheat">过热</string>
+<string name="ui_battery_health_overvoltage">电压过高</string>
+<string name="ui_battery_health_unknown">未知</string>
+<string name="ui_battery_health_failure">未知错误</string>
+
 <!-- Misc Tab End -->
 
 <!-- Message Tab Start -->
@@ -140,6 +165,10 @@
 <string name="ui_preferences_expert_detail">不进行数据整理, 显示原始数据</string>
 <string name="ui_preferences_root">启用 root 权限</string>
 <string name="ui_preferences_root_detail">使用 root 权限执行指令和收集数据</string>
+<string name="ui_preferences_tempvalue">使用 华氏</string>
+<string name="ui_preferences_tempvalue_detail">切换 华氏/摄氏 显示</string>
+<string name="ui_preferences_map">地图种类</string>
+<string name="ui_preferences_map_detail">GoogleMap 或  OpenStreeMap</string>
 
 <!-- Preferences End -->
 

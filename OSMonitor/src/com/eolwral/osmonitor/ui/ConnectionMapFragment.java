@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.eolwral.osmonitor.R;
+import com.eolwral.osmonitor.util.Settings;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -29,7 +30,13 @@ public class ConnectionMapFragment extends SherlockFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	View view = inflater.inflate(R.layout.ui_connection_map, container, false);
  
-    	String url = "file:///android_asset/osm.html";
+    	String url = "";
+    	Settings setting = new Settings(getActivity());
+    	if(!setting.getMapType().equals("GoogleMap"))
+    		url = "file:///android_asset/osm.html";
+    	else
+    		url = "file:///android_asset/gmap.html";
+    	
     	String lat = Float.toString(getArguments().getFloat(LATITUDE));
     	String lon = Float.toString(getArguments().getFloat(LONGTIUDE));
     	String msg = getArguments().getString(MESSAGE);

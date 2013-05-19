@@ -19,6 +19,7 @@
 <string name="ui_menu_stop">停止</string>
 <string name="ui_menu_help">幫助</string>
 <string name="ui_menu_logexport">匯出</string>
+<string name="ui_menu_exit">結束程式</string>
 
 <!-- Process Tab Start -->
  
@@ -115,6 +116,30 @@
 <string name="ui_processor_status_online">上線</string>
 <string name="ui_processor_status_offline">下線</string>
 
+<!-- Battery -->
+<string name="ui_battery">電池</string>
+<string name="ui_battery_health">健康情況</string>
+<string name="ui_battery_technology">種類</string>
+<string name="ui_battery_capacity">容量</string>
+<string name="ui_battery_voltage">電壓</string>
+<string name="ui_battery_temperature">溫度</string>
+<string name="ui_battery_acpower">交流電</string>
+<string name="ui_battery_usbpower">USB</string>
+<string name="ui_battery_status">狀態</string>
+<string name="ui_battery_online">啟用</string>
+<string name="ui_battery_offline">停用</string>
+<string name="ui_battery_status_unknown">未知</string>
+<string name="ui_battery_status_charging">充電中</string>
+<string name="ui_battery_status_discharging">無法充電</string>
+<string name="ui_battery_status_notcharging">未充電</string>
+<string name="ui_battery_status_full">全滿</string>
+<string name="ui_battery_health_dead">損壞</string>
+<string name="ui_battery_health_good">良好</string>
+<string name="ui_battery_health_overheat">過熱</string>
+<string name="ui_battery_health_overvoltage">電壓過高</string>
+<string name="ui_battery_health_unknown">未知</string>
+<string name="ui_battery_health_failure">未知錯誤</string>
+
 <!-- Misc Tab End -->
 
 <!-- Message Tab Start -->
@@ -140,6 +165,10 @@
 <string name="ui_preferences_expert_detail">不進行資料整理, 顯示原始資料</string>
 <string name="ui_preferences_root">啟用 root 權限</string>
 <string name="ui_preferences_root_detail">使用 root 權限執行指令和收集資料</string>
+<string name="ui_preferences_tempvalue">使用 華氏</string>
+<string name="ui_preferences_tempvalue_detail">切換 華氏/攝氏 顯示</string>
+<string name="ui_preferences_map">地圖種類</string>
+<string name="ui_preferences_map_detail">GoogleMap 或  OpenStreeMap</string>
 
 <!-- Preferences End -->
 

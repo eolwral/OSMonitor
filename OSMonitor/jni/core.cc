@@ -144,6 +144,10 @@ bool receiveCMD()
 
 bool sendData(ipc::ipcMessage& result)
 {
+  if(result.has_type() == false) {
+    __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "action type is empty!\n");
+    return (false);
+  }
 
   if(!prepareBuffer(result.ByteSize()))
   {
@@ -156,8 +160,6 @@ bool sendData(ipc::ipcMessage& result)
     __android_log_print(ANDROID_LOG_VERBOSE, APPNAME,"can't serialize!\n");
     return (false);
   }
-
-
 
   if(!server.send(buffer, result.GetCachedSize()))
   {

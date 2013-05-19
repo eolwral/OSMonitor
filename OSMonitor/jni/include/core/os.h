@@ -28,6 +28,9 @@ namespace core {
   private:
     std::vector<osInfo*>  _curOSInfo; /**< current OS information */
 
+    bool getMemoryFromFile(osInfo* curOsInfo);
+    void moveToNextLine(FILE *file);
+
   public:
 
     /**

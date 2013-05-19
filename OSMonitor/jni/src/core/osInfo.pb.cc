@@ -34,12 +34,13 @@ void protobuf_AssignDesc_osInfo_2eproto() {
       "osInfo.proto");
   GOOGLE_CHECK(file != NULL);
   osInfo_descriptor_ = file->message_type(0);
-  static const int osInfo_offsets_[7] = {
+  static const int osInfo_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(osInfo, uptime_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(osInfo, totalmemory_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(osInfo, freememory_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(osInfo, sharedmemory_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(osInfo, bufferedmemory_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(osInfo, cachedmemory_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(osInfo, totalswap_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(osInfo, freeswap_),
   };
@@ -85,10 +86,11 @@ void protobuf_AddDesc_osInfo_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\014osInfo.proto\022\032com.eolwral.osmonitor.co"
-    "re\"\224\001\n\006osInfo\022\016\n\006uptime\030\001 \002(\004\022\023\n\013totalMe"
+    "re\"\252\001\n\006osInfo\022\016\n\006uptime\030\001 \002(\004\022\023\n\013totalMe"
     "mory\030\002 \002(\004\022\022\n\nfreeMemory\030\003 \002(\004\022\024\n\014shared"
-    "Memory\030\004 \002(\004\022\026\n\016bufferedMemory\030\005 \002(\004\022\021\n\t"
-    "totalSwap\030\006 \002(\004\022\020\n\010freeSwap\030\007 \002(\004", 193);
+    "Memory\030\004 \002(\004\022\026\n\016bufferedMemory\030\005 \002(\004\022\024\n\014"
+    "cachedMemory\030\006 \002(\004\022\021\n\ttotalSwap\030\007 \002(\004\022\020\n"
+    "\010freeSwap\030\010 \002(\004", 215);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "osInfo.proto", &protobuf_RegisterTypes);
   osInfo::default_instance_ = new osInfo();
@@ -112,6 +114,7 @@ const int osInfo::kTotalMemoryFieldNumber;
 const int osInfo::kFreeMemoryFieldNumber;
 const int osInfo::kSharedMemoryFieldNumber;
 const int osInfo::kBufferedMemoryFieldNumber;
+const int osInfo::kCachedMemoryFieldNumber;
 const int osInfo::kTotalSwapFieldNumber;
 const int osInfo::kFreeSwapFieldNumber;
 #endif  // !_MSC_VER
@@ -137,6 +140,7 @@ void osInfo::SharedCtor() {
   freememory_ = GOOGLE_ULONGLONG(0);
   sharedmemory_ = GOOGLE_ULONGLONG(0);
   bufferedmemory_ = GOOGLE_ULONGLONG(0);
+  cachedmemory_ = GOOGLE_ULONGLONG(0);
   totalswap_ = GOOGLE_ULONGLONG(0);
   freeswap_ = GOOGLE_ULONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -178,6 +182,7 @@ void osInfo::Clear() {
     freememory_ = GOOGLE_ULONGLONG(0);
     sharedmemory_ = GOOGLE_ULONGLONG(0);
     bufferedmemory_ = GOOGLE_ULONGLONG(0);
+    cachedmemory_ = GOOGLE_ULONGLONG(0);
     totalswap_ = GOOGLE_ULONGLONG(0);
     freeswap_ = GOOGLE_ULONGLONG(0);
   }
@@ -266,12 +271,28 @@ bool osInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(48)) goto parse_totalSwap;
+        if (input->ExpectTag(48)) goto parse_cachedMemory;
         break;
       }
       
-      // required uint64 totalSwap = 6;
+      // required uint64 cachedMemory = 6;
       case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_cachedMemory:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &cachedmemory_)));
+          set_has_cachedmemory();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(56)) goto parse_totalSwap;
+        break;
+      }
+      
+      // required uint64 totalSwap = 7;
+      case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_totalSwap:
@@ -282,12 +303,12 @@ bool osInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(56)) goto parse_freeSwap;
+        if (input->ExpectTag(64)) goto parse_freeSwap;
         break;
       }
       
-      // required uint64 freeSwap = 7;
-      case 7: {
+      // required uint64 freeSwap = 8;
+      case 8: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_freeSwap:
@@ -345,14 +366,19 @@ void osInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt64(5, this->bufferedmemory(), output);
   }
   
-  // required uint64 totalSwap = 6;
-  if (has_totalswap()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt64(6, this->totalswap(), output);
+  // required uint64 cachedMemory = 6;
+  if (has_cachedmemory()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(6, this->cachedmemory(), output);
   }
   
-  // required uint64 freeSwap = 7;
+  // required uint64 totalSwap = 7;
+  if (has_totalswap()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(7, this->totalswap(), output);
+  }
+  
+  // required uint64 freeSwap = 8;
   if (has_freeswap()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt64(7, this->freeswap(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(8, this->freeswap(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -388,14 +414,19 @@ void osInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(5, this->bufferedmemory(), target);
   }
   
-  // required uint64 totalSwap = 6;
-  if (has_totalswap()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(6, this->totalswap(), target);
+  // required uint64 cachedMemory = 6;
+  if (has_cachedmemory()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(6, this->cachedmemory(), target);
   }
   
-  // required uint64 freeSwap = 7;
+  // required uint64 totalSwap = 7;
+  if (has_totalswap()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(7, this->totalswap(), target);
+  }
+  
+  // required uint64 freeSwap = 8;
   if (has_freeswap()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(7, this->freeswap(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(8, this->freeswap(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -444,14 +475,21 @@ int osInfo::ByteSize() const {
           this->bufferedmemory());
     }
     
-    // required uint64 totalSwap = 6;
+    // required uint64 cachedMemory = 6;
+    if (has_cachedmemory()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->cachedmemory());
+    }
+    
+    // required uint64 totalSwap = 7;
     if (has_totalswap()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt64Size(
           this->totalswap());
     }
     
-    // required uint64 freeSwap = 7;
+    // required uint64 freeSwap = 8;
     if (has_freeswap()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt64Size(
@@ -500,6 +538,9 @@ void osInfo::MergeFrom(const osInfo& from) {
     if (from.has_bufferedmemory()) {
       set_bufferedmemory(from.bufferedmemory());
     }
+    if (from.has_cachedmemory()) {
+      set_cachedmemory(from.cachedmemory());
+    }
     if (from.has_totalswap()) {
       set_totalswap(from.totalswap());
     }
@@ -523,7 +564,7 @@ void osInfo::CopyFrom(const osInfo& from) {
 }
 
 bool osInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000007f) != 0x0000007f) return false;
+  if ((_has_bits_[0] & 0x000000ff) != 0x000000ff) return false;
   
   return true;
 }
@@ -535,6 +576,7 @@ void osInfo::Swap(osInfo* other) {
     std::swap(freememory_, other->freememory_);
     std::swap(sharedmemory_, other->sharedmemory_);
     std::swap(bufferedmemory_, other->bufferedmemory_);
+    std::swap(cachedmemory_, other->cachedmemory_);
     std::swap(totalswap_, other->totalswap_);
     std::swap(freeswap_, other->freeswap_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);

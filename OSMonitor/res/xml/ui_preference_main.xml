@@ -21,11 +21,23 @@
         android:key="id_preference_color" 
         android:dependency="id_preference_cpuusage"/>
     
+    <CheckBoxPreference android:title="@string/ui_preferences_tempvalue" 
+        android:summary="@string/ui_preferences_tempvalue_detail" 
+        android:key="id_preference_tempvalue" 
+        android:defaultValue="false"
+        android:dependency="id_preference_cpuusage"/>
+    
     <CheckBoxPreference android:title="@string/ui_preferences_autostart" 
         android:summary="@string/ui_preferences_autostart_detail" 
         android:key="id_preference_autostart" 
         android:dependency="id_preference_cpuusage" 
         android:defaultValue="false"/>
+
+    <ListPreference android:title="@string/ui_preferences_map" 
+        android:summary="@string/ui_preferences_map_detail" 
+        android:entryValues="@array/ui_preference_map_value" 
+        android:entries="@array/ui_preference_map_value" 
+        android:key="id_preference_map" />
     
     <CheckBoxPreference android:title="@string/ui_preferences_expert" 
         android:summary="@string/ui_preferences_expert_detail" 

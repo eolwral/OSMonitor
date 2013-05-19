@@ -81,6 +81,20 @@ namespace core {
 
   bool process::getProcessInfo(processInfo& curProcessInfo, unsigned int pid)
   {
+    // initialize
+    curProcessInfo.set_pid(0);
+    curProcessInfo.set_uid(0);
+    curProcessInfo.set_ppid(0);
+    curProcessInfo.set_owner("");
+    curProcessInfo.set_usedusertime(0);
+    curProcessInfo.set_usedsystemtime(0);
+    curProcessInfo.set_threadcount(0);
+    curProcessInfo.set_starttime(0);
+    curProcessInfo.set_vsz(0);
+    curProcessInfo.set_rss(0);
+    curProcessInfo.set_status(processInfo_processStatus_Unknown);
+    curProcessInfo.set_prioritylevel(0);
+    curProcessInfo.set_cpuusage(0);
 
     // save pid
     curProcessInfo.set_pid(pid);
@@ -215,9 +229,6 @@ namespace core {
 
     // get priority
     curProcessInfo.set_prioritylevel(getpriority(PRIO_PROCESS, pid));
-
-    // set cpuusage
-    curProcessInfo.set_cpuusage(0);
 
     return (true);
   }

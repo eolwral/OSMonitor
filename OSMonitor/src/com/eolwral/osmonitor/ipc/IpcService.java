@@ -366,7 +366,7 @@ public class IpcService {
 			clientSocket.shutdownInput();
 			clientSocket.close();
 			clientSocket = null;
-		} catch (IOException e) {}
+		} catch (Exception e) {}
 		return;
 	}
 

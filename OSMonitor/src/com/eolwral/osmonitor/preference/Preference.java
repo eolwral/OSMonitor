@@ -55,7 +55,7 @@ public class Preference extends PreferenceActivity
 		}
 		
 		if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_COLOR) ||
-		   key.equals(Settings.PREFERENCE_ROOT)) {
+		   key.equals(Settings.PREFERENCE_ROOT) || key.equals(Settings.PREFERENCE_TEMPVALUE)) {
 			
 			// restart background daemon
 			getApplication().stopService(new Intent(getApplication(), OSMonitorService.class));

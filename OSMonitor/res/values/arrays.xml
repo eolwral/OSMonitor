@@ -29,6 +29,7 @@
     
 	<string-array name="ui_misc_item">
 		<item>System</item>
+		<item>Battery</item>
 		<item>CPU</item>
 		<item>Memory</item>
 		<item>Swap</item>
@@ -47,6 +48,11 @@
 		<item>Fast</item>
 		<item>Normal</item>
 		<item>Slow</item>
+	</string-array>
+	
+	<string-array name="ui_preference_map_value">
+	    <item>GoogleMap</item>
+	    <item>OpenStreeMap</item>
 	</string-array>
 
 	<string-array name="ui_preference_interval_value">

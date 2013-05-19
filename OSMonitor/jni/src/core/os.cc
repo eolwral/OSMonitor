@@ -33,13 +33,63 @@ namespace core {
     curOSInfo->set_totalmemory(curSysInfo.totalram);
     curOSInfo->set_sharedmemory(curSysInfo.sharedram);
     curOSInfo->set_bufferedmemory(curSysInfo.bufferram);
-
     curOSInfo->set_freeswap(curSysInfo.freeswap);
     curOSInfo->set_totalswap(curSysInfo.totalswap);
+
+    // get current memory from meminfo
+    getMemoryFromFile(curOSInfo);
 
     this->_curOSInfo.push_back(curOSInfo);
 
     return;
+  }
+
+  bool os::getMemoryFromFile(osInfo *curOSInfo)
+  {
+    FILE *mif = 0;
+    mif = fopen("/proc/meminfo", "r");
+    if(mif == 0 )
+      return (false);
+
+    /* MemTotal:      2001372 kB
+       MemFree:         96856 kB
+       Buffers:         20316 kB
+       Cached:        1350032 kB */
+
+    unsigned long value = 0;
+    fscanf(mif, "MemTotal: %lu kB", &value);
+    moveToNextLine(mif);
+    if(value != 0)
+      curOSInfo->set_totalmemory(value*1024);
+
+    value = 0;
+    fscanf(mif, "MemFree: %lu kB", &value);
+    moveToNextLine(mif);
+    if(value != 0)
+      curOSInfo->set_freememory(value*1024);
+
+    value = 0;
+    fscanf(mif, "Buffers: %lu kB", &value);
+    moveToNextLine(mif);
+    if(value != 0)
+      curOSInfo->set_bufferedmemory(value*1024);
+
+    value = 0;
+    fscanf(mif, "Cached: %lu kB", &value);
+    if(value != 0)
+      curOSInfo->set_cachedmemory(value*1024);
+
+    fclose(mif);
+
+    return (true);
+  }
+
+  void os::moveToNextLine(FILE *file)
+  {
+    int ch = 0;
+    do {
+      ch = getc(file);
+    } while ( ch != '\n' && ch != EOF );
   }
 
   const std::vector<google::protobuf::Message*>& os::getData()

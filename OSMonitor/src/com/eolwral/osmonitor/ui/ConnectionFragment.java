@@ -34,6 +34,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 
+import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
@@ -48,7 +49,6 @@ import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.Settings;
 import com.eolwral.osmonitor.util.WhoisUtil;
 import com.eolwral.osmonitor.util.WhoisUtilDataSet;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ConnectionFragment extends SherlockListFragment 
                                 implements ipcClientListener {
@@ -99,6 +99,9 @@ public class ConnectionFragment extends SherlockListFragment
 		MenuItem settingMenu = menu.findItem(R.id.ui_menu_setting);
 		settingMenu.setOnMenuItemClickListener( new SettingMenuClickListener());
 		
+		MenuItem exitMenu = menu.findItem(R.id.ui_menu_exit);
+		exitMenu.setOnMenuItemClickListener(new ExitMenuClickListener());
+
 		// refresh button
 		stopButton = (MenuItem) menu.findItem(R.id.ui_menu_stop);
 
@@ -121,6 +124,17 @@ public class ConnectionFragment extends SherlockListFragment
 		});
 		
 		return; 
+	}
+	
+	private class ExitMenuClickListener implements OnMenuItemClickListener {
+   
+		@Override
+		public boolean onMenuItemClick(MenuItem item) {
+			getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
+			android.os.Process.killProcess(android.os.Process.myPid());
+			return false;
+		}
+		
 	}
 	
 	private class SettingMenuClickListener implements OnMenuItemClickListener {
@@ -220,7 +234,7 @@ public class ConnectionFragment extends SherlockListFragment
 					data.add(cnInfo);
 				}
 				
-			} catch (InvalidProtocolBufferException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

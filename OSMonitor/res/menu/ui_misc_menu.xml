@@ -20,5 +20,10 @@
             android:icon="@drawable/ic_action_stop" />    
         
     </group>
+    
+    <item android:id="@+id/ui_menu_exit" 
+            android:title="@string/ui_menu_exit" 
+            android:showAsAction="ifRoom" 
+            android:icon="@drawable/ic_action_exit" />   
  
 </menu>

@@ -128,17 +128,24 @@ class osInfo : public ::google::protobuf::Message {
   inline ::google::protobuf::uint64 bufferedmemory() const;
   inline void set_bufferedmemory(::google::protobuf::uint64 value);
   
-  // required uint64 totalSwap = 6;
+  // required uint64 cachedMemory = 6;
+  inline bool has_cachedmemory() const;
+  inline void clear_cachedmemory();
+  static const int kCachedMemoryFieldNumber = 6;
+  inline ::google::protobuf::uint64 cachedmemory() const;
+  inline void set_cachedmemory(::google::protobuf::uint64 value);
+  
+  // required uint64 totalSwap = 7;
   inline bool has_totalswap() const;
   inline void clear_totalswap();
-  static const int kTotalSwapFieldNumber = 6;
+  static const int kTotalSwapFieldNumber = 7;
   inline ::google::protobuf::uint64 totalswap() const;
   inline void set_totalswap(::google::protobuf::uint64 value);
   
-  // required uint64 freeSwap = 7;
+  // required uint64 freeSwap = 8;
   inline bool has_freeswap() const;
   inline void clear_freeswap();
-  static const int kFreeSwapFieldNumber = 7;
+  static const int kFreeSwapFieldNumber = 8;
   inline ::google::protobuf::uint64 freeswap() const;
   inline void set_freeswap(::google::protobuf::uint64 value);
   
@@ -154,6 +161,8 @@ class osInfo : public ::google::protobuf::Message {
   inline void clear_has_sharedmemory();
   inline void set_has_bufferedmemory();
   inline void clear_has_bufferedmemory();
+  inline void set_has_cachedmemory();
+  inline void clear_has_cachedmemory();
   inline void set_has_totalswap();
   inline void clear_has_totalswap();
   inline void set_has_freeswap();
@@ -166,11 +175,12 @@ class osInfo : public ::google::protobuf::Message {
   ::google::protobuf::uint64 freememory_;
   ::google::protobuf::uint64 sharedmemory_;
   ::google::protobuf::uint64 bufferedmemory_;
+  ::google::protobuf::uint64 cachedmemory_;
   ::google::protobuf::uint64 totalswap_;
   ::google::protobuf::uint64 freeswap_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(7 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
   
   friend void  protobuf_AddDesc_osInfo_2eproto();
   friend void protobuf_AssignDesc_osInfo_2eproto();
@@ -296,15 +306,37 @@ inline void osInfo::set_bufferedmemory(::google::protobuf::uint64 value) {
   bufferedmemory_ = value;
 }
 
-// required uint64 totalSwap = 6;
-inline bool osInfo::has_totalswap() const {
+// required uint64 cachedMemory = 6;
+inline bool osInfo::has_cachedmemory() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void osInfo::set_has_totalswap() {
+inline void osInfo::set_has_cachedmemory() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void osInfo::clear_has_totalswap() {
+inline void osInfo::clear_has_cachedmemory() {
   _has_bits_[0] &= ~0x00000020u;
+}
+inline void osInfo::clear_cachedmemory() {
+  cachedmemory_ = GOOGLE_ULONGLONG(0);
+  clear_has_cachedmemory();
+}
+inline ::google::protobuf::uint64 osInfo::cachedmemory() const {
+  return cachedmemory_;
+}
+inline void osInfo::set_cachedmemory(::google::protobuf::uint64 value) {
+  set_has_cachedmemory();
+  cachedmemory_ = value;
+}
+
+// required uint64 totalSwap = 7;
+inline bool osInfo::has_totalswap() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void osInfo::set_has_totalswap() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void osInfo::clear_has_totalswap() {
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void osInfo::clear_totalswap() {
   totalswap_ = GOOGLE_ULONGLONG(0);
@@ -318,15 +350,15 @@ inline void osInfo::set_totalswap(::google::protobuf::uint64 value) {
   totalswap_ = value;
 }
 
-// required uint64 freeSwap = 7;
+// required uint64 freeSwap = 8;
 inline bool osInfo::has_freeswap() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
+  return (_has_bits_[0] & 0x00000080u) != 0;
 }
 inline void osInfo::set_has_freeswap() {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000080u;
 }
 inline void osInfo::clear_has_freeswap() {
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline void osInfo::clear_freeswap() {
   freeswap_ = GOOGLE_ULONGLONG(0);

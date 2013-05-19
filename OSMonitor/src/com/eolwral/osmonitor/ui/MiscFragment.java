@@ -6,10 +6,14 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.os.BatteryManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +28,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 
+import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.NetworkInfo.networkInfo;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
@@ -36,7 +41,6 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.Settings;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 public class MiscFragment extends SherlockFragment 
                                 implements ipcClientListener {
@@ -62,6 +66,9 @@ public class MiscFragment extends SherlockFragment
 	// stop or start
 	private boolean stopUpdate = false;
 	private MenuItem stopButton = null;
+	
+	// battery view
+	private View batteryView = null;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,6 +107,9 @@ public class MiscFragment extends SherlockFragment
 		MenuItem settingMenu = menu.findItem(R.id.ui_menu_setting);
 		settingMenu.setOnMenuItemClickListener( new SettingMenuClickListener());
 		
+		MenuItem exitMenu = menu.findItem(R.id.ui_menu_exit);
+		exitMenu.setOnMenuItemClickListener(new ExitMenuClickListener());
+
 		// refresh button
 		stopButton = (MenuItem) menu.findItem(R.id.ui_menu_stop);
 
@@ -123,6 +133,17 @@ public class MiscFragment extends SherlockFragment
 		return; 
 	}
 	
+	private class ExitMenuClickListener implements OnMenuItemClickListener {
+
+		@Override
+		public boolean onMenuItemClick(MenuItem item) {
+			getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
+			android.os.Process.killProcess(android.os.Process.myPid());
+			return false;
+		}
+		
+	}
+
 	private class SettingMenuClickListener implements OnMenuItemClickListener {
 		@Override
 		public boolean onMenuItemClick(MenuItem item) {
@@ -171,18 +192,33 @@ public class MiscFragment extends SherlockFragment
 				sv = prepareSystemView(childPosition, convertView, parent);
 				break;
 			case 1:
-				sv = prepareCPUView(childPosition, convertView, parent);
+				sv = prepareBatteryView(childPosition, convertView, parent);
 				break;
 			case 2:
-				sv = prepareMemoryView(childPosition, convertView, parent);
+				sv = prepareCPUView(childPosition, convertView, parent);
 				break;
 			case 3:
-				sv = prepareSharedView(childPosition, convertView, parent);
+				sv = prepareMemoryView(childPosition, convertView, parent);
 				break;
 			case 4:
+				sv = prepareSharedView(childPosition, convertView, parent);
+				break;
+			case 5:
 				sv = prepareNetworkView(childPosition, convertView, parent);
 				break;
 			}
+			return sv;
+		}
+		
+		private View prepareBatteryView(int position, View convertView, ViewGroup parent) {
+			View sv = null;
+			if (batteryView == null) {
+				sv = (View) itemInflater.inflate(R.layout.ui_misc_item_battery, parent, false);
+				batteryView = sv;
+			}
+			else 
+				sv = batteryView;
+			
 			return sv;
 		}
 		
@@ -422,12 +458,15 @@ public class MiscFragment extends SherlockFragment
 				count = 1;
 				break;
 			case 1:
-				count = coredata.size();
-				break;
-			case 2:
 				count = 1;
 				break;
+			case 2:
+				count = coredata.size();
+				break;
 			case 3:
+				count = 1;
+				break;
+			case 4:
 				count = 1;
 				break;
 			default:
@@ -491,11 +530,15 @@ public class MiscFragment extends SherlockFragment
 
 	    ipcService.removeRequest(this);
 		ipcStop = !isVisibleToUser;
-
+		
+		if (batteryView != null)
+			stopBatteryMonitor();
+		
 		if(isVisibleToUser == true) {
 			settings = new Settings(getActivity());
 			ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESSOR, ipcAction.NETWORK };
 			ipcService.addRequest(newCommand, 0, this);
+			startBatteryMonitor();
 		}
 		
 	}	
@@ -558,6 +601,116 @@ public class MiscFragment extends SherlockFragment
 		ipcService.addRequest(newCommand, settings.getInterval(), this);
 	}
 
+    private void startBatteryMonitor()
+    {
+    	try {
+    		IntentFilter battFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+    		getActivity().registerReceiver(battReceiver, battFilter);
+    	} catch (Exception e) {}
+    }
+    
+    private void stopBatteryMonitor()
+    {
+		try {
+			getActivity().unregisterReceiver(battReceiver);
+		} catch (Exception e) {}
+    }
+
+	private BroadcastReceiver battReceiver = new BroadcastReceiver() 
+	{
+		public void onReceive(Context context, Intent intent) {
+			
+			Resources ResourceManager = context.getResources();
+			
+			if(ResourceManager == null || batteryView == null)
+				return;
+			
+			int rawlevel = intent.getIntExtra("level", -1);
+			int scale = intent.getIntExtra("scale", -1);
+			int status = intent.getIntExtra("status", -1);
+			int health = intent.getIntExtra("health", -1);
+			int plugged = intent.getIntExtra("plugged", -1);
+			int temperature = intent.getIntExtra("temperature", -1);
+			int voltage = intent.getIntExtra("voltage", -1);
+			String technology = intent.getStringExtra("technology");
+				
+			int level = -1;  // percentage, or -1 for unknown
+			if (rawlevel > 0 && scale > 0) {
+				level = (rawlevel * 100) / scale;
+			}
+			else 
+				level = 0;
+
+			TextView batteryHealth = (TextView) batteryView.findViewById(R.id.id_battery_health);
+			switch(health)
+			{
+			case BatteryManager.BATTERY_HEALTH_DEAD:
+				batteryHealth.setText(ResourceManager.getText(R.string.ui_battery_health_dead));
+				break;
+				case BatteryManager.BATTERY_HEALTH_GOOD:
+				batteryHealth.setText(ResourceManager.getText(R.string.ui_battery_health_good));
+				break;
+			case BatteryManager.BATTERY_HEALTH_OVERHEAT:
+				batteryHealth.setText(ResourceManager.getText(R.string.ui_battery_health_overheat));
+				break;
+			case BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE:
+				batteryHealth.setText(ResourceManager.getText(R.string.ui_battery_health_overvoltage));
+				break;
+			case BatteryManager.BATTERY_HEALTH_UNKNOWN:
+				batteryHealth.setText(ResourceManager.getText(R.string.ui_battery_health_unknown));
+				break;
+			case BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE:
+				batteryHealth.setText(ResourceManager.getText(R.string.ui_battery_health_failure));
+				break;
+				
+			}
+			
+			java.text.DecimalFormat TempFormat = new java.text.DecimalFormat("#.##");
+			TextView batteryTechnology = (TextView) batteryView.findViewById(R.id.id_battery_technology);
+			batteryTechnology.setText(technology);
+			
+			TextView batteryCapacity = (TextView) batteryView.findViewById(R.id.id_battery_capacity);
+			batteryCapacity.setText(level+"%");
+			
+			TextView batteryVoltage = (TextView) batteryView.findViewById(R.id.id_battery_voltage);
+			batteryVoltage.setText(voltage+"mV");
+			
+			TextView batteryTemperature = (TextView) batteryView.findViewById(R.id.id_battery_temperature);
+			batteryTemperature.setText(((double)temperature/10)+"¢XC ("+TempFormat.format(((double)temperature/10*9/5+32))+"¢XF)");
+
+			TextView batteryStatus = (TextView) batteryView.findViewById(R.id.id_battery_status);
+			StringBuilder statusBuilder = new StringBuilder();
+			switch(status) 
+			{
+			case BatteryManager.BATTERY_STATUS_UNKNOWN:
+				statusBuilder.append("<b>"+ResourceManager.getText(R.string.ui_battery_status_unknown)+"</b>");
+				break;
+			case BatteryManager.BATTERY_STATUS_CHARGING:
+				statusBuilder.append("<b>"+ResourceManager.getText(R.string.ui_battery_status_charging)+"</b>");
+				break;
+			case BatteryManager.BATTERY_STATUS_DISCHARGING:
+				statusBuilder.append("<b>"+ResourceManager.getText(R.string.ui_battery_status_discharging)+"</b>");
+				break;
+			case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
+				statusBuilder.append("<b>"+ResourceManager.getText(R.string.ui_battery_status_notcharging)+"</b>");
+				break;
+			case BatteryManager.BATTERY_STATUS_FULL:
+				statusBuilder.append("<b>"+ResourceManager.getText(R.string.ui_battery_status_full)+"</b>");
+				break;
+			}
+			
+			if(plugged == BatteryManager.BATTERY_PLUGGED_AC)
+				statusBuilder.append(" [<font color=\"green\">")
+						      .append(ResourceManager.getText(R.string.ui_battery_acpower)+"</font>]");
+       	       
+			else if(plugged == BatteryManager.BATTERY_PLUGGED_USB)
+				statusBuilder.append(" [<font color=\"green\">")
+						      .append(ResourceManager.getText(R.string.ui_battery_usbpower)+"</font>]");
+			
+			batteryStatus.setText(Html.fromHtml(statusBuilder.toString()));
+		}
+	};
+	
     @SuppressLint("SetJavaScriptEnabled")
 	void ShowHelp()
     {

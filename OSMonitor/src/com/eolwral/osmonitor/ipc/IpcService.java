@@ -360,7 +360,9 @@ public class IpcService {
 	public void disconnect() {
 		if(clientSocket == null)
 			return;
-		
+
+		removeAllRequest();
+
 		try {
 			clientSocket.shutdownOutput();
 			clientSocket.shutdownInput();

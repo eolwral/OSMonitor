@@ -103,9 +103,8 @@ public class OSMonitorService extends Service
 	private void initializeNotification() { 
 		
 		Intent notificationIntent = new Intent(this, OSMonitor.class);
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 
-															PendingIntent.FLAG_NO_CREATE);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 

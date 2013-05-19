@@ -44,7 +44,7 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		   getItem(mViewPager.getCurrentItem()).setUserVisibleHint(false);
 		
 		// end self 
-		if(isFinishing())
+		if(isFinishing() && (getIntent().getFlags() & Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP) != 0) 
 		{
 			IpcService.getInstance().disconnect();
 			android.os.Process.killProcess(android.os.Process.myPid());

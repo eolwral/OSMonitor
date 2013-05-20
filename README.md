@@ -46,6 +46,12 @@ if you would like to know that how it works, please check Wiki page!
 ----------
 
 ### Change Log ###
+
+**Version 3.0.3~3.0.5.1**
+- [Add] Monitor Battery, Temperature and Free RAM on notification bar.
+- [Add] Add Exit button
+- [FIX] Hug FCs
+
 **Version 3.0.2**
 
 - [Add] give a default file name as export file name (Thanks to Larry)

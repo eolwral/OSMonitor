@@ -61,6 +61,7 @@ public class MessageFragment extends SherlockListFragment
 	// ipc client
 	private static IpcService ipc = IpcService.getInstance();
 	private static boolean ipcStop = false;
+	private ipcAction selectedType = ipcAction.LOGCAT_MAIN;
 	
 	// data  
 	private ArrayList<logcatInfo> viewLogcatData = new ArrayList<logcatInfo>();
@@ -132,7 +133,7 @@ public class MessageFragment extends SherlockListFragment
 		MenuItem expendMenu = menu.findItem(R.id.ui_message_sort);
 		Spinner expendItem = (Spinner) expendMenu.getActionView();
 
-		switch(logType) {
+		switch(selectedType) {
 		case LOGCAT_MAIN:
 			expendItem.setSelection(0);
 			break;
@@ -155,26 +156,22 @@ public class MessageFragment extends SherlockListFragment
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				switch(arg2) {
 				case 0:
-					logType = ipcAction.LOGCAT_MAIN;
-					viewLogcatData.clear();
+					selectedType = ipcAction.LOGCAT_MAIN;
 					break;
 				case 1:
-					logType = ipcAction.LOGCAT_SYSTEM;
-					viewLogcatData.clear();
+					selectedType = ipcAction.LOGCAT_SYSTEM;
 					break;
 				case 2:
-					logType = ipcAction.LOGCAT_EVENT;
-					viewLogcatData.clear();
+					selectedType = ipcAction.LOGCAT_EVENT;
 					break;
 				case 3:
-					logType = ipcAction.DMESG;
-					viewDmesgData.clear();
+					selectedType = ipcAction.DMESG;
 					break;
 				}
-				
-				// reload
-				messageList.refresh();
 
+				// force refresh
+				forceRefresh();
+				
 				// restart if it has been stopped 
 				if(!stopUpdate)
 					stopUpdate = false;
@@ -236,6 +233,15 @@ public class MessageFragment extends SherlockListFragment
 		});
 		
 		super.onCreateOptionsMenu(menu, inflater);
+	}
+	
+	private void forceRefresh() {
+		if(logType != selectedType) {
+			ipc.removeRequest(this);
+			ipcAction newCommand[] = new ipcAction[1];
+			newCommand [0] =  selectedType; 
+			ipc.addRequest(newCommand, 0, this);
+		}
 	}
 	
     private void showMultiChoiceItems() {
@@ -498,7 +504,7 @@ public class MessageFragment extends SherlockListFragment
 		// update
 		if (stopUpdate == true || result == null) {
 			ipcAction newCommand[] = new ipcAction[1];
-			newCommand [0] =  logType; 
+			newCommand [0] =  selectedType; 
 			ipc.addRequest(newCommand, settings.getInterval(), this);
 			return;
 		}
@@ -520,18 +526,21 @@ public class MessageFragment extends SherlockListFragment
 						sourceLogcatData.add(lgInfo);
 					}
 				}
-				
-				if(rawData.getAction() == ipcAction.DMESG) {
+				else {
 					for (int count = 0; count < rawData.getPayloadCount(); count++) {
 						dmesgInfo dgInfo = dmesgInfo.parseFrom(rawData.getPayload(count));
 						sourceDmesgData.add(dgInfo);
-					} 
+					}
 				} 
- 
+
+				logType = rawData.getAction();
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
+			}
+
+			
 		} 
 
 		// processing filter action
@@ -539,8 +548,11 @@ public class MessageFragment extends SherlockListFragment
 
 		// send command again
 		ipcAction newCommand[] = new ipcAction[1];
-		newCommand [0] =  logType ; 
-		ipc.addRequest(newCommand, settings.getInterval(), this);
+		newCommand [0] =  selectedType ; 
+		if(selectedType != logType) 
+			ipc.addRequest(newCommand, 0, this);
+		else
+			ipc.addRequest(newCommand, settings.getInterval(), this);
 	}
 	
 	private boolean isLogcat(ipcAction logType) {
@@ -620,9 +632,9 @@ public class MessageFragment extends SherlockListFragment
 				sv.setBackgroundColor(getResources().getColor(R.color.dkgrey_osmonitor));
 			else
 				sv.setBackgroundColor(getResources().getColor(R.color.black_osmonitor));
-			
+
 			// get data 
-			if(isLogcat(logType)) {
+			if(isLogcat(logType) && viewLogcatData.size() > position) {
 				logcatInfo item = viewLogcatData.get(position);
 				
 				final Calendar calendar = Calendar.getInstance();
@@ -676,7 +688,7 @@ public class MessageFragment extends SherlockListFragment
 					break;
 				}
 			}
-			else
+			else if (viewDmesgData.size() > position)
 			{
 				dmesgInfo item = viewDmesgData.get(position);
 
@@ -819,22 +831,14 @@ public class MessageFragment extends SherlockListFragment
 					viewLogcatData = sourceLogcatData;
 				}
 				else {
+					
 					if (isLogcat(logType))
 						viewLogcatData = (ArrayList<logcatInfo>) results.values;
 					else
 						viewDmesgData = (ArrayList<dmesgInfo>) results.values;
 				}
 				
-				getSherlockActivity().runOnUiThread(
-					new Runnable() {
-						public void run()
-						{
-							refresh();
-						}
-					}
-				);
-				
-				
+				refresh();
 			}
 
 		}

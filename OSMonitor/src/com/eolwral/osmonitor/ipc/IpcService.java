@@ -446,6 +446,11 @@ public class IpcService {
 					cmdQueueLock.release();
 				} catch (InterruptedException e) { }
 				
+				// if no jobs, just wait
+				if(job == null) {
+					waitTime(1);
+					continue;
+				}
 				
 				job.result = sendMessage(job);
 				

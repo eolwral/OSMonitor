@@ -59,8 +59,13 @@ public class Preference extends PreferenceActivity
 			
 			// restart background daemon
 			getApplication().stopService(new Intent(getApplication(), OSMonitorService.class));
-			IpcService.getInstance().forceExit();
-			IpcService.getInstance().disconnect();
+
+			// check it before use
+			IpcService ipc = IpcService.getInstance();
+			if(ipc != null) {
+				ipc.forceExit();
+				ipc.disconnect();
+			}
 			
 			// restart notification 
 			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)) {

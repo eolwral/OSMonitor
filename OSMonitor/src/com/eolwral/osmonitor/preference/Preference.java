@@ -54,8 +54,24 @@ public class Preference extends PreferenceActivity
 			}
 		}
 		
+		if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_SHORTCUT)) {
+			
+			CheckBoxPreference autoStart = 
+					(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_AUTOSTART);
+			
+			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) || 
+			   sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
+				autoStart.setEnabled(true);
+			}
+			else {
+				autoStart.setEnabled(false);
+			}
+				
+		}
+		
 		if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_COLOR) ||
-		   key.equals(Settings.PREFERENCE_ROOT) || key.equals(Settings.PREFERENCE_TEMPVALUE)) {
+		   key.equals(Settings.PREFERENCE_ROOT) || key.equals(Settings.PREFERENCE_TEMPVALUE) ||
+		   key.equals(Settings.PREFERENCE_SHORTCUT) ) {
 			
 			// restart background daemon
 			getApplication().stopService(new Intent(getApplication(), OSMonitorService.class));
@@ -68,7 +84,8 @@ public class Preference extends PreferenceActivity
 			}
 			
 			// restart notification 
-			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)) {
+			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
+			   sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
 				getApplication().startService(new Intent(getApplication(), OSMonitorService.class));
 			}
 				

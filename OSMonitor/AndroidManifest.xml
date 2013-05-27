@@ -2,16 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.eolwral.osmonitor"
       android:installLocation="auto" 
-      android:versionName="3.0.5.2" 
+      android:versionName="3.0.6" 
       android:versionCode="37">
 
     <uses-sdk android:minSdkVersion="9"
               android:targetSdkVersion="17"
               android:maxSdkVersion="17" />
-   
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -33,7 +29,9 @@
                  android:theme="@style/Theme.osmonitor" 
                  android:allowBackup="true">
                  
-    	<activity android:name="OSMonitor" android:configChanges="orientation">
+    	<activity android:name="OSMonitor" 
+    	          android:configChanges="orientation" 
+    	          android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

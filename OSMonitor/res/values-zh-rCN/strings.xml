@@ -5,11 +5,14 @@
 <string name="ui_appname">OS Monitor</string>
 
 <!-- Tab -->
+<string name="ui_global_tab">全域</string>
 <string name="ui_process_tab">进程</string>
 <string name="ui_network_tab">网络</string>
 <string name="ui_connection_tab">联机</string>
 <string name="ui_misc_tab">杂项</string>
 <string name="ui_debug_tab">讯息</string>
+<string name="ui_notification_tab">通知</string>
+<string name="ui_shortcut_detail">按下启动OS Monitor</string>
 
 <!-- Menu -->
 <string name="ui_menu_setting">设定</string>
@@ -35,6 +38,7 @@
 <string name="ui_process_sort_usage">使用率</string>
 <string name="ui_process_sort_memory">内存</string>
 <string name="ui_process_sort_pid">PID</string>
+<string name="ui_process_sort_name">名字</string>
 
 <!-- Process Detail -->
 <string name="ui_process_detail_process">程序:</string>
@@ -94,13 +98,15 @@
 <!-- Network Tab End -->
 
 <!-- Misc Tab Start -->
+<string name="ui_misc_more">更多</string>
 
 <string name="ui_memory_title">内存</string>
 <string name="ui_swap_title">Swap</string>
 <string name="ui_memory_total">全部</string>
-<string name="ui_memory_free">剩余</string>
+<string name="ui_memory_free">空闲</string>
 <string name="ui_memory_shared">共享</string>
 <string name="ui_memory_buffered">缓冲</string>
+<string name="ui_memory_cached">快取</string>
 
 <!-- Uptime -->
 <string name="ui_system_uptime">启动时间</string>
@@ -112,7 +118,11 @@
 <string name="ui_processor_gov">调节政策</string>
 <string name="ui_processor_status">状态</string>
 <string name="ui_processor_core">核心</string>
-
+<string name="ui_processor_freq_max_title">最大频率</string>
+<string name="ui_processor_freq_min_title">最小频率</string>
+<string name="ui_processor_enable">启用</string>
+<string name="ui_processor_enable_title">启用全部CPUs</string>
+<string name="ui_processor_enable_msg">收集资讯中..</string>
 <string name="ui_processor_status_online">在线</string>
 <string name="ui_processor_status_offline">离线</string>
 
@@ -155,6 +165,8 @@
 <!-- Preferences Start -->
 <string name="ui_preferences_update">刷新速度</string>
 <string name="ui_preferences_update_detail">刷新 UI 数据的速度</string>
+<string name="ui_preferences_notification">捷径图示</string>
+<string name="ui_preferences_notification_deatil">在通知区显示捷径</string>
 <string name="ui_preferences_cpuusage">显示 CPU 使用率</string>
 <string name="ui_preferences_cpuusage_detail">在通知区显示 CPU 使用率图标</string>
 <string name="ui_preferences_autostart">自动启动</string>
@@ -169,6 +181,9 @@
 <string name="ui_preferences_tempvalue_detail">切换 华氏/摄氏 显示</string>
 <string name="ui_preferences_map">地图种类</string>
 <string name="ui_preferences_map_detail">GoogleMap 或  OpenStreeMap</string>
+<string name="ui_preferences_setcpu">开机时设定CPU</string>
+<string name="ui_preferences_setcpu_detail">开机时载入CPU 设定</string>
+<string name="ui_preferences_setcpu_data">设定频率及调节政策</string>
 
 <!-- Preferences End -->
 

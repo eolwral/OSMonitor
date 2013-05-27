@@ -117,6 +117,10 @@ public class CommonUtil {
    * @throws InterruptedException 
    */
   public static boolean execCore(Context context) {
+
+	if(context == null)
+		return false;
+	
 	String binary = context.getFilesDir().getAbsolutePath()+"/"+binaryName;
 
 	// copy file 

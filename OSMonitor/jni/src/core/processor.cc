@@ -33,32 +33,28 @@ namespace core {
       unsigned int extractValue = 0;
 
       curProcessor->set_number(curNumber);
-      curProcessor->set_maxfrequency(0);
-      curProcessor->set_minfrequency(0);
-      curProcessor->set_currentscaling(0);
-      curProcessor->set_maxscaling(0);
-      curProcessor->set_minscaling(0);
+      curProcessor->set_maxfrequency(-1);
+      curProcessor->set_minfrequency(-1);
+      curProcessor->set_currentscaling(-1);
+      curProcessor->set_maxscaling(-1);
+      curProcessor->set_minscaling(-1);
       curProcessor->set_grovernors("Unknown");
       curProcessor->set_offline(false);
+      curProcessor->set_avaiablefrequeucy("");
+      curProcessor->set_avaiablegovernors("");
 
       // get processor maximum frequency
       sprintf(buffer, PROCESSOR_FREQ_MAX, curNumber);
       FILE *processorFile = fopen(buffer, "r");
-
-      if (!processorFile)
+      if (processorFile)
       {
-        curProcessor->set_offline(true);
-        this->_curProcessorList.push_back(curProcessor);
-        continue;
+        fscanf(processorFile, "%d", &extractValue);
+        curProcessor->set_maxfrequency(extractValue);
+        fclose(processorFile);
       }
-
-      fscanf(processorFile, "%d", &extractValue);
-      curProcessor->set_maxfrequency(extractValue);
-      fclose(processorFile);
 
       // get processor minimum frequency
       sprintf(buffer, PROCESSOR_FREQ_MIN, curNumber);
-
       processorFile = fopen(buffer, "r");
       if (processorFile)
       {
@@ -109,6 +105,45 @@ namespace core {
         fclose(processorFile);
 
         curProcessor->set_grovernors(curScaling);
+      }
+
+      // status
+      sprintf(buffer, PROCESSOR_STATUS, curNumber);
+      processorFile = fopen(buffer, "r");
+      if (processorFile)
+      {
+          fscanf(processorFile, "%d", &extractValue);
+          if(extractValue == 1)
+            curProcessor->set_offline(false);
+          else
+            curProcessor->set_offline(true);
+          fclose(processorFile);
+      }
+
+      // available frequency
+      sprintf(buffer, PROCESSOR_AVAILABLE_FREQ, curNumber);
+      processorFile = fopen(buffer, "r");
+      if (processorFile)
+      {
+        char availableFreq[BufferSize];
+        memset(availableFreq, 0, BufferSize);
+        fgets(availableFreq, BufferSize, processorFile);
+        fclose(processorFile);
+
+        curProcessor->set_avaiablefrequeucy(availableFreq);
+      }
+
+      // available grovenors
+      sprintf(buffer, PROCESSOR_AVAILABLE_GOR, curNumber);
+      processorFile = fopen(buffer, "r");
+      if (processorFile)
+      {
+        char availableGor[BufferSize];
+        memset(availableGor, 0, BufferSize);
+        fgets(availableGor, BufferSize, processorFile);
+        fclose(processorFile);
+
+        curProcessor->set_avaiablegovernors(availableGor);
       }
 
       this->_curProcessorList.push_back(curProcessor);

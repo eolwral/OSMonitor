@@ -39,6 +39,8 @@
 // OSMIPC library
 #include <ipcserver.h>
 
+#define BufferSize 256
+
 // using name space
 using namespace com::eolwral::osmonitor;
 
@@ -371,6 +373,72 @@ void processCommandMsg()
       kill(pid, SIGKILL);
       continue;
     }
+
+    // set CPU status
+    if(data.action() == ipc::SETCPUSTATUS)
+    {
+        int cpu = atoi(data.payload(0).c_str());
+        short status = atoi(data.payload(1).c_str());
+
+        char buffer[BufferSize];
+        sprintf(buffer, PROCESSOR_STATUS, cpu);
+        FILE *processorFile = fopen(buffer, "w");
+        if (processorFile)
+        {
+          fprintf(processorFile, "%d", status);
+          fclose(processorFile);
+        }
+    }
+
+    // set CPU max frequency
+    if(data.action() == ipc::SETCPUMAXFREQ)
+    {
+        int cpu = atoi(data.payload(0).c_str());
+        const char* freq = data.payload(1).c_str();
+
+        char buffer[BufferSize];
+        sprintf(buffer, PROCESSOR_SCALING_MAX, cpu);
+        FILE *processorFile = fopen(buffer, "w");
+        if (processorFile)
+        {
+          fprintf(processorFile, "%s", freq);
+          fclose(processorFile);
+        }
+    }
+
+    // set CPU min frequency
+    if(data.action() == ipc::SETCPUMINFREQ)
+    {
+        int cpu = atoi(data.payload(0).c_str());
+        const char* freq = data.payload(1).c_str();
+
+        char buffer[BufferSize];
+        sprintf(buffer, PROCESSOR_SCALING_MIN, cpu);
+        FILE *processorFile = fopen(buffer, "w");
+        if (processorFile)
+        {
+          fprintf(processorFile, "%s", freq);
+          fclose(processorFile);
+        }
+    }
+
+    // set CPU governor
+    if(data.action() == ipc::SETCPUGORV)
+    {
+        int cpu = atoi(data.payload(0).c_str());
+        const char* gov = data.payload(1).c_str();
+
+        char buffer[BufferSize];
+        sprintf(buffer, PROCESSOR_SCALING_GOR, cpu);
+        FILE *processorFile = fopen(buffer, "w");
+        if (processorFile)
+        {
+          fprintf(processorFile, "%s", gov);
+          fclose(processorFile);
+        }
+    }
+
+
 
   }
 

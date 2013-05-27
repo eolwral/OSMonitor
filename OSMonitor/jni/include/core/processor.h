@@ -15,6 +15,9 @@
 #define PROCESSOR_SCALING_MAX "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_max_freq"
 #define PROCESSOR_SCALING_MIN "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_min_freq"
 #define PROCESSOR_SCALING_GOR "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_governor"
+#define PROCESSOR_AVAILABLE_FREQ "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_available_frequencies"
+#define PROCESSOR_AVAILABLE_GOR "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_available_governors"
+#define PROCESSOR_STATUS "/sys/devices/system/cpu/cpu%d/online"
 
 namespace com {
 namespace eolwral {

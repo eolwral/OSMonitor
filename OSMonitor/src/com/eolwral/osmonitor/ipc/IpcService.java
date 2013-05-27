@@ -219,6 +219,17 @@ public class IpcService {
 	}
 	
 	/**
+	 * start to connect
+	 */
+	public boolean forceConnect() {
+		if(restartDaemon()) {
+			waitTime(1);
+			return connect();
+		}
+		return false;
+	}
+	
+	/**
 	 * send a force exit command
 	 */
 	public void forceExit() {
@@ -237,6 +248,109 @@ public class IpcService {
 		return;
 	}
 	
+	public void setCPUStatus(int cpu, int status) {
+		if(!checkStatus())
+			return;
+
+		ipcMessage.Builder setCommand = ipcMessage.newBuilder();
+		setCommand.setType(ipcMessage.ipcType.COMMAND);
+		
+		Builder data = setCommand.addDataBuilder();
+		
+		data.setAction(ipcAction.SETCPUSTATUS);
+
+		String cpuData = ""+cpu;
+		data.addPayload(ByteString.copyFrom(cpuData.getBytes()));
+
+		String statusData = ""+status;
+		data.addPayload(ByteString.copyFrom(statusData.getBytes()));
+		
+		// send
+		try {
+			OutputStream outData = clientSocket.getOutputStream();
+			setCommand.build().writeTo(outData);			
+		} catch (IOException e) {}
+		
+		return;		
+	}
+	
+	public void setCPUMaxFreq(int cpu, long freq) {
+		if(!checkStatus())
+			return;
+
+		ipcMessage.Builder setCommand = ipcMessage.newBuilder();
+		setCommand.setType(ipcMessage.ipcType.COMMAND);
+		
+		Builder data = setCommand.addDataBuilder();
+		
+		data.setAction(ipcAction.SETCPUMAXFREQ);
+
+		String cpuData = ""+cpu;
+		data.addPayload(ByteString.copyFrom(cpuData.getBytes()));
+
+		String freqData = ""+freq;
+		data.addPayload(ByteString.copyFrom(freqData.getBytes()));
+		
+		// send
+		try {
+			OutputStream outData = clientSocket.getOutputStream();
+			setCommand.build().writeTo(outData);			
+		} catch (IOException e) {}
+		
+		return;		
+	}
+	
+	public void setCPUMinFreq(int cpu, long freq) {
+		if(!checkStatus())
+			return;
+
+		ipcMessage.Builder setCommand = ipcMessage.newBuilder();
+		setCommand.setType(ipcMessage.ipcType.COMMAND);
+		
+		Builder data = setCommand.addDataBuilder();
+		
+		data.setAction(ipcAction.SETCPUMINFREQ);
+
+		String cpuData = ""+cpu;
+		data.addPayload(ByteString.copyFrom(cpuData.getBytes()));
+
+		String freqData = ""+freq;
+		data.addPayload(ByteString.copyFrom(freqData.getBytes()));
+		
+		// send
+		try {
+			OutputStream outData = clientSocket.getOutputStream();
+			setCommand.build().writeTo(outData);			
+		} catch (IOException e) {}
+		
+		return;		
+	}
+	
+	public void setCPUGov(int cpu, String gov) {
+		if(!checkStatus())
+			return;
+
+		ipcMessage.Builder setCommand = ipcMessage.newBuilder();
+		setCommand.setType(ipcMessage.ipcType.COMMAND);
+		
+		Builder data = setCommand.addDataBuilder();
+		
+		data.setAction(ipcAction.SETCPUGORV);
+
+		String cpuData = ""+cpu;
+		data.addPayload(ByteString.copyFrom(cpuData.getBytes()));
+
+		String govData = gov;
+		data.addPayload(ByteString.copyFrom(govData.getBytes()));
+		
+		// send
+		try {
+			OutputStream outData = clientSocket.getOutputStream();
+			setCommand.build().writeTo(outData);			
+		} catch (IOException e) {}
+		
+		return;		
+	}
 	
 	/**
 	 * adjust the priority of process

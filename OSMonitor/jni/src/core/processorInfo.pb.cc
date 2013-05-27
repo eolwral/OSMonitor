@@ -34,7 +34,7 @@ void protobuf_AssignDesc_processorInfo_2eproto() {
       "processorInfo.proto");
   GOOGLE_CHECK(file != NULL);
   processorInfo_descriptor_ = file->message_type(0);
-  static const int processorInfo_offsets_[8] = {
+  static const int processorInfo_offsets_[10] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processorInfo, maxfrequency_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processorInfo, minfrequency_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processorInfo, maxscaling_),
@@ -43,6 +43,8 @@ void protobuf_AssignDesc_processorInfo_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processorInfo, grovernors_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processorInfo, number_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processorInfo, offline_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processorInfo, avaiablegovernors_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processorInfo, avaiablefrequeucy_),
   };
   processorInfo_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -86,11 +88,13 @@ void protobuf_AddDesc_processorInfo_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\023processorInfo.proto\022\032com.eolwral.osmon"
-    "itor.core\"\260\001\n\rprocessorInfo\022\024\n\014maxFreque"
-    "ncy\030\001 \002(\r\022\024\n\014minFrequency\030\002 \002(\r\022\022\n\nmaxSc"
-    "aling\030\003 \002(\r\022\022\n\nminScaling\030\004 \002(\r\022\026\n\016curre"
-    "ntScaling\030\005 \002(\r\022\022\n\ngrovernors\030\006 \002(\t\022\016\n\006n"
-    "umber\030\007 \002(\r\022\017\n\007offLine\030\010 \002(\010", 228);
+    "itor.core\"\346\001\n\rprocessorInfo\022\024\n\014maxFreque"
+    "ncy\030\001 \002(\021\022\024\n\014minFrequency\030\002 \002(\021\022\022\n\nmaxSc"
+    "aling\030\003 \002(\021\022\022\n\nminScaling\030\004 \002(\021\022\026\n\016curre"
+    "ntScaling\030\005 \002(\021\022\022\n\ngrovernors\030\006 \002(\t\022\016\n\006n"
+    "umber\030\007 \002(\r\022\017\n\007offLine\030\010 \002(\010\022\031\n\021avaiable"
+    "Governors\030\t \002(\t\022\031\n\021avaiableFrequeucy\030\n \002"
+    "(\t", 282);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "processorInfo.proto", &protobuf_RegisterTypes);
   processorInfo::default_instance_ = new processorInfo();
@@ -117,6 +121,8 @@ const int processorInfo::kCurrentScalingFieldNumber;
 const int processorInfo::kGrovernorsFieldNumber;
 const int processorInfo::kNumberFieldNumber;
 const int processorInfo::kOffLineFieldNumber;
+const int processorInfo::kAvaiableGovernorsFieldNumber;
+const int processorInfo::kAvaiableFrequeucyFieldNumber;
 #endif  // !_MSC_VER
 
 processorInfo::processorInfo()
@@ -135,14 +141,16 @@ processorInfo::processorInfo(const processorInfo& from)
 
 void processorInfo::SharedCtor() {
   _cached_size_ = 0;
-  maxfrequency_ = 0u;
-  minfrequency_ = 0u;
-  maxscaling_ = 0u;
-  minscaling_ = 0u;
-  currentscaling_ = 0u;
+  maxfrequency_ = 0;
+  minfrequency_ = 0;
+  maxscaling_ = 0;
+  minscaling_ = 0;
+  currentscaling_ = 0;
   grovernors_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   number_ = 0u;
   offline_ = false;
+  avaiablegovernors_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  avaiablefrequeucy_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -153,6 +161,12 @@ processorInfo::~processorInfo() {
 void processorInfo::SharedDtor() {
   if (grovernors_ != &::google::protobuf::internal::kEmptyString) {
     delete grovernors_;
+  }
+  if (avaiablegovernors_ != &::google::protobuf::internal::kEmptyString) {
+    delete avaiablegovernors_;
+  }
+  if (avaiablefrequeucy_ != &::google::protobuf::internal::kEmptyString) {
+    delete avaiablefrequeucy_;
   }
   if (this != default_instance_) {
   }
@@ -180,11 +194,11 @@ processorInfo* processorInfo::New() const {
 
 void processorInfo::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    maxfrequency_ = 0u;
-    minfrequency_ = 0u;
-    maxscaling_ = 0u;
-    minscaling_ = 0u;
-    currentscaling_ = 0u;
+    maxfrequency_ = 0;
+    minfrequency_ = 0;
+    maxscaling_ = 0;
+    minscaling_ = 0;
+    currentscaling_ = 0;
     if (has_grovernors()) {
       if (grovernors_ != &::google::protobuf::internal::kEmptyString) {
         grovernors_->clear();
@@ -192,6 +206,18 @@ void processorInfo::Clear() {
     }
     number_ = 0u;
     offline_ = false;
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    if (has_avaiablegovernors()) {
+      if (avaiablegovernors_ != &::google::protobuf::internal::kEmptyString) {
+        avaiablegovernors_->clear();
+      }
+    }
+    if (has_avaiablefrequeucy()) {
+      if (avaiablefrequeucy_ != &::google::protobuf::internal::kEmptyString) {
+        avaiablefrequeucy_->clear();
+      }
+    }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -203,12 +229,12 @@ bool processorInfo::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   while ((tag = input->ReadTag()) != 0) {
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 maxFrequency = 1;
+      // required sint32 maxFrequency = 1;
       case 1: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &maxfrequency_)));
           set_has_maxfrequency();
         } else {
@@ -218,13 +244,13 @@ bool processorInfo::MergePartialFromCodedStream(
         break;
       }
       
-      // required uint32 minFrequency = 2;
+      // required sint32 minFrequency = 2;
       case 2: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_minFrequency:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &minfrequency_)));
           set_has_minfrequency();
         } else {
@@ -234,13 +260,13 @@ bool processorInfo::MergePartialFromCodedStream(
         break;
       }
       
-      // required uint32 maxScaling = 3;
+      // required sint32 maxScaling = 3;
       case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_maxScaling:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &maxscaling_)));
           set_has_maxscaling();
         } else {
@@ -250,13 +276,13 @@ bool processorInfo::MergePartialFromCodedStream(
         break;
       }
       
-      // required uint32 minScaling = 4;
+      // required sint32 minScaling = 4;
       case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_minScaling:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &minscaling_)));
           set_has_minscaling();
         } else {
@@ -266,13 +292,13 @@ bool processorInfo::MergePartialFromCodedStream(
         break;
       }
       
-      // required uint32 currentScaling = 5;
+      // required sint32 currentScaling = 5;
       case 5: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_currentScaling:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &currentscaling_)));
           set_has_currentscaling();
         } else {
@@ -327,6 +353,40 @@ bool processorInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(74)) goto parse_avaiableGovernors;
+        break;
+      }
+      
+      // required string avaiableGovernors = 9;
+      case 9: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_avaiableGovernors:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_avaiablegovernors()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->avaiablegovernors().data(), this->avaiablegovernors().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(82)) goto parse_avaiableFrequeucy;
+        break;
+      }
+      
+      // required string avaiableFrequeucy = 10;
+      case 10: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_avaiableFrequeucy:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_avaiablefrequeucy()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->avaiablefrequeucy().data(), this->avaiablefrequeucy().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -349,29 +409,29 @@ bool processorInfo::MergePartialFromCodedStream(
 
 void processorInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // required uint32 maxFrequency = 1;
+  // required sint32 maxFrequency = 1;
   if (has_maxfrequency()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->maxfrequency(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteSInt32(1, this->maxfrequency(), output);
   }
   
-  // required uint32 minFrequency = 2;
+  // required sint32 minFrequency = 2;
   if (has_minfrequency()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->minfrequency(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteSInt32(2, this->minfrequency(), output);
   }
   
-  // required uint32 maxScaling = 3;
+  // required sint32 maxScaling = 3;
   if (has_maxscaling()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->maxscaling(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteSInt32(3, this->maxscaling(), output);
   }
   
-  // required uint32 minScaling = 4;
+  // required sint32 minScaling = 4;
   if (has_minscaling()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(4, this->minscaling(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteSInt32(4, this->minscaling(), output);
   }
   
-  // required uint32 currentScaling = 5;
+  // required sint32 currentScaling = 5;
   if (has_currentscaling()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(5, this->currentscaling(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteSInt32(5, this->currentscaling(), output);
   }
   
   // required string grovernors = 6;
@@ -393,6 +453,24 @@ void processorInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteBool(8, this->offline(), output);
   }
   
+  // required string avaiableGovernors = 9;
+  if (has_avaiablegovernors()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->avaiablegovernors().data(), this->avaiablegovernors().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      9, this->avaiablegovernors(), output);
+  }
+  
+  // required string avaiableFrequeucy = 10;
+  if (has_avaiablefrequeucy()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->avaiablefrequeucy().data(), this->avaiablefrequeucy().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      10, this->avaiablefrequeucy(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -401,29 +479,29 @@ void processorInfo::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* processorInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // required uint32 maxFrequency = 1;
+  // required sint32 maxFrequency = 1;
   if (has_maxfrequency()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->maxfrequency(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteSInt32ToArray(1, this->maxfrequency(), target);
   }
   
-  // required uint32 minFrequency = 2;
+  // required sint32 minFrequency = 2;
   if (has_minfrequency()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->minfrequency(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteSInt32ToArray(2, this->minfrequency(), target);
   }
   
-  // required uint32 maxScaling = 3;
+  // required sint32 maxScaling = 3;
   if (has_maxscaling()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->maxscaling(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteSInt32ToArray(3, this->maxscaling(), target);
   }
   
-  // required uint32 minScaling = 4;
+  // required sint32 minScaling = 4;
   if (has_minscaling()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(4, this->minscaling(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteSInt32ToArray(4, this->minscaling(), target);
   }
   
-  // required uint32 currentScaling = 5;
+  // required sint32 currentScaling = 5;
   if (has_currentscaling()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(5, this->currentscaling(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteSInt32ToArray(5, this->currentscaling(), target);
   }
   
   // required string grovernors = 6;
@@ -446,6 +524,26 @@ void processorInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(8, this->offline(), target);
   }
   
+  // required string avaiableGovernors = 9;
+  if (has_avaiablegovernors()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->avaiablegovernors().data(), this->avaiablegovernors().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        9, this->avaiablegovernors(), target);
+  }
+  
+  // required string avaiableFrequeucy = 10;
+  if (has_avaiablefrequeucy()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->avaiablefrequeucy().data(), this->avaiablefrequeucy().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        10, this->avaiablefrequeucy(), target);
+  }
+  
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -457,38 +555,38 @@ int processorInfo::ByteSize() const {
   int total_size = 0;
   
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 maxFrequency = 1;
+    // required sint32 maxFrequency = 1;
     if (has_maxfrequency()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        ::google::protobuf::internal::WireFormatLite::SInt32Size(
           this->maxfrequency());
     }
     
-    // required uint32 minFrequency = 2;
+    // required sint32 minFrequency = 2;
     if (has_minfrequency()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        ::google::protobuf::internal::WireFormatLite::SInt32Size(
           this->minfrequency());
     }
     
-    // required uint32 maxScaling = 3;
+    // required sint32 maxScaling = 3;
     if (has_maxscaling()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        ::google::protobuf::internal::WireFormatLite::SInt32Size(
           this->maxscaling());
     }
     
-    // required uint32 minScaling = 4;
+    // required sint32 minScaling = 4;
     if (has_minscaling()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        ::google::protobuf::internal::WireFormatLite::SInt32Size(
           this->minscaling());
     }
     
-    // required uint32 currentScaling = 5;
+    // required sint32 currentScaling = 5;
     if (has_currentscaling()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        ::google::protobuf::internal::WireFormatLite::SInt32Size(
           this->currentscaling());
     }
     
@@ -509,6 +607,22 @@ int processorInfo::ByteSize() const {
     // required bool offLine = 8;
     if (has_offline()) {
       total_size += 1 + 1;
+    }
+    
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    // required string avaiableGovernors = 9;
+    if (has_avaiablegovernors()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->avaiablegovernors());
+    }
+    
+    // required string avaiableFrequeucy = 10;
+    if (has_avaiablefrequeucy()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->avaiablefrequeucy());
     }
     
   }
@@ -563,6 +677,14 @@ void processorInfo::MergeFrom(const processorInfo& from) {
       set_offline(from.offline());
     }
   }
+  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    if (from.has_avaiablegovernors()) {
+      set_avaiablegovernors(from.avaiablegovernors());
+    }
+    if (from.has_avaiablefrequeucy()) {
+      set_avaiablefrequeucy(from.avaiablefrequeucy());
+    }
+  }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
@@ -579,7 +701,7 @@ void processorInfo::CopyFrom(const processorInfo& from) {
 }
 
 bool processorInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x000000ff) != 0x000000ff) return false;
+  if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
   
   return true;
 }
@@ -594,6 +716,8 @@ void processorInfo::Swap(processorInfo* other) {
     std::swap(grovernors_, other->grovernors_);
     std::swap(number_, other->number_);
     std::swap(offline_, other->offline_);
+    std::swap(avaiablegovernors_, other->avaiablegovernors_);
+    std::swap(avaiablefrequeucy_, other->avaiablefrequeucy_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

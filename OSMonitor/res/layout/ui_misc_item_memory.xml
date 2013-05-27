@@ -60,16 +60,16 @@
         android:gravity="center" >
 
         <TextView
-            android:id="@+id/tx_memory_shared"
+            android:id="@+id/tx_memory_cached"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:gravity="center"
-            android:text="@string/ui_memory_shared"
+            android:text="@string/ui_memory_cached"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/id_memory_shared"
+            android:id="@+id/id_memory_cached"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="3dp"

@@ -5,11 +5,14 @@
 <string name="ui_appname">OS Monitor</string>
 
 <!-- Tab -->
-<string name="ui_process_tab">序程</string>
+<string name="ui_global_tab">全域</string>
+<string name="ui_process_tab">程序</string>
 <string name="ui_network_tab">網路</string>
 <string name="ui_connection_tab">連線</string>
 <string name="ui_misc_tab">雜項</string>
 <string name="ui_debug_tab">訊息</string>
+<string name="ui_notification_tab">通知</string>
+<string name="ui_shortcut_detail">按下啟動 OS Monitor</string>
 
 <!-- Menu -->
 <string name="ui_menu_setting">設定</string>
@@ -19,7 +22,7 @@
 <string name="ui_menu_stop">停止</string>
 <string name="ui_menu_help">幫助</string>
 <string name="ui_menu_logexport">匯出</string>
-<string name="ui_menu_exit">結束程式</string>
+<string name="ui_menu_exit">結束</string>
 
 <!-- Process Tab Start -->
  
@@ -35,14 +38,15 @@
 <string name="ui_process_sort_usage">使用率</string>
 <string name="ui_process_sort_memory">記憶體</string>
 <string name="ui_process_sort_pid">PID</string>
+<string name="ui_process_sort_name">名字</string>
 
 <!-- Process Detail -->
 <string name="ui_process_detail_process">程序:</string>
 <string name="ui_process_detail_memory">記憶體:</string>
 <string name="ui_process_detail_ppid">父 PID:</string>
 <string name="ui_process_detail_thread">執行緒:</string>
-<string name="ui_process_detail_stime">系統時間:</string>
-<string name="ui_process_detail_utime">使用者時間:</string>
+<string name="ui_process_detail_stime">系統:</string>
+<string name="ui_process_detail_utime">使用者:</string>
 <string name="ui_process_detail_nice">優先權:</string>
 <string name="ui_process_detail_user">使用者:</string>
 <string name="ui_process_detail_status">狀態:</string>
@@ -94,13 +98,15 @@
 <!-- Network Tab End -->
 
 <!-- Misc Tab Start -->
+<string name="ui_misc_more">更多</string>
 
 <string name="ui_memory_title">記憶體</string>
 <string name="ui_swap_title">Swap</string>
 <string name="ui_memory_total">全部</string>
-<string name="ui_memory_free">剩餘</string>
+<string name="ui_memory_free">空閒</string>
 <string name="ui_memory_shared">共用</string>
 <string name="ui_memory_buffered">緩衝</string>
+<string name="ui_memory_cached">快取</string>
 
 <!-- Uptime -->
 <string name="ui_system_uptime">啟動時間</string>
@@ -112,9 +118,14 @@
 <string name="ui_processor_gov">調節政策</string>
 <string name="ui_processor_status">狀態</string>
 <string name="ui_processor_core">核心</string>
+<string name="ui_processor_freq_max_title">最大頻率</string>
+<string name="ui_processor_freq_min_title">最小頻率</string>
+<string name="ui_processor_enable">啟用</string>
+<string name="ui_processor_enable_title">啟用全部 CPU</string>
+<string name="ui_processor_enable_msg">收集資訊中..</string>
 
-<string name="ui_processor_status_online">上線</string>
-<string name="ui_processor_status_offline">下線</string>
+<string name="ui_processor_status_online">Online</string>
+<string name="ui_processor_status_offline">Offline</string>
 
 <!-- Battery -->
 <string name="ui_battery">電池</string>
@@ -155,10 +166,12 @@
 <!-- Preferences Start -->
 <string name="ui_preferences_update">更新速度</string>
 <string name="ui_preferences_update_detail">更新 UI 資料的速度</string>
-<string name="ui_preferences_cpuusage">顯示 CPU 使用率</string>
-<string name="ui_preferences_cpuusage_detail">在提示區顯示 CPU 使用率圖示</string>
 <string name="ui_preferences_autostart">自動啟動</string>
 <string name="ui_preferences_autostart_detail">跟著系統一起啟動</string>
+<string name="ui_preferences_cpuusage">顯示 CPU 使用率</string>
+<string name="ui_preferences_cpuusage_detail">在通知區顯示 CPU 使用率圖示</string>
+<string name="ui_preferences_notification">捷徑圖示</string>
+<string name="ui_preferences_notification_deatil">在通知區顯示捷徑</string>
 <string name="ui_preferences_color">CPU 圖示顏色</string>
 <string name="ui_preferences_color_detail">藍或綠</string>
 <string name="ui_preferences_expert">專家模式</string>
@@ -169,6 +182,9 @@
 <string name="ui_preferences_tempvalue_detail">切換 華氏/攝氏 顯示</string>
 <string name="ui_preferences_map">地圖種類</string>
 <string name="ui_preferences_map_detail">GoogleMap 或  OpenStreeMap</string>
+<string name="ui_preferences_setcpu">開機時設定 CPU</string>
+<string name="ui_preferences_setcpu_detail">開機時載入 CPU 設定</string>
+<string name="ui_preferences_setcpu_data">設定頻率及調節政策</string>
 
 <!-- Preferences End -->
 

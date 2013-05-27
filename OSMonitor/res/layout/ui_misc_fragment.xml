@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/ui_misc_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
     android:orientation="vertical" >
-
+ 
     <ExpandableListView
         android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:drawSelectorOnTop="false"
         android:scrollingCache="true"
         android:smoothScrollbar="true"
         tools:listitem="@layout/ui_misc_item" />
 
-</LinearLayout>
+</RelativeLayout>

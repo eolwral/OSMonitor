@@ -93,40 +93,40 @@ class processorInfo : public ::google::protobuf::Message {
   
   // accessors -------------------------------------------------------
   
-  // required uint32 maxFrequency = 1;
+  // required sint32 maxFrequency = 1;
   inline bool has_maxfrequency() const;
   inline void clear_maxfrequency();
   static const int kMaxFrequencyFieldNumber = 1;
-  inline ::google::protobuf::uint32 maxfrequency() const;
-  inline void set_maxfrequency(::google::protobuf::uint32 value);
+  inline ::google::protobuf::int32 maxfrequency() const;
+  inline void set_maxfrequency(::google::protobuf::int32 value);
   
-  // required uint32 minFrequency = 2;
+  // required sint32 minFrequency = 2;
   inline bool has_minfrequency() const;
   inline void clear_minfrequency();
   static const int kMinFrequencyFieldNumber = 2;
-  inline ::google::protobuf::uint32 minfrequency() const;
-  inline void set_minfrequency(::google::protobuf::uint32 value);
+  inline ::google::protobuf::int32 minfrequency() const;
+  inline void set_minfrequency(::google::protobuf::int32 value);
   
-  // required uint32 maxScaling = 3;
+  // required sint32 maxScaling = 3;
   inline bool has_maxscaling() const;
   inline void clear_maxscaling();
   static const int kMaxScalingFieldNumber = 3;
-  inline ::google::protobuf::uint32 maxscaling() const;
-  inline void set_maxscaling(::google::protobuf::uint32 value);
+  inline ::google::protobuf::int32 maxscaling() const;
+  inline void set_maxscaling(::google::protobuf::int32 value);
   
-  // required uint32 minScaling = 4;
+  // required sint32 minScaling = 4;
   inline bool has_minscaling() const;
   inline void clear_minscaling();
   static const int kMinScalingFieldNumber = 4;
-  inline ::google::protobuf::uint32 minscaling() const;
-  inline void set_minscaling(::google::protobuf::uint32 value);
+  inline ::google::protobuf::int32 minscaling() const;
+  inline void set_minscaling(::google::protobuf::int32 value);
   
-  // required uint32 currentScaling = 5;
+  // required sint32 currentScaling = 5;
   inline bool has_currentscaling() const;
   inline void clear_currentscaling();
   static const int kCurrentScalingFieldNumber = 5;
-  inline ::google::protobuf::uint32 currentscaling() const;
-  inline void set_currentscaling(::google::protobuf::uint32 value);
+  inline ::google::protobuf::int32 currentscaling() const;
+  inline void set_currentscaling(::google::protobuf::int32 value);
   
   // required string grovernors = 6;
   inline bool has_grovernors() const;
@@ -153,6 +153,28 @@ class processorInfo : public ::google::protobuf::Message {
   inline bool offline() const;
   inline void set_offline(bool value);
   
+  // required string avaiableGovernors = 9;
+  inline bool has_avaiablegovernors() const;
+  inline void clear_avaiablegovernors();
+  static const int kAvaiableGovernorsFieldNumber = 9;
+  inline const ::std::string& avaiablegovernors() const;
+  inline void set_avaiablegovernors(const ::std::string& value);
+  inline void set_avaiablegovernors(const char* value);
+  inline void set_avaiablegovernors(const char* value, size_t size);
+  inline ::std::string* mutable_avaiablegovernors();
+  inline ::std::string* release_avaiablegovernors();
+  
+  // required string avaiableFrequeucy = 10;
+  inline bool has_avaiablefrequeucy() const;
+  inline void clear_avaiablefrequeucy();
+  static const int kAvaiableFrequeucyFieldNumber = 10;
+  inline const ::std::string& avaiablefrequeucy() const;
+  inline void set_avaiablefrequeucy(const ::std::string& value);
+  inline void set_avaiablefrequeucy(const char* value);
+  inline void set_avaiablefrequeucy(const char* value, size_t size);
+  inline ::std::string* mutable_avaiablefrequeucy();
+  inline ::std::string* release_avaiablefrequeucy();
+  
   // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.processorInfo)
  private:
   inline void set_has_maxfrequency();
@@ -171,20 +193,26 @@ class processorInfo : public ::google::protobuf::Message {
   inline void clear_has_number();
   inline void set_has_offline();
   inline void clear_has_offline();
+  inline void set_has_avaiablegovernors();
+  inline void clear_has_avaiablegovernors();
+  inline void set_has_avaiablefrequeucy();
+  inline void clear_has_avaiablefrequeucy();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
-  ::google::protobuf::uint32 maxfrequency_;
-  ::google::protobuf::uint32 minfrequency_;
-  ::google::protobuf::uint32 maxscaling_;
-  ::google::protobuf::uint32 minscaling_;
+  ::google::protobuf::int32 maxfrequency_;
+  ::google::protobuf::int32 minfrequency_;
+  ::google::protobuf::int32 maxscaling_;
+  ::google::protobuf::int32 minscaling_;
   ::std::string* grovernors_;
-  ::google::protobuf::uint32 currentscaling_;
+  ::google::protobuf::int32 currentscaling_;
   ::google::protobuf::uint32 number_;
+  ::std::string* avaiablegovernors_;
+  ::std::string* avaiablefrequeucy_;
   bool offline_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(10 + 31) / 32];
   
   friend void  protobuf_AddDesc_processorInfo_2eproto();
   friend void protobuf_AssignDesc_processorInfo_2eproto();
@@ -200,7 +228,7 @@ class processorInfo : public ::google::protobuf::Message {
 
 // processorInfo
 
-// required uint32 maxFrequency = 1;
+// required sint32 maxFrequency = 1;
 inline bool processorInfo::has_maxfrequency() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -211,18 +239,18 @@ inline void processorInfo::clear_has_maxfrequency() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void processorInfo::clear_maxfrequency() {
-  maxfrequency_ = 0u;
+  maxfrequency_ = 0;
   clear_has_maxfrequency();
 }
-inline ::google::protobuf::uint32 processorInfo::maxfrequency() const {
+inline ::google::protobuf::int32 processorInfo::maxfrequency() const {
   return maxfrequency_;
 }
-inline void processorInfo::set_maxfrequency(::google::protobuf::uint32 value) {
+inline void processorInfo::set_maxfrequency(::google::protobuf::int32 value) {
   set_has_maxfrequency();
   maxfrequency_ = value;
 }
 
-// required uint32 minFrequency = 2;
+// required sint32 minFrequency = 2;
 inline bool processorInfo::has_minfrequency() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -233,18 +261,18 @@ inline void processorInfo::clear_has_minfrequency() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void processorInfo::clear_minfrequency() {
-  minfrequency_ = 0u;
+  minfrequency_ = 0;
   clear_has_minfrequency();
 }
-inline ::google::protobuf::uint32 processorInfo::minfrequency() const {
+inline ::google::protobuf::int32 processorInfo::minfrequency() const {
   return minfrequency_;
 }
-inline void processorInfo::set_minfrequency(::google::protobuf::uint32 value) {
+inline void processorInfo::set_minfrequency(::google::protobuf::int32 value) {
   set_has_minfrequency();
   minfrequency_ = value;
 }
 
-// required uint32 maxScaling = 3;
+// required sint32 maxScaling = 3;
 inline bool processorInfo::has_maxscaling() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -255,18 +283,18 @@ inline void processorInfo::clear_has_maxscaling() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void processorInfo::clear_maxscaling() {
-  maxscaling_ = 0u;
+  maxscaling_ = 0;
   clear_has_maxscaling();
 }
-inline ::google::protobuf::uint32 processorInfo::maxscaling() const {
+inline ::google::protobuf::int32 processorInfo::maxscaling() const {
   return maxscaling_;
 }
-inline void processorInfo::set_maxscaling(::google::protobuf::uint32 value) {
+inline void processorInfo::set_maxscaling(::google::protobuf::int32 value) {
   set_has_maxscaling();
   maxscaling_ = value;
 }
 
-// required uint32 minScaling = 4;
+// required sint32 minScaling = 4;
 inline bool processorInfo::has_minscaling() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
@@ -277,18 +305,18 @@ inline void processorInfo::clear_has_minscaling() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void processorInfo::clear_minscaling() {
-  minscaling_ = 0u;
+  minscaling_ = 0;
   clear_has_minscaling();
 }
-inline ::google::protobuf::uint32 processorInfo::minscaling() const {
+inline ::google::protobuf::int32 processorInfo::minscaling() const {
   return minscaling_;
 }
-inline void processorInfo::set_minscaling(::google::protobuf::uint32 value) {
+inline void processorInfo::set_minscaling(::google::protobuf::int32 value) {
   set_has_minscaling();
   minscaling_ = value;
 }
 
-// required uint32 currentScaling = 5;
+// required sint32 currentScaling = 5;
 inline bool processorInfo::has_currentscaling() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
@@ -299,13 +327,13 @@ inline void processorInfo::clear_has_currentscaling() {
   _has_bits_[0] &= ~0x00000010u;
 }
 inline void processorInfo::clear_currentscaling() {
-  currentscaling_ = 0u;
+  currentscaling_ = 0;
   clear_has_currentscaling();
 }
-inline ::google::protobuf::uint32 processorInfo::currentscaling() const {
+inline ::google::protobuf::int32 processorInfo::currentscaling() const {
   return currentscaling_;
 }
-inline void processorInfo::set_currentscaling(::google::protobuf::uint32 value) {
+inline void processorInfo::set_currentscaling(::google::protobuf::int32 value) {
   set_has_currentscaling();
   currentscaling_ = value;
 }
@@ -410,6 +438,122 @@ inline bool processorInfo::offline() const {
 inline void processorInfo::set_offline(bool value) {
   set_has_offline();
   offline_ = value;
+}
+
+// required string avaiableGovernors = 9;
+inline bool processorInfo::has_avaiablegovernors() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void processorInfo::set_has_avaiablegovernors() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void processorInfo::clear_has_avaiablegovernors() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline void processorInfo::clear_avaiablegovernors() {
+  if (avaiablegovernors_ != &::google::protobuf::internal::kEmptyString) {
+    avaiablegovernors_->clear();
+  }
+  clear_has_avaiablegovernors();
+}
+inline const ::std::string& processorInfo::avaiablegovernors() const {
+  return *avaiablegovernors_;
+}
+inline void processorInfo::set_avaiablegovernors(const ::std::string& value) {
+  set_has_avaiablegovernors();
+  if (avaiablegovernors_ == &::google::protobuf::internal::kEmptyString) {
+    avaiablegovernors_ = new ::std::string;
+  }
+  avaiablegovernors_->assign(value);
+}
+inline void processorInfo::set_avaiablegovernors(const char* value) {
+  set_has_avaiablegovernors();
+  if (avaiablegovernors_ == &::google::protobuf::internal::kEmptyString) {
+    avaiablegovernors_ = new ::std::string;
+  }
+  avaiablegovernors_->assign(value);
+}
+inline void processorInfo::set_avaiablegovernors(const char* value, size_t size) {
+  set_has_avaiablegovernors();
+  if (avaiablegovernors_ == &::google::protobuf::internal::kEmptyString) {
+    avaiablegovernors_ = new ::std::string;
+  }
+  avaiablegovernors_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* processorInfo::mutable_avaiablegovernors() {
+  set_has_avaiablegovernors();
+  if (avaiablegovernors_ == &::google::protobuf::internal::kEmptyString) {
+    avaiablegovernors_ = new ::std::string;
+  }
+  return avaiablegovernors_;
+}
+inline ::std::string* processorInfo::release_avaiablegovernors() {
+  clear_has_avaiablegovernors();
+  if (avaiablegovernors_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = avaiablegovernors_;
+    avaiablegovernors_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+
+// required string avaiableFrequeucy = 10;
+inline bool processorInfo::has_avaiablefrequeucy() const {
+  return (_has_bits_[0] & 0x00000200u) != 0;
+}
+inline void processorInfo::set_has_avaiablefrequeucy() {
+  _has_bits_[0] |= 0x00000200u;
+}
+inline void processorInfo::clear_has_avaiablefrequeucy() {
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline void processorInfo::clear_avaiablefrequeucy() {
+  if (avaiablefrequeucy_ != &::google::protobuf::internal::kEmptyString) {
+    avaiablefrequeucy_->clear();
+  }
+  clear_has_avaiablefrequeucy();
+}
+inline const ::std::string& processorInfo::avaiablefrequeucy() const {
+  return *avaiablefrequeucy_;
+}
+inline void processorInfo::set_avaiablefrequeucy(const ::std::string& value) {
+  set_has_avaiablefrequeucy();
+  if (avaiablefrequeucy_ == &::google::protobuf::internal::kEmptyString) {
+    avaiablefrequeucy_ = new ::std::string;
+  }
+  avaiablefrequeucy_->assign(value);
+}
+inline void processorInfo::set_avaiablefrequeucy(const char* value) {
+  set_has_avaiablefrequeucy();
+  if (avaiablefrequeucy_ == &::google::protobuf::internal::kEmptyString) {
+    avaiablefrequeucy_ = new ::std::string;
+  }
+  avaiablefrequeucy_->assign(value);
+}
+inline void processorInfo::set_avaiablefrequeucy(const char* value, size_t size) {
+  set_has_avaiablefrequeucy();
+  if (avaiablefrequeucy_ == &::google::protobuf::internal::kEmptyString) {
+    avaiablefrequeucy_ = new ::std::string;
+  }
+  avaiablefrequeucy_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* processorInfo::mutable_avaiablefrequeucy() {
+  set_has_avaiablefrequeucy();
+  if (avaiablefrequeucy_ == &::google::protobuf::internal::kEmptyString) {
+    avaiablefrequeucy_ = new ::std::string;
+  }
+  return avaiablefrequeucy_;
+}
+inline ::std::string* processorInfo::release_avaiablefrequeucy() {
+  clear_has_avaiablefrequeucy();
+  if (avaiablefrequeucy_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = avaiablefrequeucy_;
+    avaiablefrequeucy_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
 }
 
 

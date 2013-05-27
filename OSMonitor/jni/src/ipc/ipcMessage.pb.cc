@@ -114,12 +114,13 @@ void protobuf_AddDesc_ipcMessage_2eproto() {
     "ype:\006ACTION\0220\n\004data\030\002 \003(\0132\".com.eolwral."
     "osmonitor.ipc.ipcData\"8\n\007ipcType\022\n\n\006ACTI"
     "ON\020\000\022\n\n\006RESULT\020\001\022\013\n\007COMMAND\020\002\022\010\n\004EXIT\020\n*"
-    "\312\001\n\tipcAction\022\006\n\002OS\020\001\022\007\n\003CPU\020\002\022\r\n\tPROCES"
+    "\222\002\n\tipcAction\022\006\n\002OS\020\001\022\007\n\003CPU\020\002\022\r\n\tPROCES"
     "SOR\020\003\022\013\n\007PROCESS\020\004\022\016\n\nCONNECTION\020\005\022\013\n\007NE"
     "TWORK\020\006\022\t\n\005DMESG\020\007\022\020\n\014LOGCAT_RADIO\020\010\022\020\n\014"
     "LOGCAT_EVENT\020\t\022\021\n\rLOGCAT_SYSTEM\020\n\022\017\n\013LOG"
     "CAT_MAIN\020\013\022\017\n\013SETPRIORITY\020\024\022\017\n\013KILLPROCE"
-    "SS\020\025", 524);
+    "SS\020\025\022\020\n\014SETCPUSTATUS\020\026\022\021\n\rSETCPUMAXFREQ\020"
+    "\027\022\021\n\rSETCPUMINFREQ\020\030\022\016\n\nSETCPUGORV\020\031", 596);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ipcMessage.proto", &protobuf_RegisterTypes);
   ipcData::default_instance_ = new ipcData();
@@ -155,6 +156,10 @@ bool ipcAction_IsValid(int value) {
     case 11:
     case 20:
     case 21:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
       return true;
     default:
       return false;

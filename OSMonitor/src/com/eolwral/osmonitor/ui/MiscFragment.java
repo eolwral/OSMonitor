@@ -13,12 +13,15 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -337,7 +340,7 @@ public class MiscFragment extends SherlockFragment
 		public View prepareCPUView(int position, View convertView, ViewGroup parent) {
 
 			// prepare view
-			View sv = (View) itemInflater.inflate(R.layout.ui_misc_item_cpu, parent, false);
+			View sv = (View) itemInflater.inflate(R.layout.ui_misc_item_processor, parent, false);
 
 			if(coredata.size() < position)
 				return sv;
@@ -345,11 +348,31 @@ public class MiscFragment extends SherlockFragment
 			// get data
 			processorInfo item = coredata.get(position);
 
-			((TextView) sv.findViewById(R.id.id_processor_freq_min)).setText(""+item.getMinFrequency());
-			((TextView) sv.findViewById(R.id.id_processor_freq_max)).setText(""+item.getMaxFrequency());
-			((TextView) sv.findViewById(R.id.id_processor_cur_max)).setText(""+item.getMinScaling());
-			((TextView) sv.findViewById(R.id.id_processor_cur_min)).setText(""+item.getMaxScaling());
-			((TextView) sv.findViewById(R.id.id_processor_cur)).setText(""+item.getCurrentScaling());
+			if (item.getMinFrequency() != -1)
+				((TextView) sv.findViewById(R.id.id_processor_freq_min)).setText(""+item.getMinFrequency());
+			else
+				((TextView) sv.findViewById(R.id.id_processor_freq_min)).setText("?");
+			
+			if (item.getMaxFrequency() != -1)
+				((TextView) sv.findViewById(R.id.id_processor_freq_max)).setText(""+item.getMaxFrequency());
+			else
+				((TextView) sv.findViewById(R.id.id_processor_freq_max)).setText("?");
+			
+			if (item.getMinScaling() != -1)
+				((TextView) sv.findViewById(R.id.id_processor_cur_max)).setText(""+item.getMaxScaling());
+			else
+				((TextView) sv.findViewById(R.id.id_processor_cur_max)).setText("?");
+			
+			if (item.getMaxScaling() != -1)
+				((TextView) sv.findViewById(R.id.id_processor_cur_min)).setText(""+item.getMinScaling());
+			else
+				((TextView) sv.findViewById(R.id.id_processor_cur_min)).setText("?");
+			
+			if (item.getCurrentScaling() != -1)
+				((TextView) sv.findViewById(R.id.id_processor_cur)).setText(""+item.getCurrentScaling());
+			else
+				((TextView) sv.findViewById(R.id.id_processor_cur)).setText("?");
+			
 			((TextView) sv.findViewById(R.id.id_processor_gov)).setText(item.getGrovernors());
 			((TextView) sv.findViewById(R.id.id_processor_core)).setText(""+item.getNumber());
 			 
@@ -424,9 +447,9 @@ public class MiscFragment extends SherlockFragment
 						 String.format("%,d", osdata.getFreeMemory())+" ("+
                          CommonUtil.convertLong(osdata.getFreeMemory())+")");
 				
-				((TextView) sv.findViewById(R.id.id_memory_shared)).setText(
-						 String.format("%,d", osdata.getSharedMemory())+" ("+
-                         CommonUtil.convertLong(osdata.getSharedMemory())+")");
+				((TextView) sv.findViewById(R.id.id_memory_cached)).setText(
+						 String.format("%,d", osdata.getCachedMemory())+" ("+
+                         CommonUtil.convertLong(osdata.getCachedMemory())+")");
 				
 				((TextView) sv.findViewById(R.id.id_memory_buffered)).setText(
 						String.format("%,d", osdata.getBufferedMemory())+" ("+
@@ -442,11 +465,21 @@ public class MiscFragment extends SherlockFragment
 			final Calendar calendar = Calendar.getInstance();
 			final DateFormat convertTool = DateFormat.getDateTimeInstance();
 			if(osdata != null){
+
+				long Uptime = android.os.SystemClock.elapsedRealtime();
+				int seconds = (int) ((Uptime / 1000) % 60);
+				int minutes = (int) ((Uptime / 1000) / 60 % 60);
+				int hours   = (int) ((Uptime / 1000)  / 3600 % 24);
+				int days    = (int) ((Uptime / 1000) / 86400);
+				
 				calendar.setTimeInMillis(osdata.getUptime()*1000);
+				
 				((TextView) sv.findViewById(R.id.id_system_update)).setText(
-						convertTool.format(calendar.getTime()));
+					Html.fromHtml( convertTool.format(calendar.getTime()) +
+						String.format("<br/><b>[ %d day(s) %02d:%02d:%02d ]</b>", days, hours, minutes, seconds)));
 			}
 			
+						
 			return sv;
 		}
 
@@ -500,10 +533,26 @@ public class MiscFragment extends SherlockFragment
 
 			// prepare view
 			if (convertView == null) 
-				sv = (View) itemInflater.inflate(R.layout.ui_misc_item, parent, false); 
+				sv = (View) itemInflater.inflate(R.layout.ui_misc_item, parent, false);
 			else 
 				sv = (View) convertView;
-
+			
+			switch(groupPosition) {
+			case 2:
+				if (settings != null && settings.isRoot()) {
+					Button procBtn = (Button) sv.findViewById(R.id.id_misc_button);
+					procBtn.setVisibility(View.VISIBLE);
+					procBtn.setOnClickListener(new ProcessorClickListener());
+				}
+				else {
+					sv.findViewById(R.id.id_misc_button).setVisibility(View.GONE);
+				}
+				break;
+			default:
+				sv.findViewById(R.id.id_misc_button).setVisibility(View.GONE);				
+				break;
+			}
+			
 			// set title
 			((TextView) sv.findViewById(R.id.id_misc_title)).setText(miscItems[groupPosition]);
 			
@@ -522,6 +571,25 @@ public class MiscFragment extends SherlockFragment
 			return false;
 		}
 		
+		private class ProcessorClickListener implements OnClickListener{
+
+			@Override
+			public void onClick(View v) {
+				// Replace One Fragment with Another
+				// http://developer.android.com/training/basics/fragments/fragment-ui.html#Replace
+
+				// pass information
+				MiscProcessorFragment procFragment = new MiscProcessorFragment();
+
+				// replace current fragment
+				final FragmentManager fragmanger = getSherlockActivity().getSupportFragmentManager();
+				final FragmentTransaction transaction = fragmanger.beginTransaction();
+				transaction.replace(R.id.ui_misc_layout, procFragment, "Processor");
+				transaction.addToBackStack(null);
+				transaction.commit();				
+			}
+
+		}
 	}
 
 	@Override

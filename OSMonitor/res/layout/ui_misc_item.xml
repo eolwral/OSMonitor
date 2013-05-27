@@ -3,7 +3,7 @@
     android:id="@+id/id_misc_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:paddingTop="10dp" >
 
     <TextView
@@ -15,6 +15,18 @@
         android:paddingBottom="3dp"
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
+        android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/id_misc_button"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:focusable="false"
+        android:minHeight="0dp"
+        android:text="@string/ui_misc_more"
+        android:visibility="gone" />
 
 </LinearLayout>

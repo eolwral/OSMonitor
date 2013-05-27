@@ -11,6 +11,7 @@ import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.Settings;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -27,7 +28,7 @@ public class OSMonitorService extends Service
 	private static final int NOTIFYID = 20100811;
 	private IpcService ipcService = null;
 	private int UpdateInterval = 2; 
-	 
+	  
 	private boolean isRegistered = false;
 	private NotificationManager nManager = null;
 	private NotificationCompat.Builder nBuilder = null;
@@ -47,7 +48,6 @@ public class OSMonitorService extends Service
 	private int temperature = 0;
 
 	//private  
-	private OSMonitorService self = null;
 	private ProcessUtil infoHelper = null;
 
 	@Override
@@ -61,27 +61,21 @@ public class OSMonitorService extends Service
     	super.onCreate();
 
 		IpcService.Initialize(this);
-
-   		Settings setting = new Settings(this);
-   		if(!setting.enableCPUMeter()) {
-   			IpcService.getInstance().disconnect();
-			android.os.Process.killProcess(android.os.Process.myPid());
-			return;
-   		}
-    	
-    	self = this;
+		ipcService = IpcService.getInstance();
+  		
     	refreshSettings();
     	initializeNotification();
 
-    	ipcService = IpcService.getInstance();
-    	infoHelper = ProcessUtil.getInstance(self, false);
-
-    	initService();
+    	Settings setting = new Settings(this);
+   		if(setting.enableCPUMeter()) {
+   	    	infoHelper = ProcessUtil.getInstance(this, false);
+    		initService();
+   		}
     }
 
 	private void refreshSettings() {
 
-   		Settings setting = new Settings(self);
+   		Settings setting = new Settings(this);
     	switch(setting.chooseColor()) {
     	case 1:
     		iconColor = R.drawable.ic_cpu_graph_green;
@@ -97,24 +91,40 @@ public class OSMonitorService extends Service
     @Override
     public void onDestroy() {
     	super.onDestroy();
-    	Disable();
+    	
+    	if(isRegistered)
+    		endService();
+
+    	endNotification();
     } 
 
+    private void endNotification() {
+    	nManager.cancel(NOTIFYID);
+    	stopForeground(true);
+    }
+    
 	private void initializeNotification() { 
 		
 		Intent notificationIntent = new Intent(this, OSMonitor.class);
-		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
 		nBuilder = new NotificationCompat.Builder(this);
     	nBuilder.setContentTitle(getResources().getText(R.string.ui_appname));
+    	nBuilder.setContentText(getResources().getText(R.string.ui_shortcut_detail));
 		nBuilder.setOnlyAlertOnce(true);
 		nBuilder.setOngoing(true);
 		nBuilder.setContentIntent(contentIntent);
+		nBuilder.setSmallIcon(R.drawable.ic_launcher);
+		
+		Notification osNotification = nBuilder.build();
 
-		nManager.notify(NOTIFYID, nBuilder.build()); 
+		nManager.notify(NOTIFYID, osNotification); 
+		
+		// set foreground to avoid recycling
+		startForeground(NOTIFYID, osNotification);
 	}
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() 
@@ -122,7 +132,7 @@ public class OSMonitorService extends Service
     	public void onReceive(Context context, Intent intent) {
     		
     		if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) 
-    			ipcService.removeRequest(self);
+    			goSleep();
     		
     		
     		if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) 
@@ -147,32 +157,34 @@ public class OSMonitorService extends Service
     	}
 
     	wakeUp();
-
-    	startBatteryMonitor();
     }
 
-	private void wakeUp() {
-		ipcService.removeRequest(self);
-		Settings settings = new Settings(this);
-		UpdateInterval = settings.getInterval();
-       	ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
-    	ipcService.addRequest(newCommand, 0, self);
-	} 
-     
-    private void Disable()
+    private void endService()
     {
     	if(isRegistered)
     	{
-    		nManager.cancel(NOTIFYID);
     		unregisterReceiver(mReceiver);
     		isRegistered = false;
     	}
     	
-    	ipcService.removeRequest(self);
+    	goSleep();
+
     	ipcService.disconnect();
-    	
-    	stopBatteryMonitor();
     }
+
+    private void wakeUp() {
+		ipcService.removeRequest(this);
+		Settings settings = new Settings(this);
+		UpdateInterval = settings.getInterval();
+       	ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
+    	ipcService.addRequest(newCommand, 0, this);
+    	startBatteryMonitor();
+	} 
+	
+	private void goSleep() {
+		ipcService.removeRequest(this);
+    	stopBatteryMonitor();
+	}
     
     private void startBatteryMonitor()
     {

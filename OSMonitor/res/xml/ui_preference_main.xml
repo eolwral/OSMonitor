@@ -1,52 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>   
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <ListPreference android:entries="@array/ui_preference_interval" 
-        android:entryValues="@array/ui_preference_interval_value" 
-        android:dialogTitle="@string/ui_preferences_update" 
-        android:title="@string/ui_preferences_update" 
-        android:summary="@string/ui_preferences_update_detail" 
-        android:key="id_preference_interval" 
-        android:defaultValue="2"/>
+    <PreferenceCategory android:title="@string/ui_global_tab">
+        <ListPreference android:entries="@array/ui_preference_interval" 
+                        android:entryValues="@array/ui_preference_interval_value" 
+                        android:dialogTitle="@string/ui_preferences_update" 
+                        android:title="@string/ui_preferences_update" 
+                        android:summary="@string/ui_preferences_update_detail" 
+                        android:key="id_preference_interval" 
+                        android:defaultValue="2" />
+        
+        <CheckBoxPreference android:title="@string/ui_preferences_expert" 
+                        android:summary="@string/ui_preferences_expert_detail" 
+                        android:key="id_preference_expertmode" 
+                        android:defaultValue="false" />
+        
+        <CheckBoxPreference android:title="@string/ui_preferences_root" 
+                        android:summary="@string/ui_preferences_root_detail" 
+                        android:key="id_preference_root" 
+                        android:defaultValue="false" />
     
-    <CheckBoxPreference android:title="@string/ui_preferences_cpuusage" 
-        android:summary="@string/ui_preferences_cpuusage_detail" 
-        android:key="id_preference_cpuusage" 
-        android:defaultValue="false"/>
+    </PreferenceCategory>
     
-    <ListPreference android:title="@string/ui_preferences_color" 
-        android:summary="@string/ui_preferences_color_detail" 
-        android:entryValues="@array/ui_preference_color_value" 
-        android:entries="@array/ui_preference_color_base" 
-        android:key="id_preference_color" 
-        android:dependency="id_preference_cpuusage"/>
+    <PreferenceCategory android:title="@string/ui_notification_tab">
+        <CheckBoxPreference android:summary="@string/ui_preferences_notification_deatil" android:key="id_preference_shortcut" android:title="@string/ui_preferences_notification" /><CheckBoxPreference android:title="@string/ui_preferences_cpuusage" 
+                        android:summary="@string/ui_preferences_cpuusage_detail" 
+                        android:key="id_preference_cpuusage" 
+                        android:defaultValue="false" />
+        
+        <ListPreference android:title="@string/ui_preferences_color" 
+                        android:summary="@string/ui_preferences_color_detail" 
+                        android:entryValues="@array/ui_preference_color_value" 
+                        android:entries="@array/ui_preference_color_base" 
+                        android:key="id_preference_color" 
+                        android:dependency="id_preference_cpuusage" />
+        
+        <CheckBoxPreference android:title="@string/ui_preferences_tempvalue" 
+                        android:summary="@string/ui_preferences_tempvalue_detail" 
+                        android:key="id_preference_tempvalue" 
+                        android:defaultValue="false" 
+                        android:dependency="id_preference_cpuusage" /><CheckBoxPreference android:title="@string/ui_preferences_autostart" android:summary="@string/ui_preferences_autostart_detail" android:key="id_preference_autostart" android:defaultValue="false" />
+        
+        
+        
+        
+        
+    </PreferenceCategory>
     
-    <CheckBoxPreference android:title="@string/ui_preferences_tempvalue" 
-        android:summary="@string/ui_preferences_tempvalue_detail" 
-        android:key="id_preference_tempvalue" 
-        android:defaultValue="false"
-        android:dependency="id_preference_cpuusage"/>
+    <PreferenceCategory android:title="@string/ui_connection_tab">
+        
+        <ListPreference android:title="@string/ui_preferences_map" 
+                        android:summary="@string/ui_preferences_map_detail" 
+                        android:entryValues="@array/ui_preference_map_value" 
+                        android:entries="@array/ui_preference_map_value" 
+                        android:key="id_preference_map" />
+        
+    </PreferenceCategory>
     
-    <CheckBoxPreference android:title="@string/ui_preferences_autostart" 
-        android:summary="@string/ui_preferences_autostart_detail" 
-        android:key="id_preference_autostart" 
-        android:dependency="id_preference_cpuusage" 
-        android:defaultValue="false"/>
+    <PreferenceCategory android:title="@string/ui_misc_tab">
+        
+        <CheckBoxPreference android:title="@string/ui_preferences_setcpu" 
+                            android:summary="@string/ui_preferences_setcpu_detail" 
+                            android:key="id_preference_setcpu" 
+                            android:dependency="id_preference_root" />
+        
+        <com.eolwral.osmonitor.preference.ProcessorPreference 
+                            android:dependency="id_preference_setcpu" 
+                            android:title="@string/ui_preferences_setcpu_data" 
+                            android:key="id_preference_setcpu_data" />
+        
+    </PreferenceCategory>
 
-    <ListPreference android:title="@string/ui_preferences_map" 
-        android:summary="@string/ui_preferences_map_detail" 
-        android:entryValues="@array/ui_preference_map_value" 
-        android:entries="@array/ui_preference_map_value" 
-        android:key="id_preference_map" />
-    
-    <CheckBoxPreference android:title="@string/ui_preferences_expert" 
-        android:summary="@string/ui_preferences_expert_detail" 
-        android:key="id_preference_expertmode" 
-        android:defaultValue="false"/>
-    
-    <CheckBoxPreference android:title="@string/ui_preferences_root" 
-        android:summary="@string/ui_preferences_root_detail" 
-        android:key="id_preference_root" 
-        android:defaultValue="false"/>
+	
+	
+	
     
 </PreferenceScreen>

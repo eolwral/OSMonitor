@@ -11,23 +11,23 @@ public final class ProcessorInfo {
   public interface processorInfoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
     
-    // required uint32 maxFrequency = 1;
+    // required sint32 maxFrequency = 1;
     boolean hasMaxFrequency();
     int getMaxFrequency();
     
-    // required uint32 minFrequency = 2;
+    // required sint32 minFrequency = 2;
     boolean hasMinFrequency();
     int getMinFrequency();
     
-    // required uint32 maxScaling = 3;
+    // required sint32 maxScaling = 3;
     boolean hasMaxScaling();
     int getMaxScaling();
     
-    // required uint32 minScaling = 4;
+    // required sint32 minScaling = 4;
     boolean hasMinScaling();
     int getMinScaling();
     
-    // required uint32 currentScaling = 5;
+    // required sint32 currentScaling = 5;
     boolean hasCurrentScaling();
     int getCurrentScaling();
     
@@ -42,6 +42,14 @@ public final class ProcessorInfo {
     // required bool offLine = 8;
     boolean hasOffLine();
     boolean getOffLine();
+    
+    // required string avaiableGovernors = 9;
+    boolean hasAvaiableGovernors();
+    String getAvaiableGovernors();
+    
+    // required string avaiableFrequeucy = 10;
+    boolean hasAvaiableFrequeucy();
+    String getAvaiableFrequeucy();
   }
   public static final class processorInfo extends
       com.google.protobuf.GeneratedMessage
@@ -72,7 +80,7 @@ public final class ProcessorInfo {
     }
     
     private int bitField0_;
-    // required uint32 maxFrequency = 1;
+    // required sint32 maxFrequency = 1;
     public static final int MAXFREQUENCY_FIELD_NUMBER = 1;
     private int maxFrequency_;
     public boolean hasMaxFrequency() {
@@ -82,7 +90,7 @@ public final class ProcessorInfo {
       return maxFrequency_;
     }
     
-    // required uint32 minFrequency = 2;
+    // required sint32 minFrequency = 2;
     public static final int MINFREQUENCY_FIELD_NUMBER = 2;
     private int minFrequency_;
     public boolean hasMinFrequency() {
@@ -92,7 +100,7 @@ public final class ProcessorInfo {
       return minFrequency_;
     }
     
-    // required uint32 maxScaling = 3;
+    // required sint32 maxScaling = 3;
     public static final int MAXSCALING_FIELD_NUMBER = 3;
     private int maxScaling_;
     public boolean hasMaxScaling() {
@@ -102,7 +110,7 @@ public final class ProcessorInfo {
       return maxScaling_;
     }
     
-    // required uint32 minScaling = 4;
+    // required sint32 minScaling = 4;
     public static final int MINSCALING_FIELD_NUMBER = 4;
     private int minScaling_;
     public boolean hasMinScaling() {
@@ -112,7 +120,7 @@ public final class ProcessorInfo {
       return minScaling_;
     }
     
-    // required uint32 currentScaling = 5;
+    // required sint32 currentScaling = 5;
     public static final int CURRENTSCALING_FIELD_NUMBER = 5;
     private int currentScaling_;
     public boolean hasCurrentScaling() {
@@ -174,6 +182,70 @@ public final class ProcessorInfo {
       return offLine_;
     }
     
+    // required string avaiableGovernors = 9;
+    public static final int AVAIABLEGOVERNORS_FIELD_NUMBER = 9;
+    private java.lang.Object avaiableGovernors_;
+    public boolean hasAvaiableGovernors() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    public String getAvaiableGovernors() {
+      java.lang.Object ref = avaiableGovernors_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          avaiableGovernors_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getAvaiableGovernorsBytes() {
+      java.lang.Object ref = avaiableGovernors_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        avaiableGovernors_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // required string avaiableFrequeucy = 10;
+    public static final int AVAIABLEFREQUEUCY_FIELD_NUMBER = 10;
+    private java.lang.Object avaiableFrequeucy_;
+    public boolean hasAvaiableFrequeucy() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    public String getAvaiableFrequeucy() {
+      java.lang.Object ref = avaiableFrequeucy_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          avaiableFrequeucy_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getAvaiableFrequeucyBytes() {
+      java.lang.Object ref = avaiableFrequeucy_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        avaiableFrequeucy_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
     private void initFields() {
       maxFrequency_ = 0;
       minFrequency_ = 0;
@@ -183,6 +255,8 @@ public final class ProcessorInfo {
       grovernors_ = "";
       number_ = 0;
       offLine_ = false;
+      avaiableGovernors_ = "";
+      avaiableFrequeucy_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -221,6 +295,14 @@ public final class ProcessorInfo {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasAvaiableGovernors()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasAvaiableFrequeucy()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -229,19 +311,19 @@ public final class ProcessorInfo {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeUInt32(1, maxFrequency_);
+        output.writeSInt32(1, maxFrequency_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeUInt32(2, minFrequency_);
+        output.writeSInt32(2, minFrequency_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeUInt32(3, maxScaling_);
+        output.writeSInt32(3, maxScaling_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeUInt32(4, minScaling_);
+        output.writeSInt32(4, minScaling_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeUInt32(5, currentScaling_);
+        output.writeSInt32(5, currentScaling_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeBytes(6, getGrovernorsBytes());
@@ -251,6 +333,12 @@ public final class ProcessorInfo {
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeBool(8, offLine_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeBytes(9, getAvaiableGovernorsBytes());
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeBytes(10, getAvaiableFrequeucyBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -263,23 +351,23 @@ public final class ProcessorInfo {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, maxFrequency_);
+          .computeSInt32Size(1, maxFrequency_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(2, minFrequency_);
+          .computeSInt32Size(2, minFrequency_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(3, maxScaling_);
+          .computeSInt32Size(3, maxScaling_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(4, minScaling_);
+          .computeSInt32Size(4, minScaling_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(5, currentScaling_);
+          .computeSInt32Size(5, currentScaling_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
@@ -292,6 +380,14 @@ public final class ProcessorInfo {
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(8, offLine_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(9, getAvaiableGovernorsBytes());
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(10, getAvaiableFrequeucyBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -433,6 +529,10 @@ public final class ProcessorInfo {
         bitField0_ = (bitField0_ & ~0x00000040);
         offLine_ = false;
         bitField0_ = (bitField0_ & ~0x00000080);
+        avaiableGovernors_ = "";
+        bitField0_ = (bitField0_ & ~0x00000100);
+        avaiableFrequeucy_ = "";
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
       
@@ -503,6 +603,14 @@ public final class ProcessorInfo {
           to_bitField0_ |= 0x00000080;
         }
         result.offLine_ = offLine_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.avaiableGovernors_ = avaiableGovernors_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.avaiableFrequeucy_ = avaiableFrequeucy_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -543,6 +651,12 @@ public final class ProcessorInfo {
         if (other.hasOffLine()) {
           setOffLine(other.getOffLine());
         }
+        if (other.hasAvaiableGovernors()) {
+          setAvaiableGovernors(other.getAvaiableGovernors());
+        }
+        if (other.hasAvaiableFrequeucy()) {
+          setAvaiableFrequeucy(other.getAvaiableFrequeucy());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -580,6 +694,14 @@ public final class ProcessorInfo {
           
           return false;
         }
+        if (!hasAvaiableGovernors()) {
+          
+          return false;
+        }
+        if (!hasAvaiableFrequeucy()) {
+          
+          return false;
+        }
         return true;
       }
       
@@ -608,27 +730,27 @@ public final class ProcessorInfo {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              maxFrequency_ = input.readUInt32();
+              maxFrequency_ = input.readSInt32();
               break;
             }
             case 16: {
               bitField0_ |= 0x00000002;
-              minFrequency_ = input.readUInt32();
+              minFrequency_ = input.readSInt32();
               break;
             }
             case 24: {
               bitField0_ |= 0x00000004;
-              maxScaling_ = input.readUInt32();
+              maxScaling_ = input.readSInt32();
               break;
             }
             case 32: {
               bitField0_ |= 0x00000008;
-              minScaling_ = input.readUInt32();
+              minScaling_ = input.readSInt32();
               break;
             }
             case 40: {
               bitField0_ |= 0x00000010;
-              currentScaling_ = input.readUInt32();
+              currentScaling_ = input.readSInt32();
               break;
             }
             case 50: {
@@ -646,13 +768,23 @@ public final class ProcessorInfo {
               offLine_ = input.readBool();
               break;
             }
+            case 74: {
+              bitField0_ |= 0x00000100;
+              avaiableGovernors_ = input.readBytes();
+              break;
+            }
+            case 82: {
+              bitField0_ |= 0x00000200;
+              avaiableFrequeucy_ = input.readBytes();
+              break;
+            }
           }
         }
       }
       
       private int bitField0_;
       
-      // required uint32 maxFrequency = 1;
+      // required sint32 maxFrequency = 1;
       private int maxFrequency_ ;
       public boolean hasMaxFrequency() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
@@ -673,7 +805,7 @@ public final class ProcessorInfo {
         return this;
       }
       
-      // required uint32 minFrequency = 2;
+      // required sint32 minFrequency = 2;
       private int minFrequency_ ;
       public boolean hasMinFrequency() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
@@ -694,7 +826,7 @@ public final class ProcessorInfo {
         return this;
       }
       
-      // required uint32 maxScaling = 3;
+      // required sint32 maxScaling = 3;
       private int maxScaling_ ;
       public boolean hasMaxScaling() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
@@ -715,7 +847,7 @@ public final class ProcessorInfo {
         return this;
       }
       
-      // required uint32 minScaling = 4;
+      // required sint32 minScaling = 4;
       private int minScaling_ ;
       public boolean hasMinScaling() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
@@ -736,7 +868,7 @@ public final class ProcessorInfo {
         return this;
       }
       
-      // required uint32 currentScaling = 5;
+      // required sint32 currentScaling = 5;
       private int currentScaling_ ;
       public boolean hasCurrentScaling() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
@@ -835,6 +967,78 @@ public final class ProcessorInfo {
         return this;
       }
       
+      // required string avaiableGovernors = 9;
+      private java.lang.Object avaiableGovernors_ = "";
+      public boolean hasAvaiableGovernors() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      public String getAvaiableGovernors() {
+        java.lang.Object ref = avaiableGovernors_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          avaiableGovernors_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setAvaiableGovernors(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000100;
+        avaiableGovernors_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAvaiableGovernors() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        avaiableGovernors_ = getDefaultInstance().getAvaiableGovernors();
+        onChanged();
+        return this;
+      }
+      void setAvaiableGovernors(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000100;
+        avaiableGovernors_ = value;
+        onChanged();
+      }
+      
+      // required string avaiableFrequeucy = 10;
+      private java.lang.Object avaiableFrequeucy_ = "";
+      public boolean hasAvaiableFrequeucy() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      public String getAvaiableFrequeucy() {
+        java.lang.Object ref = avaiableFrequeucy_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          avaiableFrequeucy_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setAvaiableFrequeucy(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000200;
+        avaiableFrequeucy_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearAvaiableFrequeucy() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        avaiableFrequeucy_ = getDefaultInstance().getAvaiableFrequeucy();
+        onChanged();
+        return this;
+      }
+      void setAvaiableFrequeucy(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000200;
+        avaiableFrequeucy_ = value;
+        onChanged();
+      }
+      
       // @@protoc_insertion_point(builder_scope:com.eolwral.osmonitor.core.processorInfo)
     }
     
@@ -861,11 +1065,13 @@ public final class ProcessorInfo {
   static {
     java.lang.String[] descriptorData = {
       "\n\023processorInfo.proto\022\032com.eolwral.osmon" +
-      "itor.core\"\260\001\n\rprocessorInfo\022\024\n\014maxFreque" +
-      "ncy\030\001 \002(\r\022\024\n\014minFrequency\030\002 \002(\r\022\022\n\nmaxSc" +
-      "aling\030\003 \002(\r\022\022\n\nminScaling\030\004 \002(\r\022\026\n\016curre" +
-      "ntScaling\030\005 \002(\r\022\022\n\ngrovernors\030\006 \002(\t\022\016\n\006n" +
-      "umber\030\007 \002(\r\022\017\n\007offLine\030\010 \002(\010"
+      "itor.core\"\346\001\n\rprocessorInfo\022\024\n\014maxFreque" +
+      "ncy\030\001 \002(\021\022\024\n\014minFrequency\030\002 \002(\021\022\022\n\nmaxSc" +
+      "aling\030\003 \002(\021\022\022\n\nminScaling\030\004 \002(\021\022\026\n\016curre" +
+      "ntScaling\030\005 \002(\021\022\022\n\ngrovernors\030\006 \002(\t\022\016\n\006n" +
+      "umber\030\007 \002(\r\022\017\n\007offLine\030\010 \002(\010\022\031\n\021avaiable" +
+      "Governors\030\t \002(\t\022\031\n\021avaiableFrequeucy\030\n \002" +
+      "(\t"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -877,7 +1083,7 @@ public final class ProcessorInfo {
           internal_static_com_eolwral_osmonitor_core_processorInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_eolwral_osmonitor_core_processorInfo_descriptor,
-              new java.lang.String[] { "MaxFrequency", "MinFrequency", "MaxScaling", "MinScaling", "CurrentScaling", "Grovernors", "Number", "OffLine", },
+              new java.lang.String[] { "MaxFrequency", "MinFrequency", "MaxScaling", "MinScaling", "CurrentScaling", "Grovernors", "Number", "OffLine", "AvaiableGovernors", "AvaiableFrequeucy", },
               com.eolwral.osmonitor.core.ProcessorInfo.processorInfo.class,
               com.eolwral.osmonitor.core.ProcessorInfo.processorInfo.Builder.class);
           return null;

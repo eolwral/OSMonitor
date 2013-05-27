@@ -79,17 +79,34 @@ namespace core {
     if(value != 0)
       curOSInfo->set_cachedmemory(value*1024);
 
+    while (moveToNextLine(mif) == true)
+    {
+        value = 0;
+
+        fscanf(mif, "SwapTotal: %lu kB", &value);
+        if(value != 0)
+          curOSInfo->set_totalswap(value*1024);
+
+        fscanf(mif, "SwapFree: %lu kB", &value);
+        if(value != 0)
+          curOSInfo->set_freeswap(value*1024);
+    }
+
     fclose(mif);
 
     return (true);
   }
 
-  void os::moveToNextLine(FILE *file)
+  bool os::moveToNextLine(FILE *file)
   {
     int ch = 0;
     do {
       ch = getc(file);
     } while ( ch != '\n' && ch != EOF );
+
+    if (ch == '\n')
+      return (true);
+    return (false);
   }
 
   const std::vector<google::protobuf::Message*>& os::getData()

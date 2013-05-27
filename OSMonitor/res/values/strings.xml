@@ -5,11 +5,14 @@
 <string name="ui_appname">OS Monitor</string>
 
 <!-- Tab -->
+<string name="ui_global_tab">Global</string>
 <string name="ui_process_tab">Process</string>
 <string name="ui_network_tab">Network</string>
 <string name="ui_connection_tab">Connection</string>
 <string name="ui_misc_tab">Misc</string>
 <string name="ui_debug_tab">Message</string>
+<string name="ui_notification_tab">Notification</string>
+<string name="ui_shortcut_detail">Click to start OS Monitor..</string>
 
 <!-- Menu -->
 <string name="ui_menu_setting">Setting</string>
@@ -35,6 +38,7 @@
 <string name="ui_process_sort_usage">Usage</string>
 <string name="ui_process_sort_memory">Memory</string>
 <string name="ui_process_sort_pid">PID</string>
+<string name="ui_process_sort_name">Name</string>
 
 <!-- Process Detail -->
 <string name="ui_process_detail_process">Process:</string>
@@ -94,13 +98,16 @@
 <!-- Network Tab End -->
 
 <!-- Misc Tab Start -->
+<string name="ui_misc_more">More</string>
 
+<!-- Memory -->
 <string name="ui_memory_title">Memory</string>
 <string name="ui_swap_title">Swap</string>
 <string name="ui_memory_total">Total</string>
 <string name="ui_memory_free">Free</string>
 <string name="ui_memory_shared">Shared</string>
 <string name="ui_memory_buffered">Buffered</string>
+<string name="ui_memory_cached">Cached</string>
 
 <!-- Uptime -->
 <string name="ui_system_uptime">Uptime</string>
@@ -112,7 +119,11 @@
 <string name="ui_processor_gov">Governor</string>
 <string name="ui_processor_status">Status</string>
 <string name="ui_processor_core">Core</string>
-
+<string name="ui_processor_freq_max_title">Frequency Max</string>
+<string name="ui_processor_freq_min_title">Frequency Min</string>
+<string name="ui_processor_enable">Enable</string>
+<string name="ui_processor_enable_title">Enable CPUs</string>
+<string name="ui_processor_enable_msg">Gathering Information..</string>
 <string name="ui_processor_status_online">Online</string>
 <string name="ui_processor_status_offline">Offline</string>
 
@@ -155,10 +166,12 @@
 <!-- Preferences Start -->
 <string name="ui_preferences_update">Update interval</string>
 <string name="ui_preferences_update_detail">time delay between update of the data</string>
+<string name="ui_preferences_autostart">Autostart</string>
+<string name="ui_preferences_autostart_detail">start CPU meter or shortcut on bootup</string>
 <string name="ui_preferences_cpuusage">Show CPU usage</string>
 <string name="ui_preferences_cpuusage_detail">show an animated CPU meter icon in notification area</string>
-<string name="ui_preferences_autostart">Autostart</string>
-<string name="ui_preferences_autostart_detail">start the CPU meter on bootup</string>
+<string name="ui_preferences_notification">Add a shortcut</string>
+<string name="ui_preferences_notification_deatil">show a shortcut icon in notification area </string>
 <string name="ui_preferences_color">CPU meter color</string>
 <string name="ui_preferences_color_detail">blue or green</string>
 <string name="ui_preferences_expert">Expert mode</string>
@@ -169,6 +182,10 @@
 <string name="ui_preferences_tempvalue_detail">toggle Celsius/Fahrenheit units</string>
 <string name="ui_preferences_map">Map Type</string>
 <string name="ui_preferences_map_detail">choose GoogleMap or OpenStreeMap</string>
+<string name="ui_preferences_setcpu">Set CPU on Boot</string>
+<string name="ui_preferences_setcpu_detail">set the processor settings on boot</string>
+<string name="ui_preferences_setcpu_data">Set Frequency and Governor</string>
+
 
 <!-- Preferences End -->
 

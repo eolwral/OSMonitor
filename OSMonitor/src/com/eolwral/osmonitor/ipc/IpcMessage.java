@@ -23,6 +23,10 @@ public final class IpcMessage {
     LOGCAT_MAIN(10, 11),
     SETPRIORITY(11, 20),
     KILLPROCESS(12, 21),
+    SETCPUSTATUS(13, 22),
+    SETCPUMAXFREQ(14, 23),
+    SETCPUMINFREQ(15, 24),
+    SETCPUGORV(16, 25),
     ;
     
     public static final int OS_VALUE = 1;
@@ -38,6 +42,10 @@ public final class IpcMessage {
     public static final int LOGCAT_MAIN_VALUE = 11;
     public static final int SETPRIORITY_VALUE = 20;
     public static final int KILLPROCESS_VALUE = 21;
+    public static final int SETCPUSTATUS_VALUE = 22;
+    public static final int SETCPUMAXFREQ_VALUE = 23;
+    public static final int SETCPUMINFREQ_VALUE = 24;
+    public static final int SETCPUGORV_VALUE = 25;
     
     
     public final int getNumber() { return value; }
@@ -57,6 +65,10 @@ public final class IpcMessage {
         case 11: return LOGCAT_MAIN;
         case 20: return SETPRIORITY;
         case 21: return KILLPROCESS;
+        case 22: return SETCPUSTATUS;
+        case 23: return SETCPUMAXFREQ;
+        case 24: return SETCPUMINFREQ;
+        case 25: return SETCPUGORV;
         default: return null;
       }
     }
@@ -87,7 +99,7 @@ public final class IpcMessage {
     }
     
     private static final ipcAction[] VALUES = {
-      OS, CPU, PROCESSOR, PROCESS, CONNECTION, NETWORK, DMESG, LOGCAT_RADIO, LOGCAT_EVENT, LOGCAT_SYSTEM, LOGCAT_MAIN, SETPRIORITY, KILLPROCESS, 
+      OS, CPU, PROCESSOR, PROCESS, CONNECTION, NETWORK, DMESG, LOGCAT_RADIO, LOGCAT_EVENT, LOGCAT_SYSTEM, LOGCAT_MAIN, SETPRIORITY, KILLPROCESS, SETCPUSTATUS, SETCPUMAXFREQ, SETCPUMINFREQ, SETCPUGORV, 
     };
     
     public static ipcAction valueOf(
@@ -1312,12 +1324,13 @@ public final class IpcMessage {
       "ype:\006ACTION\0220\n\004data\030\002 \003(\0132\".com.eolwral." +
       "osmonitor.ipc.ipcData\"8\n\007ipcType\022\n\n\006ACTI" +
       "ON\020\000\022\n\n\006RESULT\020\001\022\013\n\007COMMAND\020\002\022\010\n\004EXIT\020\n*" +
-      "\312\001\n\tipcAction\022\006\n\002OS\020\001\022\007\n\003CPU\020\002\022\r\n\tPROCES" +
+      "\222\002\n\tipcAction\022\006\n\002OS\020\001\022\007\n\003CPU\020\002\022\r\n\tPROCES" +
       "SOR\020\003\022\013\n\007PROCESS\020\004\022\016\n\nCONNECTION\020\005\022\013\n\007NE",
       "TWORK\020\006\022\t\n\005DMESG\020\007\022\020\n\014LOGCAT_RADIO\020\010\022\020\n\014" +
       "LOGCAT_EVENT\020\t\022\021\n\rLOGCAT_SYSTEM\020\n\022\017\n\013LOG" +
       "CAT_MAIN\020\013\022\017\n\013SETPRIORITY\020\024\022\017\n\013KILLPROCE" +
-      "SS\020\025"
+      "SS\020\025\022\020\n\014SETCPUSTATUS\020\026\022\021\n\rSETCPUMAXFREQ\020" +
+      "\027\022\021\n\rSETCPUMINFREQ\020\030\022\016\n\nSETCPUGORV\020\031"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

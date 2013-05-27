@@ -1,5 +1,6 @@
 package com.eolwral.osmonitor.ui;
 
+import java.text.Collator;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -94,7 +95,8 @@ public class ProcessFragment extends SherlockListFragment
 	private enum SortType {
 		SortbyUsage,
 		SortbyMemory,
-		SortbyPid
+		SortbyPid,
+		SortbyName
 	} 
 	private SortType sortSetting = SortType.SortbyUsage;
 
@@ -140,6 +142,18 @@ public class ProcessFragment extends SherlockListFragment
 		cpuUsage = ((TextView) v.findViewById(R.id.id_process_cpuusage));
 		memoryTotal = ((TextView) v.findViewById(R.id.id_process_memorytotal));
 		memoryFree = ((TextView) v.findViewById(R.id.id_process_memoryfree));
+		
+		// detect last sort mode
+		Settings settings = new Settings(getSherlockActivity());
+		if(settings.getSortType().equals("Usage")) {
+			sortSetting = SortType.SortbyUsage;
+		} else if(settings.getSortType().equals("Pid")) {
+			sortSetting = SortType.SortbyPid;
+		} else  if(settings.getSortType().equals("Memory")) {
+			sortSetting = SortType.SortbyMemory;
+		} else  if(settings.getSortType().equals("Name")) {
+			sortSetting = SortType.SortbyName;
+		}
 
 		return v;
 	}
@@ -303,7 +317,11 @@ public class ProcessFragment extends SherlockListFragment
 			case SortbyPid:
 				sortGroup.check(R.id.id_process_sort_pid);
 				break;
+			case SortbyName:
+				sortGroup.check(R.id.id_process_sort_name);
+				break;
 			}
+			
 			sortGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 				@Override
@@ -311,12 +329,19 @@ public class ProcessFragment extends SherlockListFragment
 					switch (checkedId) {
 					case R.id.id_process_sort_usage:
 						sortSetting = SortType.SortbyUsage;
+						settings.setSortType("Usage");
 						break;
 					case R.id.id_process_sort_memory:
 						sortSetting = SortType.SortbyMemory;
+						settings.setSortType("Memory");
 						break;
 					case R.id.id_process_sort_pid:
 						sortSetting = SortType.SortbyPid;
+						settings.setSortType("Pid");
+						break;
+					case R.id.id_process_sort_name:
+						sortSetting = SortType.SortbyName;
+						settings.setSortType("Name");
 						break;
 					}
 
@@ -474,6 +499,9 @@ public class ProcessFragment extends SherlockListFragment
 		case SortbyPid:
 			Collections.sort(data, new SortbyPid());
 			break;
+		case SortbyName:
+			Collections.sort(data, new SortbyName());
+			break;
 		}
 
 		processCount.setText(CommonUtil.convertLong(data.size()));
@@ -539,6 +567,21 @@ public class ProcessFragment extends SherlockListFragment
 		}		
 	}
 
+	/**
+	 * Comparator class for sort by Name 
+	 */
+	private class SortbyName implements Comparator<processInfo> {
+
+		@Override
+		public int compare(processInfo lhs, processInfo rhs) {
+			Collator collator = Collator.getInstance();
+			if (collator.compare(lhs.getName(), rhs.getName()) == -1)
+				return -1;
+			else if (collator.compare(lhs.getName(), rhs.getName()) == 1)
+				return 1;
+			return 0;
+		}		
+	}
 
 	/**
 	 * implement viewholder class for process list

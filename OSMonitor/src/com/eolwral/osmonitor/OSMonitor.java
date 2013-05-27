@@ -44,7 +44,7 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		   getItem(mViewPager.getCurrentItem()).setUserVisibleHint(false);
 		
 		// end self 
-		if(isFinishing() && (getIntent().getFlags() & Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP) != 0) 
+		if(isFinishing())
 		{
 			IpcService.getInstance().disconnect();
 			android.os.Process.killProcess(android.os.Process.myPid());
@@ -54,8 +54,7 @@ public class OSMonitor extends SherlockFragmentActivity implements
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
-		// create view 
+		// create view
 		super.onCreate(savedInstanceState);
 		
 		IpcService.Initialize(this);
@@ -93,7 +92,7 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		
 		// start background service
 		final Settings setting = new Settings(this);
-		if(setting.enableCPUMeter() && !CommonUtil.isServiceRunning(this))
+		if(( setting.enableCPUMeter() || setting.addShortCut()) && !CommonUtil.isServiceRunning(this))
 			startService(new Intent(this, OSMonitorService.class));
 	}
 	
@@ -117,8 +116,10 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		if(mViewPager == null)
 			return;
 		
-		((OSMonitorPagerAdapter)mViewPager.getAdapter()).
-		   getItem(mViewPager.getCurrentItem()).setUserVisibleHint(true);
+		Fragment mFragment = ((OSMonitorPagerAdapter)mViewPager.getAdapter()).
+											getItem(mViewPager.getCurrentItem());
+		if(mFragment != null)
+			mFragment.setUserVisibleHint(true);
 	}
 	
 	@Override

@@ -186,17 +186,26 @@ public class OSMonitorService extends Service
     	stopBatteryMonitor();
 	}
     
+	
     private void startBatteryMonitor()
     {
-    	IntentFilter battFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-    	registerReceiver(battReceiver, battFilter);		        		
+    	if(!isRegisterBattery) {
+    		IntentFilter battFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+    		registerReceiver(battReceiver, battFilter);
+    		isRegisterBattery = true;
+    	}
     }
     
     private void stopBatteryMonitor()
     {
-    	unregisterReceiver(battReceiver);
+    	if(isRegisterBattery) {
+    		unregisterReceiver(battReceiver);
+    		isRegisterBattery = false;
+    	}
     }
-    
+
+	private boolean isRegisterBattery = false;
+
     private BroadcastReceiver battReceiver = new BroadcastReceiver() 
 	{
 		public void onReceive(Context context, Intent intent) {

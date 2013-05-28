@@ -115,8 +115,8 @@ public class MiscProcessorFragment extends SherlockListFragment
 				forceOnline = true;
 			}
 			
-			if(coredata.get(index).getAvaiableFrequeucy().trim().equals("") ||
-			   coredata.get(index).getAvaiableGovernors().trim().equals("") ) {
+			if(coredata.get(index).getAvaiableFrequeucy().trim().isEmpty() ||
+			   coredata.get(index).getAvaiableGovernors().trim().isEmpty() ) {
 			   
 				if(forceOnline == false)
 					coredata.remove(index);

@@ -115,8 +115,8 @@ public class ProcessorPreference extends DialogPreference
 				forceOnline = true;
 			}
 			
-			if(coredata.get(index).getAvaiableFrequeucy().equals("") ||
-			   coredata.get(index).getAvaiableGovernors().equals("") ) {
+			if(coredata.get(index).getAvaiableFrequeucy().trim().equals("") ||
+			   coredata.get(index).getAvaiableGovernors().trim().equals("") ) {
 			   
 				if(forceOnline == false)
 					coredata.remove(index);
@@ -210,55 +210,57 @@ public class ProcessorPreference extends DialogPreference
             	sv = (View) mInflater.inflate(R.layout.ui_misc_item_processor_detail, parent, false);
             	
             	final CheckBox enableBox = (CheckBox) sv.findViewById(R.id.id_processor_enable);
-        		final Spinner MaxSeekBar = (Spinner)sv.findViewById(R.id.id_processor_detail_max_value);
-        		final Spinner MinSeekBar = (Spinner)sv.findViewById(R.id.id_processor_detail_min_value);
-        		final Spinner GovSeekBar = (Spinner)sv.findViewById(R.id.id_processor_detail_gov_value);
+
+            	final TextView maxSeekBarValue = (TextView)sv.findViewById(R.id.id_processor_freq_max_title);
+        		final Spinner maxSeekBar = (Spinner)sv.findViewById(R.id.id_processor_detail_max_value);
         		
-                final TextView MaxSeekBarValue = (TextView)sv.findViewById(R.id.id_processor_freq_max_title);
-                final TextView MinSeekBarValue = (TextView)sv.findViewById(R.id.id_processor_freq_min_title);
+        		final TextView minSeekBarValue = (TextView)sv.findViewById(R.id.id_processor_freq_min_title);
+        		final Spinner minSeekBar = (Spinner)sv.findViewById(R.id.id_processor_detail_min_value);
+        		
+        		final Spinner govSeekBar = (Spinner)sv.findViewById(R.id.id_processor_detail_gov_value);
 
                 enableBox.setChecked(coreEnable[position]);
                 
-            	String [] CPUFreqList = coredata.get(position).getAvaiableFrequeucy().trim().split(" ");
-        		ArrayAdapter<String> FreqAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, CPUFreqList);
+            	String [] freqList = coredata.get(position).getAvaiableFrequeucy().trim().split(" ");
+        		ArrayAdapter<String> FreqAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, freqList);
         		FreqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        		MaxSeekBar.setAdapter(FreqAdapter);
-        		MinSeekBar.setAdapter(FreqAdapter);
+        		maxSeekBar.setAdapter(FreqAdapter);
+        		minSeekBar.setAdapter(FreqAdapter);
         		
-            	String [] CPUGovList = coredata.get(position).getAvaiableGovernors().trim().split(" ");
-        		ArrayAdapter<String> GovAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, CPUGovList);
+            	String [] govList = coredata.get(position).getAvaiableGovernors().trim().split(" ");
+        		ArrayAdapter<String> GovAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, govList);
         		GovAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        		GovSeekBar.setAdapter(GovAdapter);
+        		govSeekBar.setAdapter(GovAdapter);
 
         		((TextView)sv.findViewById(R.id.id_processor_title)).setText(
         				mContext.getResources().getString(R.string.ui_processor_core)+" "+coredata.get(position).getNumber());
 
-        		for(int i = 0; i < CPUGovList.length;i++)
-        			if(CPUGovList[i].equals(coredata.get(position).getGrovernors()))
-        				GovSeekBar.setSelection(i);
+        		for(int i = 0; i < govList.length;i++)
+        			if(govList[i].equals(coredata.get(position).getGrovernors()))
+        				govSeekBar.setSelection(i);
         		
-        		MaxSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_max_title)+" "+coredata.get(position).getMaxScaling());            
-        		for(int i = 0; i < CPUFreqList.length;i++)
-        			if(coredata.get(position).getMaxScaling() == Integer.parseInt(CPUFreqList[i]))
-        				MaxSeekBar.setSelection(i);
+        		maxSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_max_title)+" "+coredata.get(position).getMaxScaling());            
+        		for(int i = 0; i < freqList.length;i++)
+        			if(coredata.get(position).getMaxScaling() == Integer.parseInt(freqList[i]))
+        				maxSeekBar.setSelection(i);
         		
-        		MinSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_min_title)+" "+coredata.get(position).getMinScaling());            
-        		for(int i = 0; i < CPUFreqList.length;i++)
-        			if(coredata.get(position).getMinFrequency() == Integer.parseInt(CPUFreqList[i]))
-        				MinSeekBar.setSelection(i);
+        		minSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_min_title)+" "+coredata.get(position).getMinScaling());            
+        		for(int i = 0; i < freqList.length;i++)
+        			if(coredata.get(position).getMinFrequency() == Integer.parseInt(freqList[i]))
+        				minSeekBar.setSelection(i);
                 
                 final Settings setting = new Settings(mContext);
         		if(setting.isRoot())
         		{
-        			((Spinner)sv.findViewById(R.id.id_processor_detail_max_value)).setClickable(true);
-        			((Spinner)sv.findViewById(R.id.id_processor_detail_min_value)).setClickable(true);
-        			((Spinner)sv.findViewById(R.id.id_processor_detail_gov_value)).setClickable(true);
+        			maxSeekBar.setClickable(true);
+        			minSeekBar.setClickable(true);
+        			govSeekBar.setClickable(true);
         		}
         		else
         		{
-        			((Spinner)sv.findViewById(R.id.id_processor_detail_max_value)).setClickable(false);
-        			((Spinner)sv.findViewById(R.id.id_processor_detail_min_value)).setClickable(false);
-        			((Spinner)sv.findViewById(R.id.id_processor_detail_gov_value)).setClickable(false);
+        			maxSeekBar.setClickable(false);
+        			minSeekBar.setClickable(false);
+        			govSeekBar.setClickable(false);
         		}
      
                 if(position % 2 == 1)
@@ -283,7 +285,7 @@ public class ProcessorPreference extends DialogPreference
 					}
                 });
                 
-                GovSeekBar.setOnItemSelectedListener(new OnItemSelectedListener() {
+                govSeekBar.setOnItemSelectedListener(new OnItemSelectedListener() {
         			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
         				int CPUNum = Integer.parseInt((String) ((View)parentView.getParent()).getTag());
         				String selected = parentView.getItemAtPosition(position).toString();
@@ -296,47 +298,47 @@ public class ProcessorPreference extends DialogPreference
 				});
 
         		
-                MaxSeekBar.setOnItemSelectedListener(new OnItemSelectedListener() {
+                maxSeekBar.setOnItemSelectedListener(new OnItemSelectedListener() {
         			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
-        				if(MaxSeekBar.getSelectedItemPosition() < MinSeekBar.getSelectedItemPosition()) {
-        					MaxSeekBar.setSelection(MinSeekBar.getSelectedItemPosition());
-        					position = MaxSeekBar.getSelectedItemPosition();
+        				if(maxSeekBar.getSelectedItemPosition() < minSeekBar.getSelectedItemPosition()) {
+        					maxSeekBar.setSelection(minSeekBar.getSelectedItemPosition());
+        					position = maxSeekBar.getSelectedItemPosition();
         				}
 
         				int CPUNum = Integer.parseInt((String) ((View)parentView.getParent()).getTag());
        				    String [] CPUFreqList = coredata.get(CPUNum).getAvaiableFrequeucy().trim().split(" ");
         				
-        				MaxSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_max_title)
-        						   						+" "+CPUFreqList[MaxSeekBar.getSelectedItemPosition()]);
+        				maxSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_max_title)
+        						   						+" "+CPUFreqList[maxSeekBar.getSelectedItemPosition()]);
 
         				ipcService.setCPUStatus(CPUNum, 1);
-        				ipcService.setCPUMaxFreq(CPUNum, Long.parseLong(CPUFreqList[MaxSeekBar.getSelectedItemPosition()]));
+        				ipcService.setCPUMaxFreq(CPUNum, Long.parseLong(CPUFreqList[maxSeekBar.getSelectedItemPosition()]));
 
-        				setdata.get(CPUNum).maxFreq = Long.parseLong(CPUFreqList[MaxSeekBar.getSelectedItemPosition()]);
+        				setdata.get(CPUNum).maxFreq = Long.parseLong(CPUFreqList[maxSeekBar.getSelectedItemPosition()]);
         			}
         			public void onNothingSelected(AdapterView<?> parentView) { }
 
 				});
 
-                MinSeekBar.setOnItemSelectedListener(new OnItemSelectedListener() {
+                minSeekBar.setOnItemSelectedListener(new OnItemSelectedListener() {
         			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
         				
-     				    if(MaxSeekBar.getSelectedItemPosition() < MinSeekBar.getSelectedItemPosition()) {
-        					MinSeekBar.setSelection(MaxSeekBar.getSelectedItemPosition());
-        					position = MinSeekBar.getSelectedItemPosition();
+     				    if(maxSeekBar.getSelectedItemPosition() < minSeekBar.getSelectedItemPosition()) {
+        					minSeekBar.setSelection(maxSeekBar.getSelectedItemPosition());
+        					position = minSeekBar.getSelectedItemPosition();
         				}
 
-     				    int CPUNum = Integer.parseInt((String) ((View) MinSeekBar.getParent()).getTag());
+     				    int CPUNum = Integer.parseInt((String) ((View) minSeekBar.getParent()).getTag());
        				    String [] CPUFreqList = coredata.get(CPUNum).getAvaiableFrequeucy().trim().split(" ");
         				
-        				MinSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_min_title)
-        						   						+" "+CPUFreqList[MinSeekBar.getSelectedItemPosition()]);
+        				minSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_min_title)
+        						   						+" "+CPUFreqList[minSeekBar.getSelectedItemPosition()]);
 
         				ipcService.setCPUStatus(CPUNum, 1);
-        				ipcService.setCPUMinFreq(CPUNum, Long.parseLong(CPUFreqList[MinSeekBar.getSelectedItemPosition()]));
+        				ipcService.setCPUMinFreq(CPUNum, Long.parseLong(CPUFreqList[minSeekBar.getSelectedItemPosition()]));
 
-        				setdata.get(CPUNum).minFreq = Long.parseLong(CPUFreqList[MinSeekBar.getSelectedItemPosition()]);
+        				setdata.get(CPUNum).minFreq = Long.parseLong(CPUFreqList[minSeekBar.getSelectedItemPosition()]);
         			}
         			
         			public void onNothingSelected(AdapterView<?> parentView) { }

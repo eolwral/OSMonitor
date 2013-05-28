@@ -47,6 +47,19 @@ if you would like to know that how it works, please check Wiki page!
 
 ### Change Log ###
 
+**Version 3.0.6**
+- Fix FCs [Message]
+- Add a shortcut icon on the notification area [Notification]
+- Avoid to detect battery status when screen off [Notification]
+- Add "sort by name" [Process]
+- Save last sort mode [Process]
+- Avoid incorrect CPU usage [Process]
+- Avoid background services to be killed by system [Misc]
+- Add uptime [Misc]
+- Add setCPU [Misc and Option]
+- Better way to detect CPU [Misc]
+- Fix memory display [Misc]
+
 **Version 3.0.3~3.0.5.1**
 - [Add] Monitor Battery, Temperature and Free RAM on notification bar.
 - [Add] Add Exit button

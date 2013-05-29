@@ -22,10 +22,71 @@ namespace core {
   processor::processor()
   {
     MaximumCPUs = sysconf(_SC_NPROCESSORS_CONF);
+    initialize = false;
+  }
+
+  void processor::resetPermission()
+  {
+    // check root permission
+    if(getuid() != 0)
+      return;
+
+    // 644
+    mode_t mode = 0;
+
+    char buffer[BufferSize];
+    for (int curNumber = 0; curNumber < MaximumCPUs; curNumber++)
+    {
+      // max cur frequency
+      mode = S_IRUSR | S_IRGRP | S_IROTH;
+      sprintf(buffer, PROCESSOR_FREQ_MAX, curNumber);
+      chmod(buffer, mode);
+
+      // min cur frequency
+      mode = S_IRUSR | S_IRGRP | S_IROTH;
+      sprintf(buffer, PROCESSOR_FREQ_MIN, curNumber);
+      chmod(buffer, mode);
+
+      // scaling cur frequency
+      mode = S_IRUSR | S_IRGRP | S_IROTH;
+      sprintf(buffer, PROCESSOR_SCALING_CUR, curNumber);
+      chmod(buffer, mode);
+
+      // scaling max frequency
+      mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+      sprintf(buffer, PROCESSOR_SCALING_MAX, curNumber);
+      chmod(buffer, mode);
+
+      // scaling min frequency
+      mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+      sprintf(buffer, PROCESSOR_SCALING_MIN, curNumber);
+      chmod(buffer, mode);
+
+      // scaling governor
+      mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+      sprintf(buffer, PROCESSOR_SCALING_GOR, curNumber);
+      chmod(buffer, mode);
+
+      // status
+      mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+      sprintf(buffer, PROCESSOR_STATUS, curNumber);
+      chmod(buffer, mode);
+
+      // available frequency
+      mode = S_IRUSR | S_IRGRP | S_IROTH;
+      sprintf(buffer, PROCESSOR_AVAILABLE_FREQ, curNumber);
+      chmod(buffer, mode);
+
+      // available governors
+      mode = S_IRUSR | S_IRGRP | S_IROTH;
+      sprintf(buffer, PROCESSOR_AVAILABLE_GOR, curNumber);
+      chmod(buffer, mode);
+    }
   }
 
   void processor::gatherProcessor()
   {
+
     char buffer[BufferSize];
     for (int curNumber = 0; curNumber < MaximumCPUs; curNumber++)
     {
@@ -191,6 +252,11 @@ namespace core {
     // move
     this->moveDataSet((std::vector<google::protobuf::Message*>&) this->_curProcessorList,
                       (std::vector<google::protobuf::Message*>&) this->_prevProcessorList);
+
+    if(!this->initialize) {
+        this->resetPermission();
+        this->initialize = true;
+    }
 
     // gather processors
     this->gatherProcessor();

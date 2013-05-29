@@ -24,6 +24,7 @@ namespace core {
     // init CPU Information
     this->_prevTotalCPU = 0;
     this->_currentTotalCPU = 0;
+
   }
 
   cpu::~cpu()

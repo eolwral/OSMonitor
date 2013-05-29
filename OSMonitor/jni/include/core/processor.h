@@ -33,9 +33,12 @@ namespace core {
   private:
     const static int BufferSize = 256;                    /**< internal buffer size */
 
+    bool initialize;                                      /**< initialized */
     int MaximumCPUs;                                      /**< maximum cpu number */
     std::vector<processorInfo*> _curProcessorList;        /**< get current processors list */
     std::vector<processorInfo*> _prevProcessorList;       /**< get previous processors list */
+
+    void resetPermission();
 
     void gatherProcessor();
 

@@ -47,6 +47,10 @@ if you would like to know that how it works, please check Wiki page!
 
 ### Change Log ###
 
+**Version 3.0.6.1**
+- Fix FCs when SetCPU [Option]
+- Service crashes (Some Devices execute onStop without calling onStart) [Notification]
+
 **Version 3.0.6**
 - Fix FCs [Message]
 - Add a shortcut icon on the notification area [Notification]

@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.eolwral.osmonitor.OSMonitorService;
@@ -188,11 +189,11 @@ public class CommonUtil {
   
   
   /**
-   * convert data as string 
+   * convert data as memory 
    * @param data
    * @return a string with correct format
    */
-  public static String convertLong(long data) {
+  public static String convertToMemory(long data) {
 	if (data > (1024*1024))
       return (data/(1024*1024))+"M";
 	else if (data > 1024)
@@ -201,15 +202,54 @@ public class CommonUtil {
   }
   
   /**
-   * convert data as float value
+   * convert data as Usage
    * @param data
    * @return a string of float value
    */
   @SuppressLint("DefaultLocale")
-  public static String convertFloat(float data) {
+  public static String convertToUsage(float data) {
 	return String.format("%.1f", data); 	  
   }
-
+  
+  /**
+   * convert string as Integer
+   * @param string
+   * @return int
+   */
+  public static int convertToInt(String value) {
+	try {
+		return Integer.parseInt(value);
+	} catch(Exception e) {}
+	return 0;
+  }
+  
+  /**
+   * remove string from array , if it can't be converted to int
+   * @param string []
+   * @return string []
+   */
+  public static String[] eraseNonIntegarString(String[] data) {
+	  ArrayList<String> checked = new ArrayList<String>();
+	  for (int index = 0; index < data.length; index++) {
+		  if (convertToInt(data[index]) != 0)
+			  checked.add(data[index]);
+	  }
+	  return checked.toArray(new String[checked.size()]);
+  }
+  
+  /**
+   * remove empty string from array
+   * @param string []
+   * @return string []
+   */
+  public static String[] eraseEmptyString(String[] data) {
+	  ArrayList<String> checked = new ArrayList<String>();
+	  for (int index = 0; index < data.length; index++) {
+		  if(!data[index].trim().isEmpty())
+			  checked.add(data[index]);
+	  }
+	  return checked.toArray(new String[checked.size()]);
+  }
   
   /**
    * detect background service is running or not

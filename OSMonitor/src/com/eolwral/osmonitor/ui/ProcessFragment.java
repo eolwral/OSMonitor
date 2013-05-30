@@ -504,10 +504,10 @@ public class ProcessFragment extends SherlockListFragment
 			break;
 		}
 
-		processCount.setText(CommonUtil.convertLong(data.size()));
-		cpuUsage.setText(CommonUtil.convertFloat(totalCPUUsage) + "%");
-		memoryTotal.setText(CommonUtil.convertLong(info.getTotalMemory()));
-		memoryFree.setText(CommonUtil.convertLong(info.getFreeMemory()+
+		processCount.setText(CommonUtil.convertToMemory(data.size()));
+		cpuUsage.setText(CommonUtil.convertToUsage(totalCPUUsage) + "%");
+		memoryTotal.setText(CommonUtil.convertToMemory(info.getTotalMemory()));
+		memoryFree.setText(CommonUtil.convertToMemory(info.getFreeMemory()+
 				                                  info.getBufferedMemory()+
 				                                  info.getCachedMemory()));
 
@@ -763,9 +763,9 @@ public class ProcessFragment extends SherlockListFragment
 			holder.icon.setImageDrawable(infoHelper.getPackageIcon(item.getName()));
 			
 			if(sortSetting == SortType.SortbyMemory)
-				holder.cpuUsage.setText(CommonUtil.convertLong((item.getRss()*1024)));
+				holder.cpuUsage.setText(CommonUtil.convertToMemory((item.getRss()*1024)));
 			else
-				holder.cpuUsage.setText(CommonUtil.convertFloat(item.getCpuUsage()));
+				holder.cpuUsage.setText(CommonUtil.convertToUsage(item.getCpuUsage()));
 			
 			// prepare detail information
 			if (holder.detail != null)
@@ -778,8 +778,8 @@ public class ProcessFragment extends SherlockListFragment
 				
 				// get memory information
 				MemoryInfo memInfo = infoHelper.getMemoryInfo(item.getPid());
-				String memoryData = CommonUtil.convertLong((item.getRss()*1024))+" ("+
-						            CommonUtil.convertLong(memInfo.getTotalPss()*1024)+")";
+				String memoryData = CommonUtil.convertToMemory((item.getRss()*1024))+" ("+
+						            CommonUtil.convertToMemory(memInfo.getTotalPss()*1024)+")";
 
 				holder.detailMemory.setText(memoryData); 
 				

@@ -26,6 +26,7 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
+import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.Settings;
 
 public class MiscProcessorFragment extends SherlockListFragment 
@@ -50,9 +51,12 @@ public class MiscProcessorFragment extends SherlockListFragment
 	
 	public void onStop() {
 		super.onStop();
-		for(int index = 0; index < coreEnable.length; index++) {
-			if(coreEnable[index] == false)
-				ipcService.setCPUStatus(index, 0);
+		
+		if(coreEnable != null) {
+			for(int index = 0; index < coreEnable.length; index++) {
+				if(coreEnable[index] == false)
+					ipcService.setCPUStatus(index, 0);
+			}
 		}
 	}
 	
@@ -101,12 +105,14 @@ public class MiscProcessorFragment extends SherlockListFragment
 			}
 		}
 		
+		// save last status for restore
 		if (coreEnable == null) {
 			coreEnable = new boolean[coredata.size()];
 			for(int index = 0; index < coredata.size(); index++)
 				coreEnable[index] = !coredata.get(index).getOffLine();
 		}
 
+		// force enable all CPUs
 		boolean forceOnline = false;
 		for (int index = 0; index < coredata.size(); index++) {
 			if(coredata.get(index).getOffLine() == true) {
@@ -114,13 +120,6 @@ public class MiscProcessorFragment extends SherlockListFragment
 				ipcService.setCPUStatus(index, 1);
 				forceOnline = true;
 			}
-			
-			if(coredata.get(index).getAvaiableFrequeucy().trim().isEmpty() ||
-			   coredata.get(index).getAvaiableGovernors().trim().isEmpty() ) {
-			   
-				if(forceOnline == false)
-					coredata.remove(index);
-			 }
 		}
 		
 		if(forceOnline == false) {
@@ -175,16 +174,16 @@ public class MiscProcessorFragment extends SherlockListFragment
 
                 enableBox.setChecked(coreEnable[position]);
                 
-            	String [] freqList = coredata.get(position).getAvaiableFrequeucy().trim().split(" ");
-        		ArrayAdapter<String> FreqAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, freqList);
-        		FreqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        		maxSeekBar.setAdapter(FreqAdapter);
-        		minSeekBar.setAdapter(FreqAdapter);
+            	String [] freqList = CommonUtil.eraseNonIntegarString(coredata.get(position).getAvaiableFrequeucy().split(" "));
+        		ArrayAdapter<String> freqAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, freqList);
+        		freqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        		maxSeekBar.setAdapter(freqAdapter);
+        		minSeekBar.setAdapter(freqAdapter);
         		
-            	String [] govList = coredata.get(position).getAvaiableGovernors().trim().split(" ");
-        		ArrayAdapter<String> GovAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, govList);
-        		GovAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        		govSeekBar.setAdapter(GovAdapter);
+        		String [] govList = CommonUtil.eraseEmptyString(coredata.get(position).getAvaiableGovernors().split(" "));
+        		ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, govList);
+        		govAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        		govSeekBar.setAdapter(govAdapter);
 
         		((TextView)sv.findViewById(R.id.id_processor_title)).setText(
         				mContext.getResources().getString(R.string.ui_processor_core)+" "+coredata.get(position).getNumber());
@@ -193,12 +192,16 @@ public class MiscProcessorFragment extends SherlockListFragment
         			if(govList[i].equals(coredata.get(position).getGrovernors()))
         				govSeekBar.setSelection(i);
         		
-        		maxSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_max_title)+" "+coredata.get(position).getMaxScaling());            
+        		if (coredata.get(position).getMaxScaling() != -1)
+        			maxSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_max_title)+" "+coredata.get(position).getMaxScaling());
+        		
         		for(int i = 0; i < freqList.length;i++)
         			if(coredata.get(position).getMaxScaling() == Integer.parseInt(freqList[i]))
         				maxSeekBar.setSelection(i);
         		
-        		minSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_min_title)+" "+coredata.get(position).getMinScaling());            
+        		if (coredata.get(position).getMinScaling() != -1)
+        			minSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_min_title)+" "+coredata.get(position).getMinScaling());
+        		
         		for(int i = 0; i < freqList.length;i++)
         			if(coredata.get(position).getMinFrequency() == Integer.parseInt(freqList[i]))
         				minSeekBar.setSelection(i);

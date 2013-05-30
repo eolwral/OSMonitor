@@ -250,9 +250,9 @@ public class MiscFragment extends SherlockFragment
 			// prepare main information
 			((TextView) sv.findViewById(R.id.id_network_mac)).setText(item.getMac());
 			((TextView) sv.findViewById(R.id.id_network_rx)).setText(String.format("%,d", item.getRecvBytes())+" ("+
-					               CommonUtil.convertLong(item.getRecvBytes())+")");
+					               CommonUtil.convertToMemory(item.getRecvBytes())+")");
 			((TextView) sv.findViewById(R.id.id_network_tx)).setText(String.format("%,d", item.getTransBytes())+" ("+
-					               CommonUtil.convertLong(item.getTransBytes())+")");
+					               CommonUtil.convertToMemory(item.getTransBytes())+")");
 			
 			StringBuilder status = new StringBuilder();
 
@@ -425,10 +425,10 @@ public class MiscFragment extends SherlockFragment
 				
 				((TextView) sv.findViewById(R.id.id_swap_total)).setText(
 						String.format("%,d", osdata.getTotalSwap())+" ("+
-                        CommonUtil.convertLong(osdata.getTotalSwap())+")");
+                        CommonUtil.convertToMemory(osdata.getTotalSwap())+")");
 				((TextView) sv.findViewById(R.id.id_swap_free)).setText(
 						String.format("%,d", osdata.getFreeSwap())+" ("+
-                        CommonUtil.convertLong(osdata.getFreeSwap())+")");			
+                        CommonUtil.convertToMemory(osdata.getFreeSwap())+")");			
 				}
 		
 			return sv;
@@ -441,19 +441,19 @@ public class MiscFragment extends SherlockFragment
 
 				((TextView) sv.findViewById(R.id.id_memory_total)).setText(
 						 String.format("%,d", osdata.getTotalMemory())+" ("+
-                         CommonUtil.convertLong(osdata.getTotalMemory())+")");
+                         CommonUtil.convertToMemory(osdata.getTotalMemory())+")");
 				
 				((TextView) sv.findViewById(R.id.id_memory_free)).setText(
 						 String.format("%,d", osdata.getFreeMemory())+" ("+
-                         CommonUtil.convertLong(osdata.getFreeMemory())+")");
+                         CommonUtil.convertToMemory(osdata.getFreeMemory())+")");
 				
 				((TextView) sv.findViewById(R.id.id_memory_cached)).setText(
 						 String.format("%,d", osdata.getCachedMemory())+" ("+
-                         CommonUtil.convertLong(osdata.getCachedMemory())+")");
+                         CommonUtil.convertToMemory(osdata.getCachedMemory())+")");
 				
 				((TextView) sv.findViewById(R.id.id_memory_buffered)).setText(
 						String.format("%,d", osdata.getBufferedMemory())+" ("+
-                        CommonUtil.convertLong(osdata.getBufferedMemory())+")");			
+                        CommonUtil.convertToMemory(osdata.getBufferedMemory())+")");			
 			}
 		
 			return sv;

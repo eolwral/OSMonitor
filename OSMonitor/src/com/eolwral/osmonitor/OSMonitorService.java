@@ -287,19 +287,19 @@ public class OSMonitorService extends Service
 	private void refreshNotification() {
 		
 		if (useCelsius)
-			nBuilder.setContentTitle("Mem: "+CommonUtil.convertLong(memoryFree)+", Bat:"+battLevel+"% ("+temperature/10+"¢XC)" );
+			nBuilder.setContentTitle("Mem: "+CommonUtil.convertToMemory(memoryFree)+", Bat:"+battLevel+"% ("+temperature/10+"¢XC)" );
 		else
-			nBuilder.setContentTitle("Mem: "+CommonUtil.convertLong(memoryFree)+", Bat:"+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
+			nBuilder.setContentTitle("Mem: "+CommonUtil.convertToMemory(memoryFree)+", Bat:"+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
 		
-		nBuilder.setContentText("CPU: "+CommonUtil.convertFloat(cpuUsage) + "% [ " +
-								CommonUtil.convertFloat(topUsage[0]) + "% "  + topProcess[0] + " ]");
+		nBuilder.setContentText("CPU: "+CommonUtil.convertToUsage(cpuUsage) + "% [ " +
+								CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] + " ]");
 
 		nBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(
 								getResources().getString(R.string.ui_process_cpuusage) + " " + 
-								CommonUtil.convertFloat(cpuUsage) + "%\n" +
-							    " > " + CommonUtil.convertFloat(topUsage[0]) + "% "  + topProcess[0] + "\n" +
-							    " > " + CommonUtil.convertFloat(topUsage[1]) + "% "  + topProcess[1] + "\n" +
-							    " > " + CommonUtil.convertFloat(topUsage[2]) + "% "  + topProcess[2]));
+								CommonUtil.convertToUsage(cpuUsage) + "%\n" +
+							    " > " + CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] + "\n" +
+							    " > " + CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1] + "\n" +
+							    " > " + CommonUtil.convertToUsage(topUsage[2]) + "% "  + topProcess[2]));
 
 		if (cpuUsage < 20)
 			nBuilder.setSmallIcon(iconColor, 1);

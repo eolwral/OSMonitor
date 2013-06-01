@@ -10,17 +10,15 @@
                         android:key="id_preference_interval" 
                         android:defaultValue="2" />
         
-        <CheckBoxPreference android:title="@string/ui_preferences_expert" 
-                        android:summary="@string/ui_preferences_expert_detail" 
-                        android:key="id_preference_expertmode" 
-                        android:defaultValue="false" />
+        
         
         <CheckBoxPreference android:title="@string/ui_preferences_root" 
                         android:summary="@string/ui_preferences_root_detail" 
                         android:key="id_preference_root" 
                         android:defaultValue="false" />
+        
     
-    </PreferenceCategory>
+    </PreferenceCategory><PreferenceCategory android:title="@string/ui_process_tab"><CheckBoxPreference android:title="@string/ui_preferences_expert" android:summary="@string/ui_preferences_expert_detail" android:key="id_preference_expertmode" android:defaultValue="false" /></PreferenceCategory>
     
     <PreferenceCategory android:title="@string/ui_notification_tab">
         <CheckBoxPreference android:summary="@string/ui_preferences_notification_deatil" android:key="id_preference_shortcut" android:title="@string/ui_preferences_notification" /><CheckBoxPreference android:title="@string/ui_preferences_cpuusage" 

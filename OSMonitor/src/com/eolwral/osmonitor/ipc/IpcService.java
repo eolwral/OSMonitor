@@ -8,6 +8,11 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.concurrent.Semaphore;
 
+import android.content.Context;
+import android.net.LocalSocket;
+import android.net.LocalSocketAddress;
+import android.os.AsyncTask;
+
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder;
@@ -15,11 +20,6 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.Settings;
 import com.google.protobuf.ByteString;
-
-import android.content.Context;
-import android.net.LocalSocket;
-import android.net.LocalSocketAddress;
-import android.os.AsyncTask;
 
 /**
  * implement communicate mechanize between process with Unix socket

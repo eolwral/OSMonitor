@@ -379,9 +379,11 @@ void processCommandMsg()
     {
         int cpu = atoi(data.payload(0).c_str());
         short status = atoi(data.payload(1).c_str());
+        mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
 
         char buffer[BufferSize];
         sprintf(buffer, PROCESSOR_STATUS, cpu);
+        chmod(buffer, mode);
         FILE *processorFile = fopen(buffer, "w");
         if (processorFile)
         {
@@ -395,9 +397,11 @@ void processCommandMsg()
     {
         int cpu = atoi(data.payload(0).c_str());
         const char* freq = data.payload(1).c_str();
+        mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
         char buffer[BufferSize];
         sprintf(buffer, PROCESSOR_SCALING_MAX, cpu);
+        chmod(buffer, mode);
         FILE *processorFile = fopen(buffer, "w");
         if (processorFile)
         {
@@ -411,9 +415,11 @@ void processCommandMsg()
     {
         int cpu = atoi(data.payload(0).c_str());
         const char* freq = data.payload(1).c_str();
+        mode_t mode =S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
         char buffer[BufferSize];
         sprintf(buffer, PROCESSOR_SCALING_MIN, cpu);
+        chmod(buffer, mode);
         FILE *processorFile = fopen(buffer, "w");
         if (processorFile)
         {
@@ -427,9 +433,11 @@ void processCommandMsg()
     {
         int cpu = atoi(data.payload(0).c_str());
         const char* gov = data.payload(1).c_str();
+        mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
         char buffer[BufferSize];
         sprintf(buffer, PROCESSOR_SCALING_GOR, cpu);
+        chmod(buffer, mode);
         FILE *processorFile = fopen(buffer, "w");
         if (processorFile)
         {

@@ -11,15 +11,15 @@ import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.eolwral.osmonitor.OSMonitorService;
-import com.eolwral.osmonitor.ipc.IpcService;
-import com.eolwral.osmonitor.ui.HelpWindows;
-
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
+
+import com.eolwral.osmonitor.OSMonitorService;
+import com.eolwral.osmonitor.ipc.IpcService;
+import com.eolwral.osmonitor.ui.HelpWindows;
 
 public class CommonUtil {
   

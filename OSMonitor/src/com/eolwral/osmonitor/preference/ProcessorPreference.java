@@ -2,16 +2,6 @@ package com.eolwral.osmonitor.preference;
 
 import java.util.ArrayList;
 
-import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.core.ProcessorInfo.processorInfo;
-import com.eolwral.osmonitor.ipc.IpcService;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
-import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
-import com.eolwral.osmonitor.util.CommonUtil;
-import com.eolwral.osmonitor.util.Settings;
-
 import android.content.Context;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -19,16 +9,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import com.eolwral.osmonitor.R;
+import com.eolwral.osmonitor.core.ProcessorInfo.processorInfo;
+import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
+import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
+import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.ipc.IpcService;
+import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
+import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.util.Settings;
 
 public class ProcessorPreference extends DialogPreference 
 								 implements ipcClientListener {

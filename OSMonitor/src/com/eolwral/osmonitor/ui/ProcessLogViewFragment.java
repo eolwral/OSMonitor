@@ -1,33 +1,45 @@
 package com.eolwral.osmonitor.ui;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Environment;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo;
-import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.util.Settings;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnTouchListener;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-
-public class ProcessLogViewFragment extends DialogFragment 
+public class ProcessLogViewFragment extends SherlockDialogFragment 
                                      implements ipcClientListener {
 	
 	// ipc client
@@ -73,10 +85,143 @@ public class ProcessLogViewFragment extends DialogFragment
 		
 		// set title
 		getDialog().setTitle(targetName);
+
+		Button exportButton = (Button) v.findViewById(R.id.id_message_exportbtn);
+		exportButton.setVisibility(View.VISIBLE);
+		exportButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final Resources exportRes = getActivity().getResources();
+				final Calendar calendar = Calendar.getInstance();
+				final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss", Locale.getDefault());
+				
+				Builder exportDialog = new AlertDialog.Builder(getActivity());
+				View exportView = LayoutInflater.from(getActivity()).inflate(R.layout.ui_message_export, null);
+				TextView exportFile = (TextView) exportView.findViewById(R.id.id_export_filename);
+				exportFile.setText("Log-"+formatter.format(calendar.getTime()));
+				exportDialog.setView(exportView);
+				
+				exportDialog.setTitle(exportRes.getText(R.string.ui_menu_logexport));
+				exportDialog.setNegativeButton(exportRes.getText(R.string.ui_text_cancel), null);
+				
+				exportDialog.setPositiveButton(exportRes.getText(R.string.ui_text_okay),
+			    new DialogInterface.OnClickListener() {
+		            public void onClick(DialogInterface dialog, int whichButton) {
+		            	String FileName = ((EditText)((AlertDialog)dialog).findViewById(R.id.id_export_filename)).getText().toString();
+		            	exportLog(FileName);
+		            }
+		        });
+				
+				exportDialog.create().show();
+			}
+		});
+		
 		
 		return v;  
 	}
 
+	 private void exportLog(String fileName)
+	    {
+	    	if(fileName.trim().equals(""))
+	    		return;
+	    	
+	    	if(!fileName.contains(".csv"))
+	    		fileName += ".csv";
+	    	
+	    	try {
+	    		File logFile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + fileName);
+
+	    		if (logFile.exists())
+	    		{
+	    			new AlertDialog.Builder(getActivity())
+	    			.setTitle(R.string.ui_menu_logexport)
+	    			.setMessage(R.string.ui_message_fileexist)
+	    			.setPositiveButton(R.string.ui_text_okay,
+	    					new DialogInterface.OnClickListener() {
+	    				public void onClick(DialogInterface dialog, int whichButton) { } })
+	    				.create()
+	    				.show();
+	    			return;
+	    		}
+
+	    		logFile.createNewFile();
+
+	    		int LogCount = viewLogcatData.size();
+
+	    		FileWriter logWriter = new FileWriter(logFile);
+
+	    		final Calendar calendar = Calendar.getInstance();
+	    		final DateFormat convertTool = DateFormat.getDateTimeInstance();
+
+	    		for(int index = 0; index < LogCount ; index++)
+	    		{
+	    			StringBuilder logLine = new StringBuilder();
+
+	    			calendar.setTimeInMillis(viewLogcatData.get(index).getSeconds()*1000);
+
+	    			logLine.append(convertTool.format(calendar.getTime()) + ",");
+
+	    			switch(viewLogcatData.get(index).getPriority().getNumber())
+	    			{
+	    			case logcatInfo.logPriority.SILENT_VALUE:
+	    				logLine.append("SILENT,");
+	    				break;
+	    			case logcatInfo.logPriority.UNKNOWN_VALUE:
+	    				logLine.append("UNKNOWN,");
+	    				break;
+	    			case logcatInfo.logPriority.DEFAULT_VALUE:
+	    				logLine.append("DEFAULT,");
+	    				break;
+	    			case logcatInfo.logPriority.VERBOSE_VALUE:
+	    				logLine.append("VERBOSE,");
+	    				break;
+	    			case logcatInfo.logPriority.WARN_VALUE:
+	    				logLine.append("WARNING,");
+	    				break;
+	    			case logcatInfo.logPriority.INFO_VALUE:
+	    				logLine.append("INFORMATION,");
+	    				break;
+	    			case logcatInfo.logPriority.FATAL_VALUE:
+	    				logLine.append("FATAL,");
+	    				break;
+	    			case logcatInfo.logPriority.ERROR_VALUE:
+	    				logLine.append("ERROR,");
+	    				break;
+	    			case logcatInfo.logPriority.DEBUG_VALUE:
+	    				logLine.append("DEBUG,");
+	    				break;
+	    			}        	
+	    			logLine.append(viewLogcatData.get(index).getTag() + ",");
+	    			logLine.append(viewLogcatData.get(index).getMessage() + "\n");       					 
+
+
+	    			logWriter.close();
+	    		}
+	    		
+	    	} catch (Exception e) {
+	    		new AlertDialog.Builder(getActivity())
+	    		.setTitle(R.string.ui_menu_logexport)
+	    		.setMessage(e.getMessage())
+	    		.setPositiveButton(R.string.ui_text_okay,
+	    				new DialogInterface.OnClickListener() {
+	    			public void onClick(DialogInterface dialog, int whichButton) { } })
+	    			.create()
+	    			.show();
+
+	    		return;
+	    	}
+		    	
+	    	new AlertDialog.Builder(getActivity())
+		  		.setTitle(R.string.ui_menu_logexport)
+		  		.setMessage(R.string.ui_message_exportdone)
+		  		.setPositiveButton(R.string.ui_text_okay,
+		  				new DialogInterface.OnClickListener() {
+		  			public void onClick(DialogInterface dialog, int whichButton) { } })
+		  		.create()
+		  		.show();
+
+		  	return;
+		}
 	
 	@Override
 	public void onStart() {

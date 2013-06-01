@@ -444,7 +444,9 @@ public class ProcessFragment extends SherlockListFragment
                     
 					boolean doMerge = false;
 					
-					if( psInfo.getUid() == 0 || psInfo.getName().contains("/system/"))
+					if( psInfo.getUid() == 0 ||
+						psInfo.getName().contains("/system/") ||
+						psInfo.getName().contains("/sbin/") )
 						doMerge = true;
 
 					if(psInfo.getName().contains("osmcore"))

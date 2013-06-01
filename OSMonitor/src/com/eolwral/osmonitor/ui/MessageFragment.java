@@ -3,24 +3,24 @@ package com.eolwral.osmonitor.ui;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-  
+import java.util.Locale;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
-
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,17 +41,15 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
-
-
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo;
 import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo;
-import com.eolwral.osmonitor.ipc.IpcService;
-import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.ipc.IpcService;
+import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.Settings;
 
@@ -446,12 +444,12 @@ public class MessageFragment extends SherlockListFragment
 			
 			final Resources exportRes = getActivity().getResources();
 			final Calendar calendar = Calendar.getInstance();
-			final DateFormat convertTool = DateFormat.getDateTimeInstance();
+			final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss", Locale.getDefault());
 			
 			Builder exportDialog = new AlertDialog.Builder(getActivity());
 			View exportView = LayoutInflater.from(getActivity()).inflate(R.layout.ui_message_export, null);
 			TextView exportFile = (TextView) exportView.findViewById(R.id.id_export_filename);
-			exportFile.setText("Log-"+convertTool.format(calendar.getTime()));
+			exportFile.setText("Log-"+formatter.format(calendar.getTime()));
 			exportDialog.setView(exportView);
 			
 			exportDialog.setTitle(exportRes.getText(R.string.ui_menu_logexport));
@@ -778,7 +776,7 @@ public class MessageFragment extends SherlockListFragment
 				// non-filter
 
 				if(constraint != null)
-					filterString = constraint.toString();
+					filterString = constraint.toString().toLowerCase(Locale.getDefault());
 				else 
 					filterString = "";
 
@@ -792,8 +790,8 @@ public class MessageFragment extends SherlockListFragment
 							continue;
 						
 						if (filterString.length() != 0)
-							if (!item.getMessage().toLowerCase().contains(filterString) &&
-								!item.getTag().toLowerCase().contains(filterString)) 
+							if (!item.getMessage().toLowerCase(Locale.getDefault()).contains(filterString) &&
+								!item.getTag().toLowerCase(Locale.getDefault()).contains(filterString)) 
 							continue;
 
 						filteredItems.add(item);
@@ -809,7 +807,7 @@ public class MessageFragment extends SherlockListFragment
 							continue;
 
 						if (filterString.length() != 0)
-						  if (!item.getMessage().toLowerCase().contains(filterString))
+						  if (!item.getMessage().toLowerCase(Locale.getDefault()).contains(filterString))
 							continue;
 						
 						filteredItems.add(item);

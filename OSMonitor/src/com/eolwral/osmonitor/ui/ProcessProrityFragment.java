@@ -1,8 +1,5 @@
 package com.eolwral.osmonitor.ui;
 
-import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.ipc.IpcService;
-
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -13,6 +10,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.Spinner;
+
+import com.eolwral.osmonitor.R;
+import com.eolwral.osmonitor.ipc.IpcService;
 
 public class ProcessProrityFragment extends DialogFragment {
 	

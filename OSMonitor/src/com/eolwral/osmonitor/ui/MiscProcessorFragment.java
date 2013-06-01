@@ -135,14 +135,11 @@ public class MiscProcessorFragment extends SherlockListFragment
 	
 	private class ProcessorListAdapter extends BaseAdapter {
     	
-    	private LayoutInflater mInflater = null;
         private Context mContext = null;
         
         public ProcessorListAdapter(Context context)
         {
             mContext = context;
-        	mInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);  
-
         }
 
         public int getCount() {
@@ -161,6 +158,9 @@ public class MiscProcessorFragment extends SherlockListFragment
         	View sv = null;
 
             if (convertView == null) {
+            	
+            	LayoutInflater mInflater = LayoutInflater.from(mContext);
+            	
             	sv = (View) mInflater.inflate(R.layout.ui_misc_item_processor_detail, parent, false);
             	
             	final CheckBox enableBox = (CheckBox) sv.findViewById(R.id.id_processor_enable);

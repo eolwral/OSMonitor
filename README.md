@@ -47,6 +47,12 @@ if you would like to know that how it works, please check Wiki page!
 
 ### Change Log ###
 
+**Version 3.0.6.2**
+- Fix Search (Message)
+- Fix Watch Log (Process)
+- Add Export when Watch Log (Process)
+- Fix FCs
+
 **Version 3.0.6.1**
 - Fix FCs when SetCPU [Option]
 - Service crashes (Some Devices execute onStop without calling onStart) [Notification]

@@ -242,7 +242,7 @@ namespace core {
 
     // search for match PID and summary all CPUTime (Remove it for reducing CPU consume)
     float curCPUTime = 0;
-    for(int curItem=0; curItem < this->_CurProcessList.size(); curItem++)
+    /*for(int curItem=0; curItem < this->_CurProcessList.size(); curItem++)
     {
       for(int prevItem=0; prevItem < this->_PrevProcessList.size(); prevItem++)
       {
@@ -256,9 +256,8 @@ namespace core {
       }
     }
 
-    if(curCPUTime < _curCPUInfo.getCPUTime())
-      curCPUTime = (float) _curCPUInfo.getCPUTime();
-
+    if(curCPUTime < _curCPUInfo.getCPUTime())*/
+    curCPUTime = (float) _curCPUInfo.getCPUTime();
     if(curCPUTime == 0)
       return;
 

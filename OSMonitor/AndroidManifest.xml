@@ -2,12 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.eolwral.osmonitor"
       android:installLocation="auto" 
-      android:versionName="3.0.6.1" 
-      android:versionCode="38">
+      android:versionName="3.0.6.2" 
+      android:versionCode="39">
 
     <uses-sdk android:minSdkVersion="9"
-              android:targetSdkVersion="17"
-              android:maxSdkVersion="17" />
+              android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -29,7 +28,7 @@
                  android:theme="@style/Theme.osmonitor" 
                  android:allowBackup="true">
                  
-    	<activity android:name="OSMonitor" 
+    	<activity android:name="com.eolwral.osmonitor.OSMonitor" 
     	          android:configChanges="orientation" 
     	          android:launchMode="singleInstance">
             <intent-filter>
@@ -38,12 +37,12 @@
             </intent-filter>
         </activity>
         
-	  	<service android:name="OSMonitorService" 
+	  	<service android:name="com.eolwral.osmonitor.OSMonitorService" 
 	  	    android:process=":notification" 
 	  	    android:exported="false">
     	</service>
     	
-    	<receiver android:name="BootUpReceiver" 
+    	<receiver android:name="com.eolwral.osmonitor.BootUpReceiver" 
     	    android:enabled="true" 
     	    android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
 	  	    <intent-filter>
@@ -52,9 +51,9 @@
 			</intent-filter>
 	  	</receiver>
 	  	
-    	<activity android:name=".preference.Preference" />
+    	<activity android:name="com.eolwral.osmonitor.preference.Preference" />
         
-	  	<activity android:name=".ui.HelpWindows" 
+	  	<activity android:name="com.eolwral.osmonitor.ui.HelpWindows" 
 	  	    android:theme="@android:style/Theme.Dialog">
 	  	</activity>
 	  	

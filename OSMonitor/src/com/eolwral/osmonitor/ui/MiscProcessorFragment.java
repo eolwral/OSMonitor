@@ -45,7 +45,7 @@ public class MiscProcessorFragment extends SherlockListFragment
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setListAdapter(new ProcessorListAdapter(getSherlockActivity().getApplicationContext()));
+		setListAdapter(new ProcessorListAdapter(getActivity()));
 		
 	}
 	

@@ -21,7 +21,37 @@ namespace core {
 
   processor::processor()
   {
-    MaximumCPUs = sysconf(_SC_NPROCESSORS_CONF);
+    MaximumCPUs = getProcessorNumber();
+    if (MaximumCPUs < sysconf(_SC_NPROCESSORS_CONF))
+      MaximumCPUs = sysconf(_SC_NPROCESSORS_CONF);
+  }
+
+  /*
+   * Issue 26490: cpufeatures library (NDK) might report wrong number of CPUs/cores
+   * https://code.google.com/p/android/issues/detail?id=26490
+   */
+  int processor::getProcessorNumber()
+  {
+    int res, i = -1, j = -1;
+
+    /* open file */
+    FILE* file = fopen(PROCESSOR_PRESENT, "r");
+    if (file == 0)
+      return (-1); /* failure */
+
+    /* read and interpret line */
+    res = fscanf(file, "%d-%d", &i, &j);
+
+    /* close file */
+    fclose(file);
+
+    /* interpret result */
+    if (res == 1 && i == 0) /* single-core? */
+      return (1);
+    if (res == 2 && i == 0) /* 2+ cores */
+      return (j+1);
+
+    return (-1); /* failure */
   }
 
   void processor::resetPermission()
@@ -116,7 +146,7 @@ namespace core {
       curProcessor->set_maxscaling(-1);
       curProcessor->set_minscaling(-1);
       curProcessor->set_grovernors("Unknown");
-      curProcessor->set_offline(false);
+      curProcessor->set_offline(true);
       curProcessor->set_avaiablefrequeucy("");
       curProcessor->set_avaiablegovernors("");
 

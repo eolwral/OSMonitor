@@ -18,6 +18,7 @@
 #define PROCESSOR_AVAILABLE_FREQ "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_available_frequencies"
 #define PROCESSOR_AVAILABLE_GOR "/sys/devices/system/cpu/cpu%d/cpufreq/scaling_available_governors"
 #define PROCESSOR_STATUS "/sys/devices/system/cpu/cpu%d/online"
+#define PROCESSOR_PRESENT "/sys/devices/system/cpu/present"
 
 namespace com {
 namespace eolwral {
@@ -43,6 +44,8 @@ namespace core {
     void resetPermission();
 
     void gatherProcessor();
+
+    int getProcessorNumber();
 
     void processOfflineProcessor();
 

@@ -239,10 +239,9 @@ namespace core {
     if(this->_CurProcessList.size() == 0  || this->_PrevProcessList.size() == 0)
       return;
 
-
     // search for match PID and summary all CPUTime (Remove it for reducing CPU consume)
-    float curCPUTime = 0;
-    /*for(int curItem=0; curItem < this->_CurProcessList.size(); curItem++)
+    unsigned long curCPUTime = 0;
+    for(int curItem=0; curItem < this->_CurProcessList.size(); curItem++)
     {
       for(int prevItem=0; prevItem < this->_PrevProcessList.size(); prevItem++)
       {
@@ -252,12 +251,14 @@ namespace core {
                               this->_PrevProcessList[prevItem]->usedsystemtime();
           curCPUTime += this->_CurProcessList[curItem]->usedusertime() -
                               this->_PrevProcessList[prevItem]->usedusertime();
+
+          prevItem = this->_PrevProcessList.size();
         }
       }
     }
 
-    if(curCPUTime < _curCPUInfo.getCPUTime())*/
-    curCPUTime = (float) _curCPUInfo.getCPUTime();
+    if(curCPUTime < _curCPUInfo.getCPUTime())
+      curCPUTime = (float) _curCPUInfo.getCPUTime();
     if(curCPUTime == 0)
       return;
 
@@ -268,19 +269,19 @@ namespace core {
       {
         if(this->_CurProcessList[curItem]->pid() == this->_PrevProcessList[prevItem]->pid())
         {
-          float procCPUTime = 0;
+          unsigned long procCPUTime = 0;
           procCPUTime += this->_CurProcessList[curItem]->usedsystemtime() -
                               this->_PrevProcessList[prevItem]->usedsystemtime();
           procCPUTime += this->_CurProcessList[curItem]->usedusertime() -
                               this->_PrevProcessList[prevItem]->usedusertime();
 
           if(procCPUTime != 0)
-            this->_CurProcessList[curItem]->set_cpuusage(procCPUTime * 100/curCPUTime);
+            this->_CurProcessList[curItem]->set_cpuusage((float) procCPUTime * 100/curCPUTime);
 
           // check upper and bottom limit
-          if(this->_CurProcessList[curItem]->cpuusage() > 100 ||
-             this->_CurProcessList[curItem]->cpuusage() < 0 )
-            this->_CurProcessList[curItem]->set_cpuusage(0);
+          //if(this->_CurProcessList[curItem]->cpuusage() > 100 ||
+          //   this->_CurProcessList[curItem]->cpuusage() < 0 )
+          //  this->_CurProcessList[curItem]->set_cpuusage(0);
         }
       }
     }

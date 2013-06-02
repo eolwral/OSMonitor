@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map.Entry;
 
 import android.annotation.SuppressLint;
@@ -449,7 +450,7 @@ public class ProcessFragment extends SherlockListFragment
 						psInfo.getName().contains("/sbin/") )
 						doMerge = true;
 
-					if(psInfo.getName().contains("osmcore"))
+					if(psInfo.getName().toLowerCase(Locale.getDefault()).contains("osmcore"))
 						doMerge = false;
 					
 					if(settings.useExpertMode())

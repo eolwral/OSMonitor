@@ -47,6 +47,13 @@ if you would like to know that how it works, please check Wiki page!
 
 ### Change Log ###
 
+**Version 3.0.6.4**
+- Fix FC on SetCPU (Android 2.3)
+- Fix wrong number of cores
+
+**Version 3.0.6.3**
+- Fix CPU usage on multi-cores devices [Thanks to Vag Sta]
+
 **Version 3.0.6.2**
 - Fix Search (Message)
 - Fix Watch Log (Process)
@@ -76,20 +83,17 @@ if you would like to know that how it works, please check Wiki page!
 - [FIX] Hug FCs
 
 **Version 3.0.2**
-
 - [Add] give a default file name as export file name (Thanks to Larry)
 - [Modified] replace Google Map with OpenStreeMap to reduce privacy concerns (Thanks to Larry)
 - [Fix] Fix FC (Thanks to Larry)
 
 
 **Version 3.0.1**
-
 - [Modified] Fix landscape mode
 - [Modified] Better filter UI on Message (Thanks to Andreas)
 
 
 **Version 3.0.0**
-
 - [Removed] Set CPU Frequency
 - [Removed] Don't Support Android version 1.5~2.2
 - [Removed] Monitor Battery and Temperature 

@@ -22,8 +22,9 @@ namespace core {
   processor::processor()
   {
     MaximumCPUs = getProcessorNumber();
-    if (MaximumCPUs < sysconf(_SC_NPROCESSORS_CONF))
-      MaximumCPUs = sysconf(_SC_NPROCESSORS_CONF);
+    int DetectedCPUs = sysconf(_SC_NPROCESSORS_CONF);
+    if (MaximumCPUs < DetectedCPUs)
+      MaximumCPUs = DetectedCPUs;
   }
 
   /*

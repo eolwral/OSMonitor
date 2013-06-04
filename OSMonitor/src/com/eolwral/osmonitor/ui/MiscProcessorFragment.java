@@ -115,8 +115,9 @@ public class MiscProcessorFragment extends SherlockListFragment
 		// force enable all CPUs
 		boolean forceOnline = false;
 		for (int index = 0; index < coredata.size(); index++) {
-			if(coredata.get(index).getOffLine() == true) {
-				ipcService.setCPUStatus(index, 0);
+			if(coredata.get(index).getOffLine() == true && 
+			   coredata.get(index).getAvaiableFrequeucy().isEmpty() && 
+			   coredata.get(index).getAvaiableGovernors().isEmpty() ) {
 				ipcService.setCPUStatus(index, 1);
 				forceOnline = true;
 			}
@@ -266,13 +267,13 @@ public class MiscProcessorFragment extends SherlockListFragment
         				}
 
         				int CPUNum = Integer.parseInt((String) ((View)parentView.getParent()).getTag());
-       				    String [] CPUFreqList = coredata.get(CPUNum).getAvaiableFrequeucy().trim().split(" ");
+        				String [] freqList = CommonUtil.eraseNonIntegarString(coredata.get(CPUNum).getAvaiableFrequeucy().split(" "));
         				
         				maxSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_max_title)
-        						   						+" "+CPUFreqList[maxSeekBar.getSelectedItemPosition()]);
+        						   						+" "+freqList[maxSeekBar.getSelectedItemPosition()]);
 
         				ipcService.setCPUStatus(CPUNum, 1);
-        				ipcService.setCPUMaxFreq(CPUNum, Long.parseLong(CPUFreqList[maxSeekBar.getSelectedItemPosition()]));
+        				ipcService.setCPUMaxFreq(CPUNum, Long.parseLong(freqList[maxSeekBar.getSelectedItemPosition()]));
         			}
         			public void onNothingSelected(AdapterView<?> parentView) { }
 
@@ -287,13 +288,13 @@ public class MiscProcessorFragment extends SherlockListFragment
         				}
 
      				    int CPUNum = Integer.parseInt((String) ((View) minSeekBar.getParent()).getTag());
-       				    String [] CPUFreqList = coredata.get(CPUNum).getAvaiableFrequeucy().trim().split(" ");
+        				String [] freqList = CommonUtil.eraseNonIntegarString(coredata.get(CPUNum).getAvaiableFrequeucy().split(" "));
         				
         				minSeekBarValue.setText(mContext.getResources().getString(R.string.ui_processor_freq_min_title)
-        						   						+" "+CPUFreqList[minSeekBar.getSelectedItemPosition()]);
+        						   						+" "+freqList[minSeekBar.getSelectedItemPosition()]);
 
         				ipcService.setCPUStatus(CPUNum, 1);
-        				ipcService.setCPUMinFreq(CPUNum, Long.parseLong(CPUFreqList[minSeekBar.getSelectedItemPosition()]));
+        				ipcService.setCPUMinFreq(CPUNum, Long.parseLong(freqList[minSeekBar.getSelectedItemPosition()]));
         			}
         			public void onNothingSelected(AdapterView<?> parentView) { }
 

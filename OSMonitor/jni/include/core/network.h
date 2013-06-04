@@ -26,7 +26,7 @@
 #define INT_MAC_FILE "/sys/class/net/%s/address"
 
 #define INT_IPV6_FILE "/proc/%d/net/if_inet6"
-#define INT_IPV6_PATTERN "%8X%8X%8X%8X %*x %x %*x %*x %16s"
+#define INT_IPV6_PATTERN "%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X %*x %x %*x %*x %16s"
 
 namespace com {
 namespace eolwral {

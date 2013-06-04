@@ -172,11 +172,17 @@ namespace core {
       memset(curName, 0, BufferSize);
 
       int matchCounts = sscanf(buffer, INT_IPV6_PATTERN,
-                               &curIPv6.in6_u.u6_addr32[0], &curIPv6.in6_u.u6_addr32[1],
-                               &curIPv6.in6_u.u6_addr32[2], &curIPv6.in6_u.u6_addr32[3],
+                               &curIPv6.in6_u.u6_addr8[0], &curIPv6.in6_u.u6_addr8[1],
+                               &curIPv6.in6_u.u6_addr8[2], &curIPv6.in6_u.u6_addr8[3],
+                               &curIPv6.in6_u.u6_addr8[4], &curIPv6.in6_u.u6_addr8[5],
+                               &curIPv6.in6_u.u6_addr8[6], &curIPv6.in6_u.u6_addr8[7],
+                               &curIPv6.in6_u.u6_addr8[8], &curIPv6.in6_u.u6_addr8[9],
+                               &curIPv6.in6_u.u6_addr8[10], &curIPv6.in6_u.u6_addr8[11],
+                               &curIPv6.in6_u.u6_addr8[12], &curIPv6.in6_u.u6_addr8[13],
+                               &curIPv6.in6_u.u6_addr8[14], &curIPv6.in6_u.u6_addr8[15],
                                &curNetmaskV6, &curName );
 
-      if(matchCounts == 6)
+      if(matchCounts == 18)
       {
         // search matched interface
         std::vector<networkInfo*>::iterator curIter = this->_curNetworkList.begin();

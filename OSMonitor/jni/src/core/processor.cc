@@ -139,6 +139,7 @@ namespace core {
     {
       processorInfo* curProcessor = new processorInfo();
       unsigned int extractValue = 0;
+      unsigned int threshold = 0;
 
       curProcessor->set_number(curNumber);
       curProcessor->set_maxfrequency(-1);
@@ -159,6 +160,7 @@ namespace core {
         fscanf(processorFile, "%d", &extractValue);
         curProcessor->set_maxfrequency(extractValue);
         fclose(processorFile);
+        threshold++;
       }
 
       // get processor minimum frequency
@@ -169,6 +171,7 @@ namespace core {
         fscanf(processorFile, "%d", &extractValue);
         curProcessor->set_minfrequency(extractValue);
         fclose(processorFile);
+        threshold++;
       }
 
       // get scaling cur frequency
@@ -179,6 +182,7 @@ namespace core {
         fscanf(processorFile, "%d", &extractValue);
         curProcessor->set_currentscaling(extractValue);
         fclose(processorFile);
+        threshold++;
       }
 
       // get scaling max frequency
@@ -189,6 +193,7 @@ namespace core {
         fscanf(processorFile, "%d", &extractValue);
         curProcessor->set_maxscaling(extractValue);
         fclose(processorFile);
+        threshold++;
       }
 
       // get scaling min frequency
@@ -200,6 +205,7 @@ namespace core {
         fscanf(processorFile, "%d", &extractValue);
         curProcessor->set_minscaling(extractValue);
         fclose(processorFile);
+        threshold++;
       }
 
       // get scaling governor
@@ -213,6 +219,35 @@ namespace core {
         fclose(processorFile);
 
         curProcessor->set_grovernors(curScaling);
+        threshold++;
+      }
+
+      // available frequency
+      sprintf(buffer, PROCESSOR_AVAILABLE_FREQ, curNumber);
+      processorFile = fopen(buffer, "r");
+      if (processorFile)
+      {
+        char availableFreq[BufferSize];
+        memset(availableFreq, 0, BufferSize);
+        fgets(availableFreq, BufferSize, processorFile);
+        fclose(processorFile);
+
+        curProcessor->set_avaiablefrequeucy(availableFreq);
+        threshold++;
+      }
+
+      // available grovenors
+      sprintf(buffer, PROCESSOR_AVAILABLE_GOR, curNumber);
+      processorFile = fopen(buffer, "r");
+      if (processorFile)
+      {
+        char availableGor[BufferSize];
+        memset(availableGor, 0, BufferSize);
+        fgets(availableGor, BufferSize, processorFile);
+        fclose(processorFile);
+
+        curProcessor->set_avaiablegovernors(availableGor);
+        threshold++;
       }
 
       // status
@@ -228,31 +263,10 @@ namespace core {
           fclose(processorFile);
       }
 
-      // available frequency
-      sprintf(buffer, PROCESSOR_AVAILABLE_FREQ, curNumber);
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        char availableFreq[BufferSize];
-        memset(availableFreq, 0, BufferSize);
-        fgets(availableFreq, BufferSize, processorFile);
-        fclose(processorFile);
-
-        curProcessor->set_avaiablefrequeucy(availableFreq);
-      }
-
-      // available grovenors
-      sprintf(buffer, PROCESSOR_AVAILABLE_GOR, curNumber);
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        char availableGor[BufferSize];
-        memset(availableGor, 0, BufferSize);
-        fgets(availableGor, BufferSize, processorFile);
-        fclose(processorFile);
-
-        curProcessor->set_avaiablegovernors(availableGor);
-      }
+      // some devices don't have a status file, but CPU is online.
+      // if we got enough data, it should be online.
+      if(threshold > 6)
+        curProcessor->set_offline(false);
 
       this->_curProcessorList.push_back(curProcessor);
     }

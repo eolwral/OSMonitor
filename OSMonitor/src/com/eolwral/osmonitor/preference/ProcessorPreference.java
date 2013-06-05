@@ -110,9 +110,7 @@ public class ProcessorPreference extends DialogPreference
 
 		boolean forceOnline = false;
 		for (int index = 0; index < coredata.size(); index++) {
-			if(coredata.get(index).getOffLine() == true && 
-			   coredata.get(index).getAvaiableFrequeucy().isEmpty() && 
-			   coredata.get(index).getAvaiableGovernors().isEmpty() ) {
+			if(coredata.get(index).getOffLine() == true) {
 				ipcService.setCPUStatus(index, 1);
 				forceOnline = true;
 			}

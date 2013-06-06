@@ -14,7 +14,7 @@
 #include <unistd.h>
 
 #include "base.h"
-#include "ConnectionInfo.pb.h"
+#include "connectionInfo.pb.h"
 
 #define CONNECTION_TCP4 "/proc/%d/net/tcp"
 #define CONNECTION_TCP6 "/proc/%d/net/tcp6"

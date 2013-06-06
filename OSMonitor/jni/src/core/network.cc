@@ -33,6 +33,9 @@ namespace core {
       // get IPv4 address
       this->getIPv4Information(*curIter);
 
+      // get traffic statistics
+      this->getTrafficInformation(*curIter);
+
       curIter++;
     }
 
@@ -242,6 +245,43 @@ namespace core {
         curNetworkInfo->set_flags(curIFREQ.ifr_flags);
 
       close(curSocket);
+    }
+  }
+
+  void network::getTrafficInformation(networkInfo* curNetworkInfo)
+  {
+    char buffer[BufferSize];
+    char curTrafficData[BufferSize];
+    int curTraffic = 0;
+
+    if( curNetworkInfo->recvbytes() == 0)
+    {
+      memset(buffer, 0, BufferSize);
+      memset(curTrafficData, 0, BufferSize);
+
+      snprintf(buffer, BufferSize, INT_RX_FILE, curNetworkInfo->name().c_str());
+      if((curTraffic = open(buffer, O_RDONLY)) > 0)
+      {
+        read(curTraffic, curTrafficData, BufferSize);
+        close(curTraffic);
+      }
+
+      curNetworkInfo->set_recvbytes(atoi(curTrafficData));
+    }
+
+    if( curNetworkInfo->transbytes() == 0)
+    {
+      memset(buffer, 0, BufferSize);
+      memset(curTrafficData, 0, BufferSize);
+
+      snprintf(buffer, BufferSize, INT_TX_FILE, curNetworkInfo->name().c_str());
+      if((curTraffic = open(buffer, O_RDONLY)) > 0)
+      {
+        read(curTraffic, curTrafficData, BufferSize);
+        close(curTraffic);
+      }
+
+      curNetworkInfo->set_transbytes(atoi(curTrafficData));
     }
   }
 

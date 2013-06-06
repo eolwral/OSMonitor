@@ -24,6 +24,8 @@
 #define INT_IPV4_PATTERN " %[^:]:%u %u %u %u %u %u %u %u %u %u %u %u %u %u %u"
 
 #define INT_MAC_FILE "/sys/class/net/%s/address"
+#define INT_RX_FILE "sys/class/net/%s/statistics/rx_bytes"
+#define INT_TX_FILE "sys/class/net/%s/statistics/tx_bytes"
 
 #define INT_IPV6_FILE "/proc/%d/net/if_inet6"
 #define INT_IPV6_PATTERN "%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X%2X %*x %x %*x %*x %16s"
@@ -64,6 +66,12 @@ namespace core {
      * @param curNetworkInfo target interface
      */
     void getMACInformation(networkInfo* curNetworkInfo);
+
+    /**
+     * get Traffic information
+     * @param curNetworkInfo target interface
+     */
+    void getTrafficInformation(networkInfo* curNetworkInfo);
 
   public:
 

@@ -12,7 +12,7 @@
 extern "C" int sysinfo (struct sysinfo *info);
 
 #include "base.h"
-#include "osinfo.pb.h"
+#include "osInfo.pb.h"
 
 namespace com {
 namespace eolwral {

@@ -287,9 +287,9 @@ public class OSMonitorService extends Service
 	private void refreshNotification() {
 		
 		if (useCelsius)
-			nBuilder.setContentTitle("Mem: "+CommonUtil.convertToMemory(memoryFree)+", Bat:"+battLevel+"% ("+temperature/10+"¢XC)" );
+			nBuilder.setContentTitle("Mem: "+CommonUtil.convertToSize(memoryFree, true)+", Bat:"+battLevel+"% ("+temperature/10+"¢XC)" );
 		else
-			nBuilder.setContentTitle("Mem: "+CommonUtil.convertToMemory(memoryFree)+", Bat:"+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
+			nBuilder.setContentTitle("Mem: "+CommonUtil.convertToSize(memoryFree, true)+", Bat:"+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
 		
 		nBuilder.setContentText("CPU: "+CommonUtil.convertToUsage(cpuUsage) + "% [ " +
 								CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] + " ]");

@@ -11,21 +11,21 @@ message networkInfo {
 
   required uint32 flags = 7;                  /**< status flag */
 
-  required uint32 recvBytes = 8;              /**< received bytes */
-  required uint32 recvPackages = 9;           /**< received packages */
-  required uint32 recvErrorBytes = 10;        /**< error bytes when receiving */
-  required uint32 recvDropBytes = 11;         /**< drop bytes when receiving  */
-  required uint32 recvFIFOBytes = 12;         /**< FIFO bytes when receiving */
-  required uint32 recvFrames = 13;            /**< received frames */
-  required uint32 recvCompressedBytes = 14;   /**< received compressed bytes */
-  required uint32 recvMultiCastBytes = 15;    /**< received multi-cast bytes */
+  required uint64 recvBytes = 8;              /**< received bytes */
+  required uint64 recvPackages = 9;           /**< received packages */
+  required uint64 recvErrorBytes = 10;        /**< error bytes when receiving */
+  required uint64 recvDropBytes = 11;         /**< drop bytes when receiving  */
+  required uint64 recvFIFOBytes = 12;         /**< FIFO bytes when receiving */
+  required uint64 recvFrames = 13;            /**< received frames */
+  required uint64 recvCompressedBytes = 14;   /**< received compressed bytes */
+  required uint64 recvMultiCastBytes = 15;    /**< received multi-cast bytes */
 
-  required uint32 transBytes = 16;            /**< transmitted bytes */
-  required uint32 transPackages = 17;         /**< transmitted packages */
-  required uint32 transErrorBytes = 18;       /**< error bytes when transmitting */
-  required uint32 transDropBytes = 19;        /**< dropped bytes when transmitting */
-  required uint32 transFIFOBytes = 20;        /**< FIFO bytes when transmitting */
-  required uint32 transCompressedBytes = 21;  /**< transmitted compressed bytes */
+  required uint64 transBytes = 16;            /**< transmitted bytes */
+  required uint64 transPackages = 17;         /**< transmitted packages */
+  required uint64 transErrorBytes = 18;       /**< error bytes when transmitting */
+  required uint64 transDropBytes = 19;        /**< dropped bytes when transmitting */
+  required uint64 transFIFOBytes = 20;        /**< FIFO bytes when transmitting */
+  required uint64 transCompressedBytes = 21;  /**< transmitted compressed bytes */
 
   required uint32 collisionTimes = 22;        /**< collision times */
   required uint32 carrierErrors = 23;         /**< carrier error times */  

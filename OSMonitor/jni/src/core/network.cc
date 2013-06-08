@@ -63,22 +63,22 @@ namespace core {
     while(fgets(buffer, BufferSize, ifFile) != NULL)
     {
       char curName[BufferSize];
-      unsigned int recvBytes = 0;
-      unsigned int recvPackages = 0;
-      unsigned int recvErrorBytes = 0;
-      unsigned int recvDropBytes = 0;
-      unsigned int recvFIFOBytes = 0;
-      unsigned int recvFrames = 0;
-      unsigned int recvCompressedBytes = 0;
-      unsigned int recvMultiCastBytes = 0;
-      unsigned int transBytes = 0;
-      unsigned int transPackages = 0;
-      unsigned int transErrorBytes = 0;
-      unsigned int transDropBytes = 0;
-      unsigned int transFIFOBytes = 0;
+      unsigned long recvBytes = 0;
+      unsigned long recvPackages = 0;
+      unsigned long recvErrorBytes = 0;
+      unsigned long recvDropBytes = 0;
+      unsigned long recvFIFOBytes = 0;
+      unsigned long recvFrames = 0;
+      unsigned long recvCompressedBytes = 0;
+      unsigned long recvMultiCastBytes = 0;
+      unsigned long transBytes = 0;
+      unsigned long transPackages = 0;
+      unsigned long transErrorBytes = 0;
+      unsigned long transDropBytes = 0;
+      unsigned long transFIFOBytes = 0;
       unsigned int collisionTimes = 0;
       unsigned int carrierErrors = 0;
-      unsigned int transCompressedBytes = 0;
+      unsigned long transCompressedBytes = 0;
 
       networkInfo* curNetworkInfo = new networkInfo();
 
@@ -266,7 +266,7 @@ namespace core {
         close(curTraffic);
       }
 
-      curNetworkInfo->set_recvbytes(atoi(curTrafficData));
+      curNetworkInfo->set_recvbytes(strtoul(curTrafficData, NULL, 0));
     }
 
     if( curNetworkInfo->transbytes() == 0)
@@ -281,7 +281,7 @@ namespace core {
         close(curTraffic);
       }
 
-      curNetworkInfo->set_transbytes(atoi(curTrafficData));
+      curNetworkInfo->set_transbytes(strtoul(curTrafficData, NULL, 0));
     }
   }
 

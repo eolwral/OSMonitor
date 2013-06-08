@@ -162,103 +162,103 @@ class networkInfo : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 flags() const;
   inline void set_flags(::google::protobuf::uint32 value);
   
-  // required uint32 recvBytes = 8;
+  // required uint64 recvBytes = 8;
   inline bool has_recvbytes() const;
   inline void clear_recvbytes();
   static const int kRecvBytesFieldNumber = 8;
-  inline ::google::protobuf::uint32 recvbytes() const;
-  inline void set_recvbytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 recvbytes() const;
+  inline void set_recvbytes(::google::protobuf::uint64 value);
   
-  // required uint32 recvPackages = 9;
+  // required uint64 recvPackages = 9;
   inline bool has_recvpackages() const;
   inline void clear_recvpackages();
   static const int kRecvPackagesFieldNumber = 9;
-  inline ::google::protobuf::uint32 recvpackages() const;
-  inline void set_recvpackages(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 recvpackages() const;
+  inline void set_recvpackages(::google::protobuf::uint64 value);
   
-  // required uint32 recvErrorBytes = 10;
+  // required uint64 recvErrorBytes = 10;
   inline bool has_recverrorbytes() const;
   inline void clear_recverrorbytes();
   static const int kRecvErrorBytesFieldNumber = 10;
-  inline ::google::protobuf::uint32 recverrorbytes() const;
-  inline void set_recverrorbytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 recverrorbytes() const;
+  inline void set_recverrorbytes(::google::protobuf::uint64 value);
   
-  // required uint32 recvDropBytes = 11;
+  // required uint64 recvDropBytes = 11;
   inline bool has_recvdropbytes() const;
   inline void clear_recvdropbytes();
   static const int kRecvDropBytesFieldNumber = 11;
-  inline ::google::protobuf::uint32 recvdropbytes() const;
-  inline void set_recvdropbytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 recvdropbytes() const;
+  inline void set_recvdropbytes(::google::protobuf::uint64 value);
   
-  // required uint32 recvFIFOBytes = 12;
+  // required uint64 recvFIFOBytes = 12;
   inline bool has_recvfifobytes() const;
   inline void clear_recvfifobytes();
   static const int kRecvFIFOBytesFieldNumber = 12;
-  inline ::google::protobuf::uint32 recvfifobytes() const;
-  inline void set_recvfifobytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 recvfifobytes() const;
+  inline void set_recvfifobytes(::google::protobuf::uint64 value);
   
-  // required uint32 recvFrames = 13;
+  // required uint64 recvFrames = 13;
   inline bool has_recvframes() const;
   inline void clear_recvframes();
   static const int kRecvFramesFieldNumber = 13;
-  inline ::google::protobuf::uint32 recvframes() const;
-  inline void set_recvframes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 recvframes() const;
+  inline void set_recvframes(::google::protobuf::uint64 value);
   
-  // required uint32 recvCompressedBytes = 14;
+  // required uint64 recvCompressedBytes = 14;
   inline bool has_recvcompressedbytes() const;
   inline void clear_recvcompressedbytes();
   static const int kRecvCompressedBytesFieldNumber = 14;
-  inline ::google::protobuf::uint32 recvcompressedbytes() const;
-  inline void set_recvcompressedbytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 recvcompressedbytes() const;
+  inline void set_recvcompressedbytes(::google::protobuf::uint64 value);
   
-  // required uint32 recvMultiCastBytes = 15;
+  // required uint64 recvMultiCastBytes = 15;
   inline bool has_recvmulticastbytes() const;
   inline void clear_recvmulticastbytes();
   static const int kRecvMultiCastBytesFieldNumber = 15;
-  inline ::google::protobuf::uint32 recvmulticastbytes() const;
-  inline void set_recvmulticastbytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 recvmulticastbytes() const;
+  inline void set_recvmulticastbytes(::google::protobuf::uint64 value);
   
-  // required uint32 transBytes = 16;
+  // required uint64 transBytes = 16;
   inline bool has_transbytes() const;
   inline void clear_transbytes();
   static const int kTransBytesFieldNumber = 16;
-  inline ::google::protobuf::uint32 transbytes() const;
-  inline void set_transbytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 transbytes() const;
+  inline void set_transbytes(::google::protobuf::uint64 value);
   
-  // required uint32 transPackages = 17;
+  // required uint64 transPackages = 17;
   inline bool has_transpackages() const;
   inline void clear_transpackages();
   static const int kTransPackagesFieldNumber = 17;
-  inline ::google::protobuf::uint32 transpackages() const;
-  inline void set_transpackages(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 transpackages() const;
+  inline void set_transpackages(::google::protobuf::uint64 value);
   
-  // required uint32 transErrorBytes = 18;
+  // required uint64 transErrorBytes = 18;
   inline bool has_transerrorbytes() const;
   inline void clear_transerrorbytes();
   static const int kTransErrorBytesFieldNumber = 18;
-  inline ::google::protobuf::uint32 transerrorbytes() const;
-  inline void set_transerrorbytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 transerrorbytes() const;
+  inline void set_transerrorbytes(::google::protobuf::uint64 value);
   
-  // required uint32 transDropBytes = 19;
+  // required uint64 transDropBytes = 19;
   inline bool has_transdropbytes() const;
   inline void clear_transdropbytes();
   static const int kTransDropBytesFieldNumber = 19;
-  inline ::google::protobuf::uint32 transdropbytes() const;
-  inline void set_transdropbytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 transdropbytes() const;
+  inline void set_transdropbytes(::google::protobuf::uint64 value);
   
-  // required uint32 transFIFOBytes = 20;
+  // required uint64 transFIFOBytes = 20;
   inline bool has_transfifobytes() const;
   inline void clear_transfifobytes();
   static const int kTransFIFOBytesFieldNumber = 20;
-  inline ::google::protobuf::uint32 transfifobytes() const;
-  inline void set_transfifobytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 transfifobytes() const;
+  inline void set_transfifobytes(::google::protobuf::uint64 value);
   
-  // required uint32 transCompressedBytes = 21;
+  // required uint64 transCompressedBytes = 21;
   inline bool has_transcompressedbytes() const;
   inline void clear_transcompressedbytes();
   static const int kTransCompressedBytesFieldNumber = 21;
-  inline ::google::protobuf::uint32 transcompressedbytes() const;
-  inline void set_transcompressedbytes(::google::protobuf::uint32 value);
+  inline ::google::protobuf::uint64 transcompressedbytes() const;
+  inline void set_transcompressedbytes(::google::protobuf::uint64 value);
   
   // required uint32 collisionTimes = 22;
   inline bool has_collisiontimes() const;
@@ -332,20 +332,20 @@ class networkInfo : public ::google::protobuf::Message {
   ::std::string* ipv6addr_;
   ::google::protobuf::uint32 netmaskv6_;
   ::google::protobuf::uint32 flags_;
-  ::google::protobuf::uint32 recvbytes_;
-  ::google::protobuf::uint32 recvpackages_;
-  ::google::protobuf::uint32 recverrorbytes_;
-  ::google::protobuf::uint32 recvdropbytes_;
-  ::google::protobuf::uint32 recvfifobytes_;
-  ::google::protobuf::uint32 recvframes_;
-  ::google::protobuf::uint32 recvcompressedbytes_;
-  ::google::protobuf::uint32 recvmulticastbytes_;
-  ::google::protobuf::uint32 transbytes_;
-  ::google::protobuf::uint32 transpackages_;
-  ::google::protobuf::uint32 transerrorbytes_;
-  ::google::protobuf::uint32 transdropbytes_;
-  ::google::protobuf::uint32 transfifobytes_;
-  ::google::protobuf::uint32 transcompressedbytes_;
+  ::google::protobuf::uint64 recvbytes_;
+  ::google::protobuf::uint64 recvpackages_;
+  ::google::protobuf::uint64 recverrorbytes_;
+  ::google::protobuf::uint64 recvdropbytes_;
+  ::google::protobuf::uint64 recvfifobytes_;
+  ::google::protobuf::uint64 recvframes_;
+  ::google::protobuf::uint64 recvcompressedbytes_;
+  ::google::protobuf::uint64 recvmulticastbytes_;
+  ::google::protobuf::uint64 transbytes_;
+  ::google::protobuf::uint64 transpackages_;
+  ::google::protobuf::uint64 transerrorbytes_;
+  ::google::protobuf::uint64 transdropbytes_;
+  ::google::protobuf::uint64 transfifobytes_;
+  ::google::protobuf::uint64 transcompressedbytes_;
   ::google::protobuf::uint32 collisiontimes_;
   ::google::protobuf::uint32 carriererrors_;
   
@@ -700,7 +700,7 @@ inline void networkInfo::set_flags(::google::protobuf::uint32 value) {
   flags_ = value;
 }
 
-// required uint32 recvBytes = 8;
+// required uint64 recvBytes = 8;
 inline bool networkInfo::has_recvbytes() const {
   return (_has_bits_[0] & 0x00000080u) != 0;
 }
@@ -711,18 +711,18 @@ inline void networkInfo::clear_has_recvbytes() {
   _has_bits_[0] &= ~0x00000080u;
 }
 inline void networkInfo::clear_recvbytes() {
-  recvbytes_ = 0u;
+  recvbytes_ = GOOGLE_ULONGLONG(0);
   clear_has_recvbytes();
 }
-inline ::google::protobuf::uint32 networkInfo::recvbytes() const {
+inline ::google::protobuf::uint64 networkInfo::recvbytes() const {
   return recvbytes_;
 }
-inline void networkInfo::set_recvbytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_recvbytes(::google::protobuf::uint64 value) {
   set_has_recvbytes();
   recvbytes_ = value;
 }
 
-// required uint32 recvPackages = 9;
+// required uint64 recvPackages = 9;
 inline bool networkInfo::has_recvpackages() const {
   return (_has_bits_[0] & 0x00000100u) != 0;
 }
@@ -733,18 +733,18 @@ inline void networkInfo::clear_has_recvpackages() {
   _has_bits_[0] &= ~0x00000100u;
 }
 inline void networkInfo::clear_recvpackages() {
-  recvpackages_ = 0u;
+  recvpackages_ = GOOGLE_ULONGLONG(0);
   clear_has_recvpackages();
 }
-inline ::google::protobuf::uint32 networkInfo::recvpackages() const {
+inline ::google::protobuf::uint64 networkInfo::recvpackages() const {
   return recvpackages_;
 }
-inline void networkInfo::set_recvpackages(::google::protobuf::uint32 value) {
+inline void networkInfo::set_recvpackages(::google::protobuf::uint64 value) {
   set_has_recvpackages();
   recvpackages_ = value;
 }
 
-// required uint32 recvErrorBytes = 10;
+// required uint64 recvErrorBytes = 10;
 inline bool networkInfo::has_recverrorbytes() const {
   return (_has_bits_[0] & 0x00000200u) != 0;
 }
@@ -755,18 +755,18 @@ inline void networkInfo::clear_has_recverrorbytes() {
   _has_bits_[0] &= ~0x00000200u;
 }
 inline void networkInfo::clear_recverrorbytes() {
-  recverrorbytes_ = 0u;
+  recverrorbytes_ = GOOGLE_ULONGLONG(0);
   clear_has_recverrorbytes();
 }
-inline ::google::protobuf::uint32 networkInfo::recverrorbytes() const {
+inline ::google::protobuf::uint64 networkInfo::recverrorbytes() const {
   return recverrorbytes_;
 }
-inline void networkInfo::set_recverrorbytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_recverrorbytes(::google::protobuf::uint64 value) {
   set_has_recverrorbytes();
   recverrorbytes_ = value;
 }
 
-// required uint32 recvDropBytes = 11;
+// required uint64 recvDropBytes = 11;
 inline bool networkInfo::has_recvdropbytes() const {
   return (_has_bits_[0] & 0x00000400u) != 0;
 }
@@ -777,18 +777,18 @@ inline void networkInfo::clear_has_recvdropbytes() {
   _has_bits_[0] &= ~0x00000400u;
 }
 inline void networkInfo::clear_recvdropbytes() {
-  recvdropbytes_ = 0u;
+  recvdropbytes_ = GOOGLE_ULONGLONG(0);
   clear_has_recvdropbytes();
 }
-inline ::google::protobuf::uint32 networkInfo::recvdropbytes() const {
+inline ::google::protobuf::uint64 networkInfo::recvdropbytes() const {
   return recvdropbytes_;
 }
-inline void networkInfo::set_recvdropbytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_recvdropbytes(::google::protobuf::uint64 value) {
   set_has_recvdropbytes();
   recvdropbytes_ = value;
 }
 
-// required uint32 recvFIFOBytes = 12;
+// required uint64 recvFIFOBytes = 12;
 inline bool networkInfo::has_recvfifobytes() const {
   return (_has_bits_[0] & 0x00000800u) != 0;
 }
@@ -799,18 +799,18 @@ inline void networkInfo::clear_has_recvfifobytes() {
   _has_bits_[0] &= ~0x00000800u;
 }
 inline void networkInfo::clear_recvfifobytes() {
-  recvfifobytes_ = 0u;
+  recvfifobytes_ = GOOGLE_ULONGLONG(0);
   clear_has_recvfifobytes();
 }
-inline ::google::protobuf::uint32 networkInfo::recvfifobytes() const {
+inline ::google::protobuf::uint64 networkInfo::recvfifobytes() const {
   return recvfifobytes_;
 }
-inline void networkInfo::set_recvfifobytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_recvfifobytes(::google::protobuf::uint64 value) {
   set_has_recvfifobytes();
   recvfifobytes_ = value;
 }
 
-// required uint32 recvFrames = 13;
+// required uint64 recvFrames = 13;
 inline bool networkInfo::has_recvframes() const {
   return (_has_bits_[0] & 0x00001000u) != 0;
 }
@@ -821,18 +821,18 @@ inline void networkInfo::clear_has_recvframes() {
   _has_bits_[0] &= ~0x00001000u;
 }
 inline void networkInfo::clear_recvframes() {
-  recvframes_ = 0u;
+  recvframes_ = GOOGLE_ULONGLONG(0);
   clear_has_recvframes();
 }
-inline ::google::protobuf::uint32 networkInfo::recvframes() const {
+inline ::google::protobuf::uint64 networkInfo::recvframes() const {
   return recvframes_;
 }
-inline void networkInfo::set_recvframes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_recvframes(::google::protobuf::uint64 value) {
   set_has_recvframes();
   recvframes_ = value;
 }
 
-// required uint32 recvCompressedBytes = 14;
+// required uint64 recvCompressedBytes = 14;
 inline bool networkInfo::has_recvcompressedbytes() const {
   return (_has_bits_[0] & 0x00002000u) != 0;
 }
@@ -843,18 +843,18 @@ inline void networkInfo::clear_has_recvcompressedbytes() {
   _has_bits_[0] &= ~0x00002000u;
 }
 inline void networkInfo::clear_recvcompressedbytes() {
-  recvcompressedbytes_ = 0u;
+  recvcompressedbytes_ = GOOGLE_ULONGLONG(0);
   clear_has_recvcompressedbytes();
 }
-inline ::google::protobuf::uint32 networkInfo::recvcompressedbytes() const {
+inline ::google::protobuf::uint64 networkInfo::recvcompressedbytes() const {
   return recvcompressedbytes_;
 }
-inline void networkInfo::set_recvcompressedbytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_recvcompressedbytes(::google::protobuf::uint64 value) {
   set_has_recvcompressedbytes();
   recvcompressedbytes_ = value;
 }
 
-// required uint32 recvMultiCastBytes = 15;
+// required uint64 recvMultiCastBytes = 15;
 inline bool networkInfo::has_recvmulticastbytes() const {
   return (_has_bits_[0] & 0x00004000u) != 0;
 }
@@ -865,18 +865,18 @@ inline void networkInfo::clear_has_recvmulticastbytes() {
   _has_bits_[0] &= ~0x00004000u;
 }
 inline void networkInfo::clear_recvmulticastbytes() {
-  recvmulticastbytes_ = 0u;
+  recvmulticastbytes_ = GOOGLE_ULONGLONG(0);
   clear_has_recvmulticastbytes();
 }
-inline ::google::protobuf::uint32 networkInfo::recvmulticastbytes() const {
+inline ::google::protobuf::uint64 networkInfo::recvmulticastbytes() const {
   return recvmulticastbytes_;
 }
-inline void networkInfo::set_recvmulticastbytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_recvmulticastbytes(::google::protobuf::uint64 value) {
   set_has_recvmulticastbytes();
   recvmulticastbytes_ = value;
 }
 
-// required uint32 transBytes = 16;
+// required uint64 transBytes = 16;
 inline bool networkInfo::has_transbytes() const {
   return (_has_bits_[0] & 0x00008000u) != 0;
 }
@@ -887,18 +887,18 @@ inline void networkInfo::clear_has_transbytes() {
   _has_bits_[0] &= ~0x00008000u;
 }
 inline void networkInfo::clear_transbytes() {
-  transbytes_ = 0u;
+  transbytes_ = GOOGLE_ULONGLONG(0);
   clear_has_transbytes();
 }
-inline ::google::protobuf::uint32 networkInfo::transbytes() const {
+inline ::google::protobuf::uint64 networkInfo::transbytes() const {
   return transbytes_;
 }
-inline void networkInfo::set_transbytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_transbytes(::google::protobuf::uint64 value) {
   set_has_transbytes();
   transbytes_ = value;
 }
 
-// required uint32 transPackages = 17;
+// required uint64 transPackages = 17;
 inline bool networkInfo::has_transpackages() const {
   return (_has_bits_[0] & 0x00010000u) != 0;
 }
@@ -909,18 +909,18 @@ inline void networkInfo::clear_has_transpackages() {
   _has_bits_[0] &= ~0x00010000u;
 }
 inline void networkInfo::clear_transpackages() {
-  transpackages_ = 0u;
+  transpackages_ = GOOGLE_ULONGLONG(0);
   clear_has_transpackages();
 }
-inline ::google::protobuf::uint32 networkInfo::transpackages() const {
+inline ::google::protobuf::uint64 networkInfo::transpackages() const {
   return transpackages_;
 }
-inline void networkInfo::set_transpackages(::google::protobuf::uint32 value) {
+inline void networkInfo::set_transpackages(::google::protobuf::uint64 value) {
   set_has_transpackages();
   transpackages_ = value;
 }
 
-// required uint32 transErrorBytes = 18;
+// required uint64 transErrorBytes = 18;
 inline bool networkInfo::has_transerrorbytes() const {
   return (_has_bits_[0] & 0x00020000u) != 0;
 }
@@ -931,18 +931,18 @@ inline void networkInfo::clear_has_transerrorbytes() {
   _has_bits_[0] &= ~0x00020000u;
 }
 inline void networkInfo::clear_transerrorbytes() {
-  transerrorbytes_ = 0u;
+  transerrorbytes_ = GOOGLE_ULONGLONG(0);
   clear_has_transerrorbytes();
 }
-inline ::google::protobuf::uint32 networkInfo::transerrorbytes() const {
+inline ::google::protobuf::uint64 networkInfo::transerrorbytes() const {
   return transerrorbytes_;
 }
-inline void networkInfo::set_transerrorbytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_transerrorbytes(::google::protobuf::uint64 value) {
   set_has_transerrorbytes();
   transerrorbytes_ = value;
 }
 
-// required uint32 transDropBytes = 19;
+// required uint64 transDropBytes = 19;
 inline bool networkInfo::has_transdropbytes() const {
   return (_has_bits_[0] & 0x00040000u) != 0;
 }
@@ -953,18 +953,18 @@ inline void networkInfo::clear_has_transdropbytes() {
   _has_bits_[0] &= ~0x00040000u;
 }
 inline void networkInfo::clear_transdropbytes() {
-  transdropbytes_ = 0u;
+  transdropbytes_ = GOOGLE_ULONGLONG(0);
   clear_has_transdropbytes();
 }
-inline ::google::protobuf::uint32 networkInfo::transdropbytes() const {
+inline ::google::protobuf::uint64 networkInfo::transdropbytes() const {
   return transdropbytes_;
 }
-inline void networkInfo::set_transdropbytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_transdropbytes(::google::protobuf::uint64 value) {
   set_has_transdropbytes();
   transdropbytes_ = value;
 }
 
-// required uint32 transFIFOBytes = 20;
+// required uint64 transFIFOBytes = 20;
 inline bool networkInfo::has_transfifobytes() const {
   return (_has_bits_[0] & 0x00080000u) != 0;
 }
@@ -975,18 +975,18 @@ inline void networkInfo::clear_has_transfifobytes() {
   _has_bits_[0] &= ~0x00080000u;
 }
 inline void networkInfo::clear_transfifobytes() {
-  transfifobytes_ = 0u;
+  transfifobytes_ = GOOGLE_ULONGLONG(0);
   clear_has_transfifobytes();
 }
-inline ::google::protobuf::uint32 networkInfo::transfifobytes() const {
+inline ::google::protobuf::uint64 networkInfo::transfifobytes() const {
   return transfifobytes_;
 }
-inline void networkInfo::set_transfifobytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_transfifobytes(::google::protobuf::uint64 value) {
   set_has_transfifobytes();
   transfifobytes_ = value;
 }
 
-// required uint32 transCompressedBytes = 21;
+// required uint64 transCompressedBytes = 21;
 inline bool networkInfo::has_transcompressedbytes() const {
   return (_has_bits_[0] & 0x00100000u) != 0;
 }
@@ -997,13 +997,13 @@ inline void networkInfo::clear_has_transcompressedbytes() {
   _has_bits_[0] &= ~0x00100000u;
 }
 inline void networkInfo::clear_transcompressedbytes() {
-  transcompressedbytes_ = 0u;
+  transcompressedbytes_ = GOOGLE_ULONGLONG(0);
   clear_has_transcompressedbytes();
 }
-inline ::google::protobuf::uint32 networkInfo::transcompressedbytes() const {
+inline ::google::protobuf::uint64 networkInfo::transcompressedbytes() const {
   return transcompressedbytes_;
 }
-inline void networkInfo::set_transcompressedbytes(::google::protobuf::uint32 value) {
+inline void networkInfo::set_transcompressedbytes(::google::protobuf::uint64 value) {
   set_has_transcompressedbytes();
   transcompressedbytes_ = value;
 }

@@ -39,61 +39,61 @@ public final class NetworkInfo {
     boolean hasFlags();
     int getFlags();
     
-    // required uint32 recvBytes = 8;
+    // required uint64 recvBytes = 8;
     boolean hasRecvBytes();
-    int getRecvBytes();
+    long getRecvBytes();
     
-    // required uint32 recvPackages = 9;
+    // required uint64 recvPackages = 9;
     boolean hasRecvPackages();
-    int getRecvPackages();
+    long getRecvPackages();
     
-    // required uint32 recvErrorBytes = 10;
+    // required uint64 recvErrorBytes = 10;
     boolean hasRecvErrorBytes();
-    int getRecvErrorBytes();
+    long getRecvErrorBytes();
     
-    // required uint32 recvDropBytes = 11;
+    // required uint64 recvDropBytes = 11;
     boolean hasRecvDropBytes();
-    int getRecvDropBytes();
+    long getRecvDropBytes();
     
-    // required uint32 recvFIFOBytes = 12;
+    // required uint64 recvFIFOBytes = 12;
     boolean hasRecvFIFOBytes();
-    int getRecvFIFOBytes();
+    long getRecvFIFOBytes();
     
-    // required uint32 recvFrames = 13;
+    // required uint64 recvFrames = 13;
     boolean hasRecvFrames();
-    int getRecvFrames();
+    long getRecvFrames();
     
-    // required uint32 recvCompressedBytes = 14;
+    // required uint64 recvCompressedBytes = 14;
     boolean hasRecvCompressedBytes();
-    int getRecvCompressedBytes();
+    long getRecvCompressedBytes();
     
-    // required uint32 recvMultiCastBytes = 15;
+    // required uint64 recvMultiCastBytes = 15;
     boolean hasRecvMultiCastBytes();
-    int getRecvMultiCastBytes();
+    long getRecvMultiCastBytes();
     
-    // required uint32 transBytes = 16;
+    // required uint64 transBytes = 16;
     boolean hasTransBytes();
-    int getTransBytes();
+    long getTransBytes();
     
-    // required uint32 transPackages = 17;
+    // required uint64 transPackages = 17;
     boolean hasTransPackages();
-    int getTransPackages();
+    long getTransPackages();
     
-    // required uint32 transErrorBytes = 18;
+    // required uint64 transErrorBytes = 18;
     boolean hasTransErrorBytes();
-    int getTransErrorBytes();
+    long getTransErrorBytes();
     
-    // required uint32 transDropBytes = 19;
+    // required uint64 transDropBytes = 19;
     boolean hasTransDropBytes();
-    int getTransDropBytes();
+    long getTransDropBytes();
     
-    // required uint32 transFIFOBytes = 20;
+    // required uint64 transFIFOBytes = 20;
     boolean hasTransFIFOBytes();
-    int getTransFIFOBytes();
+    long getTransFIFOBytes();
     
-    // required uint32 transCompressedBytes = 21;
+    // required uint64 transCompressedBytes = 21;
     boolean hasTransCompressedBytes();
-    int getTransCompressedBytes();
+    long getTransCompressedBytes();
     
     // required uint32 collisionTimes = 22;
     boolean hasCollisionTimes();
@@ -312,143 +312,143 @@ public final class NetworkInfo {
       return flags_;
     }
     
-    // required uint32 recvBytes = 8;
+    // required uint64 recvBytes = 8;
     public static final int RECVBYTES_FIELD_NUMBER = 8;
-    private int recvBytes_;
+    private long recvBytes_;
     public boolean hasRecvBytes() {
       return ((bitField0_ & 0x00000080) == 0x00000080);
     }
-    public int getRecvBytes() {
+    public long getRecvBytes() {
       return recvBytes_;
     }
     
-    // required uint32 recvPackages = 9;
+    // required uint64 recvPackages = 9;
     public static final int RECVPACKAGES_FIELD_NUMBER = 9;
-    private int recvPackages_;
+    private long recvPackages_;
     public boolean hasRecvPackages() {
       return ((bitField0_ & 0x00000100) == 0x00000100);
     }
-    public int getRecvPackages() {
+    public long getRecvPackages() {
       return recvPackages_;
     }
     
-    // required uint32 recvErrorBytes = 10;
+    // required uint64 recvErrorBytes = 10;
     public static final int RECVERRORBYTES_FIELD_NUMBER = 10;
-    private int recvErrorBytes_;
+    private long recvErrorBytes_;
     public boolean hasRecvErrorBytes() {
       return ((bitField0_ & 0x00000200) == 0x00000200);
     }
-    public int getRecvErrorBytes() {
+    public long getRecvErrorBytes() {
       return recvErrorBytes_;
     }
     
-    // required uint32 recvDropBytes = 11;
+    // required uint64 recvDropBytes = 11;
     public static final int RECVDROPBYTES_FIELD_NUMBER = 11;
-    private int recvDropBytes_;
+    private long recvDropBytes_;
     public boolean hasRecvDropBytes() {
       return ((bitField0_ & 0x00000400) == 0x00000400);
     }
-    public int getRecvDropBytes() {
+    public long getRecvDropBytes() {
       return recvDropBytes_;
     }
     
-    // required uint32 recvFIFOBytes = 12;
+    // required uint64 recvFIFOBytes = 12;
     public static final int RECVFIFOBYTES_FIELD_NUMBER = 12;
-    private int recvFIFOBytes_;
+    private long recvFIFOBytes_;
     public boolean hasRecvFIFOBytes() {
       return ((bitField0_ & 0x00000800) == 0x00000800);
     }
-    public int getRecvFIFOBytes() {
+    public long getRecvFIFOBytes() {
       return recvFIFOBytes_;
     }
     
-    // required uint32 recvFrames = 13;
+    // required uint64 recvFrames = 13;
     public static final int RECVFRAMES_FIELD_NUMBER = 13;
-    private int recvFrames_;
+    private long recvFrames_;
     public boolean hasRecvFrames() {
       return ((bitField0_ & 0x00001000) == 0x00001000);
     }
-    public int getRecvFrames() {
+    public long getRecvFrames() {
       return recvFrames_;
     }
     
-    // required uint32 recvCompressedBytes = 14;
+    // required uint64 recvCompressedBytes = 14;
     public static final int RECVCOMPRESSEDBYTES_FIELD_NUMBER = 14;
-    private int recvCompressedBytes_;
+    private long recvCompressedBytes_;
     public boolean hasRecvCompressedBytes() {
       return ((bitField0_ & 0x00002000) == 0x00002000);
     }
-    public int getRecvCompressedBytes() {
+    public long getRecvCompressedBytes() {
       return recvCompressedBytes_;
     }
     
-    // required uint32 recvMultiCastBytes = 15;
+    // required uint64 recvMultiCastBytes = 15;
     public static final int RECVMULTICASTBYTES_FIELD_NUMBER = 15;
-    private int recvMultiCastBytes_;
+    private long recvMultiCastBytes_;
     public boolean hasRecvMultiCastBytes() {
       return ((bitField0_ & 0x00004000) == 0x00004000);
     }
-    public int getRecvMultiCastBytes() {
+    public long getRecvMultiCastBytes() {
       return recvMultiCastBytes_;
     }
     
-    // required uint32 transBytes = 16;
+    // required uint64 transBytes = 16;
     public static final int TRANSBYTES_FIELD_NUMBER = 16;
-    private int transBytes_;
+    private long transBytes_;
     public boolean hasTransBytes() {
       return ((bitField0_ & 0x00008000) == 0x00008000);
     }
-    public int getTransBytes() {
+    public long getTransBytes() {
       return transBytes_;
     }
     
-    // required uint32 transPackages = 17;
+    // required uint64 transPackages = 17;
     public static final int TRANSPACKAGES_FIELD_NUMBER = 17;
-    private int transPackages_;
+    private long transPackages_;
     public boolean hasTransPackages() {
       return ((bitField0_ & 0x00010000) == 0x00010000);
     }
-    public int getTransPackages() {
+    public long getTransPackages() {
       return transPackages_;
     }
     
-    // required uint32 transErrorBytes = 18;
+    // required uint64 transErrorBytes = 18;
     public static final int TRANSERRORBYTES_FIELD_NUMBER = 18;
-    private int transErrorBytes_;
+    private long transErrorBytes_;
     public boolean hasTransErrorBytes() {
       return ((bitField0_ & 0x00020000) == 0x00020000);
     }
-    public int getTransErrorBytes() {
+    public long getTransErrorBytes() {
       return transErrorBytes_;
     }
     
-    // required uint32 transDropBytes = 19;
+    // required uint64 transDropBytes = 19;
     public static final int TRANSDROPBYTES_FIELD_NUMBER = 19;
-    private int transDropBytes_;
+    private long transDropBytes_;
     public boolean hasTransDropBytes() {
       return ((bitField0_ & 0x00040000) == 0x00040000);
     }
-    public int getTransDropBytes() {
+    public long getTransDropBytes() {
       return transDropBytes_;
     }
     
-    // required uint32 transFIFOBytes = 20;
+    // required uint64 transFIFOBytes = 20;
     public static final int TRANSFIFOBYTES_FIELD_NUMBER = 20;
-    private int transFIFOBytes_;
+    private long transFIFOBytes_;
     public boolean hasTransFIFOBytes() {
       return ((bitField0_ & 0x00080000) == 0x00080000);
     }
-    public int getTransFIFOBytes() {
+    public long getTransFIFOBytes() {
       return transFIFOBytes_;
     }
     
-    // required uint32 transCompressedBytes = 21;
+    // required uint64 transCompressedBytes = 21;
     public static final int TRANSCOMPRESSEDBYTES_FIELD_NUMBER = 21;
-    private int transCompressedBytes_;
+    private long transCompressedBytes_;
     public boolean hasTransCompressedBytes() {
       return ((bitField0_ & 0x00100000) == 0x00100000);
     }
-    public int getTransCompressedBytes() {
+    public long getTransCompressedBytes() {
       return transCompressedBytes_;
     }
     
@@ -480,20 +480,20 @@ public final class NetworkInfo {
       ipv6Addr_ = "";
       netMaskv6_ = 0;
       flags_ = 0;
-      recvBytes_ = 0;
-      recvPackages_ = 0;
-      recvErrorBytes_ = 0;
-      recvDropBytes_ = 0;
-      recvFIFOBytes_ = 0;
-      recvFrames_ = 0;
-      recvCompressedBytes_ = 0;
-      recvMultiCastBytes_ = 0;
-      transBytes_ = 0;
-      transPackages_ = 0;
-      transErrorBytes_ = 0;
-      transDropBytes_ = 0;
-      transFIFOBytes_ = 0;
-      transCompressedBytes_ = 0;
+      recvBytes_ = 0L;
+      recvPackages_ = 0L;
+      recvErrorBytes_ = 0L;
+      recvDropBytes_ = 0L;
+      recvFIFOBytes_ = 0L;
+      recvFrames_ = 0L;
+      recvCompressedBytes_ = 0L;
+      recvMultiCastBytes_ = 0L;
+      transBytes_ = 0L;
+      transPackages_ = 0L;
+      transErrorBytes_ = 0L;
+      transDropBytes_ = 0L;
+      transFIFOBytes_ = 0L;
+      transCompressedBytes_ = 0L;
       collisionTimes_ = 0;
       carrierErrors_ = 0;
     }
@@ -607,46 +607,46 @@ public final class NetworkInfo {
         output.writeUInt32(7, flags_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeUInt32(8, recvBytes_);
+        output.writeUInt64(8, recvBytes_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeUInt32(9, recvPackages_);
+        output.writeUInt64(9, recvPackages_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeUInt32(10, recvErrorBytes_);
+        output.writeUInt64(10, recvErrorBytes_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeUInt32(11, recvDropBytes_);
+        output.writeUInt64(11, recvDropBytes_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeUInt32(12, recvFIFOBytes_);
+        output.writeUInt64(12, recvFIFOBytes_);
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        output.writeUInt32(13, recvFrames_);
+        output.writeUInt64(13, recvFrames_);
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        output.writeUInt32(14, recvCompressedBytes_);
+        output.writeUInt64(14, recvCompressedBytes_);
       }
       if (((bitField0_ & 0x00004000) == 0x00004000)) {
-        output.writeUInt32(15, recvMultiCastBytes_);
+        output.writeUInt64(15, recvMultiCastBytes_);
       }
       if (((bitField0_ & 0x00008000) == 0x00008000)) {
-        output.writeUInt32(16, transBytes_);
+        output.writeUInt64(16, transBytes_);
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
-        output.writeUInt32(17, transPackages_);
+        output.writeUInt64(17, transPackages_);
       }
       if (((bitField0_ & 0x00020000) == 0x00020000)) {
-        output.writeUInt32(18, transErrorBytes_);
+        output.writeUInt64(18, transErrorBytes_);
       }
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
-        output.writeUInt32(19, transDropBytes_);
+        output.writeUInt64(19, transDropBytes_);
       }
       if (((bitField0_ & 0x00080000) == 0x00080000)) {
-        output.writeUInt32(20, transFIFOBytes_);
+        output.writeUInt64(20, transFIFOBytes_);
       }
       if (((bitField0_ & 0x00100000) == 0x00100000)) {
-        output.writeUInt32(21, transCompressedBytes_);
+        output.writeUInt64(21, transCompressedBytes_);
       }
       if (((bitField0_ & 0x00200000) == 0x00200000)) {
         output.writeUInt32(22, collisionTimes_);
@@ -693,59 +693,59 @@ public final class NetworkInfo {
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(8, recvBytes_);
+          .computeUInt64Size(8, recvBytes_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(9, recvPackages_);
+          .computeUInt64Size(9, recvPackages_);
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(10, recvErrorBytes_);
+          .computeUInt64Size(10, recvErrorBytes_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(11, recvDropBytes_);
+          .computeUInt64Size(11, recvDropBytes_);
       }
       if (((bitField0_ & 0x00000800) == 0x00000800)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(12, recvFIFOBytes_);
+          .computeUInt64Size(12, recvFIFOBytes_);
       }
       if (((bitField0_ & 0x00001000) == 0x00001000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(13, recvFrames_);
+          .computeUInt64Size(13, recvFrames_);
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(14, recvCompressedBytes_);
+          .computeUInt64Size(14, recvCompressedBytes_);
       }
       if (((bitField0_ & 0x00004000) == 0x00004000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(15, recvMultiCastBytes_);
+          .computeUInt64Size(15, recvMultiCastBytes_);
       }
       if (((bitField0_ & 0x00008000) == 0x00008000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(16, transBytes_);
+          .computeUInt64Size(16, transBytes_);
       }
       if (((bitField0_ & 0x00010000) == 0x00010000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(17, transPackages_);
+          .computeUInt64Size(17, transPackages_);
       }
       if (((bitField0_ & 0x00020000) == 0x00020000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(18, transErrorBytes_);
+          .computeUInt64Size(18, transErrorBytes_);
       }
       if (((bitField0_ & 0x00040000) == 0x00040000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(19, transDropBytes_);
+          .computeUInt64Size(19, transDropBytes_);
       }
       if (((bitField0_ & 0x00080000) == 0x00080000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(20, transFIFOBytes_);
+          .computeUInt64Size(20, transFIFOBytes_);
       }
       if (((bitField0_ & 0x00100000) == 0x00100000)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(21, transCompressedBytes_);
+          .computeUInt64Size(21, transCompressedBytes_);
       }
       if (((bitField0_ & 0x00200000) == 0x00200000)) {
         size += com.google.protobuf.CodedOutputStream
@@ -893,33 +893,33 @@ public final class NetworkInfo {
         bitField0_ = (bitField0_ & ~0x00000020);
         flags_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
-        recvBytes_ = 0;
+        recvBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000080);
-        recvPackages_ = 0;
+        recvPackages_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000100);
-        recvErrorBytes_ = 0;
+        recvErrorBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000200);
-        recvDropBytes_ = 0;
+        recvDropBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000400);
-        recvFIFOBytes_ = 0;
+        recvFIFOBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000800);
-        recvFrames_ = 0;
+        recvFrames_ = 0L;
         bitField0_ = (bitField0_ & ~0x00001000);
-        recvCompressedBytes_ = 0;
+        recvCompressedBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00002000);
-        recvMultiCastBytes_ = 0;
+        recvMultiCastBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00004000);
-        transBytes_ = 0;
+        transBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00008000);
-        transPackages_ = 0;
+        transPackages_ = 0L;
         bitField0_ = (bitField0_ & ~0x00010000);
-        transErrorBytes_ = 0;
+        transErrorBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00020000);
-        transDropBytes_ = 0;
+        transDropBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00040000);
-        transFIFOBytes_ = 0;
+        transFIFOBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00080000);
-        transCompressedBytes_ = 0;
+        transCompressedBytes_ = 0L;
         bitField0_ = (bitField0_ & ~0x00100000);
         collisionTimes_ = 0;
         bitField0_ = (bitField0_ & ~0x00200000);
@@ -1284,72 +1284,72 @@ public final class NetworkInfo {
             }
             case 64: {
               bitField0_ |= 0x00000080;
-              recvBytes_ = input.readUInt32();
+              recvBytes_ = input.readUInt64();
               break;
             }
             case 72: {
               bitField0_ |= 0x00000100;
-              recvPackages_ = input.readUInt32();
+              recvPackages_ = input.readUInt64();
               break;
             }
             case 80: {
               bitField0_ |= 0x00000200;
-              recvErrorBytes_ = input.readUInt32();
+              recvErrorBytes_ = input.readUInt64();
               break;
             }
             case 88: {
               bitField0_ |= 0x00000400;
-              recvDropBytes_ = input.readUInt32();
+              recvDropBytes_ = input.readUInt64();
               break;
             }
             case 96: {
               bitField0_ |= 0x00000800;
-              recvFIFOBytes_ = input.readUInt32();
+              recvFIFOBytes_ = input.readUInt64();
               break;
             }
             case 104: {
               bitField0_ |= 0x00001000;
-              recvFrames_ = input.readUInt32();
+              recvFrames_ = input.readUInt64();
               break;
             }
             case 112: {
               bitField0_ |= 0x00002000;
-              recvCompressedBytes_ = input.readUInt32();
+              recvCompressedBytes_ = input.readUInt64();
               break;
             }
             case 120: {
               bitField0_ |= 0x00004000;
-              recvMultiCastBytes_ = input.readUInt32();
+              recvMultiCastBytes_ = input.readUInt64();
               break;
             }
             case 128: {
               bitField0_ |= 0x00008000;
-              transBytes_ = input.readUInt32();
+              transBytes_ = input.readUInt64();
               break;
             }
             case 136: {
               bitField0_ |= 0x00010000;
-              transPackages_ = input.readUInt32();
+              transPackages_ = input.readUInt64();
               break;
             }
             case 144: {
               bitField0_ |= 0x00020000;
-              transErrorBytes_ = input.readUInt32();
+              transErrorBytes_ = input.readUInt64();
               break;
             }
             case 152: {
               bitField0_ |= 0x00040000;
-              transDropBytes_ = input.readUInt32();
+              transDropBytes_ = input.readUInt64();
               break;
             }
             case 160: {
               bitField0_ |= 0x00080000;
-              transFIFOBytes_ = input.readUInt32();
+              transFIFOBytes_ = input.readUInt64();
               break;
             }
             case 168: {
               bitField0_ |= 0x00100000;
-              transCompressedBytes_ = input.readUInt32();
+              transCompressedBytes_ = input.readUInt64();
               break;
             }
             case 176: {
@@ -1590,15 +1590,15 @@ public final class NetworkInfo {
         return this;
       }
       
-      // required uint32 recvBytes = 8;
-      private int recvBytes_ ;
+      // required uint64 recvBytes = 8;
+      private long recvBytes_ ;
       public boolean hasRecvBytes() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
       }
-      public int getRecvBytes() {
+      public long getRecvBytes() {
         return recvBytes_;
       }
-      public Builder setRecvBytes(int value) {
+      public Builder setRecvBytes(long value) {
         bitField0_ |= 0x00000080;
         recvBytes_ = value;
         onChanged();
@@ -1606,20 +1606,20 @@ public final class NetworkInfo {
       }
       public Builder clearRecvBytes() {
         bitField0_ = (bitField0_ & ~0x00000080);
-        recvBytes_ = 0;
+        recvBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 recvPackages = 9;
-      private int recvPackages_ ;
+      // required uint64 recvPackages = 9;
+      private long recvPackages_ ;
       public boolean hasRecvPackages() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
       }
-      public int getRecvPackages() {
+      public long getRecvPackages() {
         return recvPackages_;
       }
-      public Builder setRecvPackages(int value) {
+      public Builder setRecvPackages(long value) {
         bitField0_ |= 0x00000100;
         recvPackages_ = value;
         onChanged();
@@ -1627,20 +1627,20 @@ public final class NetworkInfo {
       }
       public Builder clearRecvPackages() {
         bitField0_ = (bitField0_ & ~0x00000100);
-        recvPackages_ = 0;
+        recvPackages_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 recvErrorBytes = 10;
-      private int recvErrorBytes_ ;
+      // required uint64 recvErrorBytes = 10;
+      private long recvErrorBytes_ ;
       public boolean hasRecvErrorBytes() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
       }
-      public int getRecvErrorBytes() {
+      public long getRecvErrorBytes() {
         return recvErrorBytes_;
       }
-      public Builder setRecvErrorBytes(int value) {
+      public Builder setRecvErrorBytes(long value) {
         bitField0_ |= 0x00000200;
         recvErrorBytes_ = value;
         onChanged();
@@ -1648,20 +1648,20 @@ public final class NetworkInfo {
       }
       public Builder clearRecvErrorBytes() {
         bitField0_ = (bitField0_ & ~0x00000200);
-        recvErrorBytes_ = 0;
+        recvErrorBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 recvDropBytes = 11;
-      private int recvDropBytes_ ;
+      // required uint64 recvDropBytes = 11;
+      private long recvDropBytes_ ;
       public boolean hasRecvDropBytes() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
       }
-      public int getRecvDropBytes() {
+      public long getRecvDropBytes() {
         return recvDropBytes_;
       }
-      public Builder setRecvDropBytes(int value) {
+      public Builder setRecvDropBytes(long value) {
         bitField0_ |= 0x00000400;
         recvDropBytes_ = value;
         onChanged();
@@ -1669,20 +1669,20 @@ public final class NetworkInfo {
       }
       public Builder clearRecvDropBytes() {
         bitField0_ = (bitField0_ & ~0x00000400);
-        recvDropBytes_ = 0;
+        recvDropBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 recvFIFOBytes = 12;
-      private int recvFIFOBytes_ ;
+      // required uint64 recvFIFOBytes = 12;
+      private long recvFIFOBytes_ ;
       public boolean hasRecvFIFOBytes() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
       }
-      public int getRecvFIFOBytes() {
+      public long getRecvFIFOBytes() {
         return recvFIFOBytes_;
       }
-      public Builder setRecvFIFOBytes(int value) {
+      public Builder setRecvFIFOBytes(long value) {
         bitField0_ |= 0x00000800;
         recvFIFOBytes_ = value;
         onChanged();
@@ -1690,20 +1690,20 @@ public final class NetworkInfo {
       }
       public Builder clearRecvFIFOBytes() {
         bitField0_ = (bitField0_ & ~0x00000800);
-        recvFIFOBytes_ = 0;
+        recvFIFOBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 recvFrames = 13;
-      private int recvFrames_ ;
+      // required uint64 recvFrames = 13;
+      private long recvFrames_ ;
       public boolean hasRecvFrames() {
         return ((bitField0_ & 0x00001000) == 0x00001000);
       }
-      public int getRecvFrames() {
+      public long getRecvFrames() {
         return recvFrames_;
       }
-      public Builder setRecvFrames(int value) {
+      public Builder setRecvFrames(long value) {
         bitField0_ |= 0x00001000;
         recvFrames_ = value;
         onChanged();
@@ -1711,20 +1711,20 @@ public final class NetworkInfo {
       }
       public Builder clearRecvFrames() {
         bitField0_ = (bitField0_ & ~0x00001000);
-        recvFrames_ = 0;
+        recvFrames_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 recvCompressedBytes = 14;
-      private int recvCompressedBytes_ ;
+      // required uint64 recvCompressedBytes = 14;
+      private long recvCompressedBytes_ ;
       public boolean hasRecvCompressedBytes() {
         return ((bitField0_ & 0x00002000) == 0x00002000);
       }
-      public int getRecvCompressedBytes() {
+      public long getRecvCompressedBytes() {
         return recvCompressedBytes_;
       }
-      public Builder setRecvCompressedBytes(int value) {
+      public Builder setRecvCompressedBytes(long value) {
         bitField0_ |= 0x00002000;
         recvCompressedBytes_ = value;
         onChanged();
@@ -1732,20 +1732,20 @@ public final class NetworkInfo {
       }
       public Builder clearRecvCompressedBytes() {
         bitField0_ = (bitField0_ & ~0x00002000);
-        recvCompressedBytes_ = 0;
+        recvCompressedBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 recvMultiCastBytes = 15;
-      private int recvMultiCastBytes_ ;
+      // required uint64 recvMultiCastBytes = 15;
+      private long recvMultiCastBytes_ ;
       public boolean hasRecvMultiCastBytes() {
         return ((bitField0_ & 0x00004000) == 0x00004000);
       }
-      public int getRecvMultiCastBytes() {
+      public long getRecvMultiCastBytes() {
         return recvMultiCastBytes_;
       }
-      public Builder setRecvMultiCastBytes(int value) {
+      public Builder setRecvMultiCastBytes(long value) {
         bitField0_ |= 0x00004000;
         recvMultiCastBytes_ = value;
         onChanged();
@@ -1753,20 +1753,20 @@ public final class NetworkInfo {
       }
       public Builder clearRecvMultiCastBytes() {
         bitField0_ = (bitField0_ & ~0x00004000);
-        recvMultiCastBytes_ = 0;
+        recvMultiCastBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 transBytes = 16;
-      private int transBytes_ ;
+      // required uint64 transBytes = 16;
+      private long transBytes_ ;
       public boolean hasTransBytes() {
         return ((bitField0_ & 0x00008000) == 0x00008000);
       }
-      public int getTransBytes() {
+      public long getTransBytes() {
         return transBytes_;
       }
-      public Builder setTransBytes(int value) {
+      public Builder setTransBytes(long value) {
         bitField0_ |= 0x00008000;
         transBytes_ = value;
         onChanged();
@@ -1774,20 +1774,20 @@ public final class NetworkInfo {
       }
       public Builder clearTransBytes() {
         bitField0_ = (bitField0_ & ~0x00008000);
-        transBytes_ = 0;
+        transBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 transPackages = 17;
-      private int transPackages_ ;
+      // required uint64 transPackages = 17;
+      private long transPackages_ ;
       public boolean hasTransPackages() {
         return ((bitField0_ & 0x00010000) == 0x00010000);
       }
-      public int getTransPackages() {
+      public long getTransPackages() {
         return transPackages_;
       }
-      public Builder setTransPackages(int value) {
+      public Builder setTransPackages(long value) {
         bitField0_ |= 0x00010000;
         transPackages_ = value;
         onChanged();
@@ -1795,20 +1795,20 @@ public final class NetworkInfo {
       }
       public Builder clearTransPackages() {
         bitField0_ = (bitField0_ & ~0x00010000);
-        transPackages_ = 0;
+        transPackages_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 transErrorBytes = 18;
-      private int transErrorBytes_ ;
+      // required uint64 transErrorBytes = 18;
+      private long transErrorBytes_ ;
       public boolean hasTransErrorBytes() {
         return ((bitField0_ & 0x00020000) == 0x00020000);
       }
-      public int getTransErrorBytes() {
+      public long getTransErrorBytes() {
         return transErrorBytes_;
       }
-      public Builder setTransErrorBytes(int value) {
+      public Builder setTransErrorBytes(long value) {
         bitField0_ |= 0x00020000;
         transErrorBytes_ = value;
         onChanged();
@@ -1816,20 +1816,20 @@ public final class NetworkInfo {
       }
       public Builder clearTransErrorBytes() {
         bitField0_ = (bitField0_ & ~0x00020000);
-        transErrorBytes_ = 0;
+        transErrorBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 transDropBytes = 19;
-      private int transDropBytes_ ;
+      // required uint64 transDropBytes = 19;
+      private long transDropBytes_ ;
       public boolean hasTransDropBytes() {
         return ((bitField0_ & 0x00040000) == 0x00040000);
       }
-      public int getTransDropBytes() {
+      public long getTransDropBytes() {
         return transDropBytes_;
       }
-      public Builder setTransDropBytes(int value) {
+      public Builder setTransDropBytes(long value) {
         bitField0_ |= 0x00040000;
         transDropBytes_ = value;
         onChanged();
@@ -1837,20 +1837,20 @@ public final class NetworkInfo {
       }
       public Builder clearTransDropBytes() {
         bitField0_ = (bitField0_ & ~0x00040000);
-        transDropBytes_ = 0;
+        transDropBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 transFIFOBytes = 20;
-      private int transFIFOBytes_ ;
+      // required uint64 transFIFOBytes = 20;
+      private long transFIFOBytes_ ;
       public boolean hasTransFIFOBytes() {
         return ((bitField0_ & 0x00080000) == 0x00080000);
       }
-      public int getTransFIFOBytes() {
+      public long getTransFIFOBytes() {
         return transFIFOBytes_;
       }
-      public Builder setTransFIFOBytes(int value) {
+      public Builder setTransFIFOBytes(long value) {
         bitField0_ |= 0x00080000;
         transFIFOBytes_ = value;
         onChanged();
@@ -1858,20 +1858,20 @@ public final class NetworkInfo {
       }
       public Builder clearTransFIFOBytes() {
         bitField0_ = (bitField0_ & ~0x00080000);
-        transFIFOBytes_ = 0;
+        transFIFOBytes_ = 0L;
         onChanged();
         return this;
       }
       
-      // required uint32 transCompressedBytes = 21;
-      private int transCompressedBytes_ ;
+      // required uint64 transCompressedBytes = 21;
+      private long transCompressedBytes_ ;
       public boolean hasTransCompressedBytes() {
         return ((bitField0_ & 0x00100000) == 0x00100000);
       }
-      public int getTransCompressedBytes() {
+      public long getTransCompressedBytes() {
         return transCompressedBytes_;
       }
-      public Builder setTransCompressedBytes(int value) {
+      public Builder setTransCompressedBytes(long value) {
         bitField0_ |= 0x00100000;
         transCompressedBytes_ = value;
         onChanged();
@@ -1879,7 +1879,7 @@ public final class NetworkInfo {
       }
       public Builder clearTransCompressedBytes() {
         bitField0_ = (bitField0_ & ~0x00100000);
-        transCompressedBytes_ = 0;
+        transCompressedBytes_ = 0L;
         onChanged();
         return this;
       }
@@ -1955,15 +1955,15 @@ public final class NetworkInfo {
       "or.core\"\376\003\n\013networkInfo\022\014\n\004name\030\001 \002(\t\022\013\n" +
       "\003mac\030\002 \002(\t\022\020\n\010ipv4Addr\030\003 \001(\t\022\021\n\tnetMaskv" +
       "4\030\004 \001(\t\022\020\n\010ipv6Addr\030\005 \001(\t\022\021\n\tnetMaskv6\030\006" +
-      " \001(\r\022\r\n\005flags\030\007 \002(\r\022\021\n\trecvBytes\030\010 \002(\r\022\024" +
-      "\n\014recvPackages\030\t \002(\r\022\026\n\016recvErrorBytes\030\n" +
-      " \002(\r\022\025\n\rrecvDropBytes\030\013 \002(\r\022\025\n\rrecvFIFOB" +
-      "ytes\030\014 \002(\r\022\022\n\nrecvFrames\030\r \002(\r\022\033\n\023recvCo" +
-      "mpressedBytes\030\016 \002(\r\022\032\n\022recvMultiCastByte" +
-      "s\030\017 \002(\r\022\022\n\ntransBytes\030\020 \002(\r\022\025\n\rtransPack",
-      "ages\030\021 \002(\r\022\027\n\017transErrorBytes\030\022 \002(\r\022\026\n\016t" +
-      "ransDropBytes\030\023 \002(\r\022\026\n\016transFIFOBytes\030\024 " +
-      "\002(\r\022\034\n\024transCompressedBytes\030\025 \002(\r\022\026\n\016col" +
+      " \001(\r\022\r\n\005flags\030\007 \002(\r\022\021\n\trecvBytes\030\010 \002(\004\022\024" +
+      "\n\014recvPackages\030\t \002(\004\022\026\n\016recvErrorBytes\030\n" +
+      " \002(\004\022\025\n\rrecvDropBytes\030\013 \002(\004\022\025\n\rrecvFIFOB" +
+      "ytes\030\014 \002(\004\022\022\n\nrecvFrames\030\r \002(\004\022\033\n\023recvCo" +
+      "mpressedBytes\030\016 \002(\004\022\032\n\022recvMultiCastByte" +
+      "s\030\017 \002(\004\022\022\n\ntransBytes\030\020 \002(\004\022\025\n\rtransPack",
+      "ages\030\021 \002(\004\022\027\n\017transErrorBytes\030\022 \002(\004\022\026\n\016t" +
+      "ransDropBytes\030\023 \002(\004\022\026\n\016transFIFOBytes\030\024 " +
+      "\002(\004\022\034\n\024transCompressedBytes\030\025 \002(\004\022\026\n\016col" +
       "lisionTimes\030\026 \002(\r\022\025\n\rcarrierErrors\030\027 \002(\r"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

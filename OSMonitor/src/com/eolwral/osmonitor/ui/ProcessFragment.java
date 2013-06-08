@@ -507,12 +507,12 @@ public class ProcessFragment extends SherlockListFragment
 			break;
 		}
 
-		processCount.setText(CommonUtil.convertToMemory(data.size()));
+		processCount.setText(CommonUtil.convertToSize(data.size(), true));
 		cpuUsage.setText(CommonUtil.convertToUsage(totalCPUUsage) + "%");
-		memoryTotal.setText(CommonUtil.convertToMemory(info.getTotalMemory()));
-		memoryFree.setText(CommonUtil.convertToMemory(info.getFreeMemory()+
+		memoryTotal.setText(CommonUtil.convertToSize(info.getTotalMemory(), true));
+		memoryFree.setText(CommonUtil.convertToSize(info.getFreeMemory()+
 				                                  info.getBufferedMemory()+
-				                                  info.getCachedMemory()));
+				                                  info.getCachedMemory(), true));
 
 		getSherlockActivity().runOnUiThread( new Runnable() {
 			public void run() { 
@@ -766,7 +766,7 @@ public class ProcessFragment extends SherlockListFragment
 			holder.icon.setImageDrawable(infoHelper.getPackageIcon(item.getName()));
 			
 			if(sortSetting == SortType.SortbyMemory)
-				holder.cpuUsage.setText(CommonUtil.convertToMemory((item.getRss()*1024)));
+				holder.cpuUsage.setText(CommonUtil.convertToSize((item.getRss()*1024), true));
 			else
 				holder.cpuUsage.setText(CommonUtil.convertToUsage(item.getCpuUsage()));
 			
@@ -781,8 +781,8 @@ public class ProcessFragment extends SherlockListFragment
 				
 				// get memory information
 				MemoryInfo memInfo = infoHelper.getMemoryInfo(item.getPid());
-				String memoryData = CommonUtil.convertToMemory((item.getRss()*1024))+" ("+
-						            CommonUtil.convertToMemory(memInfo.getTotalPss()*1024)+")";
+				String memoryData = CommonUtil.convertToSize((item.getRss()*1024), true)+" ("+
+						            CommonUtil.convertToSize(memInfo.getTotalPss()*1024, true)+")";
 
 				holder.detailMemory.setText(memoryData); 
 				

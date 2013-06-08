@@ -21,7 +21,7 @@
 #include "networkInfo.pb.h"
 
 #define INT_IPV4_FILE "/proc/%d/net/dev"
-#define INT_IPV4_PATTERN " %[^:]:%u %u %u %u %u %u %u %u %u %u %u %u %u %u %u"
+#define INT_IPV4_PATTERN " %[^:]:%lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %u %u %lu"
 
 #define INT_MAC_FILE "/sys/class/net/%s/address"
 #define INT_RX_FILE "sys/class/net/%s/statistics/rx_bytes"

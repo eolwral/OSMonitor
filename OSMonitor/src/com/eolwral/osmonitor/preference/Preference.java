@@ -21,6 +21,8 @@ public class Preference extends PreferenceActivity
 		super.onCreate(savedInstanceState);
 		getPreferenceManager().setSharedPreferencesMode(MODE_MULTI_PROCESS);		
 		addPreferencesFromResource(R.xml.ui_preference_main);
+	    
+		resetStatus();
 	}
 
 	@Override
@@ -36,6 +38,38 @@ public class Preference extends PreferenceActivity
 	    getPreferenceScreen().getSharedPreferences()
 	            .unregisterOnSharedPreferenceChangeListener(this);
 	} 
+	
+	private void resetStatus() {
+		
+		CheckBoxPreference cpuUsage = 
+				(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_CPUUSAGE);
+
+		CheckBoxPreference shortCut = 
+				(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_SHORTCUT);
+
+		CheckBoxPreference autoStart = 
+				(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_AUTOSTART);
+
+		SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
+		
+		if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)) 
+			shortCut.setEnabled(false);
+		else 
+			shortCut.setEnabled(true);			
+
+		if(sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) 
+			cpuUsage.setEnabled(false);
+		else 
+			cpuUsage.setEnabled(true);			
+
+		if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) || 
+		   sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
+			autoStart.setEnabled(true);
+		}
+		else {
+			autoStart.setEnabled(false);
+		}		
+	}
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -54,11 +88,29 @@ public class Preference extends PreferenceActivity
 			}
 		}
 		
+		
 		if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_SHORTCUT)) {
-			
+
+			CheckBoxPreference cpuUsage = 
+					(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_CPUUSAGE);
+
+			CheckBoxPreference shortCut = 
+					(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_SHORTCUT);
+
 			CheckBoxPreference autoStart = 
 					(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_AUTOSTART);
+
 			
+			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)) 
+				shortCut.setEnabled(false);
+			else 
+				shortCut.setEnabled(true);			
+
+			if(sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) 
+				cpuUsage.setEnabled(false);
+			else 
+				cpuUsage.setEnabled(true);			
+
 			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) || 
 			   sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
 				autoStart.setEnabled(true);

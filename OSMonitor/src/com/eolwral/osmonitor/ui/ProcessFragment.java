@@ -507,7 +507,7 @@ public class ProcessFragment extends SherlockListFragment
 			break;
 		}
 
-		processCount.setText(CommonUtil.convertToSize(data.size(), true));
+		processCount.setText(""+data.size());
 		cpuUsage.setText(CommonUtil.convertToUsage(totalCPUUsage) + "%");
 		memoryTotal.setText(CommonUtil.convertToSize(info.getTotalMemory(), true));
 		memoryFree.setText(CommonUtil.convertToSize(info.getFreeMemory()+

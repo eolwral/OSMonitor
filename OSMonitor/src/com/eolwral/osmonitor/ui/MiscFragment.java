@@ -3,6 +3,7 @@ package com.eolwral.osmonitor.ui;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
@@ -463,9 +464,10 @@ public class MiscFragment extends SherlockFragment
 
 			final Calendar calendar = Calendar.getInstance();
 			final DateFormat convertTool = DateFormat.getDateTimeInstance();
+			final Date currentDate = new Date();
 			if(osdata != null){
 
-				long Uptime = android.os.SystemClock.elapsedRealtime();
+				long Uptime = currentDate.getTime() - (osdata.getUptime()*1000); 
 				int seconds = (int) ((Uptime / 1000) % 60);
 				int minutes = (int) ((Uptime / 1000) / 60 % 60);
 				int hours   = (int) ((Uptime / 1000)  / 3600 % 24);

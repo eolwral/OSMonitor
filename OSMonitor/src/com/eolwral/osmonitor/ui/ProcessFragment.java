@@ -741,8 +741,8 @@ public class ProcessFragment extends SherlockListFragment
 				public boolean onTouch(View v, MotionEvent event) {
 					
 					// skip when on tools mode
-					if(modeSetting == ModeType.Tools)
-						return false;
+					//if(modeSetting == ModeType.Tools)
+					//	return false;
 					
 					switch(event.getAction())
 					{
@@ -839,8 +839,8 @@ public class ProcessFragment extends SherlockListFragment
 			@Override
 			public boolean onLongClick(View v) {
 				
-				if(modeSetting == ModeType.Tools)
-					return false;
+				//if(modeSetting == ModeType.Tools)
+				//	  return false;
 				
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			    builder.setTitle(infoHelper.getPackageName(data.get(position).getName()))

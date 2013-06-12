@@ -692,7 +692,7 @@ public class ProcessFragment extends SherlockListFragment
 
 			// check cached status
 			if (!infoHelper.checkPackageInformation(item.getName())) {
-				if(item.getName().contains("osmcore")) 
+				if(item.getName().toLowerCase(Locale.getDefault()).contains("osmcore")) 
 					infoHelper.doCacheInfo(android.os.Process.myUid(), item.getOwner(), item.getName());
 				else
 					infoHelper.doCacheInfo(item.getUid(), item.getOwner(), item.getName());

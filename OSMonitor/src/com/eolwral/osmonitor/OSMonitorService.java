@@ -1,5 +1,7 @@
 package com.eolwral.osmonitor;
 
+import java.util.Locale;
+
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -263,8 +265,13 @@ public class OSMonitorService extends Service
 							}
 							
 							// check cached status
-							if (!infoHelper.checkPackageInformation(item.getName()))
-								infoHelper.doCacheInfo(item.getUid(), item.getOwner(), item.getName());
+							if (!infoHelper.checkPackageInformation(item.getName())) {
+								if(item.getName().toLowerCase(Locale.getDefault()).contains("osmcore")) 
+									infoHelper.doCacheInfo(android.os.Process.myUid(), item.getOwner(), item.getName());
+								else
+									infoHelper.doCacheInfo(item.getUid(), item.getOwner(), item.getName());
+							}
+							
 							topUsage[check] = item.getCpuUsage();
 							topProcess[check] = infoHelper.getPackageName(item.getName());
 							break;

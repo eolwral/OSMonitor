@@ -18,6 +18,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Debug.MemoryInfo;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.WindowManager;
 
 /**
@@ -154,15 +155,16 @@ public class ProcessUtil extends Thread {
 		if (processJob.process.contains(":"))
 			curPackageName = processJob.process.substring(0,
 					processJob.process.indexOf(":"));
-		else
+		else 
 			curPackageName = processJob.process;
+		
 
 		// for system user
 		if (processJob.owner.contains("system")
 				&& processJob.process.contains("system")
-				&& !processJob.process.contains("."))
+				&& !processJob.process.contains(".") 
+				&& !processJob.process.contains("osmcore"))
 			curPackageName = "android";
-
 		try {
 			curPackageInfo = packageMgr.getPackageInfo(curPackageName, 0);
 		} catch (NameNotFoundException e) {	}

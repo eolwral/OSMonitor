@@ -167,6 +167,10 @@ public class MessageFragment extends SherlockListFragment
 					break;
 				}
 
+				// keep it going
+				if(stopUpdate == true)
+					stopButton.performClick();
+				
 				// force refresh
 				forceRefresh();
 				

@@ -26,4 +26,5 @@ message processInfo {
   required uint64 usedUserTime = 12;  /**< used user time (user mode) */
   required uint64 usedSystemTime = 13; /**< used system time (kernel mode) */
   required uint64 startTime = 14;     /**< start time */
+  required uint64 cpuTime = 15;       /**< CPU time */
 }

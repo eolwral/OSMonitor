@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
+import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -97,7 +98,8 @@ public class ProcessFragment extends SherlockListFragment
 		SortbyUsage,
 		SortbyMemory,
 		SortbyPid,
-		SortbyName
+		SortbyName,
+		SortbyCPUTime
 	} 
 	private SortType sortSetting = SortType.SortbyUsage;
 
@@ -150,12 +152,13 @@ public class ProcessFragment extends SherlockListFragment
 			sortSetting = SortType.SortbyUsage;
 		} else if(settings.getSortType().equals("Pid")) {
 			sortSetting = SortType.SortbyPid;
-		} else  if(settings.getSortType().equals("Memory")) {
+		} else if(settings.getSortType().equals("Memory")) {
 			sortSetting = SortType.SortbyMemory;
-		} else  if(settings.getSortType().equals("Name")) {
+		} else if(settings.getSortType().equals("Name")) {
 			sortSetting = SortType.SortbyName;
+		} else if(settings.getSortType().equals("CPUTime")) {
+			sortSetting = SortType.SortbyCPUTime;
 		}
-
 		return v;
 	}
 	
@@ -321,6 +324,9 @@ public class ProcessFragment extends SherlockListFragment
 			case SortbyName:
 				sortGroup.check(R.id.id_process_sort_name);
 				break;
+			case SortbyCPUTime:
+				sortGroup.check(R.id.id_process_sort_cputime);
+				break;
 			}
 			
 			sortGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -343,6 +349,10 @@ public class ProcessFragment extends SherlockListFragment
 					case R.id.id_process_sort_name:
 						sortSetting = SortType.SortbyName;
 						settings.setSortType("Name");
+						break;
+					case R.id.id_process_sort_cputime:
+						sortSetting = SortType.SortbyCPUTime;
+						settings.setSortType("CPUTime");
 						break;
 					}
 
@@ -505,6 +515,9 @@ public class ProcessFragment extends SherlockListFragment
 		case SortbyName:
 			Collections.sort(data, new SortbyName());
 			break;
+		case SortbyCPUTime:
+			Collections.sort(data, new SortbyCPUTime());
+			break;
 		}
 
 		processCount.setText(""+data.size());
@@ -585,6 +598,21 @@ public class ProcessFragment extends SherlockListFragment
 			return 0;
 		}		
 	}
+	
+	/**
+	 * Comparator class for sort by CPU time 
+	 */
+	private class SortbyCPUTime implements Comparator<processInfo> {
+
+		@Override
+		public int compare(processInfo lhs, processInfo rhs) {
+			if (lhs.getCpuTime() > rhs.getCpuTime())
+				return -1;
+			else if (lhs.getCpuTime() < rhs.getCpuTime())
+				return 1;
+			return 0;
+		}		
+	}
 
 	/**
 	 * implement viewholder class for process list
@@ -607,6 +635,7 @@ public class ProcessFragment extends SherlockListFragment
 		TextView detailStatus;
 		TextView detailStime;
 		TextView detailUtime;
+		TextView detailCPUtime;
 		TextView detailMemory;
 		TextView detailPPID;
 		TextView detailUser;
@@ -633,6 +662,7 @@ public class ProcessFragment extends SherlockListFragment
 				holder.detailStatus = ((TextView) v.findViewById(R.id.id_process_detail_status));
 				holder.detailStime = ((TextView) v.findViewById(R.id.id_process_detail_stime));
 				holder.detailUtime = ((TextView) v.findViewById(R.id.id_process_detail_utime));
+				holder.detailCPUtime = ((TextView) v.findViewById(R.id.id_process_detail_cputime));
 				holder.detailMemory = ((TextView) v.findViewById(R.id.id_process_detail_memory));
 				holder.detailPPID = ((TextView) v.findViewById(R.id.id_process_detail_ppid));
 				holder.detailUser = ((TextView) v.findViewById(R.id.id_process_detail_user));
@@ -767,7 +797,9 @@ public class ProcessFragment extends SherlockListFragment
 			
 			if(sortSetting == SortType.SortbyMemory)
 				holder.cpuUsage.setText(CommonUtil.convertToSize((item.getRss()*1024), true));
-			else
+			else if(sortSetting == SortType.SortbyCPUTime)
+				holder.cpuUsage.setText(String.format("%02d:%02d", item.getCpuTime()/60, item.getCpuTime() % 60));
+			else 
 				holder.cpuUsage.setText(CommonUtil.convertToUsage(item.getCpuUsage()));
 			
 			// prepare detail information
@@ -776,6 +808,9 @@ public class ProcessFragment extends SherlockListFragment
 				holder.detailName.setText(item.getName());
 				holder.detailStime.setText(String.format("%,d", item.getUsedSystemTime()));
 				holder.detailUtime.setText(String.format("%,d", item.getUsedUserTime()));
+				
+				holder.detailCPUtime.setText(String.format("%02d:%02d", item.getCpuTime()/60, item.getCpuTime() % 60));
+				
 				holder.detailThread.setText(String.format("%d", item.getThreadCount()));
 				holder.detailNice.setText(String.format("%d", item.getPriorityLevel()));
 				
@@ -790,7 +825,8 @@ public class ProcessFragment extends SherlockListFragment
 				
 				// convert time format
 				final Calendar calendar = Calendar.getInstance();
-				final DateFormat convertTool = DateFormat.getDateTimeInstance();
+				final DateFormat convertTool = DateFormat.getDateTimeInstance(DateFormat.LONG,
+						                                   DateFormat.LONG, Locale.getDefault());
 				calendar.setTimeInMillis(item.getStartTime()*1000);
 				holder.detailStarttime.setText(convertTool.format(calendar.getTime()));
 				

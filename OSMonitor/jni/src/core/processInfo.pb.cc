@@ -35,7 +35,7 @@ void protobuf_AssignDesc_processInfo_2eproto() {
       "processInfo.proto");
   GOOGLE_CHECK(file != NULL);
   processInfo_descriptor_ = file->message_type(0);
-  static const int processInfo_offsets_[14] = {
+  static const int processInfo_offsets_[15] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processInfo, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processInfo, owner_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processInfo, status_),
@@ -50,6 +50,7 @@ void protobuf_AssignDesc_processInfo_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processInfo, usedusertime_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processInfo, usedsystemtime_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processInfo, starttime_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(processInfo, cputime_),
   };
   processInfo_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -94,7 +95,7 @@ void protobuf_AddDesc_processInfo_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\021processInfo.proto\022\032com.eolwral.osmonit"
-    "or.core\"\236\003\n\013processInfo\022\014\n\004name\030\001 \002(\t\022\r\n"
+    "or.core\"\257\003\n\013processInfo\022\014\n\004name\030\001 \002(\t\022\r\n"
     "\005owner\030\002 \002(\t\022N\n\006Status\030\003 \002(\01625.com.eolwr"
     "al.osmonitor.core.processInfo.processSta"
     "tus:\007Unknown\022\013\n\003uid\030\004 \002(\r\022\013\n\003pid\030\005 \002(\r\022\014"
@@ -102,9 +103,10 @@ void protobuf_AddDesc_processInfo_2eproto() {
     "\n\010cpuUsage\030\t \002(\002\022\023\n\013threadCount\030\n \002(\r\022\025\n"
     "\rpriorityLevel\030\013 \002(\r\022\024\n\014usedUserTime\030\014 \002"
     "(\004\022\026\n\016usedSystemTime\030\r \002(\004\022\021\n\tstartTime\030"
-    "\016 \002(\004\"a\n\rprocessStatus\022\013\n\007Unknown\020\000\022\013\n\007R"
-    "unning\020\001\022\t\n\005Sleep\020\002\022\013\n\007Stopped\020\003\022\010\n\004Disk"
-    "\020\004\022\n\n\006Zombie\020\005\022\010\n\004Page\020\006", 464);
+    "\016 \002(\004\022\017\n\007cpuTime\030\017 \002(\004\"a\n\rprocessStatus\022"
+    "\013\n\007Unknown\020\000\022\013\n\007Running\020\001\022\t\n\005Sleep\020\002\022\013\n\007"
+    "Stopped\020\003\022\010\n\004Disk\020\004\022\n\n\006Zombie\020\005\022\010\n\004Page\020"
+    "\006", 481);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "processInfo.proto", &protobuf_RegisterTypes);
   processInfo::default_instance_ = new processInfo();
@@ -168,6 +170,7 @@ const int processInfo::kPriorityLevelFieldNumber;
 const int processInfo::kUsedUserTimeFieldNumber;
 const int processInfo::kUsedSystemTimeFieldNumber;
 const int processInfo::kStartTimeFieldNumber;
+const int processInfo::kCpuTimeFieldNumber;
 #endif  // !_MSC_VER
 
 processInfo::processInfo()
@@ -200,6 +203,7 @@ void processInfo::SharedCtor() {
   usedusertime_ = GOOGLE_ULONGLONG(0);
   usedsystemtime_ = GOOGLE_ULONGLONG(0);
   starttime_ = GOOGLE_ULONGLONG(0);
+  cputime_ = GOOGLE_ULONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -264,6 +268,7 @@ void processInfo::Clear() {
     usedusertime_ = GOOGLE_ULONGLONG(0);
     usedsystemtime_ = GOOGLE_ULONGLONG(0);
     starttime_ = GOOGLE_ULONGLONG(0);
+    cputime_ = GOOGLE_ULONGLONG(0);
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -501,6 +506,22 @@ bool processInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(120)) goto parse_cpuTime;
+        break;
+      }
+      
+      // required uint64 cpuTime = 15;
+      case 15: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_cpuTime:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &cputime_)));
+          set_has_cputime();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -602,6 +623,11 @@ void processInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt64(14, this->starttime(), output);
   }
   
+  // required uint64 cpuTime = 15;
+  if (has_cputime()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(15, this->cputime(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -689,6 +715,11 @@ void processInfo::SerializeWithCachedSizes(
   // required uint64 startTime = 14;
   if (has_starttime()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(14, this->starttime(), target);
+  }
+  
+  // required uint64 cpuTime = 15;
+  if (has_cputime()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(15, this->cputime(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -799,6 +830,13 @@ int processInfo::ByteSize() const {
           this->starttime());
     }
     
+    // required uint64 cpuTime = 15;
+    if (has_cputime()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->cputime());
+    }
+    
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -870,6 +908,9 @@ void processInfo::MergeFrom(const processInfo& from) {
     if (from.has_starttime()) {
       set_starttime(from.starttime());
     }
+    if (from.has_cputime()) {
+      set_cputime(from.cputime());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -887,7 +928,7 @@ void processInfo::CopyFrom(const processInfo& from) {
 }
 
 bool processInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00003fff) != 0x00003fff) return false;
+  if ((_has_bits_[0] & 0x00007fff) != 0x00007fff) return false;
   
   return true;
 }
@@ -908,6 +949,7 @@ void processInfo::Swap(processInfo* other) {
     std::swap(usedusertime_, other->usedusertime_);
     std::swap(usedsystemtime_, other->usedsystemtime_);
     std::swap(starttime_, other->starttime_);
+    std::swap(cputime_, other->cputime_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

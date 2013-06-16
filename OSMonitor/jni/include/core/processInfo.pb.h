@@ -252,6 +252,13 @@ class processInfo : public ::google::protobuf::Message {
   inline ::google::protobuf::uint64 starttime() const;
   inline void set_starttime(::google::protobuf::uint64 value);
   
+  // required uint64 cpuTime = 15;
+  inline bool has_cputime() const;
+  inline void clear_cputime();
+  static const int kCpuTimeFieldNumber = 15;
+  inline ::google::protobuf::uint64 cputime() const;
+  inline void set_cputime(::google::protobuf::uint64 value);
+  
   // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.processInfo)
  private:
   inline void set_has_name();
@@ -282,6 +289,8 @@ class processInfo : public ::google::protobuf::Message {
   inline void clear_has_usedsystemtime();
   inline void set_has_starttime();
   inline void clear_has_starttime();
+  inline void set_has_cputime();
+  inline void clear_has_cputime();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
@@ -298,10 +307,11 @@ class processInfo : public ::google::protobuf::Message {
   ::google::protobuf::uint64 usedusertime_;
   ::google::protobuf::uint64 usedsystemtime_;
   ::google::protobuf::uint64 starttime_;
+  ::google::protobuf::uint64 cputime_;
   ::google::protobuf::uint32 prioritylevel_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(14 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(15 + 31) / 32];
   
   friend void  protobuf_AddDesc_processInfo_2eproto();
   friend void protobuf_AssignDesc_processInfo_2eproto();
@@ -696,6 +706,28 @@ inline ::google::protobuf::uint64 processInfo::starttime() const {
 inline void processInfo::set_starttime(::google::protobuf::uint64 value) {
   set_has_starttime();
   starttime_ = value;
+}
+
+// required uint64 cpuTime = 15;
+inline bool processInfo::has_cputime() const {
+  return (_has_bits_[0] & 0x00004000u) != 0;
+}
+inline void processInfo::set_has_cputime() {
+  _has_bits_[0] |= 0x00004000u;
+}
+inline void processInfo::clear_has_cputime() {
+  _has_bits_[0] &= ~0x00004000u;
+}
+inline void processInfo::clear_cputime() {
+  cputime_ = GOOGLE_ULONGLONG(0);
+  clear_has_cputime();
+}
+inline ::google::protobuf::uint64 processInfo::cputime() const {
+  return cputime_;
+}
+inline void processInfo::set_cputime(::google::protobuf::uint64 value) {
+  set_has_cputime();
+  cputime_ = value;
 }
 
 

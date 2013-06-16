@@ -66,6 +66,10 @@ public final class ProcessInfo {
     // required uint64 startTime = 14;
     boolean hasStartTime();
     long getStartTime();
+    
+    // required uint64 cpuTime = 15;
+    boolean hasCpuTime();
+    long getCpuTime();
   }
   public static final class processInfo extends
       com.google.protobuf.GeneratedMessage
@@ -364,6 +368,16 @@ public final class ProcessInfo {
       return startTime_;
     }
     
+    // required uint64 cpuTime = 15;
+    public static final int CPUTIME_FIELD_NUMBER = 15;
+    private long cpuTime_;
+    public boolean hasCpuTime() {
+      return ((bitField0_ & 0x00004000) == 0x00004000);
+    }
+    public long getCpuTime() {
+      return cpuTime_;
+    }
+    
     private void initFields() {
       name_ = "";
       owner_ = "";
@@ -379,6 +393,7 @@ public final class ProcessInfo {
       usedUserTime_ = 0L;
       usedSystemTime_ = 0L;
       startTime_ = 0L;
+      cpuTime_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -441,6 +456,10 @@ public final class ProcessInfo {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasCpuTime()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -489,6 +508,9 @@ public final class ProcessInfo {
       }
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         output.writeUInt64(14, startTime_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        output.writeUInt64(15, cpuTime_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -554,6 +576,10 @@ public final class ProcessInfo {
       if (((bitField0_ & 0x00002000) == 0x00002000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(14, startTime_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(15, cpuTime_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -707,6 +733,8 @@ public final class ProcessInfo {
         bitField0_ = (bitField0_ & ~0x00001000);
         startTime_ = 0L;
         bitField0_ = (bitField0_ & ~0x00002000);
+        cpuTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00004000);
         return this;
       }
       
@@ -801,6 +829,10 @@ public final class ProcessInfo {
           to_bitField0_ |= 0x00002000;
         }
         result.startTime_ = startTime_;
+        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
+          to_bitField0_ |= 0x00004000;
+        }
+        result.cpuTime_ = cpuTime_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -858,6 +890,9 @@ public final class ProcessInfo {
         }
         if (other.hasStartTime()) {
           setStartTime(other.getStartTime());
+        }
+        if (other.hasCpuTime()) {
+          setCpuTime(other.getCpuTime());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -917,6 +952,10 @@ public final class ProcessInfo {
           return false;
         }
         if (!hasStartTime()) {
+          
+          return false;
+        }
+        if (!hasCpuTime()) {
           
           return false;
         }
@@ -1020,6 +1059,11 @@ public final class ProcessInfo {
             case 112: {
               bitField0_ |= 0x00002000;
               startTime_ = input.readUInt64();
+              break;
+            }
+            case 120: {
+              bitField0_ |= 0x00004000;
+              cpuTime_ = input.readUInt64();
               break;
             }
           }
@@ -1355,6 +1399,27 @@ public final class ProcessInfo {
         return this;
       }
       
+      // required uint64 cpuTime = 15;
+      private long cpuTime_ ;
+      public boolean hasCpuTime() {
+        return ((bitField0_ & 0x00004000) == 0x00004000);
+      }
+      public long getCpuTime() {
+        return cpuTime_;
+      }
+      public Builder setCpuTime(long value) {
+        bitField0_ |= 0x00004000;
+        cpuTime_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearCpuTime() {
+        bitField0_ = (bitField0_ & ~0x00004000);
+        cpuTime_ = 0L;
+        onChanged();
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:com.eolwral.osmonitor.core.processInfo)
     }
     
@@ -1381,7 +1446,7 @@ public final class ProcessInfo {
   static {
     java.lang.String[] descriptorData = {
       "\n\021processInfo.proto\022\032com.eolwral.osmonit" +
-      "or.core\"\236\003\n\013processInfo\022\014\n\004name\030\001 \002(\t\022\r\n" +
+      "or.core\"\257\003\n\013processInfo\022\014\n\004name\030\001 \002(\t\022\r\n" +
       "\005owner\030\002 \002(\t\022N\n\006Status\030\003 \002(\01625.com.eolwr" +
       "al.osmonitor.core.processInfo.processSta" +
       "tus:\007Unknown\022\013\n\003uid\030\004 \002(\r\022\013\n\003pid\030\005 \002(\r\022\014" +
@@ -1389,9 +1454,10 @@ public final class ProcessInfo {
       "\n\010cpuUsage\030\t \002(\002\022\023\n\013threadCount\030\n \002(\r\022\025\n" +
       "\rpriorityLevel\030\013 \002(\r\022\024\n\014usedUserTime\030\014 \002" +
       "(\004\022\026\n\016usedSystemTime\030\r \002(\004\022\021\n\tstartTime\030" +
-      "\016 \002(\004\"a\n\rprocessStatus\022\013\n\007Unknown\020\000\022\013\n\007R",
-      "unning\020\001\022\t\n\005Sleep\020\002\022\013\n\007Stopped\020\003\022\010\n\004Disk" +
-      "\020\004\022\n\n\006Zombie\020\005\022\010\n\004Page\020\006"
+      "\016 \002(\004\022\017\n\007cpuTime\030\017 \002(\004\"a\n\rprocessStatus\022",
+      "\013\n\007Unknown\020\000\022\013\n\007Running\020\001\022\t\n\005Sleep\020\002\022\013\n\007" +
+      "Stopped\020\003\022\010\n\004Disk\020\004\022\n\n\006Zombie\020\005\022\010\n\004Page\020" +
+      "\006"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -1403,7 +1469,7 @@ public final class ProcessInfo {
           internal_static_com_eolwral_osmonitor_core_processInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_eolwral_osmonitor_core_processInfo_descriptor,
-              new java.lang.String[] { "Name", "Owner", "Status", "Uid", "Pid", "Ppid", "Rss", "Vsz", "CpuUsage", "ThreadCount", "PriorityLevel", "UsedUserTime", "UsedSystemTime", "StartTime", },
+              new java.lang.String[] { "Name", "Owner", "Status", "Uid", "Pid", "Ppid", "Rss", "Vsz", "CpuUsage", "ThreadCount", "PriorityLevel", "UsedUserTime", "UsedSystemTime", "StartTime", "CpuTime", },
               com.eolwral.osmonitor.core.ProcessInfo.processInfo.class,
               com.eolwral.osmonitor.core.ProcessInfo.processInfo.Builder.class);
           return null;

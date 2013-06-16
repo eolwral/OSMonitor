@@ -30,5 +30,11 @@
        		android:layout_width="wrap_content"
        		android:layout_height="wrap_content"
        		android:text="@string/ui_process_sort_name" />
+
+    <RadioButton
+       		android:id="@+id/id_process_sort_cputime"
+       		android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:text="@string/ui_process_sort_cputime" />
     
 </RadioGroup>

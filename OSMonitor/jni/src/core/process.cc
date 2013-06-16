@@ -95,6 +95,7 @@ namespace core {
     curProcessInfo.set_status(processInfo_processStatus_Unknown);
     curProcessInfo.set_prioritylevel(0);
     curProcessInfo.set_cpuusage(0);
+    curProcessInfo.set_cputime(0);
 
     // save pid
     curProcessInfo.set_pid(pid);
@@ -148,15 +149,19 @@ namespace core {
                      &vsz,
                      &rss);
 
-
-
       curProcessInfo.set_ppid(parentPid);
       curProcessInfo.set_usedusertime(usedUserTime);
       curProcessInfo.set_usedsystemtime(usedSystemTime);
       curProcessInfo.set_threadcount(threadCount);
-      curProcessInfo.set_starttime(_bootTime+startTime/HZ);
-      curProcessInfo.set_vsz(vsz/1024);
-      curProcessInfo.set_rss(rss*4);
+
+      if( (_bootTime+startTime) >0 )
+        curProcessInfo.set_starttime(_bootTime+startTime/HZ);
+
+      if(vsz > 0)
+        curProcessInfo.set_vsz(vsz/1024);
+
+      if(rss > 0)
+        curProcessInfo.set_rss(rss*4);
 
       fclose(psFile);
       psFile = 0;
@@ -200,6 +205,8 @@ namespace core {
       readSize = fread(cmdLine, 1, BUFFERSIZE, psFile);
       fclose(psFile);
 
+      cmdLine[BUFFERSIZE-1] = '\0';
+
       if(readSize != 0)
         curProcessInfo.set_name(cmdLine);
     }
@@ -221,7 +228,7 @@ namespace core {
 
         if(matchItem == 2)
         {
-          cmdLine[strlen(cmdLine)-1] = '\0';
+          cmdLine[BUFFERSIZE-1] = '\0';
           curProcessInfo.set_name(cmdLine);
         }
       }
@@ -229,6 +236,12 @@ namespace core {
 
     // get priority
     curProcessInfo.set_prioritylevel(getpriority(PRIO_PROCESS, pid));
+
+    // get CPU time
+    unsigned long CPUTimeJiffies = (curProcessInfo.usedsystemtime() +
+                                    curProcessInfo.usedusertime());
+    if(CPUTimeJiffies > 0)
+      curProcessInfo.set_cputime( CPUTimeJiffies / HZ);
 
     return (true);
   }

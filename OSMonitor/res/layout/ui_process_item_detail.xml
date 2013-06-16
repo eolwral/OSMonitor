@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:gravity="start"
-        android:text="000000"
+        android:text="0000"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
     <TextView
@@ -71,43 +71,25 @@
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:gravity="start"
-        android:text="00000"
+        android:text="000"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/tx_process_detail_thread"
+        android:id="@+id/tx_process_detail_cputime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1" 
         android:paddingLeft="3dp"
-        android:text="@string/ui_process_detail_thread"
-        android:textAppearance="?android:attr/textAppearanceSmall" 
-        android:layout_weight="1" />
+        android:text="@string/ui_process_detail_cputime"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/id_process_detail_thread"
+        android:id="@+id/id_process_detail_cputime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_weight="5"
         android:gravity="start"
-        android:text="00"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-    <TextView
-        android:id="@+id/tx_process_detail_nice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="3dp"
-        android:text="@string/ui_process_detail_nice"
-        android:textAppearance="?android:attr/textAppearanceSmall" 
-        android:layout_weight="1" />
-    
-    <TextView
-        android:id="@+id/id_process_detail_nice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="start"
-        android:text="-20"
+        android:text="000"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
     </LinearLayout>
@@ -201,6 +183,51 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
+        android:id="@+id/tx_process_detail_thread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="3dp"
+        android:text="@string/ui_process_detail_thread"
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/id_process_detail_thread"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="start"
+        android:text="00"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    <TextView
+        android:id="@+id/tx_process_detail_nice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="3dp"
+        android:text="@string/ui_process_detail_nice"
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:layout_weight="1" />
+    
+    <TextView
+        android:id="@+id/id_process_detail_nice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="start"
+        android:text="-20"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    </LinearLayout>
+	
+	<LinearLayout  
+        android:id="@+id/ly_process_detail_5nd"
+        android:layout_height="wrap_content"  
+    	android:layout_width="fill_parent" 
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ly_process_detail_4nd" >
+    
+    <TextView
         android:id="@+id/tx_process_detail_starttime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -215,9 +242,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="5" 
         android:gravity="start"
-        android:text="2013/01/01 00:00:00 AM"
+        android:text="01/01/13 00:00:00 AM"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-    
     
     </LinearLayout>
  

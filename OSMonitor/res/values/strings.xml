@@ -39,6 +39,7 @@
 <string name="ui_process_sort_memory">Memory</string>
 <string name="ui_process_sort_pid">PID</string>
 <string name="ui_process_sort_name">Name</string>
+<string name="ui_process_sort_cputime">CPUTime</string>
 
 <!-- Process Detail -->
 <string name="ui_process_detail_process">Process:</string>
@@ -50,6 +51,7 @@
 <string name="ui_process_detail_nice">Nice:</string>
 <string name="ui_process_detail_user">User:</string>
 <string name="ui_process_detail_status">Status:</string>
+<string name="ui_process_detail_cputime">CPU Time:</string>
 <string name="ui_process_detail_time">Start:</string>
 
 <!-- Process Status -->

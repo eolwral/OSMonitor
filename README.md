@@ -47,6 +47,15 @@ if you would like to know that how it works, please check Wiki page!
 
 ### Change Log ###
 
+**Version 3.0.6.5**
+- Add CPU Time (on Process Tab)
+- Add long click action in Tool mode
+- Fix IPv6 Address
+- Fix Detecting one core CPU
+- Fix traffic statistics on VPN interface 
+- Fix uptime errors
+- Fix FCs
+
 **Version 3.0.6.4**
 - Fix FC on SetCPU (Android 2.3)
 - Fix wrong number of cores

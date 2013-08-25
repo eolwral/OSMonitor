@@ -102,4 +102,7 @@
         <item name="android:padding">10dp</item>
     </style>
     
+     <style name="osmonitor_NotificationText" parent="android:TextAppearance.StatusBar.EventContent" />
+    <style name="osmonitor_NotificationTitle" parent="android:TextAppearance.StatusBar.EventContent.Title" />
+    
 </resources>

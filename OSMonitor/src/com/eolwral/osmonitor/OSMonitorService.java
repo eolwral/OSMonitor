@@ -21,8 +21,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.widget.RemoteViews;
 
 public class OSMonitorService extends Service 
                               implements ipcClientListener 
@@ -33,7 +40,8 @@ public class OSMonitorService extends Service
 	  
 	private boolean isRegistered = false;
 	private NotificationManager nManager = null;
-	private NotificationCompat.Builder nBuilder = null;
+	private Notification osNotification = null;
+	private RemoteViews nView = null;
 	
 	// process   
 	private int iconColor = 0;
@@ -112,8 +120,8 @@ public class OSMonitorService extends Service
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-		nBuilder = new NotificationCompat.Builder(this);
+		
+		NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this);
     	nBuilder.setContentTitle(getResources().getText(R.string.ui_appname));
     	nBuilder.setContentText(getResources().getText(R.string.ui_shortcut_detail));
 		nBuilder.setOnlyAlertOnce(true);
@@ -121,12 +129,12 @@ public class OSMonitorService extends Service
 		nBuilder.setContentIntent(contentIntent);
 		nBuilder.setSmallIcon(R.drawable.ic_launcher);
 		
-		Notification osNotification = nBuilder.build();
-
-		nManager.notify(NOTIFYID, osNotification); 
+		osNotification = nBuilder.build();
+		nManager.notify(NOTIFYID, osNotification);
 		
 		// set foreground to avoid recycling
 		startForeground(NOTIFYID, osNotification);
+
 	}
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() 
@@ -292,36 +300,41 @@ public class OSMonitorService extends Service
 	}
 
 	private void refreshNotification() {
-		
-		if (useCelsius)
-			nBuilder.setContentTitle("Mem: "+CommonUtil.convertToSize(memoryFree, true)+", Bat:"+battLevel+"% ("+temperature/10+"¢XC)" );
-		else
-			nBuilder.setContentTitle("Mem: "+CommonUtil.convertToSize(memoryFree, true)+", Bat:"+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
-		
-		nBuilder.setContentText("CPU: "+CommonUtil.convertToUsage(cpuUsage) + "% [ " +
-								CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] + " ]");
 
-		nBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(
-								getResources().getString(R.string.ui_process_cpuusage) + " " + 
-								CommonUtil.convertToUsage(cpuUsage) + "%\n" +
-							    " > " + CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] + "\n" +
-							    " > " + CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1] + "\n" +
-							    " > " + CommonUtil.convertToUsage(topUsage[2]) + "% "  + topProcess[2]));
+		if(nView == null)
+			nView = new RemoteViews(getPackageName(),  R.layout.ui_notification);
 
+		if (useCelsius) 
+			nView.setTextViewText(R.id.notification_bat, "Bat: "+battLevel+"% ("+temperature/10+"¢XC)" );
+		else 
+			nView.setTextViewText(R.id.notification_bat,  "Bat: "+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
+
+		nView.setTextViewText(R.id.notification_mem, "Mem: "+CommonUtil.convertToSize(memoryFree, true));
+
+		nView.setTextViewText(R.id.notification_cpu,"CPU: "+CommonUtil.convertToUsage(cpuUsage) + "%");
+
+		nView.setTextViewText(R.id.notification_top1st, " > " + CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] );
+		nView.setTextViewText(R.id.notification_top2nd, " > " + CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1]);
+		nView.setTextViewText(R.id.notification_top3nd," > " + CommonUtil.convertToUsage(topUsage[2]) + "% "  + topProcess[2]);
+
+		osNotification.icon = iconColor;
+		
 		if (cpuUsage < 20)
-			nBuilder.setSmallIcon(iconColor, 1);
+			osNotification.iconLevel = 1;
 		else if (cpuUsage < 40)
-			nBuilder.setSmallIcon(iconColor, 2);
+			osNotification.iconLevel = 2;
 		else if (cpuUsage < 60)
-			nBuilder.setSmallIcon(iconColor, 3);
+			osNotification.iconLevel = 3;
 		else if (cpuUsage < 80)
-			nBuilder.setSmallIcon(iconColor, 4);
+			osNotification.iconLevel = 4;
 		else if (cpuUsage < 100)
-			nBuilder.setSmallIcon(iconColor, 5);
+			osNotification.iconLevel = 5;
 		else
-			nBuilder.setSmallIcon(iconColor, 6);
+			osNotification.iconLevel = 6;
+
+		osNotification.contentView = nView;
 		
-		nManager.notify(NOTIFYID, nBuilder.build());
+		nManager.notify(NOTIFYID, osNotification);
 	}
 	
 }

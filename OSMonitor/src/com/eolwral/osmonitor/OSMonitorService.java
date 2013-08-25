@@ -30,6 +30,7 @@ import android.graphics.drawable.LevelListDrawable;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
+import android.widget.RemoteViews.RemoteView;
 
 public class OSMonitorService extends Service 
                               implements ipcClientListener 
@@ -39,9 +40,10 @@ public class OSMonitorService extends Service
 	private int UpdateInterval = 2; 
 	  
 	private boolean isRegistered = false;
+	private boolean isInitialView = false;
 	private NotificationManager nManager = null;
 	private Notification osNotification = null;
-	private RemoteViews nView = null;
+ 
 	
 	// process   
 	private int iconColor = 0;
@@ -301,21 +303,25 @@ public class OSMonitorService extends Service
 
 	private void refreshNotification() {
 
-		if(nView == null)
-			nView = new RemoteViews(getPackageName(),  R.layout.ui_notification);
+		// Initialize customize view
+		if(isInitialView == false) {
+			RemoteViews nView = new RemoteViews(getPackageName(),  R.layout.ui_notification);
+			osNotification.contentView = nView;
+			isInitialView = true;
+		}
 
 		if (useCelsius) 
-			nView.setTextViewText(R.id.notification_bat, "Bat: "+battLevel+"% ("+temperature/10+"¢XC)" );
+			osNotification.contentView.setTextViewText(R.id.notification_bat, "Bat: "+battLevel+"% ("+temperature/10+"¢XC)" );
 		else 
-			nView.setTextViewText(R.id.notification_bat,  "Bat: "+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
+			osNotification.contentView.setTextViewText(R.id.notification_bat,  "Bat: "+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
 
-		nView.setTextViewText(R.id.notification_mem, "Mem: "+CommonUtil.convertToSize(memoryFree, true));
+		osNotification.contentView.setTextViewText(R.id.notification_mem, "Mem: "+CommonUtil.convertToSize(memoryFree, true));
 
-		nView.setTextViewText(R.id.notification_cpu,"CPU: "+CommonUtil.convertToUsage(cpuUsage) + "%");
+		osNotification.contentView.setTextViewText(R.id.notification_cpu,"CPU: "+CommonUtil.convertToUsage(cpuUsage) + "%");
 
-		nView.setTextViewText(R.id.notification_top1st, " > " + CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] );
-		nView.setTextViewText(R.id.notification_top2nd, " > " + CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1]);
-		nView.setTextViewText(R.id.notification_top3nd," > " + CommonUtil.convertToUsage(topUsage[2]) + "% "  + topProcess[2]);
+		osNotification.contentView.setTextViewText(R.id.notification_top1st, " > " + CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] );
+		osNotification.contentView.setTextViewText(R.id.notification_top2nd, " > " + CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1]);
+		osNotification.contentView.setTextViewText(R.id.notification_top3nd," > " + CommonUtil.convertToUsage(topUsage[2]) + "% "  + topProcess[2]);
 
 		osNotification.icon = iconColor;
 		
@@ -331,8 +337,6 @@ public class OSMonitorService extends Service
 			osNotification.iconLevel = 5;
 		else
 			osNotification.iconLevel = 6;
-
-		osNotification.contentView = nView;
 		
 		nManager.notify(NOTIFYID, osNotification);
 	}

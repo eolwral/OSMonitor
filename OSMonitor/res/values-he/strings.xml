@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Application -->
+<string name="ui_appname">צג המערכת</string>
+
+<!-- Tab -->
+<string name="ui_global_tab">גלובלי</string>
+<string name="ui_process_tab">תהליכים</string>
+<string name="ui_network_tab">רשת</string>
+<string name="ui_connection_tab">חיבורים</string>
+<string name="ui_misc_tab">Misc</string>
+<string name="ui_debug_tab">הודעות</string>
+<string name="ui_notification_tab">הודעה</string>
+<string name="ui_shortcut_detail">לחץ להפעלת צג המערכת..</string>
+
+<!-- Menu -->
+<string name="ui_menu_setting">הגדרות</string>
+<string name="ui_menu_tools">כלים</string>
+<string name="ui_menu_sort">מיון</string>
+<string name="ui_menu_search">חיפוש</string>
+<string name="ui_menu_stop">עצור</string>
+<string name="ui_menu_help">עזרה</string>
+<string name="ui_menu_logexport">ייצא</string>
+<string name="ui_menu_exit">סגור</string>
+
+<!-- Process Tab Start -->
+ 
+<!-- Header -->
+<string name="ui_process_count">תהליך:</string>
+<string name="ui_process_cpuusage">שימוש ב-CPU:</string>
+
+<!-- Footer -->
+<string name="ui_process_memorytotal">זיכרון כולל:</string>
+<string name="ui_process_memoryfree">פנוי:</string>
+
+<!-- Process Detail -->
+<string name="ui_process_sort_usage">שימוש</string>
+<string name="ui_process_sort_memory">זיכרון</string>
+<string name="ui_process_sort_pid">PID</string>
+<string name="ui_process_sort_name">שם</string>
+<string name="ui_process_sort_cputime">זמן שימוש ב-CPU</string>
+
+<!-- Process Detail -->
+<string name="ui_process_detail_process">תהליך:</string>
+<string name="ui_process_detail_memory">זיכרון:</string>
+<string name="ui_process_detail_ppid">PPID:</string>
+<string name="ui_process_detail_thread">תהליך:</string>
+<string name="ui_process_detail_stime">STime:</string>
+<string name="ui_process_detail_utime">UTime:</string>
+<string name="ui_process_detail_nice">Nice:</string>
+<string name="ui_process_detail_user">משתמש:</string>
+<string name="ui_process_detail_status">מצב:</string>
+<string name="ui_process_detail_cputime">זמן שימוש ב-CPU:</string>
+<string name="ui_process_detail_time">זמן התחלה:</string>
+
+<!-- Process Status -->
+<string name="ui_process_status_zombie">זומבי</string>
+<string name="ui_process_status_sleep">רדום</string>
+<string name="ui_process_status_running">רץ</string>
+<string name="ui_process_status_waitio">מחכה לקלט/פלט</string>
+<string name="ui_process_status_stop">עצור</string>
+<string name="ui_process_status_unknown">לא ידוע</string>
+
+<!-- Process Tab End -->
+
+
+<!-- Connection Tab Start -->
+
+<!-- Header -->
+<string name="ui_connection_protocol">פרוטוקול</string>
+<string name="ui_connection_localremote">כתובת IP מקומית/חיצונית</string>
+<string name="ui_connection_status">מצב</string>
+
+<!-- Connection Tab End -->
+
+<!-- Network Tab Start -->
+
+<!-- Header -->
+<string name="ui_network_interface">ממשק</string>
+<string name="ui_network_ip4">IPv4</string>
+<string name="ui_network_ip6">IPv6</string>
+
+<!-- Additional -->
+<string name="ui_network_mac">MAC</string>
+<string name="ui_network_rx">Rx</string>
+<string name="ui_network_tx">Tx</string>
+<string name="ui_network_status">מצב</string>
+
+<!-- Status -->
+<string name="ui_network_status_up">עובד</string>
+<string name="ui_network_status_down">לא עובד</string>
+<string name="ui_network_status_broadcast">שידור גלובלי</string>
+<string name="ui_network_status_loopback">לולאה חוזרת</string>
+<string name="ui_network_status_p2p">point-to-point</string>
+<string name="ui_network_status_promisc">promisc</string>
+<string name="ui_network_status_running">רץ</string>
+<string name="ui_network_status_multicast">שידור</string>
+
+<!-- Network Tab End -->
+
+<!-- Misc Tab Start -->
+<string name="ui_misc_more">עוד</string>
+
+<!-- Memory -->
+<string name="ui_memory_title">זיכרון</string>
+<string name="ui_swap_title">Swap</string>
+<string name="ui_memory_total">כולל</string>
+<string name="ui_memory_free">פנוי</string>
+<string name="ui_memory_shared">משותף</string>
+<string name="ui_memory_buffered">נאגר</string>
+<string name="ui_memory_cached">במטמון</string>
+
+<!-- Uptime -->
+<string name="ui_system_uptime">זמן מאתחול אחרון</string>
+
+<!-- CPU -->
+<string name="ui_processor_freq">תדירות</string>
+<string name="ui_processor_scal">Scaling</string>
+<string name="ui_processor_cur">נוכחי</string>
+<string name="ui_processor_gov">Governor</string>
+<string name="ui_processor_status">מצב</string>
+<string name="ui_processor_core">ליבה</string>
+<string name="ui_processor_freq_max_title">תדירות מקסימאלית</string>
+<string name="ui_processor_freq_min_title">תדירות מינימאלית</string>
+<string name="ui_processor_enable">אפשר</string>
+<string name="ui_processor_enable_title">אפשר מספר CPU</string>
+<string name="ui_processor_enable_msg">אוסף מידע..</string>
+<string name="ui_processor_status_online">מחובר</string>
+<string name="ui_processor_status_offline">לא מחובר</string>
+
+<!-- Battery -->
+<string name="ui_battery">סוללה</string>
+<string name="ui_battery_health">בריאות</string>
+<string name="ui_battery_technology">טכנולוגיה</string>
+<string name="ui_battery_capacity">גודל</string>
+<string name="ui_battery_voltage">מתח</string>
+<string name="ui_battery_temperature">טמפרטורה</string>
+<string name="ui_battery_acpower">מהירות מטען קיר</string>
+<string name="ui_battery_usbpower">מהירות USB</string>
+<string name="ui_battery_status">מצב</string>
+<string name="ui_battery_online">מחובר לרשת</string>
+<string name="ui_battery_offline">לא מחובר לרשת</string>
+<string name="ui_battery_status_unknown">לא ידוע</string>
+<string name="ui_battery_status_charging">טוען</string>
+<string name="ui_battery_status_discharging">פורק סוללה</string>
+<string name="ui_battery_status_notcharging">לא טוען</string>
+<string name="ui_battery_status_full">מלא</string>
+<string name="ui_battery_health_dead">מת</string>
+<string name="ui_battery_health_good">טוב</string>
+<string name="ui_battery_health_overheat">חימום יתר</string>
+<string name="ui_battery_health_overvoltage">מתח גבוה מדי</string>
+<string name="ui_battery_health_unknown">לא ידוע</string>
+<string name="ui_battery_health_failure">שגיאה לא ידועה</string>
+
+<!-- Misc Tab End -->
+
+<!-- Message Tab Start -->
+
+<!-- Header -->
+<string name="ui_message_count">הודעה:</string>
+<string name="ui_message_filename">שם קובץ</string>
+<string name="ui_message_fileexist">הקובץ כבר קיים!</string>
+<string name="ui_message_exportdone">מוכן!</string>
+
+<!-- Message Tab End -->
+
+<!-- Preferences Start -->
+<string name="ui_preferences_update">הפרשי עדכון</string>
+<string name="ui_preferences_update_detail">הפרשי זמן בין עדכון נתונים</string>
+<string name="ui_preferences_autostart">התחלה אוטומטית</string>
+<string name="ui_preferences_autostart_detail">הרץ מודד CPU או קישור באתחול</string>
+<string name="ui_preferences_cpuusage">הצג שימוש ב-CPU</string>
+<string name="ui_preferences_cpuusage_detail">הצגת מודד CPU צבעוני בחלון ההודעות</string>
+<string name="ui_preferences_notification">הוסף קישור</string>
+<string name="ui_preferences_notification_deatil">הצג קישור בחלון ההודעות</string>
+<string name="ui_preferences_color">צבע מודד CPU</string>
+<string name="ui_preferences_color_detail">כחול או ירוק</string>
+<string name="ui_preferences_expert">מצב למתקדמים</string>
+<string name="ui_preferences_expert_detail">הצג את כל המידע בלי תקציר</string>
+<string name="ui_preferences_root">אפשר הרשאות root</string>
+<string name="ui_preferences_root_detail">קבלת הרשאות root עבור הרצת פעולות מיוחדות</string>
+<string name="ui_preferences_tempvalue">הצג סלציוס</string>
+<string name="ui_preferences_tempvalue_detail">בחר סלציוס/פרנהייט</string>
+<string name="ui_preferences_map">סוג המפה</string>
+<string name="ui_preferences_map_detail">בחר GoogleMap או OpenStreeMap</string>
+<string name="ui_preferences_setcpu">קבע CPU באתחול</string>
+<string name="ui_preferences_setcpu_detail">קבע הגדרות מעבד באיתחול</string>
+<string name="ui_preferences_setcpu_data">קבע תדירות CPU</string>
+
+
+<!-- Preferences End -->
+
+<!-- Common Start -->
+<string name="ui_text_okay">אוקי</string>
+<string name="ui_text_cancel">ביטול</string>
+
+<string name="ui_text_zero">0</string>
+<string name="ui_text_refresh">חכה בבקשה..</string>
+<string name="ui_text_kill">עוצר %1$d תהליכים..</string>
+<!-- Common End -->
+
+</resources>

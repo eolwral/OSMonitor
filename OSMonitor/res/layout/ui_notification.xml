@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/custom_notification"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="left"
-    android:orientation="vertical" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:id="@+id/notification_cpu_bar"
+            style="@style/osmonitor_CPUProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:max="100"
+            android:minHeight="10dp"
+            android:minWidth="10dp" />
+
+        <ProgressBar
+            android:id="@+id/notification_mem_bar"
+            style="@style/osmonitor_MemoryProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:max="100"
+            android:minHeight="10dp"
+            android:minWidth="10dp" />
+
+        <ProgressBar
+            android:id="@+id/notification_bat_bar"
+            style="@style/osmonitor_BatteryProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:max="100"
+            android:minHeight="10dp"
+            android:minWidth="10dp" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/notification_head"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="match_parent"
+        android:paddingRight="5dp"
         android:scaleType="fitXY"
         android:src="@drawable/notification_bar" />
 
@@ -20,40 +57,36 @@
         android:id="@+id/notifiction_sys"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/notification_cpu"
             style="@style/osmonitor_NotificationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="CPU: ??%" />
 
         <TextView
             android:id="@+id/notification_mem"
             style="@style/osmonitor_NotificationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="Mem: ???MB" />
 
         <TextView
             android:id="@+id/notification_bat"
             style="@style/osmonitor_NotificationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="Bat: ??% (???)" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/notification_div"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/notifiction_sys"
+        android:layout_height="match_parent"
+        android:paddingRight="5dp"
         android:scaleType="fitXY"
         android:src="@drawable/notification_bar" />
 
@@ -61,33 +94,29 @@
         android:id="@+id/notifiction_proc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/notifiction_sys"
+        android:layout_weight="5"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/notification_top1st"
             style="@style/osmonitor_NotificationText"
             android:singleLine="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/notification_top2nd"
             style="@style/osmonitor_NotificationText"
             android:singleLine="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/notification_top3nd"
             style="@style/osmonitor_NotificationText"
             android:singleLine="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

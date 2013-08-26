@@ -102,6 +102,24 @@
         <item name="android:padding">10dp</item>
     </style>
     
+    <style name="osmonitor_CPUProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/cpu_progress_bar_horizontal</item>
+      <item name="android:minHeight">5dip</item>
+      <item name="android:maxHeight">10dip</item>
+    </style>
+    
+    <style name="osmonitor_MemoryProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/mem_progress_bar_horizontal</item>
+      <item name="android:minHeight">5dip</item>
+      <item name="android:maxHeight">10dip</item>
+    </style>
+    
+    <style name="osmonitor_BatteryProgressBar" parent="android:Widget.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/bat_progress_bar_horizontal</item>
+      <item name="android:minHeight">5dip</item>
+      <item name="android:maxHeight">10dip</item>
+    </style>
+    
      <style name="osmonitor_NotificationText" parent="android:TextAppearance.StatusBar.EventContent" />
     <style name="osmonitor_NotificationTitle" parent="android:TextAppearance.StatusBar.EventContent.Title" />
     

@@ -21,16 +21,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.LevelListDrawable;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.RemoteViews.RemoteView;
 
 public class OSMonitorService extends Service 
                               implements ipcClientListener 
@@ -52,6 +46,7 @@ public class OSMonitorService extends Service
 	private String [] topProcess = new String[3];
 	
 	// memory
+	private long memoryTotal = 0;
 	private long memoryFree = 0;
 
 	// battery
@@ -185,10 +180,10 @@ public class OSMonitorService extends Service
     }
 
     private void wakeUp() {
-		ipcService.removeRequest(this);
 		Settings settings = new Settings(this);
 		UpdateInterval = settings.getInterval();
        	ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
+		ipcService.removeRequest(this);
     	ipcService.addRequest(newCommand, 0, this);
     	startBatteryMonitor();
 	} 
@@ -258,6 +253,7 @@ public class OSMonitorService extends Service
 				if (rawData.getAction() == ipcAction.OS){
 					osInfo info = osInfo.parseFrom(rawData.getPayload(0));
 					memoryFree = info.getFreeMemory()+info.getBufferedMemory()+info.getCachedMemory();
+					memoryTotal =  info.getTotalMemory();
 				}
 				
 				if (rawData.getAction() != ipcAction.PROCESS)
@@ -303,6 +299,7 @@ public class OSMonitorService extends Service
 
 	private void refreshNotification() {
 
+		Log.v("Notification", "refresh");
 		// Initialize customize view
 		if(isInitialView == false) {
 			RemoteViews nView = new RemoteViews(getPackageName(),  R.layout.ui_notification);
@@ -323,8 +320,11 @@ public class OSMonitorService extends Service
 		osNotification.contentView.setTextViewText(R.id.notification_top2nd, " > " + CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1]);
 		osNotification.contentView.setTextViewText(R.id.notification_top3nd," > " + CommonUtil.convertToUsage(topUsage[2]) + "% "  + topProcess[2]);
 
-		osNotification.icon = iconColor;
+		osNotification.contentView.setProgressBar(R.id.notification_cpu_bar, 100, (int) cpuUsage, false);
+		osNotification.contentView.setProgressBar(R.id.notification_mem_bar, (int) memoryTotal, (int) (memoryTotal - memoryFree), false);
+		osNotification.contentView.setProgressBar(R.id.notification_bat_bar, 100, (int) battLevel, false);
 		
+		osNotification.icon = iconColor;
 		if (cpuUsage < 20)
 			osNotification.iconLevel = 1;
 		else if (cpuUsage < 40)

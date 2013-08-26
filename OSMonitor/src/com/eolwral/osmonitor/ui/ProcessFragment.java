@@ -448,6 +448,7 @@ public class ProcessFragment extends SherlockListFragment
 				syspsInfo.setThreadCount(0);
 				syspsInfo.setUsedSystemTime(0);
 				syspsInfo.setUsedUserTime(0);
+				syspsInfo.setCpuTime(0);
 
 				// process processInfo
 				for (int count = 0; count < rawData.getPayloadCount(); count++) {
@@ -480,6 +481,7 @@ public class ProcessFragment extends SherlockListFragment
 					syspsInfo.setThreadCount(syspsInfo.getThreadCount()+psInfo.getThreadCount());
 					syspsInfo.setUsedSystemTime(syspsInfo.getUsedSystemTime()+psInfo.getUsedSystemTime());
 					syspsInfo.setUsedUserTime(syspsInfo.getUsedUserTime()+psInfo.getUsedUserTime());
+					syspsInfo.setCpuTime(syspsInfo.getCpuTime()+psInfo.getCpuTime());
 						
 					if(syspsInfo.getStartTime() < psInfo.getStartTime() ||
 					   syspsInfo.getStartTime() == 0)

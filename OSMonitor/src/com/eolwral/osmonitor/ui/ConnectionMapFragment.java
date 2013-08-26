@@ -42,7 +42,7 @@ public class ConnectionMapFragment extends SherlockFragment
     	String msg = getArguments().getString(MESSAGE);
     	
     	try {
-			url = url + "?lat=" + lat + "&lon=" + lon + "&msg=" + URLEncoder.encode(msg, "utf-8").replace("+", "%20");
+			url = url + "#lat=" + lat + "&lon=" + lon + "&msg=" + URLEncoder.encode(msg, "utf-8").replace("+", "%20");
 		} catch (UnsupportedEncodingException e) {}
         
         mapView =  new WebView(getSherlockActivity().getApplicationContext());

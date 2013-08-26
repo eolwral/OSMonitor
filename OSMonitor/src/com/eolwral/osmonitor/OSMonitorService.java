@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 public class OSMonitorService extends Service 
@@ -299,7 +298,6 @@ public class OSMonitorService extends Service
 
 	private void refreshNotification() {
 
-		Log.v("Notification", "refresh");
 		// Initialize customize view
 		if(isInitialView == false) {
 			RemoteViews nView = new RemoteViews(getPackageName(),  R.layout.ui_notification);

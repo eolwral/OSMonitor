@@ -2,7 +2,6 @@ package com.eolwral.osmonitor.ui;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,6 +20,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -317,7 +317,6 @@ public class MessageFragment extends SherlockListFragment
         	FileWriter logWriter = new FileWriter(logFile);
         	
         	final Calendar calendar = Calendar.getInstance();
-			final DateFormat convertTool = DateFormat.getDateTimeInstance();
         	
         	for(int index = 0; index < LogCount ; index++)
         	{
@@ -327,7 +326,7 @@ public class MessageFragment extends SherlockListFragment
         		{
         			calendar.setTimeInMillis(viewLogcatData.get(index).getSeconds()*1000);
         			
-        			logLine.append(convertTool.format(calendar.getTime()) + ",");
+        			logLine.append(DateFormat.format("yyyy-MM-dd hh:mm:ss", calendar.getTime()) + ",");
         			
     				switch(viewLogcatData.get(index).getPriority().getNumber())
     				{
@@ -368,7 +367,7 @@ public class MessageFragment extends SherlockListFragment
     				if(viewDmesgData.get(index).getSeconds() != 0) 
     				{
     					calendar.setTimeInMillis(viewDmesgData.get(index).getSeconds()*1000);
-    					logLine.append(convertTool.format(calendar.getTime()) + ",");
+    					logLine.append(DateFormat.format("yyyy-MM-dd hh:mm:ss", calendar.getTime()) + ",");
     				}
     				
     				switch(viewDmesgData.get(index).getLevel().getNumber())
@@ -640,7 +639,7 @@ public class MessageFragment extends SherlockListFragment
 				logcatInfo item = viewLogcatData.get(position);
 				
 				final Calendar calendar = Calendar.getInstance();
-				final DateFormat convertTool = DateFormat.getDateTimeInstance();
+				final java.text.DateFormat convertTool = java.text.DateFormat.getDateTimeInstance();
 				calendar.setTimeInMillis(item.getSeconds()*1000);
 				holder.time.setText(convertTool.format(calendar.getTime()));
 				
@@ -697,7 +696,7 @@ public class MessageFragment extends SherlockListFragment
 				if(item.getSeconds() != 0) 
 				{
 					final Calendar calendar = Calendar.getInstance();
-					final DateFormat convertTool = DateFormat.getDateTimeInstance();
+					final java.text.DateFormat convertTool = java.text.DateFormat.getDateTimeInstance();
 					calendar.setTimeInMillis(item.getSeconds()*1000);
 					holder.time.setText(convertTool.format(calendar.getTime()));
 				}

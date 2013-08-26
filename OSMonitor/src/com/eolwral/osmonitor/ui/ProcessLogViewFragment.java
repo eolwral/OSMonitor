@@ -2,7 +2,6 @@ package com.eolwral.osmonitor.ui;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +15,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -151,7 +151,6 @@ public class ProcessLogViewFragment extends SherlockDialogFragment
 	    		FileWriter logWriter = new FileWriter(logFile);
 
 	    		final Calendar calendar = Calendar.getInstance();
-	    		final DateFormat convertTool = DateFormat.getDateTimeInstance();
 
 	    		for(int index = 0; index < LogCount ; index++)
 	    		{
@@ -159,7 +158,7 @@ public class ProcessLogViewFragment extends SherlockDialogFragment
 
 	    			calendar.setTimeInMillis(viewLogcatData.get(index).getSeconds()*1000);
 
-	    			logLine.append(convertTool.format(calendar.getTime()) + ",");
+	    			logLine.append(DateFormat.format("yyyy-MM-dd hh:mm:ss", calendar.getTime()) + ",");
 
 	    			switch(viewLogcatData.get(index).getPriority().getNumber())
 	    			{
@@ -193,11 +192,11 @@ public class ProcessLogViewFragment extends SherlockDialogFragment
 	    			}        	
 	    			logLine.append(viewLogcatData.get(index).getTag() + ",");
 	    			logLine.append(viewLogcatData.get(index).getMessage() + "\n");       					 
-
-
-	    			logWriter.close();
+	    			
+	    			logWriter.write(logLine.toString());
 	    		}
 	    		
+	    		logWriter.close();
 	    	} catch (Exception e) {
 	    		new AlertDialog.Builder(getActivity())
 	    		.setTitle(R.string.ui_menu_logexport)
@@ -210,6 +209,7 @@ public class ProcessLogViewFragment extends SherlockDialogFragment
 
 	    		return;
 	    	}
+	    	
 		    	
 	    	new AlertDialog.Builder(getActivity())
 		  		.setTitle(R.string.ui_menu_logexport)
@@ -349,7 +349,7 @@ public class ProcessLogViewFragment extends SherlockDialogFragment
 			logcatInfo item = viewLogcatData.get(position);
 				
 			final Calendar calendar = Calendar.getInstance();
-			final DateFormat convertTool = DateFormat.getDateTimeInstance();
+			final java.text.DateFormat convertTool = java.text.DateFormat.getDateTimeInstance();
 			calendar.setTimeInMillis(item.getSeconds()*1000);
 			holder.time.setText(convertTool.format(calendar.getTime()));
 				

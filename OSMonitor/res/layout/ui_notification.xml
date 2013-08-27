@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:max="100"
             android:minHeight="10dp"
-            android:minWidth="10dp" />
+            android:minWidth="15dp" />
 
         <ProgressBar
             android:id="@+id/notification_mem_bar"
@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:max="100"
             android:minHeight="10dp"
-            android:minWidth="10dp" />
+            android:minWidth="15dp" />
 
         <ProgressBar
             android:id="@+id/notification_bat_bar"
@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:max="100"
             android:minHeight="10dp"
-            android:minWidth="10dp" />
+            android:minWidth="15dp" />
 
     </LinearLayout>
 
@@ -63,6 +63,7 @@
         <TextView
             android:id="@+id/notification_cpu"
             style="@style/osmonitor_NotificationText"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="CPU: ??%" />
@@ -70,16 +71,19 @@
         <TextView
             android:id="@+id/notification_mem"
             style="@style/osmonitor_NotificationText"
+             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Mem: ???MB" />
+            android:text="MEM: ???MB" />
 
         <TextView
             android:id="@+id/notification_bat"
             style="@style/osmonitor_NotificationText"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Bat: ??% (???)" />
+            android:text="BAT: ??% (???)" />
+        
     </LinearLayout>
 
     <ImageView
@@ -87,6 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingRight="5dp"
+        android:paddingLeft="5dp"
         android:scaleType="fitXY"
         android:src="@drawable/notification_bar" />
 

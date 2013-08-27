@@ -33,10 +33,8 @@ public class OSMonitorService extends Service
 	private int UpdateInterval = 2; 
 	  
 	private boolean isRegistered = false;
-	private boolean isInitialView = false;
 	private NotificationManager nManager = null;
-	private Notification osNotification = null;
- 
+	private NotificationCompat.Builder nBuilder = null; 
 	
 	// process   
 	private int iconColor = 0;
@@ -117,7 +115,7 @@ public class OSMonitorService extends Service
 
 		nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		
-		NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this);
+		nBuilder = new NotificationCompat.Builder(this);
     	nBuilder.setContentTitle(getResources().getText(R.string.ui_appname));
     	nBuilder.setContentText(getResources().getText(R.string.ui_shortcut_detail));
 		nBuilder.setOnlyAlertOnce(true);
@@ -125,7 +123,7 @@ public class OSMonitorService extends Service
 		nBuilder.setContentIntent(contentIntent);
 		nBuilder.setSmallIcon(R.drawable.ic_launcher);
 		
-		osNotification = nBuilder.build();
+		Notification osNotification = nBuilder.build();
 		nManager.notify(NOTIFYID, osNotification);
 		
 		// set foreground to avoid recycling
@@ -298,25 +296,21 @@ public class OSMonitorService extends Service
 
 	private void refreshNotification() {
 
-		// Initialize customize view
-		if(isInitialView == false) {
-			RemoteViews nView = new RemoteViews(getPackageName(),  R.layout.ui_notification);
-			osNotification.contentView = nView;
-			isInitialView = true;
-		}
+		Notification osNotification = nBuilder.build();
+   	    osNotification.contentView = new RemoteViews(getPackageName(),  R.layout.ui_notification);
 
 		if (useCelsius) 
-			osNotification.contentView.setTextViewText(R.id.notification_bat, "Bat: "+battLevel+"% ("+temperature/10+"¢XC)" );
+			osNotification.contentView.setTextViewText(R.id.notification_bat, "BAT: "+battLevel+"% ("+temperature/10+"¢XC)" );
 		else 
-			osNotification.contentView.setTextViewText(R.id.notification_bat,  "Bat: "+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
+			osNotification.contentView.setTextViewText(R.id.notification_bat,  "BAT: "+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
 
-		osNotification.contentView.setTextViewText(R.id.notification_mem, "Mem: "+CommonUtil.convertToSize(memoryFree, true));
+		osNotification.contentView.setTextViewText(R.id.notification_mem, "MEM: "+CommonUtil.convertToSize(memoryFree, true));
 
 		osNotification.contentView.setTextViewText(R.id.notification_cpu,"CPU: "+CommonUtil.convertToUsage(cpuUsage) + "%");
 
-		osNotification.contentView.setTextViewText(R.id.notification_top1st, " > " + CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] );
-		osNotification.contentView.setTextViewText(R.id.notification_top2nd, " > " + CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1]);
-		osNotification.contentView.setTextViewText(R.id.notification_top3nd," > " + CommonUtil.convertToUsage(topUsage[2]) + "% "  + topProcess[2]);
+		osNotification.contentView.setTextViewText(R.id.notification_top1st,  CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] );
+		osNotification.contentView.setTextViewText(R.id.notification_top2nd,  CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1]);
+		osNotification.contentView.setTextViewText(R.id.notification_top3nd, CommonUtil.convertToUsage(topUsage[2]) + "% "  + topProcess[2]);
 
 		osNotification.contentView.setProgressBar(R.id.notification_cpu_bar, 100, (int) cpuUsage, false);
 		osNotification.contentView.setProgressBar(R.id.notification_mem_bar, (int) memoryTotal, (int) (memoryTotal - memoryFree), false);

@@ -650,10 +650,10 @@ public class MiscFragment extends SherlockFragment
 					for (int count = 0; count < rawData.getPayloadCount(); count++) {
 						networkInfo nwInfo = networkInfo.parseFrom(rawData.getPayload(count));
 						
-						if(nwInfo.getIpv4Addr().length() > 0 ||
+						/*if(nwInfo.getIpv4Addr().length() > 0 ||
 						   nwInfo.getIpv6Addr().length() > 0 ||
-						   nwInfo.getMac().length() > 0)
-							nwdata.add(nwInfo);
+						   nwInfo.getMac().length() > 0)*/
+					    nwdata.add(nwInfo);
 					}					
 				}
 			} catch (Exception e) {

@@ -300,9 +300,9 @@ public class OSMonitorService extends Service
    	    osNotification.contentView = new RemoteViews(getPackageName(),  R.layout.ui_notification);
 
 		if (useCelsius) 
-			osNotification.contentView.setTextViewText(R.id.notification_bat, "BAT: "+battLevel+"% ("+temperature/10+"¢XC)" );
+			osNotification.contentView.setTextViewText(R.id.notification_bat, "BAT: "+battLevel+"% ("+temperature/10+"\u2103)" );
 		else 
-			osNotification.contentView.setTextViewText(R.id.notification_bat,  "BAT: "+battLevel+"% ("+((int)temperature/10*9/5+32)+"¢XF)");
+			osNotification.contentView.setTextViewText(R.id.notification_bat,  "BAT: "+battLevel+"% ("+((int)temperature/10*9/5+32)+"\u2109)");
 
 		osNotification.contentView.setTextViewText(R.id.notification_mem, "MEM: "+CommonUtil.convertToSize(memoryFree, true));
 

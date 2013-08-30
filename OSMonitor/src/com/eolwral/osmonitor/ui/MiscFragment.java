@@ -745,7 +745,7 @@ public class MiscFragment extends SherlockFragment
 			batteryVoltage.setText(voltage+"mV");
 			
 			TextView batteryTemperature = (TextView) batteryView.findViewById(R.id.id_battery_temperature);
-			batteryTemperature.setText(((double)temperature/10)+"¢XC ("+TempFormat.format(((double)temperature/10*9/5+32))+"¢XF)");
+			batteryTemperature.setText(((double)temperature/10)+"\u2103 ("+TempFormat.format(((double)temperature/10*9/5+32))+"\u2109)");
 
 			TextView batteryStatus = (TextView) batteryView.findViewById(R.id.id_battery_status);
 			StringBuilder statusBuilder = new StringBuilder();

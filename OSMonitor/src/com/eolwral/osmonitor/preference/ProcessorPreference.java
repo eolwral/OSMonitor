@@ -76,7 +76,7 @@ public class ProcessorPreference extends DialogPreference
 	@Override
 	public void onRecvData(ipcMessage result) {
 
-		if(result == null) {
+		if(result == null ) {
 			ipcAction newCommand[] = { ipcAction.PROCESSOR };
 			ipcService.addRequest(newCommand, 0, this);
 		}

@@ -767,7 +767,7 @@ public class MiscFragment extends SherlockFragment
 				statusBuilder.append("<b>"+ResourceManager.getText(R.string.ui_battery_status_full)+"</b>");
 				break;
 			}
-			
+			 
 			if(plugged == BatteryManager.BATTERY_PLUGGED_AC)
 				statusBuilder.append(" [<font color=\"green\">")
 						      .append(ResourceManager.getText(R.string.ui_battery_acpower)+"</font>]");

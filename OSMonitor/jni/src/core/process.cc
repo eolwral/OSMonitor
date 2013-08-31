@@ -229,6 +229,11 @@ namespace core {
         if(matchItem == 2)
         {
           cmdLine[BUFFERSIZE-1] = '\0';
+
+          // remove ')'
+          if(cmdLine[strlen(cmdLine)-1] == ')')
+            cmdLine[strlen(cmdLine)-1] = '\0';
+
           curProcessInfo.set_name(cmdLine);
         }
       }

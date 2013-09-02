@@ -47,6 +47,17 @@ if you would like to know that how it works, please check Wiki page!
 
 ### Change Log ###
 
+**Version 3.0.6.6**
+- New Herbw Language support - Thanks to Arthur.
+- New customize notification
+- Support MIPS CPU
+- Fix native process name [ remove ')' ]
+- Fix degrees symbol
+- Fix map (Not Found)
+- Fix export log 
+- Don't filter network interface
+- Fix FCs
+
 **Version 3.0.6.5**
 - Add CPU Time (on Process Tab)
 - Add long click action in Tool mode

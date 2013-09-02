@@ -67,11 +67,12 @@ public class CommonUtil {
       // detect architecture
       if (isARM()) 
         assetPath += "_arm";
-      else if  (isMIPS())
-        assetPath += "_mips";
-      else 
+      else if (isX86()) 
     	assetPath += "_x86";  
-    	  
+      else if  (isMIPS())
+          assetPath += "_mips";
+      else
+    	  assetPath += "_arm";
 
 	  InputStream binary = context.getAssets().open(assetPath);
       FileOutputStream execute = new FileOutputStream(localPath);
@@ -99,8 +100,7 @@ public class CommonUtil {
    * @return true == yes , false == no
    */
   public static boolean isARM() {
-    return (android.os.Build.CPU_ABI.toLowerCase().contains("armeabi") ||
-    	            android.os.Build.CPU_ABI2.toLowerCase().contains("armeabi"));
+    return (android.os.Build.CPU_ABI.toLowerCase().contains("armeabi"));
   }
   
   /**
@@ -108,9 +108,16 @@ public class CommonUtil {
    * @return true == yes, false == no
    */
   public static boolean isMIPS() {
-    return (android.os.Build.CPU_ABI.toLowerCase().contains("mips") ||
-                    android.os.Build.CPU_ABI2.toLowerCase().contains("mips"));	  
+    return (android.os.Build.CPU_ABI.toLowerCase().contains("mips"));	  
   }
+  
+  /**
+   * is X86 base ?
+   * @return true == yes, false == no
+   */
+  public static boolean isX86() {
+	    return (android.os.Build.CPU_ABI.toLowerCase().contains("x86"));	  
+	  }
   
   /**
    * check file status

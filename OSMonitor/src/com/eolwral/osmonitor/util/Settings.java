@@ -19,6 +19,7 @@ public class Settings {
 	final public static String PREFERENCE_SETCPU = "id_preference_setcpu";
 	final public static String PREFERENCE_SETCPUDATA = "id_preference_setcpu_data";
 	final public static String PREFERENCE_SORTTYPE = "id_preference_sorttype";
+	final public static String PREFERENCE_NOTIFICATION_COLOR = "id_preference_notification_fontcolor";
 	final private static int MODE_MULTI_PROCESS = 4;
 	 
 	/**
@@ -157,4 +158,13 @@ public class Settings {
 	public String getSortType() {
 		return preferenceMgr.getString(PREFERENCE_SORTTYPE, "");
 	}
+	
+	/**
+	 * get font color for notification
+	 * @return color
+	 */
+	public int chooseNotificationFontColor() {
+	    return preferenceMgr.getInt(PREFERENCE_NOTIFICATION_COLOR,  -1);
+	}
+	
 }

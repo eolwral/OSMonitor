@@ -39,6 +39,7 @@ public class OSMonitorService extends Service
 	// process   
 	private int iconColor = 0;
 	private float cpuUsage = 0;
+	private int fontColor = 0;
 	private float [] topUsage = new float[3];
 	private String [] topProcess = new String[3];
 	
@@ -88,6 +89,8 @@ public class OSMonitorService extends Service
     		iconColor = R.drawable.ic_cpu_graph_blue;
     		break;
     	}
+    	
+    	fontColor = setting.chooseNotificationFontColor();
 
     	useCelsius = setting.useCelsius();
 	}
@@ -311,6 +314,16 @@ public class OSMonitorService extends Service
 		osNotification.contentView.setTextViewText(R.id.notification_top1st,  CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] );
 		osNotification.contentView.setTextViewText(R.id.notification_top2nd,  CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1]);
 		osNotification.contentView.setTextViewText(R.id.notification_top3nd, CommonUtil.convertToUsage(topUsage[2]) + "% "  + topProcess[2]);
+		
+		// use custom color
+		if(fontColor != -1) {
+			osNotification.contentView.setTextColor(R.id.notification_bat, fontColor);
+			osNotification.contentView.setTextColor(R.id.notification_mem,  fontColor);
+			osNotification.contentView.setTextColor(R.id.notification_cpu, fontColor);
+			osNotification.contentView.setTextColor(R.id.notification_top1st, fontColor);
+			osNotification.contentView.setTextColor(R.id.notification_top2nd, fontColor);
+			osNotification.contentView.setTextColor(R.id.notification_top3nd, fontColor);
+		}
 
 		osNotification.contentView.setProgressBar(R.id.notification_cpu_bar, 100, (int) cpuUsage, false);
 		osNotification.contentView.setProgressBar(R.id.notification_mem_bar, (int) memoryTotal, (int) (memoryTotal - memoryFree), false);

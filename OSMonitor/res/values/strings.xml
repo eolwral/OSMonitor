@@ -187,6 +187,8 @@
 <string name="ui_preferences_setcpu">Set CPU on Boot</string>
 <string name="ui_preferences_setcpu_detail">set the processor settings on boot</string>
 <string name="ui_preferences_setcpu_data">Set Frequency and Governor</string>
+<string name="ui_preferences_notificaiton_color">Notification Font Color</string>
+<string name="ui_preferences_notificaiton_color_detail">click and choose</string>
 
 
 <!-- Preferences End -->
@@ -194,6 +196,7 @@
 <!-- Common Start -->
 <string name="ui_text_okay">OKay</string>
 <string name="ui_text_cancel">Cancel</string>
+<string name="ui_text_default">Default</string>
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">Please wait..</string>

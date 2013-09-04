@@ -56,32 +56,38 @@
     <LinearLayout
         android:id="@+id/notifiction_sys"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/notification_cpu"
             style="@style/osmonitor_NotificationText"
-            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
             android:text="CPU: ??%" />
 
         <TextView
             android:id="@+id/notification_mem"
             style="@style/osmonitor_NotificationText"
-             android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
             android:text="MEM: ???MB" />
 
         <TextView
             android:id="@+id/notification_bat"
             style="@style/osmonitor_NotificationText"
-            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:singleLine="true"
             android:text="BAT: ??% (???)" />
         
     </LinearLayout>
@@ -98,30 +104,37 @@
     <LinearLayout
         android:id="@+id/notifiction_proc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="5"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/notification_top1st"
             style="@style/osmonitor_NotificationText"
-            android:singleLine="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/notification_top2nd"
             style="@style/osmonitor_NotificationText"
-            android:singleLine="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/notification_top3nd"
             style="@style/osmonitor_NotificationText"
-            android:singleLine="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:singleLine="true" />
+
     </LinearLayout>
 
 </LinearLayout>

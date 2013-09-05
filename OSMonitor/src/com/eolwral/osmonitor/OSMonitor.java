@@ -92,7 +92,7 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		
 		// start background service
 		final Settings setting = new Settings(this);
-		if(( setting.enableCPUMeter() || setting.addShortCut()) && !CommonUtil.isServiceRunning(this))
+		if(( setting.isEnableCPUMeter() || setting.isAddShortCut()) && !CommonUtil.isServiceRunning(this))
 			startService(new Intent(this, OSMonitorService.class));
 	}
 	

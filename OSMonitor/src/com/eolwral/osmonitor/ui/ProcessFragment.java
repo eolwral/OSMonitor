@@ -464,7 +464,7 @@ public class ProcessFragment extends SherlockListFragment
 					if(psInfo.getName().toLowerCase(Locale.getDefault()).contains("osmcore"))
 						doMerge = false;
 					
-					if(settings.useExpertMode())
+					if(settings.isUseExpertMode())
 						doMerge = false;
 
 					// Don't merge data
@@ -489,7 +489,7 @@ public class ProcessFragment extends SherlockListFragment
 					
 				}
 				
-				if(!settings.useExpertMode())
+				if(!settings.isUseExpertMode())
 					data.add(syspsInfo.build());
 				
 			} catch (Exception e) {

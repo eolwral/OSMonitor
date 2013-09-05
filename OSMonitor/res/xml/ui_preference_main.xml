@@ -48,9 +48,17 @@
             android:title="@string/ui_preferences_color" />
         
         <com.eolwral.osmonitor.preference.ColorPickerPreference
+            android:dependency="id_preference_cpuusage"            
             android:key="id_preference_notification_fontcolor"
             android:summary="@string/ui_preferences_notificaiton_color_detail"
             android:title="@string/ui_preferences_notificaiton_color" />
+
+         <CheckBoxPreference
+            android:defaultValue="false"
+            android:dependency="id_preference_cpuusage"
+            android:key="id_preference_notification_top"
+            android:summary="@string/ui_preferences_notificaiton_top_detail"
+            android:title="@string/ui_preferences_notificaiton_top" />
         
         <CheckBoxPreference
             android:defaultValue="false"

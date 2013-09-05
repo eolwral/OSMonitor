@@ -124,7 +124,8 @@ public class Preference extends PreferenceActivity
 		
 		if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_COLOR) ||
 		   key.equals(Settings.PREFERENCE_ROOT) || key.equals(Settings.PREFERENCE_TEMPVALUE) ||
-		   key.equals(Settings.PREFERENCE_SHORTCUT) || key.equals(Settings.PREFERENCE_NOTIFICATION_COLOR) ) {
+		   key.equals(Settings.PREFERENCE_SHORTCUT) || key.equals(Settings.PREFERENCE_NOTIFICATION_COLOR) ||
+		   key.equals(Settings.PREFERENCE_NOTIFICATION_TOP)) {
 			
 			// restart background daemon
 			getApplication().stopService(new Intent(getApplication(), OSMonitorService.class));
@@ -139,7 +140,8 @@ public class Preference extends PreferenceActivity
 			// restart notification 
 			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
 			    sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false) ||
-			    sharedPreferences.getBoolean(Settings.PREFERENCE_NOTIFICATION_COLOR, false)) {
+			    sharedPreferences.getBoolean(Settings.PREFERENCE_NOTIFICATION_COLOR, false) ||
+			    sharedPreferences.getBoolean(Settings.PREFERENCE_NOTIFICATION_TOP, false)) {
 				getApplication().startService(new Intent(getApplication(), OSMonitorService.class));
 			}
 				

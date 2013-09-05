@@ -20,6 +20,7 @@ public class Settings {
 	final public static String PREFERENCE_SETCPUDATA = "id_preference_setcpu_data";
 	final public static String PREFERENCE_SORTTYPE = "id_preference_sorttype";
 	final public static String PREFERENCE_NOTIFICATION_COLOR = "id_preference_notification_fontcolor";
+	final public static String PREFERENCE_NOTIFICATION_TOP = "id_preference_notification_top";
 	final private static int MODE_MULTI_PROCESS = 4;
 	 
 	/**
@@ -44,7 +45,7 @@ public class Settings {
 	 * enable CPU meter  
 	 * @return true == enable, false == disable
 	 */
-	public boolean enableCPUMeter() {
+	public boolean isEnableCPUMeter() {
 		return preferenceMgr.getBoolean(PREFERENCE_CPUUSAGE, false);
 	}
 	
@@ -52,7 +53,7 @@ public class Settings {
 	 * get color for CPU meter
 	 * @return 1 == green, 2 == blue
 	 */
-	public int chooseColor() {
+	public int getCPUMeterColor() {
 		String color = preferenceMgr.getString(PREFERENCE_COLOR, "1");
 		return Integer.parseInt(color);
 	}
@@ -61,7 +62,7 @@ public class Settings {
 	 * start the CPU Meter when reboot
 	 * @return true == yes, false == no
 	 */
-	public boolean enableAutoStart() {
+	public boolean isEnableAutoStart() {
 		return preferenceMgr.getBoolean(PREFERENCE_AUTOSTART, false);
 	}    
 	
@@ -69,7 +70,7 @@ public class Settings {
 	 * enable expert mode
 	 * @return true == yes, false == no
 	 */
-	public boolean useExpertMode() {
+	public boolean isUseExpertMode() {
 		return preferenceMgr.getBoolean(PREFERENCE_EXPERTMODE, false);
 	} 
 	
@@ -85,7 +86,7 @@ public class Settings {
 	 * use Celsius
 	 * @return true == yes, false == no
 	 */
-	public boolean useCelsius() {
+	public boolean isUseCelsius() {
 		return preferenceMgr.getBoolean(PREFERENCE_TEMPVALUE, false);
 	}  
 
@@ -121,7 +122,7 @@ public class Settings {
 	 * set CPU on boot
 	 * @return true == yes, false == no
 	 */
-	public boolean setCPU() {
+	public boolean isSetCPU() {
 		return preferenceMgr.getBoolean(PREFERENCE_SETCPU, false);
 	}
 	
@@ -137,7 +138,7 @@ public class Settings {
 	 * show a shortcut on tje notification area
 	 * @return true == yes, false == no
 	 */
-	public boolean addShortCut() {
+	public boolean isAddShortCut() {
 		return preferenceMgr.getBoolean(PREFERENCE_SHORTCUT, false);
 	}
 	
@@ -163,8 +164,15 @@ public class Settings {
 	 * get font color for notification
 	 * @return color
 	 */
-	public int chooseNotificationFontColor() {
+	public int getNotificationFontColor() {
 	    return preferenceMgr.getInt(PREFERENCE_NOTIFICATION_COLOR,  -1);
 	}
 	
+	/**
+	 * keep notification on top
+	 * @return true == yes, false == no
+	 */
+	public boolean isNotificationOnTop() {
+		return preferenceMgr.getBoolean(PREFERENCE_NOTIFICATION_TOP, false);
+	}
 }

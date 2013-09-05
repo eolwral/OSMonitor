@@ -14,10 +14,10 @@ public class BootUpReceiver extends BroadcastReceiver{
 
  		Settings setting = new Settings(context);
  		
-        if(setting.enableAutoStart() && ( setting.enableCPUMeter() || setting.addShortCut()))
+        if(setting.isEnableAutoStart() && ( setting.isEnableCPUMeter() || setting.isAddShortCut()))
         	context.startService(new Intent(context, OSMonitorService.class));
         
-        if(setting.setCPU() && setting.isRoot()) {
+        if(setting.isSetCPU() && setting.isRoot()) {
     		
         	IpcService.Initialize(context);
     		IpcService.getInstance().forceConnect();

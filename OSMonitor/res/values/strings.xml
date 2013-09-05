@@ -184,12 +184,13 @@
 <string name="ui_preferences_tempvalue_detail">toggle Celsius/Fahrenheit units</string>
 <string name="ui_preferences_map">Map Type</string>
 <string name="ui_preferences_map_detail">choose GoogleMap or OpenStreeMap</string>
-<string name="ui_preferences_setcpu">Set CPU on Boot</string>
+<string name="ui_preferences_setcpu">Set CPU on boot</string>
 <string name="ui_preferences_setcpu_detail">set the processor settings on boot</string>
-<string name="ui_preferences_setcpu_data">Set Frequency and Governor</string>
-<string name="ui_preferences_notificaiton_color">Notification Font Color</string>
+<string name="ui_preferences_setcpu_data">Set frequency and governor</string>
+<string name="ui_preferences_notificaiton_color">Notification font color</string>
 <string name="ui_preferences_notificaiton_color_detail">click and choose</string>
-
+<string name="ui_preferences_notificaiton_top">Keep notification on top </string>
+<string name="ui_preferences_notificaiton_top_detail">raise the notification priority (after Android 4.1.2 later)</string>
 
 <!-- Preferences End -->
 

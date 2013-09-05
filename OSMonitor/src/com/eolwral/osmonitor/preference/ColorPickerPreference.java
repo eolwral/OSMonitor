@@ -73,7 +73,7 @@ public class ColorPickerPreference extends DialogPreference implements DialogInt
             {
                 // Find the text view from our interface
                 CheckedTextView tv = (CheckedTextView) view.findViewById( android.R.id.text1 );
- 
+                
                 // Color the text view background using our color
                 tv.setBackgroundColor( m_colors[position] );
             }

@@ -38,8 +38,9 @@ public class OSMonitorService extends Service
 	
 	// process   
 	private int iconColor = 0;
-	private float cpuUsage = 0;
 	private int fontColor = 0;
+	private boolean isSetTop = false;
+	private float cpuUsage = 0;
 	private float [] topUsage = new float[3];
 	private String [] topProcess = new String[3];
 	
@@ -72,7 +73,7 @@ public class OSMonitorService extends Service
     	initializeNotification();
 
     	Settings setting = new Settings(this);
-   		if(setting.enableCPUMeter()) {
+   		if(setting.isEnableCPUMeter()) {
    	    	infoHelper = ProcessUtil.getInstance(this, false);
     		initService();
    		}
@@ -81,7 +82,7 @@ public class OSMonitorService extends Service
 	private void refreshSettings() {
 
    		Settings setting = new Settings(this);
-    	switch(setting.chooseColor()) {
+    	switch(setting.getCPUMeterColor()) {
     	case 1:
     		iconColor = R.drawable.ic_cpu_graph_green;
     		break;
@@ -90,9 +91,9 @@ public class OSMonitorService extends Service
     		break;
     	}
     	
-    	fontColor = setting.chooseNotificationFontColor();
-
-    	useCelsius = setting.useCelsius();
+    	fontColor = setting.getNotificationFontColor();
+    	isSetTop = setting.isNotificationOnTop();
+    	useCelsius = setting.isUseCelsius();
 	}
     
     @Override
@@ -125,6 +126,9 @@ public class OSMonitorService extends Service
 		nBuilder.setOngoing(true);
 		nBuilder.setContentIntent(contentIntent);
 		nBuilder.setSmallIcon(R.drawable.ic_launcher);
+		
+		if(isSetTop)
+			nBuilder.setPriority(1000);
 		
 		Notification osNotification = nBuilder.build();
 		nManager.notify(NOTIFYID, osNotification);

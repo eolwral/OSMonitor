@@ -187,12 +187,17 @@
 <string name="ui_preferences_setcpu">開機時設定 CPU</string>
 <string name="ui_preferences_setcpu_detail">開機時載入 CPU 設定</string>
 <string name="ui_preferences_setcpu_data">設定頻率及調節政策</string>
+<string name="ui_preferences_notificaiton_color"> 通知區顯示顏色</string>
+<string name="ui_preferences_notificaiton_color_detail">按下後可重新選擇</string>
+<string name="ui_preferences_notificaiton_top">把訊息放在最上面 </string>
+<string name="ui_preferences_notificaiton_top_detail">提高訊息優先權(Android 4.1.2 後)</string>
 
 <!-- Preferences End -->
 
 <!-- Common Start -->
 <string name="ui_text_okay">確定</string>
 <string name="ui_text_cancel">取消</string>
+<string name="ui_text_default">預設</string>
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">請稍等..</string>

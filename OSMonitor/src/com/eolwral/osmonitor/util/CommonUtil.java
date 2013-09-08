@@ -65,7 +65,9 @@ public class CommonUtil {
     try {
     	
       // detect architecture
-      if (isARM()) 
+    if (isARMv7())
+    	assetPath += "_armv7";
+     else if (isARM()) 
         assetPath += "_arm";
       else if (isX86()) 
     	assetPath += "_x86";  
@@ -95,6 +97,14 @@ public class CommonUtil {
     return true;
   }
 
+  /**
+   * is ARMv7 base ?
+   * @return true == yes , false == no
+   */
+  public static boolean isARMv7() {
+    return (android.os.Build.CPU_ABI.toLowerCase().contains("armeabi-v7"));
+  }
+  
   /**
    * is ARM base ?
    * @return true == yes , false == no

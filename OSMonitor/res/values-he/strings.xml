@@ -187,13 +187,17 @@
 <string name="ui_preferences_setcpu">קבע CPU באתחול</string>
 <string name="ui_preferences_setcpu_detail">קבע הגדרות מעבד באיתחול</string>
 <string name="ui_preferences_setcpu_data">קבע תדירות CPU</string>
-
+<string name="ui_preferences_notificaiton_color">צבע ההודעה</string>
+<string name="ui_preferences_notificaiton_color_detail">לחץ ובחר</string>
+<string name="ui_preferences_notificaiton_top">שמור על ההודעה מלמעלה</string>
+<string name="ui_preferences_notificaiton_top_detail">העלה את חשיבות ההודעה (עבור גרסת אנדרואיד 4.1.2 ומעלה)</string>
 
 <!-- Preferences End -->
 
 <!-- Common Start -->
 <string name="ui_text_okay">אוקי</string>
 <string name="ui_text_cancel">ביטול</string>
+<string name="ui_text_default">ברירת מחדל</string>
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">חכה בבקשה..</string>

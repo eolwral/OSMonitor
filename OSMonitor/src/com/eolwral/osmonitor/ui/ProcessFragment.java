@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map.Entry;
-import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -51,7 +50,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
-
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
@@ -102,13 +100,14 @@ public class ProcessFragment extends SherlockListFragment
 		SortbyCPUTime
 	} 
 	private SortType sortSetting = SortType.SortbyUsage;
-
-	// view mode
-	private enum ModeType {
-		View,
-		Tools
+	
+	// kill 
+	private enum KillMode {
+		None,
+		Select
 	}
-	private ModeType modeSetting = ModeType.View;
+	private KillMode killSetting = KillMode.None;
+	ImageButton killButton = null;
 	
 	// stop or start
 	private boolean stopUpdate = false;
@@ -131,7 +130,6 @@ public class ProcessFragment extends SherlockListFragment
 	
 	}
 
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
@@ -173,18 +171,19 @@ public class ProcessFragment extends SherlockListFragment
 
 		MenuItem settingMenu = menu.findItem(R.id.ui_menu_setting);
 		settingMenu.setOnMenuItemClickListener( new SettingMenuClickListener());
-		
+
 		MenuItem toolsMenu = menu.findItem(R.id.ui_menu_tools);
 		toolsMenu.setOnActionExpandListener(new ToolActionExpandListener());
-		
+
 		MenuItem exitMenu = menu.findItem(R.id.ui_menu_exit);
 		exitMenu.setOnMenuItemClickListener(new ExitMenuClickListener());
 
 		ImageButton sortButton = (ImageButton) toolsMenu.getActionView().findViewById(R.id.id_action_sort);
 		sortButton.setOnClickListener( new SortMenuClickListener());
 
-		ImageButton killButton = (ImageButton) toolsMenu.getActionView().findViewById(R.id.id_action_kill);
+		killButton = (ImageButton) toolsMenu.getActionView().findViewById(R.id.id_action_kill);
 		killButton.setOnClickListener( new KillButtonClickListener());
+		killSetting = KillMode.None;
 
 		// refresh button
 		stopButton = (ImageButton) toolsMenu.getActionView().findViewById(R.id.id_action_stop);
@@ -245,13 +244,12 @@ public class ProcessFragment extends SherlockListFragment
 
 		@Override
 		public boolean onMenuItemActionExpand(MenuItem item) {
-			modeSetting = ModeType.Tools;
 			return true;
 		}
 
 		@Override
 		public boolean onMenuItemActionCollapse(MenuItem item) {
-			modeSetting = ModeType.View;
+			killSetting = KillMode.None;
 			selectedStatus.clear();
 			((ProcessListAdapter) getListAdapter()).refresh();
 			return true;
@@ -263,6 +261,17 @@ public class ProcessFragment extends SherlockListFragment
 
 		@Override
 		public void onClick(View v) {
+			
+			// enter select mode
+			if (killSetting == KillMode.None) {
+				killSetting = KillMode.Select;
+				killButton.setImageResource(R.drawable.ic_action_kill_done);
+				return;
+			}
+
+			// leave select mode
+			killButton.setImageResource(R.drawable.ic_action_kill);
+			killSetting = KillMode.None;
 			
 			// selected items is empty 
 			if(selectedStatus.size() == 0)
@@ -374,9 +383,17 @@ public class ProcessFragment extends SherlockListFragment
 	public void setUserVisibleHint(boolean isVisibleToUser) {
 	    super.setUserVisibleHint(isVisibleToUser);
 	    
+		// clear up selected item
+		if(this.isVisible()) {
+			 if (!isVisibleToUser) {
+				 selectedStatus.clear();
+				  ((ProcessListAdapter) getListAdapter()).refresh();
+			 }
+		}
+
 	    ipcService.removeRequest(this);
 		ipcStop = !isVisibleToUser; 
- 
+
 		if(isVisibleToUser == true) { 
 			settings = new Settings(getActivity());
 			ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESS };
@@ -772,10 +789,6 @@ public class ProcessFragment extends SherlockListFragment
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
 					
-					// skip when on tools mode
-					//if(modeSetting == ModeType.Tools)
-					//	return false;
-					
 					switch(event.getAction())
 					{
 					case MotionEvent.ACTION_DOWN:
@@ -877,9 +890,6 @@ public class ProcessFragment extends SherlockListFragment
 			@Override
 			public boolean onLongClick(View v) {
 				
-				//if(modeSetting == ModeType.Tools)
-				//	  return false;
-				
 				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			    builder.setTitle(infoHelper.getPackageName(data.get(position).getName()))
 			           .setItems(R.array.ui_process_menu_item, new ProcessItemMenu(position));
@@ -977,15 +987,12 @@ public class ProcessFragment extends SherlockListFragment
 
 			public void onClick(View v) {
 
-				switch (modeSetting)
-				{
-				case View:
-					this.ToogleExpand(v);
-					break;
-				case Tools:
+			    if( killSetting == KillMode.Select)
 					this.ToogleSelected(v);
-					break;
-				}
+			    else
+					this.ToogleExpand(v);
+			    
+			    return;
 			}
 			
 			private void ToogleSelected(View v)	{

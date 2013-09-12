@@ -177,7 +177,7 @@
 <string name="ui_preferences_color">CPU meter color</string>
 <string name="ui_preferences_color_detail">blue or green</string>
 <string name="ui_preferences_expert">Expert mode</string>
-<string name="ui_preferences_expert_detail">show all detail information without summary</string>
+<string name="ui_preferences_expert_detail">Show native linux processes</string>
 <string name="ui_preferences_root">Enable root privilege</string>
 <string name="ui_preferences_root_detail">grant root permission to execute privilege command</string>
 <string name="ui_preferences_tempvalue">Show Celsius</string>
@@ -190,7 +190,7 @@
 <string name="ui_preferences_notificaiton_color">Notification font color</string>
 <string name="ui_preferences_notificaiton_color_detail">click and choose</string>
 <string name="ui_preferences_notificaiton_top">Keep notification on top </string>
-<string name="ui_preferences_notificaiton_top_detail">raise the notification priority (after Android 4.1.2 later)</string>
+<string name="ui_preferences_notificaiton_top_detail">raise the notification priority (Android 4.1.2 or later)</string>
 
 <!-- Preferences End -->
 

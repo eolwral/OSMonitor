@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ui_message_type">
+        <item>Główne</item>
+        <item>System</item>
+        <item>Zdarzenia</item>
+        <item>Dmesg</item>
+    </string-array>
+    
+    <string-array name="ui_message_dmesg_level">
+		<item>Diagnostyczne (Debug)</item>
+		<item>Informacje (Information)</item>
+		<item>Uwagi (Notice)</item>
+		<item>Ostrzeżenia (Warning)</item>
+		<item>Alarmy (Alert)</item>
+		<item>Awaryjne (Emergency)</item>
+		<item>Błędy (Error)</item>
+		<item>Krytyczne (Critical)</item>
+	</string-array>
+
+	<string-array name="ui_message_logcat_level">
+		<item>Diagnostyczne (Debug)</item>
+		<item>Szczegółowe (Verbose)</item>
+		<item>Informacje (Information)</item>
+		<item>Ostrzeżenia (Warning)</item>
+		<item>Błędy (Error)</item>
+		<item>Krytyczne (Fatal)</item>
+    </string-array>
+    
+	<string-array name="ui_misc_item">
+		<item>System</item>
+		<item>Bateria</item>
+		<item>CPU</item>
+		<item>Pamięć</item>
+		<item>Swap</item>
+		<item>Sieć</item>
+	<!-- 	<item>Dysk</item>  -->
+	</string-array>
+	
+	<string-array name="ui_process_menu_item">
+		<item>Ubicie/Reset Procesu</item>
+		<item>Przełącz do procesu</item>
+		<item>Obejrzyj LOG</item>
+		<item>Ustal priorytet</item>
+	</string-array>
+
+	<string-array name="ui_preference_interval">
+		<item>Często</item>
+		<item>Normalnie</item>
+		<item>Rzadko</item>
+	</string-array>
+	
+	<string-array name="ui_preference_map_value">
+	    <item>GoogleMap</item>
+	    <item>OpenStreeMap</item>
+	</string-array>
+
+	<string-array name="ui_preference_interval_value">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</string-array>
+	
+	<string-array name="ui_preference_color_base">
+		<item>Zielony</item>
+		<item>Niebieski</item>
+	</string-array>
+
+	<string-array name="ui_preference_color_value">
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+			
+	<string-array name="ui_process_prority_value">
+		<item>19</item>
+		<item>18</item>
+		<item>17</item>
+		<item>16</item>
+		<item>15</item>
+		<item>14</item>
+		<item>13</item>
+		<item>12</item>
+		<item>11</item>
+		<item>10</item>
+		<item>9</item>
+		<item>8</item>
+		<item>7</item>
+		<item>6</item>
+		<item>5</item>
+		<item>4</item>
+		<item>3</item>
+		<item>2</item>
+		<item>1</item>
+		<item>0</item>
+		<item>-1</item>
+		<item>-2</item>
+		<item>-3</item>
+		<item>-4</item>
+		<item>-5</item>
+		<item>-6</item>
+		<item>-7</item>
+		<item>-8</item>
+		<item>-9</item>
+		<item>-10</item>
+		<item>-11</item>
+		<item>-12</item>
+		<item>-13</item>
+		<item>-14</item>
+		<item>-15</item>
+		<item>-16</item>
+		<item>-17</item>
+		<item>-18</item>
+		<item>-19</item>
+		<item>-20</item>
+	</string-array>
+
+
+</resources>

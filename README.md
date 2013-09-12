@@ -47,6 +47,14 @@ if you would like to know that how it works, please check Wiki page!
 
 ### Change Log ###
 
+**Version 3.0.6.8**
+- Change Kill Mode (click kill icon, choose item and click kill icon again!)
+- Fix no data on Atom CPU
+- Able to set notification font color
+- Add a option to keep notification on top
+- Adjust notification layout
+- Support ARMv7 CPU (for better performance)
+
 **Version 3.0.6.6**
 - New Herbw Language support - Thanks to Arthur.
 - New customize notification

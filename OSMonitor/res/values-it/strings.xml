@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Application -->
+<string name="ui_appname">OS Monitor</string>
+
+<!-- Tab -->
+<string name="ui_global_tab">Globale</string>
+<string name="ui_process_tab">Processi</string>
+<string name="ui_network_tab">Rete</string>
+<string name="ui_connection_tab">Connessioni</string>
+<string name="ui_misc_tab">Misc</string>
+<string name="ui_debug_tab">Messaggi</string>
+<string name="ui_notification_tab">Notifiche</string>
+<string name="ui_shortcut_detail">Premi per lanciare OS Monitor..</string>
+
+<!-- Menu -->
+<string name="ui_menu_setting">Impostazioni</string>
+<string name="ui_menu_tools">Strumenti</string>
+<string name="ui_menu_sort">Ordina</string>
+<string name="ui_menu_search">Cerca</string>
+<string name="ui_menu_stop">Ferma</string>
+<string name="ui_menu_help">Aiuto</string>
+<string name="ui_menu_logexport">Esporta</string>
+<string name="ui_menu_exit">Esci</string>
+
+<!-- Process Tab Start -->
+ 
+<!-- Header -->
+<string name="ui_process_count">Processi:</string>
+<string name="ui_process_cpuusage">Uso CPU:</string>
+
+<!-- Footer -->
+<string name="ui_process_memorytotal">Memoria Totale:</string>
+<string name="ui_process_memoryfree">Libera:</string>
+
+<!-- Process Detail -->
+<string name="ui_process_sort_usage">Uso</string>
+<string name="ui_process_sort_memory">Memoria</string>
+<string name="ui_process_sort_pid">PID</string>
+<string name="ui_process_sort_name">Nome</string>
+<string name="ui_process_sort_cputime">Tempo CPU</string>
+
+<!-- Process Detail -->
+<string name="ui_process_detail_process">Processi:</string>
+<string name="ui_process_detail_memory">Memoria:</string>
+<string name="ui_process_detail_ppid">PPID:</string>
+<string name="ui_process_detail_thread">Thread:</string>
+<string name="ui_process_detail_stime">STime:</string>
+<string name="ui_process_detail_utime">UTime:</string>
+<string name="ui_process_detail_nice">Nice:</string>
+<string name="ui_process_detail_user">Utente:</string>
+<string name="ui_process_detail_status">Stato:</string>
+<string name="ui_process_detail_cputime">Tempo CPU:</string>
+<string name="ui_process_detail_time">Inizio:</string>
+
+<!-- Process Status -->
+<string name="ui_process_status_zombie">Zombie</string>
+<string name="ui_process_status_sleep">Riposo</string>
+<string name="ui_process_status_running">In corsa</string>
+<string name="ui_process_status_waitio">Attesa IO</string>
+<string name="ui_process_status_stop">Fermo</string>
+<string name="ui_process_status_unknown">Sconosciuto</string>
+
+<!-- Process Tab End -->
+
+
+<!-- Connection Tab Start -->
+
+<!-- Header -->
+<string name="ui_connection_protocol">Proto</string>
+<string name="ui_connection_localremote">IP Locale/Remoto</string>
+<string name="ui_connection_status">Stato</string>
+
+<!-- Connection Tab End -->
+
+<!-- Network Tab Start -->
+
+<!-- Header -->
+<string name="ui_network_interface">Interfaccia</string>
+<string name="ui_network_ip4">IPv4</string>
+<string name="ui_network_ip6">IPv6</string>
+
+<!-- Additional -->
+<string name="ui_network_mac">MAC</string>
+<string name="ui_network_rx">Rx</string>
+<string name="ui_network_tx">Tx</string>
+<string name="ui_network_status">Stato</string>
+
+<!-- Status -->
+<string name="ui_network_status_up">su</string>
+<string name="ui_network_status_down">giù</string>
+<string name="ui_network_status_broadcast">broadcast</string>
+<string name="ui_network_status_loopback">loopback</string>
+<string name="ui_network_status_p2p">point-to-point</string>
+<string name="ui_network_status_promisc">promisc</string>
+<string name="ui_network_status_running">running</string>
+<string name="ui_network_status_multicast">multicast</string>
+
+<!-- Network Tab End -->
+
+<!-- Misc Tab Start -->
+<string name="ui_misc_more">Altro</string>
+
+<!-- Memory -->
+<string name="ui_memory_title">Memoria</string>
+<string name="ui_swap_title">Swap</string>
+<string name="ui_memory_total">Totale</string>
+<string name="ui_memory_free">Libera</string>
+<string name="ui_memory_shared">Condivisa</string>
+<string name="ui_memory_buffered">In Buffer</string>
+<string name="ui_memory_cached">In Cache</string>
+
+<!-- Uptime -->
+<string name="ui_system_uptime">Uptime</string>
+
+<!-- CPU -->
+<string name="ui_processor_freq">Frequenza</string>
+<string name="ui_processor_scal">Scalatura</string>
+<string name="ui_processor_cur">Attuale</string>
+<string name="ui_processor_gov">Governor</string>
+<string name="ui_processor_status">Stato</string>
+<string name="ui_processor_core">Core</string>
+<string name="ui_processor_freq_max_title">Frequenza Max</string>
+<string name="ui_processor_freq_min_title">Frequenza Min</string>
+<string name="ui_processor_enable">Abilita</string>
+<string name="ui_processor_enable_title">Abilita CPUs</string>
+<string name="ui_processor_enable_msg">Raccolta Informazioni..</string>
+<string name="ui_processor_status_online">Attivo</string>
+<string name="ui_processor_status_offline">Inattivo</string>
+
+<!-- Battery -->
+<string name="ui_battery">Batteria</string>
+<string name="ui_battery_health">Salute</string>
+<string name="ui_battery_technology">Tecnologia</string>
+<string name="ui_battery_capacity">Capacità</string>
+<string name="ui_battery_voltage">Voltaggio</string>
+<string name="ui_battery_temperature">Temperatura</string>
+<string name="ui_battery_acpower">Alimentazione</string>
+<string name="ui_battery_usbpower">Aliment. USB</string>
+<string name="ui_battery_status">Stato</string>
+<string name="ui_battery_online">Attiva</string>
+<string name="ui_battery_offline">Inattiva</string>
+<string name="ui_battery_status_unknown">Sconosciuto</string>
+<string name="ui_battery_status_charging">In Carica</string>
+<string name="ui_battery_status_discharging">In scaricamento</string>
+<string name="ui_battery_status_notcharging">Non in Carica</string>
+<string name="ui_battery_status_full">Piena</string>
+<string name="ui_battery_health_dead">Morta</string>
+<string name="ui_battery_health_good">Buona</string>
+<string name="ui_battery_health_overheat">Surriscaldata</string>
+<string name="ui_battery_health_overvoltage">Sovratensione</string>
+<string name="ui_battery_health_unknown">Sconosciuto</string>
+<string name="ui_battery_health_failure">Difetto imprecisato</string>
+
+<!-- Misc Tab End -->
+
+<!-- Message Tab Start -->
+
+<!-- Header -->
+<string name="ui_message_count">Messaggio:</string>
+<string name="ui_message_filename">Nome del file</string>
+<string name="ui_message_fileexist">Il File esiste!</string>
+<string name="ui_message_exportdone">Fatto!</string>
+
+<!-- Message Tab End -->
+
+<!-- Preferences Start -->
+<string name="ui_preferences_update">Intervallo d\'aggiornamento</string>
+<string name="ui_preferences_update_detail">ritarto tra l\'aggiornamento dei dati</string>
+<string name="ui_preferences_autostart">Avvio automatico</string>
+<string name="ui_preferences_autostart_detail">Avvio monitor CPU o scorciatoia in fase di boot</string>
+<string name="ui_preferences_cpuusage">Mostra l\'uso della CPU</string>
+<string name="ui_preferences_cpuusage_detail">Mostra icona animata monitor CPU nell\'area notifiche</string>
+<string name="ui_preferences_notification">Aggiungi una scorciatoia</string>
+<string name="ui_preferences_notification_deatil">Mostra un icona di lancio nell\'area notifiche</string>
+<string name="ui_preferences_color">colore monitor CPU</string>
+<string name="ui_preferences_color_detail">blu o verde</string>
+<string name="ui_preferences_expert">Modalità Esperto</string>
+<string name="ui_preferences_expert_detail">mostra tutte le informazioni dettagliate senza riepilogo</string>
+<string name="ui_preferences_root">Abilita privilegi di root</string>
+<string name="ui_preferences_root_detail">Assegna permessi di root per eseguire comandi amministrativi</string>
+<string name="ui_preferences_tempvalue">Mostra gradi Celsius</string>
+<string name="ui_preferences_tempvalue_detail">Cambia tra gradi Celsius e Fahrenheit</string>
+<string name="ui_preferences_map">Tipo di mappa</string>
+<string name="ui_preferences_map_detail">scelta tra GoogleMap o OpenStreeMap</string>
+<string name="ui_preferences_setcpu">Imposta la CPU all\'avvio</string>
+<string name="ui_preferences_setcpu_detail">Assegna le impostazioni della CPU all\'avvio</string>
+<string name="ui_preferences_setcpu_data">Imposta la frequenza e il governor</string>
+<string name="ui_preferences_notificaiton_color">Colore caratteri delle Notifiche</string>
+<string name="ui_preferences_notificaiton_color_detail">clicca e scegli</string>
+<string name="ui_preferences_notificaiton_top">Tieni le notifiche in alto </string>
+<string name="ui_preferences_notificaiton_top_detail">aumenta la priorità delle notifiche (Android 4.1.2 e successive)</string>
+
+<!-- Preferences End -->
+
+<!-- Common Start -->
+<string name="ui_text_okay">OKay</string>
+<string name="ui_text_cancel">Annulla</string>
+<string name="ui_text_default">Default</string>
+
+<string name="ui_text_zero">0</string>
+<string name="ui_text_refresh">Attendere prego..</string>
+<string name="ui_text_kill">Uccido %1$d processi..</string>
+<!-- Common End -->
+
+</resources>

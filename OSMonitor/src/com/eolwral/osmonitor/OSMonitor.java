@@ -97,10 +97,10 @@ public class OSMonitor extends SherlockFragmentActivity implements
 	}
 	
 
-	
-	@Override  
-    protected void onSaveInstanceState(Bundle outState) {  
-    }  
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+	    //No call for super(). Bug on API Level > 11.
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -118,8 +118,13 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		
 		Fragment mFragment = ((OSMonitorPagerAdapter)mViewPager.getAdapter()).
 											getItem(mViewPager.getCurrentItem());
-		if(mFragment != null)
-			mFragment.setUserVisibleHint(true);
+		
+		if(mFragment != null) {
+			// catch exception when back from screen off
+			try {
+				mFragment.setUserVisibleHint(true);
+			} catch (Exception e) {};
+		}
 	}
 	
 	@Override

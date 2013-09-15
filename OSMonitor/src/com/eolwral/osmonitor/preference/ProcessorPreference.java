@@ -68,7 +68,9 @@ public class ProcessorPreference extends DialogPreference
 	    
 	    cpuList.setAdapter(new ProcessorListAdapter(getContext()));
 		ipcAction newCommand[] = { ipcAction.PROCESSOR };
-		ipcService.addRequest(newCommand, 0, this);
+		
+		if (ipcService != null)
+			ipcService.addRequest(newCommand, 0, this);
 
 	    loadingText.setVisibility(View.VISIBLE);
 	}

@@ -139,9 +139,7 @@ public class Preference extends PreferenceActivity
 			
 			// restart notification 
 			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
-			    sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false) ||
-			    sharedPreferences.getBoolean(Settings.PREFERENCE_NOTIFICATION_COLOR, false) ||
-			    sharedPreferences.getBoolean(Settings.PREFERENCE_NOTIFICATION_TOP, false)) {
+			    sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {
 				getApplication().startService(new Intent(getApplication(), OSMonitorService.class));
 			}
 				

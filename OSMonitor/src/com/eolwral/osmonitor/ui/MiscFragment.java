@@ -151,6 +151,7 @@ public class MiscFragment extends SherlockFragment
 		@Override
 		public boolean onMenuItemClick(MenuItem item) {
 			Intent settings = new Intent(getActivity(), Preference.class);
+			settings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	        startActivity(settings);
 			return false;
 		}

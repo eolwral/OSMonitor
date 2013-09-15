@@ -378,7 +378,7 @@ public class IpcService {
 		try {
 			OutputStream outData = clientSocket.getOutputStream();
 			setCommand.build().writeTo(outData);			
-		} catch (IOException e) {}
+		} catch (Exception e) {}
 		
 		return;
 	}

@@ -12,6 +12,13 @@ It offers the following information.
 
 if you would like to know that how it works, please check Wiki page!
 
+**Support Languages**
+- Polish - Thanks to Jarek Mazur
+- Hebrew - Thanks to Zamarin Arthur
+- Italian - Thanks to Gabriele Zappi
+- English
+- Chinese
+
 ### Ongoing ###
 
 - Preparing to upgrade table version.
@@ -46,6 +53,11 @@ if you would like to know that how it works, please check Wiki page!
 ----------
 
 ### Change Log ###
+**Version 3.0.7.0**
+- Improve English translation - Thanks to Jarek Mazur
+- Add Polish language - Thanks to Jarek Mazur
+- Add Italian language - Thanks to Gabriele Zappi
+- Fix FC
 
 **Version 3.0.6.8**
 - Change Kill Mode (click kill icon, choose item and click kill icon again!)

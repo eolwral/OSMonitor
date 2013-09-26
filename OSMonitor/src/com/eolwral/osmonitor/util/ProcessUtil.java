@@ -46,6 +46,13 @@ public class ProcessUtil extends Thread {
 	// work queue for background thread
 	private final Semaphore queryQueueLock = new Semaphore(1, true);
 	private final LinkedList<QueueJob> queryQueue = new LinkedList<QueueJob>();
+	
+	// DPI
+	public static final int DENSITY_LOW = 120;
+	public static final int DENSITY_MEDIUM = 160;
+	public static final int DENSITY_HIGH = 240;
+	public static final int DENSITY_XHIGH = 320;
+	public static final int DENSITY_XXHIGH = 480;
 
 	public static ProcessUtil getInstance(Context context, boolean detail) {
 
@@ -61,18 +68,20 @@ public class ProcessUtil extends Thread {
 			wmanager.getDefaultDisplay().getMetrics(metrics);
 
 			switch(metrics.densityDpi){
-			
-			case DisplayMetrics.DENSITY_LOW:
+			case DENSITY_LOW:
 				singletone.iconSize = 12;
 				break;
-			case DisplayMetrics.DENSITY_MEDIUM:
-				singletone.iconSize = 48;
+			case DENSITY_MEDIUM:
+				singletone.iconSize = 28;
 				break;
-			case DisplayMetrics.DENSITY_HIGH:
+			case DENSITY_HIGH:
 				singletone.iconSize = 60;
 				break;
-			case DisplayMetrics.DENSITY_XHIGH:
+			case DENSITY_XHIGH:
 				singletone.iconSize = 100;
+				break;
+			case DENSITY_XXHIGH:
+				singletone.iconSize = 200;
 				break;
 			}
 

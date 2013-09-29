@@ -116,7 +116,7 @@
 
 <!-- CPU -->
 <string name="ui_processor_freq">Frequenza</string>
-<string name="ui_processor_scal">Scalatura</string>
+<string name="ui_processor_scal">Scaling</string>
 <string name="ui_processor_cur">Attuale</string>
 <string name="ui_processor_gov">Governor</string>
 <string name="ui_processor_status">Stato</string>
@@ -167,7 +167,7 @@
 
 <!-- Preferences Start -->
 <string name="ui_preferences_update">Intervallo d\'aggiornamento</string>
-<string name="ui_preferences_update_detail">ritarto tra l\'aggiornamento dei dati</string>
+<string name="ui_preferences_update_detail">ritardo tra l\'aggiornamento dei dati</string>
 <string name="ui_preferences_autostart">Avvio automatico</string>
 <string name="ui_preferences_autostart_detail">Avvio monitor CPU o scorciatoia in fase di boot</string>
 <string name="ui_preferences_cpuusage">Mostra l\'uso della CPU</string>

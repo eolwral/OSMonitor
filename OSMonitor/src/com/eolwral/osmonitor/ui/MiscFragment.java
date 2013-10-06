@@ -42,8 +42,8 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.preference.Preference;
+import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
-import com.eolwral.osmonitor.util.Settings;
 
 public class MiscFragment extends SherlockFragment 
                                 implements ipcClientListener {
@@ -75,6 +75,9 @@ public class MiscFragment extends SherlockFragment
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// settings
+		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,6 +98,7 @@ public class MiscFragment extends SherlockFragment
 		
 		// enable fragment option menu 
 		setHasOptionsMenu(true);
+		
 				
 		return v;
 	}
@@ -605,7 +609,6 @@ public class MiscFragment extends SherlockFragment
 			stopBatteryMonitor();
 		
 		if(isVisibleToUser == true) {
-			settings = new Settings(getActivity());
 			ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESSOR, ipcAction.NETWORK };
 			ipcService.addRequest(newCommand, 0, this);
 			startBatteryMonitor();

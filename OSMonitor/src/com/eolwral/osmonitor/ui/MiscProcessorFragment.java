@@ -27,7 +27,7 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.util.CommonUtil;
-import com.eolwral.osmonitor.util.Settings;
+import com.eolwral.osmonitor.settings.Settings;
 
 public class MiscProcessorFragment extends SherlockListFragment 
                                    implements ipcClientListener {
@@ -35,6 +35,8 @@ public class MiscProcessorFragment extends SherlockListFragment
 	private ArrayList<processorInfo> coredata = new ArrayList<processorInfo>();
 	private boolean [] coreEnable = null;
 	
+	// settings
+	private Settings settings = null;
 
 	// ipc client
 	private IpcService ipcService =  IpcService.getInstance();
@@ -45,6 +47,9 @@ public class MiscProcessorFragment extends SherlockListFragment
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		// settings
+		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
+
 		setListAdapter(new ProcessorListAdapter(getActivity()));
 		
 	}
@@ -205,8 +210,7 @@ public class MiscProcessorFragment extends SherlockListFragment
         			if(coredata.get(position).getMinFrequency() == Integer.parseInt(freqList[i]))
         				minSeekBar.setSelection(i);
                 
-                final Settings setting = new Settings(mContext);
-        		if(setting.isRoot())
+        		if(settings.isRoot())
         		{
         			maxSeekBar.setClickable(true);
         			minSeekBar.setClickable(true);

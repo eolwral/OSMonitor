@@ -50,8 +50,9 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
+import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
-import com.eolwral.osmonitor.util.Settings;
+
 
 public class MessageFragment extends SherlockListFragment 
                                 implements ipcClientListener {
@@ -97,6 +98,9 @@ public class MessageFragment extends SherlockListFragment
 
 		for(int index = 0; index < filterDmesgArray.length; index++)
 			filterDmesgArray[index] = true;
+
+		// settings
+		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
 		
 		// set list
 		messageList = new MessageListAdapter(getSherlockActivity().getApplicationContext());
@@ -488,7 +492,6 @@ public class MessageFragment extends SherlockListFragment
 		ipcStop = !isVisibleToUser;
 
 		if(isVisibleToUser == true) {
-			settings = new Settings(getActivity());
 			ipcAction newCommand[] = { logType };
 			ipc.addRequest(newCommand, 0, this);
 		}

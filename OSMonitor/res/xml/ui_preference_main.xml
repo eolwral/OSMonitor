@@ -9,10 +9,12 @@
             android:entryValues="@array/ui_preference_interval_value"
             android:key="id_preference_interval"
             android:summary="@string/ui_preferences_update_detail"
-            android:title="@string/ui_preferences_update" />
+            android:title="@string/ui_preferences_update" 
+            android:persistent="false"/>
 
         <CheckBoxPreference
             android:defaultValue="false"
+            android:persistent="false"
             android:key="id_preference_root"
             android:summary="@string/ui_preferences_root_detail"
             android:title="@string/ui_preferences_root" />
@@ -22,6 +24,7 @@
     <PreferenceCategory android:title="@string/ui_process_tab" >
         <CheckBoxPreference
             android:defaultValue="false"
+            android:persistent="false"
             android:key="id_preference_expertmode"
             android:summary="@string/ui_preferences_expert_detail"
             android:title="@string/ui_preferences_expert" />
@@ -30,16 +33,19 @@
     <PreferenceCategory android:title="@string/ui_notification_tab" >
         <CheckBoxPreference
             android:key="id_preference_shortcut"
+            android:persistent="false"
             android:summary="@string/ui_preferences_notification_deatil"
             android:title="@string/ui_preferences_notification" />
         
         <CheckBoxPreference
             android:defaultValue="false"
+            android:persistent="false"
             android:key="id_preference_cpuusage"
             android:summary="@string/ui_preferences_cpuusage_detail"
             android:title="@string/ui_preferences_cpuusage" />
 
         <ListPreference
+            android:persistent="false"
             android:dependency="id_preference_cpuusage"
             android:entries="@array/ui_preference_color_base"
             android:entryValues="@array/ui_preference_color_value"
@@ -48,6 +54,7 @@
             android:title="@string/ui_preferences_color" />
         
         <com.eolwral.osmonitor.preference.ColorPickerPreference
+            android:persistent="false"
             android:dependency="id_preference_cpuusage"            
             android:key="id_preference_notification_fontcolor"
             android:summary="@string/ui_preferences_notificaiton_color_detail"
@@ -55,6 +62,7 @@
 
          <CheckBoxPreference
             android:defaultValue="false"
+            android:persistent="false"
             android:dependency="id_preference_cpuusage"
             android:key="id_preference_notification_top"
             android:summary="@string/ui_preferences_notificaiton_top_detail"
@@ -62,6 +70,7 @@
         
         <CheckBoxPreference
             android:defaultValue="false"
+            android:persistent="false"
             android:dependency="id_preference_cpuusage"
             android:key="id_preference_tempvalue"
             android:summary="@string/ui_preferences_tempvalue_detail"
@@ -69,6 +78,7 @@
         
         <CheckBoxPreference
             android:defaultValue="false"
+            android:persistent="false"
             android:key="id_preference_autostart"
             android:summary="@string/ui_preferences_autostart_detail"
             android:title="@string/ui_preferences_autostart" />
@@ -77,6 +87,7 @@
     
     <PreferenceCategory android:title="@string/ui_connection_tab" >
         <ListPreference
+            android:persistent="false"
             android:entries="@array/ui_preference_map_value"
             android:entryValues="@array/ui_preference_map_value"
             android:key="id_preference_map"
@@ -86,12 +97,14 @@
     
     <PreferenceCategory android:title="@string/ui_misc_tab" >
         <CheckBoxPreference
+            android:persistent="false"
             android:dependency="id_preference_root"
             android:key="id_preference_setcpu"
             android:summary="@string/ui_preferences_setcpu_detail"
             android:title="@string/ui_preferences_setcpu" />
 
         <com.eolwral.osmonitor.preference.ProcessorPreference
+            android:persistent="false"
             android:dependency="id_preference_setcpu"
             android:key="id_preference_setcpu_data"
             android:title="@string/ui_preferences_setcpu_data" />

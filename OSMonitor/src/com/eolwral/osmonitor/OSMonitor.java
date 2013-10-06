@@ -19,7 +19,7 @@ import com.eolwral.osmonitor.ui.MessageFragment;
 import com.eolwral.osmonitor.ui.MiscFragment;
 import com.eolwral.osmonitor.ui.ProcessFragment;
 import com.eolwral.osmonitor.util.CommonUtil;
-import com.eolwral.osmonitor.util.Settings;
+import com.eolwral.osmonitor.settings.Settings;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -91,7 +91,7 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		mViewPager.setCurrentItem(0);
 		
 		// start background service
-		final Settings setting = new Settings(this);
+		final Settings setting = Settings.getInstance(this);
 		if(( setting.isEnableCPUMeter() || setting.isAddShortCut()) && !CommonUtil.isServiceRunning(this))
 			startService(new Intent(this, OSMonitorService.class));
 	}

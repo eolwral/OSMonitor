@@ -54,15 +54,15 @@ import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
-import com.eolwral.osmonitor.ipc.IpcService;
-import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.ipc.IpcService;
+import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.preference.Preference;
+import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
-import com.eolwral.osmonitor.util.Settings;
 
 public class ProcessFragment extends SherlockListFragment 
                              implements	ipcClientListener {
@@ -126,6 +126,8 @@ public class ProcessFragment extends SherlockListFragment
 		itemColor[evenItem] = getResources().getColor(R.color.black_osmonitor);
 		itemColor[selectedItem] = getResources().getColor(R.color.selected_osmonitor);
 
+		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
+	
 		setListAdapter(new ProcessListAdapter(getSherlockActivity().getApplicationContext()));
 	
 	}
@@ -145,7 +147,6 @@ public class ProcessFragment extends SherlockListFragment
 		memoryFree = ((TextView) v.findViewById(R.id.id_process_memoryfree));
 		
 		// detect last sort mode
-		Settings settings = new Settings(getSherlockActivity());
 		if(settings.getSortType().equals("Usage")) {
 			sortSetting = SortType.SortbyUsage;
 		} else if(settings.getSortType().equals("Pid")) {
@@ -396,7 +397,6 @@ public class ProcessFragment extends SherlockListFragment
 		ipcStop = !isVisibleToUser; 
 
 		if(isVisibleToUser == true) { 
-			settings = new Settings(getActivity());
 			ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESS };
 			ipcService.addRequest(newCommand, 0, this);
 		}

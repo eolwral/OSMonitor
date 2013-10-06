@@ -42,6 +42,11 @@
 	  	    android:exported="false">
     	</service>
     	
+    	<provider android:name="com.eolwral.osmonitor.provider.PreferenceContentProvider"
+    	                     android:authorities="com.eolwral.osmonitor.provider"
+    	                     android:exported="false">
+    	</provider>
+    	
     	<receiver android:name="com.eolwral.osmonitor.BootUpReceiver" 
     	    android:enabled="true" 
     	    android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
@@ -56,9 +61,5 @@
 	  	<activity android:name="com.eolwral.osmonitor.ui.HelpWindows" 
 	  	    android:theme="@android:style/Theme.Dialog">
 	  	</activity>
-	  	
     </application>
-    
-    	
-	
 </manifest>

@@ -36,7 +36,7 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
-import com.eolwral.osmonitor.util.Settings;
+import com.eolwral.osmonitor.settings.Settings;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ProcessLogViewFragment extends SherlockDialogFragment 
@@ -63,6 +63,9 @@ public class ProcessLogViewFragment extends SherlockDialogFragment
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);   
 
+		// settings
+		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
+		
 		// set list
 		messageList = new MessageListAdapter(getActivity().getApplicationContext());
 		
@@ -228,7 +231,6 @@ public class ProcessLogViewFragment extends SherlockDialogFragment
 	    super.onStart();
 		
 	    ipcService.removeRequest(this);
-		settings = new Settings(getActivity());
 		ipcAction newCommand[] = { logType };
 		ipcService.addRequest(newCommand, 0, this);
 	}

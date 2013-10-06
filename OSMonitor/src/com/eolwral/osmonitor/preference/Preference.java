@@ -4,116 +4,96 @@ import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.util.CommonUtil;
-import com.eolwral.osmonitor.util.Settings;
+import com.eolwral.osmonitor.settings.Settings;
+import com.eolwral.osmonitor.settings.SettingsHelper;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 
-public class Preference extends PreferenceActivity 
-						implements OnSharedPreferenceChangeListener {
+public class Preference extends PreferenceActivity  {
+	
+	private SettingsHelper helper = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getPreferenceManager().setSharedPreferencesMode(MODE_MULTI_PROCESS);		
+		
+		// reload settings
+		helper = new SettingsHelper(this);
+
+		// add layout
 		addPreferencesFromResource(R.xml.ui_preference_main);
-	    
-		// not ready to release
-		// resetStatus();
+		
+		// initial preferences
+		initPreferences();
 	}
 
-	@Override
-	protected void onResume() {
-	    super.onResume();
-	    getPreferenceScreen().getSharedPreferences()
-	            .registerOnSharedPreferenceChangeListener(this);
-	}
+	private void initPreferences() {
+		int prefCategoryCount =  getPreferenceScreen().getPreferenceCount();
+		for(int checkCategoryItem = 0; checkCategoryItem < prefCategoryCount; checkCategoryItem++) {
 
-	@Override
-	protected void onPause() {
-	    super.onPause();
-	    getPreferenceScreen().getSharedPreferences()
-	            .unregisterOnSharedPreferenceChangeListener(this);
-	} 
-	
-	private void resetStatus() {
-		
-		CheckBoxPreference cpuUsage = 
-				(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_CPUUSAGE);
+			// lookup all categories
+			android.preference.PreferenceCategory prefCategory =  
+						(android.preference.PreferenceCategory) getPreferenceScreen().getPreference(checkCategoryItem);
+			if(prefCategory == null) continue;
 
-		CheckBoxPreference shortCut = 
-				(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_SHORTCUT);
+			// lookup all preferences
+		   int prefCount  = prefCategory.getPreferenceCount();
+		   for(int checkItem = 0; checkItem < prefCount; checkItem++) {
+				android.preference.Preference pref =  prefCategory.getPreference(checkItem);
+				if (pref == null) continue;
+			   pref.setOnPreferenceChangeListener(new preferencChangeListener());
 
-		CheckBoxPreference autoStart = 
-				(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_AUTOSTART);
-
-		SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-		
-		if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)) 
-			shortCut.setEnabled(false);
-		else 
-			shortCut.setEnabled(true);			
-
-		if(sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) 
-			cpuUsage.setEnabled(false);
-		else 
-			cpuUsage.setEnabled(true);			
-
-		if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) || 
-		   sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
-			autoStart.setEnabled(true);
+			   // set value 
+			   if(pref instanceof CheckBoxPreference) {
+					((CheckBoxPreference) pref).setChecked(helper.getBoolean(pref.getKey(), false));
+				}
+				else if (pref instanceof ListPreference) {
+					((ListPreference) pref).setValue(helper.getString(pref.getKey(), ""));
+				}
+			   
+		   }
 		}
-		else {
-			autoStart.setEnabled(false);
-		}		
 	}
 
-	@Override
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		
-		if(key.equals(Settings.PREFERENCE_ROOT) && 
-				sharedPreferences.getBoolean(Settings.PREFERENCE_ROOT, false)) {
-			if(CommonUtil.preCheckRoot() == false ) {
-				
-				final SharedPreferences.Editor editor = sharedPreferences.edit();
-				editor.putBoolean(Settings.PREFERENCE_ROOT, false);
-				editor.commit();
-				
-				CheckBoxPreference checkRoot = 
-						(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_ROOT);
-				checkRoot.setChecked(false);
+	private class preferencChangeListener implements  OnPreferenceChangeListener {
+
+		@Override
+		public boolean onPreferenceChange(
+			android.preference.Preference preference, Object newValue) {
+
+			if (!onPrePreferenceCheck(preference.getKey()))
+				return false;
+			
+			if(preference instanceof CheckBoxPreference) {
+				helper.setBoolean(preference.getKey(),  (Boolean) newValue);
 			}
+			else if (preference instanceof ListPreference) {
+				helper.setString(preference.getKey(),  (String) newValue);
+			}			
+			
+			// force read value from content provider
+			helper.clearCache();
+			
+			onPostPreferenceCheck(preference.getKey());
+			
+			return true;
 		}
-		
-		
+	  
+	}
+	
+	private boolean onPostPreferenceCheck(String key) {
 		if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_SHORTCUT)) {
-
-			//CheckBoxPreference cpuUsage = 
-			//		(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_CPUUSAGE);
-
-			//CheckBoxPreference shortCut = 
-			//		(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_SHORTCUT);
 
 			CheckBoxPreference autoStart = 
 					(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_AUTOSTART);
 
-			
-			//if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)) 
-			//	shortCut.setEnabled(false);
-			//else 
-			//	shortCut.setEnabled(true);			
-
-			//if(sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) 
-			//	cpuUsage.setEnabled(false);
-			//else 
-			//	cpuUsage.setEnabled(true);			
-
-			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) || 
-			   sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
+			if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) || 
+				helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
 				autoStart.setEnabled(true);
 			}
 			else {
@@ -138,13 +118,20 @@ public class Preference extends PreferenceActivity
 			}
 			
 			// restart notification 
-			if(sharedPreferences.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
-			    sharedPreferences.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {
+			if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
+			    helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {
 				getApplication().startService(new Intent(getApplication(), OSMonitorService.class));
 			}
-				
-		}
+		}	
+		return true;
 	}
-	
-	
+	  
+	public boolean onPrePreferenceCheck(String key) {
+		
+		if(key.equals(Settings.PREFERENCE_ROOT) && !helper.getBoolean(Settings.PREFERENCE_ROOT, false)) {
+			if(CommonUtil.preCheckRoot() == false ) 
+				return false;
+		}
+		return true;
+	}
 }

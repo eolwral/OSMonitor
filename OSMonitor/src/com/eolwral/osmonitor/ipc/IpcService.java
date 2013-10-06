@@ -18,7 +18,7 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.util.CommonUtil;
-import com.eolwral.osmonitor.util.Settings;
+import com.eolwral.osmonitor.settings.Settings;
 import com.google.protobuf.ByteString;
 
 /**
@@ -177,7 +177,7 @@ public class IpcService {
 	private boolean connect() {
 	
 		try {
-			final Settings settings = new Settings(ipcContext);
+			final Settings settings = Settings.getInstance(ipcContext);
 
 			clientSocket = new LocalSocket();
 			clientSocket.connect(clientAddress);

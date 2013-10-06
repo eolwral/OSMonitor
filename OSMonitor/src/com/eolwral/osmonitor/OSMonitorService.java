@@ -11,7 +11,7 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
-import com.eolwral.osmonitor.util.Settings;
+import com.eolwral.osmonitor.settings.Settings;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -55,6 +55,7 @@ public class OSMonitorService extends Service
 
 	//private  
 	private ProcessUtil infoHelper = null;
+	private Settings settings = null;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -66,14 +67,15 @@ public class OSMonitorService extends Service
     	
     	super.onCreate();
 
+    	settings = Settings.getInstance(this);
+
 		IpcService.Initialize(this);
 		ipcService = IpcService.getInstance();
   		
     	refreshSettings();
     	initializeNotification();
 
-    	Settings setting = new Settings(this);
-   		if(setting.isEnableCPUMeter()) {
+   		if(settings.isEnableCPUMeter()) {
    	    	infoHelper = ProcessUtil.getInstance(this, false);
     		initService();
    		}
@@ -81,8 +83,7 @@ public class OSMonitorService extends Service
 
 	private void refreshSettings() {
 
-   		Settings setting = new Settings(this);
-    	switch(setting.getCPUMeterColor()) {
+    	switch(settings.getCPUMeterColor()) {
     	case 1:
     		iconColor = R.drawable.ic_cpu_graph_green;
     		break;
@@ -91,9 +92,9 @@ public class OSMonitorService extends Service
     		break;
     	}
     	
-    	fontColor = setting.getNotificationFontColor();
-    	isSetTop = setting.isNotificationOnTop();
-    	useCelsius = setting.isUseCelsius();
+    	fontColor = settings.getNotificationFontColor();
+    	isSetTop = settings.isNotificationOnTop();
+    	useCelsius = settings.isUseCelsius();
 	}
     
     @Override
@@ -184,7 +185,6 @@ public class OSMonitorService extends Service
     }
 
     private void wakeUp() {
-		Settings settings = new Settings(this);
 		UpdateInterval = settings.getInterval();
        	ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
 		ipcService.removeRequest(this);

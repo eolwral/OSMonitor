@@ -6,6 +6,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
@@ -15,8 +16,8 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,25 +29,25 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
-
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
-import com.eolwral.osmonitor.ipc.IpcService;
-import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.ipc.IpcService;
+import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.preference.Preference;
+import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
-import com.eolwral.osmonitor.util.Settings;
 import com.eolwral.osmonitor.util.WhoisUtil;
 import com.eolwral.osmonitor.util.WhoisUtilDataSet;
 
@@ -54,7 +55,7 @@ public class ConnectionFragment extends SherlockListFragment
                                 implements ipcClientListener {
 
 	// ipc client
-	private IpcService ipcService = IpcService.getInstance();;
+	private IpcService ipcService = IpcService.getInstance();
 	private boolean ipcStop = false;
 
 	// data
@@ -72,7 +73,7 @@ public class ConnectionFragment extends SherlockListFragment
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
 		infoHelper = ProcessUtil.getInstance(getSherlockActivity().getApplicationContext(), true);
 		setListAdapter(new ConnectionListAdapter(getSherlockActivity().getApplicationContext()));
 	}
@@ -180,7 +181,6 @@ public class ConnectionFragment extends SherlockListFragment
 		ipcStop = !isVisibleToUser;
 
 		if(isVisibleToUser == true) {
-			settings = new Settings(getActivity());
 			ipcAction newCommand[] = { ipcAction.CONNECTION, ipcAction.PROCESS };
 			ipcService.addRequest(newCommand, 0, this);
 		}

@@ -4,10 +4,6 @@ package com.eolwral.osmonitor.ui;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.util.Settings;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +12,10 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+
+import com.actionbarsherlock.app.SherlockFragment;
+import com.eolwral.osmonitor.R;
+import com.eolwral.osmonitor.settings.Settings;
  
 public class ConnectionMapFragment extends SherlockFragment
 {
@@ -31,7 +31,7 @@ public class ConnectionMapFragment extends SherlockFragment
     	View view = inflater.inflate(R.layout.ui_connection_map, container, false);
  
     	String url = "";
-    	Settings setting = new Settings(getActivity());
+    	Settings setting = Settings.getInstance(getActivity());
     	if(!setting.getMapType().equals("GoogleMap"))
     		url = "file:///android_asset/osm.html";
     	else

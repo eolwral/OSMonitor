@@ -28,7 +28,7 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.util.CommonUtil;
-import com.eolwral.osmonitor.util.Settings;
+import com.eolwral.osmonitor.settings.Settings;
 
 public class ProcessorPreference extends DialogPreference 
 								 implements ipcClientListener {
@@ -257,7 +257,7 @@ public class ProcessorPreference extends DialogPreference
         			if(coredata.get(position).getMinFrequency() == Integer.parseInt(freqList[i]))
         				minSeekBar.setSelection(i);
                 
-                final Settings setting = new Settings(mContext);
+                final Settings setting =  Settings.getInstance(mContext);
         		if(setting.isRoot())
         		{
         			maxSeekBar.setClickable(true);

@@ -19,6 +19,7 @@ import android.content.Intent;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
+import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.ui.HelpWindows;
 
 public class CommonUtil {
@@ -48,7 +49,7 @@ public class CommonUtil {
    * @param context
    */
   public static void killProcess(int pid, Context context) {
-	  final Settings settings = new Settings(context);
+	  final Settings settings = Settings.getInstance(context);
 	  if (!settings.isRoot()) 
 		  android.os.Process.killProcess(pid);
 	  else
@@ -142,6 +143,17 @@ public class CommonUtil {
   }
   
   /**
+   * check SQLite DB status
+   * @param context Context
+   * @param dbName database name
+   * @return true == exist, false == not exist 
+   */
+  public static boolean doesDatabaseExist(Context context, String dbName) {
+	  File dbFile=context.getDatabasePath(dbName);
+	  return dbFile.exists();
+  }
+  
+  /**
    * execute osmcore as a binary execute
    * @param context
    * @throws InterruptedException 
@@ -170,8 +182,10 @@ public class CommonUtil {
 	
 	// execute osmcore
 	try {
-		final Settings settings = new Settings(context);
+		final Settings settings = Settings.getInstance(context);
+		
 		Process process = null;
+		
 		if (!settings.isRoot()) 
 			process = Runtime.getRuntime().exec("sh");
 		else

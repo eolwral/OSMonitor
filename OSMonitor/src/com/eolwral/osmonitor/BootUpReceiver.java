@@ -1,7 +1,7 @@
 package com.eolwral.osmonitor;
 
 import com.eolwral.osmonitor.ipc.IpcService;
-import com.eolwral.osmonitor.util.Settings;
+import com.eolwral.osmonitor.settings.Settings;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,7 +12,7 @@ public class BootUpReceiver extends BroadcastReceiver{
  	@Override
 	public void onReceive(Context context, Intent intent) {
 
- 		Settings setting = new Settings(context);
+ 		Settings setting = Settings.getInstance(context);
  		
         if(setting.isEnableAutoStart() && ( setting.isEnableCPUMeter() || setting.isAddShortCut()))
         	context.startService(new Intent(context, OSMonitorService.class));

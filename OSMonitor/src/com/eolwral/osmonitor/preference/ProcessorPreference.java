@@ -165,7 +165,7 @@ public class ProcessorPreference extends DialogPreference
 					preferenceString.append(";");
 				preferenceString.append(coreSetting);
 			}
-			persistString(preferenceString.toString());
+		   getOnPreferenceChangeListener().onPreferenceChange(this, preferenceString.toString());    
 		}
 		
 		if(coreEnable != null) {

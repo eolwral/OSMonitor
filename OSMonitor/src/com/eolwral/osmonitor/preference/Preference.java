@@ -13,6 +13,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 
 public class Preference extends PreferenceActivity  {
 	
@@ -74,7 +75,13 @@ public class Preference extends PreferenceActivity  {
 			}
 			else if (preference instanceof ListPreference) {
 				helper.setString(preference.getKey(),  (String) newValue);
-			}			
+			}
+			else if (preference instanceof ColorPickerPreference) {
+				helper.setInteger(preference.getKey(),  (Integer) newValue);
+			}
+			else if (preference instanceof ProcessorPreference) {
+				helper.setString(preference.getKey(),  (String) newValue);
+			}
 			
 			// force read value from content provider
 			helper.clearCache();

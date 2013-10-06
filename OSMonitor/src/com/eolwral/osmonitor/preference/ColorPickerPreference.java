@@ -1,12 +1,12 @@
 package com.eolwral.osmonitor.preference;
 
 import com.eolwral.osmonitor.R;
+import com.eolwral.osmonitor.settings.Settings;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.preference.DialogPreference;
@@ -25,9 +25,11 @@ import android.widget.CheckedTextView;
  */
 public class ColorPickerPreference extends DialogPreference implements DialogInterface.OnClickListener
 {
-    // Keeps the colors in the nice integer format
+
+	// Keeps the colors in the nice integer format
     private int[]   m_colors;
     private Resources m_resmgr;
+    private Context m_context;
  
     // Font adaptor responsible for redrawing the item TextView with the appropriate background color
     public class ColorAdapter extends BaseAdapter
@@ -91,6 +93,8 @@ public class ColorPickerPreference extends DialogPreference implements DialogInt
         											   Color.YELLOW, Color.CYAN, Color.MAGENTA};
         
         m_resmgr = context.getResources();
+        
+        m_context = context;
     }
  
     @Override
@@ -98,9 +102,10 @@ public class ColorPickerPreference extends DialogPreference implements DialogInt
     {
         super.onPrepareDialogBuilder(builder);
  
+        Settings settings = Settings.getInstance(m_context);
         int checked_item = 0;
-        int selectedValue = getSharedPreferences().getInt( getKey(), 0 );
- 
+        int selectedValue = settings.getNotificationFontColor();
+    	
         // Find out the checked item index
         for ( int idx = 0; idx < m_colors.length; idx++ )
         {
@@ -123,11 +128,7 @@ public class ColorPickerPreference extends DialogPreference implements DialogInt
         	
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-
-				Editor editor = getSharedPreferences().edit();
-	            editor.putInt( getKey(), -1 );
-	            editor.commit();
-	 
+	            notifyChange(-1);
 	            dialog.dismiss();
 			}
         });
@@ -137,11 +138,13 @@ public class ColorPickerPreference extends DialogPreference implements DialogInt
     {
         if ( which >=0 && which < m_colors.length )
         {
-            Editor editor = getSharedPreferences().edit();
-            editor.putInt( getKey(), m_colors[ which ] );
-            editor.commit();
- 
+            notifyChange(m_colors[ which ]);
             dialog.dismiss();
         }
     }
+    
+    public void notifyChange(int color) {
+        getOnPreferenceChangeListener().onPreferenceChange(this, color);    	
+    }
+    
 }

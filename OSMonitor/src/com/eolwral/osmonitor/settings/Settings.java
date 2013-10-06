@@ -166,6 +166,15 @@ public class Settings {
 	public String getSortType() {
 		return helper.getString(PREFERENCE_SORTTYPE, "");
 	}
+
+	/**
+	 * set font color for notification
+	 * @param color
+	 */
+	public void setNotificationFontColor(int color) {
+	    helper.setInteger(PREFERENCE_NOTIFICATION_COLOR,  color);
+	    return;
+	}
 	
 	/**
 	 * get font color for notification

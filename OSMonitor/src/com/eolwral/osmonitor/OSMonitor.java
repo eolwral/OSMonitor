@@ -35,7 +35,7 @@ public class OSMonitor extends SherlockFragmentActivity implements
 	
 	@Override 
 	public void onStop() {
-		super.onStop(); 
+		super.onStop();  
 		
 		if(mViewPager == null)
 			return;

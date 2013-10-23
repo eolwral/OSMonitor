@@ -67,16 +67,14 @@ public class CommonUtil {
     try {
     	
       // detect architecture
-    if (isARMv7())
-    	assetPath += "_armv7";
-     else if (isARM()) 
+       if (isARM()) 
         assetPath += "_arm";
       else if (isX86()) 
     	assetPath += "_x86";  
       else if  (isMIPS())
           assetPath += "_mips";
       else
-    	  assetPath += "_arm";
+    	  assetPath += "_arm"; 
 
 	  InputStream binary = context.getAssets().open(assetPath);
       FileOutputStream execute = new FileOutputStream(localPath);

@@ -9,7 +9,7 @@ import android.content.Intent;
 
 public class BootUpReceiver extends BroadcastReceiver{
 
- 	@Override
+ 	@Override 
 	public void onReceive(Context context, Intent intent) {
 
  		Settings setting = Settings.getInstance(context);

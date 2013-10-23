@@ -9,10 +9,10 @@
 #include <sys/cdefs.h>
 #include <linux/kernel.h>
 
-extern "C" int sysinfo (struct sysinfo *info);
-
 #include "base.h"
 #include "osInfo.pb.h"
+
+#define OS_BOOT_TIME "/proc/uptime"
 
 namespace com {
 namespace eolwral {
@@ -28,6 +28,7 @@ namespace core {
   private:
     std::vector<osInfo*>  _curOSInfo; /**< current OS information */
 
+    void getUpTime(osInfo *curOSInfo);
     bool getMemoryFromFile(osInfo* curOsInfo);
     bool moveToNextLine(FILE *file);
 

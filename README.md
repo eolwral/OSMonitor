@@ -53,6 +53,13 @@ if you would like to know that how it works, please check Wiki page!
 ----------
 
 ### Change Log ###
+
+**Version 3.0.7.2**
+- Fix icon size on large screen
+- Save settings to SQLite 
+- Compile with NDK r9
+- Try to fix blank screen on some devices
+
 **Version 3.0.7.0**
 - Improve English translation - Thanks to Jarek Mazur
 - Add Polish language - Thanks to Jarek Mazur

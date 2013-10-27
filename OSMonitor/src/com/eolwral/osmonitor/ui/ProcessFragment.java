@@ -36,11 +36,11 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -649,7 +649,7 @@ public class ProcessFragment extends SherlockListFragment
 		int bkcolor;
 		
 		// detail information
-		RelativeLayout detail;
+		LinearLayout detail;
 		
 		TextView detailName;
 		TextView detailStatus;
@@ -677,7 +677,7 @@ public class ProcessFragment extends SherlockListFragment
 				stub.inflate();
 				
 				// prepare detail information
-				holder.detail = (RelativeLayout) v.findViewById(R.id.id_process_detail_stub);
+				holder.detail = (LinearLayout) v.findViewById(R.id.id_process_detail_stub);
 				holder.detailName = ((TextView) v.findViewById(R.id.id_process_detail_name));
 				holder.detailStatus = ((TextView) v.findViewById(R.id.id_process_detail_status));
 				holder.detailStime = ((TextView) v.findViewById(R.id.id_process_detail_stime));
@@ -832,7 +832,7 @@ public class ProcessFragment extends SherlockListFragment
 				
 				// get memory information
 				MemoryInfo memInfo = infoHelper.getMemoryInfo(item.getPid());
-				String memoryData = CommonUtil.convertToSize((item.getRss()*1024), true)+" ("+
+				String memoryData = CommonUtil.convertToSize((item.getRss()*1024), true)+"  ("+
 						            CommonUtil.convertToSize(memInfo.getTotalPss()*1024, true)+")";
 
 				holder.detailMemory.setText(memoryData); 

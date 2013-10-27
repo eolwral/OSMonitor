@@ -42,17 +42,17 @@
 <string name="ui_process_sort_cputime">Tempo CPU</string>
 
 <!-- Process Detail -->
-<string name="ui_process_detail_process">Processi:</string>
-<string name="ui_process_detail_memory">Memoria:</string>
-<string name="ui_process_detail_ppid">PPID:</string>
-<string name="ui_process_detail_thread">Thread:</string>
-<string name="ui_process_detail_stime">STime:</string>
-<string name="ui_process_detail_utime">UTime:</string>
-<string name="ui_process_detail_nice">Nice:</string>
-<string name="ui_process_detail_user">Utente:</string>
-<string name="ui_process_detail_status">Stato:</string>
-<string name="ui_process_detail_cputime">Tempo CPU:</string>
-<string name="ui_process_detail_time">Inizio:</string>
+<string name="ui_process_detail_process">Processi</string>
+<string name="ui_process_detail_memory">Memoria</string>
+<string name="ui_process_detail_ppid">PPID</string>
+<string name="ui_process_detail_thread">Thread</string>
+<string name="ui_process_detail_stime">STime</string>
+<string name="ui_process_detail_utime">UTime</string>
+<string name="ui_process_detail_nice">Nice</string>
+<string name="ui_process_detail_user">Utente</string>
+<string name="ui_process_detail_status">Stato</string>
+<string name="ui_process_detail_cputime">Tempo CPU</string>
+<string name="ui_process_detail_time">Inizio</string>
 
 <!-- Process Status -->
 <string name="ui_process_status_zombie">Zombie</string>

@@ -42,17 +42,17 @@
 <string name="ui_process_sort_cputime">CPU時間</string>
 
 <!-- Process Detail -->
-<string name="ui_process_detail_process">程序:</string>
-<string name="ui_process_detail_memory">記憶體:</string>
-<string name="ui_process_detail_ppid">父 PID:</string>
-<string name="ui_process_detail_thread">執行緒:</string>
-<string name="ui_process_detail_stime">系統:</string>
-<string name="ui_process_detail_utime">使用者:</string>
-<string name="ui_process_detail_nice">優先權:</string>
-<string name="ui_process_detail_user">使用者:</string>
-<string name="ui_process_detail_status">狀態:</string>
-<string name="ui_process_detail_cputime">CPU時間:</string>
-<string name="ui_process_detail_time">啟動:</string>
+<string name="ui_process_detail_process">程序</string>
+<string name="ui_process_detail_memory">記憶體</string>
+<string name="ui_process_detail_ppid">父 PID</string>
+<string name="ui_process_detail_thread">執行緒</string>
+<string name="ui_process_detail_stime">系統</string>
+<string name="ui_process_detail_utime">使用者</string>
+<string name="ui_process_detail_nice">優先權</string>
+<string name="ui_process_detail_user">使用者</string>
+<string name="ui_process_detail_status">狀態</string>
+<string name="ui_process_detail_cputime">CPU時間</string>
+<string name="ui_process_detail_time">啟動</string>
 
 <!-- Process Status -->
 <string name="ui_process_status_zombie">Zombie</string>

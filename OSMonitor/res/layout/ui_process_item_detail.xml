@@ -1,250 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/id_process_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="3dp" >
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/ly_process_detail_1nd"
-        android:layout_height="wrap_content"  
-    	android:layout_width="fill_parent" 
-        android:layout_alignParentLeft="true"
-        android:paddingTop="3dp" >
-    
-    <TextView
-        android:id="@+id/tx_process_detail_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ui_process_detail_process"
-        android:paddingLeft="3dp"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/id_process_detail_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-    </LinearLayout>
-    
-	<LinearLayout  
-        android:id="@+id/ly_process_detail_2nd"
-        android:layout_height="wrap_content"  
-    	android:layout_width="fill_parent" 
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ly_process_detail_1nd" >
-    	  
-    <TextView
-        android:id="@+id/tx_process_detail_stime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="3dp"
-        android:text="@string/ui_process_detail_stime"
-        android:textAppearance="?android:attr/textAppearanceSmall" 
-        android:layout_weight="1" />
-    
-    <TextView
-        android:id="@+id/id_process_detail_stime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="start"
-        android:text="0000"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-    <TextView
-        android:id="@+id/tx_process_detail_utime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:text="@string/ui_process_detail_utime"
-        android:textAppearance="?android:attr/textAppearanceSmall" 
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tx_process_detail_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/item_background"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:text="@string/ui_process_detail_process"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/id_process_detail_utime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="start"
-        android:text="000"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/tx_process_detail_cputime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:paddingLeft="3dp"
-        android:text="@string/ui_process_detail_cputime"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/id_process_detail_cputime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:gravity="start"
-        android:text="000"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-    </LinearLayout>
-    
-	<LinearLayout  
-        android:id="@+id/ly_process_detail_3nd"
-        android:layout_height="wrap_content"  
-    	android:layout_width="fill_parent" 
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ly_process_detail_2nd" >
-	
-    <TextView
-        android:id="@+id/tx_process_detail_memory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:paddingLeft="3dp"
-        android:text="@string/ui_process_detail_memory"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/id_process_detail_memory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="5" 
-        android:gravity="start"
-        android:text="000K/000K"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/tx_process_detail_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:paddingLeft="2dp"
-        android:text="@string/ui_process_detail_user"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/id_process_detail_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="5" 
-        android:gravity="start"
-        android:text="..."
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-    <TextView
-        android:id="@+id/tx_process_detail_ppid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:paddingLeft="2dp"
-        android:text="@string/ui_process_detail_ppid"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-        
-    <TextView
-        android:id="@+id/id_process_detail_ppid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="5" 
-        android:gravity="start"
-        android:text="..."
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/id_process_detail_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:paddingLeft="3dp"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
-        
-	<LinearLayout  
-        android:id="@+id/ly_process_detail_4nd"
-        android:layout_height="wrap_content"  
-    	android:layout_width="fill_parent" 
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ly_process_detail_3nd" >
-	
-    <TextView
-        android:id="@+id/tx_process_detail_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:paddingLeft="3dp"
-        android:text="@string/ui_process_detail_status"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/id_process_detail_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="5" 
-        android:gravity="start"
-        android:text="@string/ui_process_status_unknown"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/tx_process_detail_thread"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="3dp"
-        android:text="@string/ui_process_detail_thread"
-        android:textAppearance="?android:attr/textAppearanceSmall" 
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tx_process_detail_memory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_weight="4"
+            android:background="@color/item_background"
+            android:paddingLeft="3dp"
+            android:text="@string/ui_process_detail_memory"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/id_process_detail_thread"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="start"
-        android:text="00"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
-    <TextView
-        android:id="@+id/tx_process_detail_nice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="3dp"
-        android:text="@string/ui_process_detail_nice"
-        android:textAppearance="?android:attr/textAppearanceSmall" 
-        android:layout_weight="1" />
-    
-    <TextView
-        android:id="@+id/id_process_detail_nice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:gravity="start"
-        android:text="-20"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
+        <TextView
+            android:id="@+id/id_process_detail_memory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:paddingLeft="3dp"
+            android:text="000K ( 000K )"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
     </LinearLayout>
-	
-	<LinearLayout  
-        android:id="@+id/ly_process_detail_5nd"
-        android:layout_height="wrap_content"  
-    	android:layout_width="fill_parent" 
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ly_process_detail_4nd" >
-    
-    <TextView
-        android:id="@+id/tx_process_detail_starttime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:paddingLeft="3dp"
-        android:text="@string/ui_process_detail_time"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/id_process_detail_starttime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="5" 
-        android:gravity="start"
-        android:text="01/01/13 00:00:00 AM"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tx_process_detail_cputime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_cputime"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tx_process_detail_thread"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:maxLines="1"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_thread"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tx_process_detail_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_status"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="3dp" >
+
+            <TextView
+                android:id="@+id/id_process_detail_cputime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="000"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_thread"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="00"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/ui_process_status_unknown"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tx_process_detail_stime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_stime"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tx_process_detail_ppid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_ppid"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tx_process_detail_nice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_nice"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="3dp" >
+
+            <TextView
+                android:id="@+id/id_process_detail_stime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="0000"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_ppid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="..."
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_nice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="-20"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tx_process_detail_utime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_utime"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tx_process_detail_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_user"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="3dp" >
+
+            <TextView
+                android:id="@+id/id_process_detail_utime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="000"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="..."
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </LinearLayout>
+
     </LinearLayout>
- 
-</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tx_process_detail_starttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/item_background"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/ui_process_detail_time"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/id_process_detail_starttime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:paddingLeft="3dp"
+            android:text="01/01/13 00:00:00 AM"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -29,6 +29,9 @@ if you would like to know that how it works, please check Wiki page!
 
 * eolwral@gmail.com
 
+### Wiki & FAQ ###
+wiki - https://github.com/eolwral/OSMonitor/wiki
+
 ### License ###
 
     Copyright 2013 Kenney Lu

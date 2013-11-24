@@ -1,159 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/id_process_detail"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/block_background" 
+    android:stretchColumns="1,3 ,5">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/tx_process_detail_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:background="@color/item_background"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
-            android:text="@string/ui_process_detail_process"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/id_process_detail_name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:paddingLeft="3dp"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/tx_process_detail_memory"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:layout_weight="4"
-            android:background="@color/item_background"
-            android:paddingLeft="3dp"
-            android:text="@string/ui_process_detail_memory"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/id_process_detail_memory"
+            <TextView
+                android:id="@+id/tx_process_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:background="@color/item_background"
+                android:text="@string/ui_process_detail_process"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:layout_span="5"
+                android:singleLine="false"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:layout_weight="1"
-            android:paddingLeft="3dp"
-            android:text="000K ( 000K )"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_height="wrap_content" >
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tx_process_detail_memory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="@string/ui_process_detail_memory"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/id_process_detail_memory"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:layout_span="5"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"  >
+
+            <TextView
+                android:id="@+id/tx_process_detail_starttime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="@string/ui_process_detail_time"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_starttime"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:layout_span="5"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/tx_process_detail_cputime"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:background="@color/item_background"
                 android:paddingLeft="3dp"
+                android:paddingRight="3dp"
                 android:text="@string/ui_process_detail_cputime"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
-                android:id="@+id/tx_process_detail_thread"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/item_background"
-                android:maxLines="1"
-                android:paddingLeft="3dp"
-                android:text="@string/ui_process_detail_thread"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/tx_process_detail_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/item_background"
-                android:paddingLeft="3dp"
-                android:text="@string/ui_process_detail_status"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="3dp" >
-
-            <TextView
                 android:id="@+id/id_process_detail_cputime"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
-                android:text="000"
+                android:paddingLeft="3dp"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/id_process_detail_thread"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="00"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/id_process_detail_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="@string/ui_process_status_unknown"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/tx_process_detail_stime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:background="@color/item_background"
+                android:text="@string/ui_process_detail_stime"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_stime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tx_process_detail_utime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:background="@color/item_background"
+                android:text="@string/ui_process_detail_utime"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_utime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tx_process_detail_thread"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
                 android:background="@color/item_background"
                 android:paddingLeft="3dp"
-                android:text="@string/ui_process_detail_stime"
+                android:text="@string/ui_process_detail_thread"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_thread"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/tx_process_detail_ppid"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:background="@color/item_background"
                 android:paddingLeft="3dp"
@@ -161,129 +181,73 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
+                android:id="@+id/id_process_detail_ppid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/tx_process_detail_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:maxLines="1"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_user"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tx_process_detail_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:background="@color/item_background"
+                android:paddingLeft="3dp"
+                android:text="@string/ui_process_detail_status"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/id_process_detail_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="3dp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
                 android:id="@+id/tx_process_detail_nice"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:background="@color/item_background"
                 android:paddingLeft="3dp"
                 android:text="@string/ui_process_detail_nice"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="3dp" >
-
-            <TextView
-                android:id="@+id/id_process_detail_stime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="0000"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/id_process_detail_ppid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="..."
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
             <TextView
                 android:id="@+id/id_process_detail_nice"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
-                android:text="-20"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tx_process_detail_utime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/item_background"
                 android:paddingLeft="3dp"
-                android:text="@string/ui_process_detail_utime"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <TextView
-                android:id="@+id/tx_process_detail_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/item_background"
-                android:paddingLeft="3dp"
-                android:text="@string/ui_process_detail_user"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="3dp" >
-
-            <TextView
-                android:id="@+id/id_process_detail_utime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="000"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <TextView
-                android:id="@+id/id_process_detail_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:text="..."
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/tx_process_detail_starttime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:background="@color/item_background"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="@string/ui_process_detail_time"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/id_process_detail_starttime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:paddingLeft="3dp"
-            android:text="01/01/13 00:00:00 AM"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    </LinearLayout>
-
-</LinearLayout>
+        </TableRow>
+</TableLayout>

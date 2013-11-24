@@ -832,8 +832,9 @@ public class ProcessFragment extends SherlockListFragment
 				
 				// get memory information
 				MemoryInfo memInfo = infoHelper.getMemoryInfo(item.getPid());
-				String memoryData = CommonUtil.convertToSize((item.getRss()*1024), true)+"  ("+
-						            CommonUtil.convertToSize(memInfo.getTotalPss()*1024, true)+")";
+				String memoryData = CommonUtil.convertToSize((item.getRss()*1024), true)+" /  "+
+						                                     CommonUtil.convertToSize(memInfo.getTotalPss()*1024, true)+" / " +
+						                                     CommonUtil.convertToSize(memInfo.getTotalPrivateDirty()*1024, true) ;
 
 				holder.detailMemory.setText(memoryData); 
 				
@@ -842,7 +843,7 @@ public class ProcessFragment extends SherlockListFragment
 				// convert time format
 				final Calendar calendar = Calendar.getInstance();
 				final DateFormat convertTool = DateFormat.getDateTimeInstance(DateFormat.LONG,
-						                                   DateFormat.LONG, Locale.getDefault());
+						                                   DateFormat.MEDIUM, Locale.getDefault());
 				calendar.setTimeInMillis(item.getStartTime()*1000);
 				holder.detailStarttime.setText(convertTool.format(calendar.getTime()));
 				

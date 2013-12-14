@@ -24,6 +24,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Debug.MemoryInfo;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,6 +38,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RadioGroup;
@@ -90,6 +92,11 @@ public class ProcessFragment extends SherlockListFragment
 	
 	private final HashMap<String, Boolean> expandStatus = new HashMap<String, Boolean>();
 	private final HashMap<String, Integer> selectedStatus = new HashMap<String, Integer>();
+	
+	// tablet
+	private boolean  tabletLayout = false;  
+	private int selectedPID = -1;
+	private ViewHolder selectedHolder = null;
 
 	// preference
 	private enum SortType {
@@ -136,7 +143,17 @@ public class ProcessFragment extends SherlockListFragment
 			Bundle savedInstanceState) {
 
 		View v = inflater.inflate(R.layout.ui_process_fragment, container, false);
-		
+
+		// detect layout
+		if ( v.findViewById(R.id.ui_process_tablet_layout) != null) {
+			tabletLayout = true;
+			prepareSelectedHolder(v);
+		}
+		else {
+			tabletLayout = false;
+			resetSelectedHolder();
+		}
+
 		// enable fragment option menu 
 		setHasOptionsMenu(true);
 		
@@ -159,6 +176,29 @@ public class ProcessFragment extends SherlockListFragment
 			sortSetting = SortType.SortbyCPUTime;
 		}
 		return v;
+	}
+
+	private void prepareSelectedHolder(View v) {
+		if (selectedHolder == null) {
+			selectedHolder = new ViewHolder();
+			selectedHolder.detailIcon = ((ImageView) v.findViewById(R.id.id_process_detail_image));
+			selectedHolder.detailTitle = ((TextView) v.findViewById(R.id.id_process_detail_title));
+			selectedHolder.detailName = ((TextView) v.findViewById(R.id.id_process_detail_name));
+			selectedHolder.detailStatus = ((TextView) v.findViewById(R.id.id_process_detail_status));
+			selectedHolder.detailStime = ((TextView) v.findViewById(R.id.id_process_detail_stime));
+			selectedHolder.detailUtime = ((TextView) v.findViewById(R.id.id_process_detail_utime));
+			selectedHolder.detailCPUtime = ((TextView) v.findViewById(R.id.id_process_detail_cputime));
+			selectedHolder.detailMemory = ((TextView) v.findViewById(R.id.id_process_detail_memory));
+			selectedHolder.detailPPID = ((TextView) v.findViewById(R.id.id_process_detail_ppid));
+			selectedHolder.detailUser = ((TextView) v.findViewById(R.id.id_process_detail_user));
+			selectedHolder.detailStarttime = ((TextView) v.findViewById(R.id.id_process_detail_starttime));
+			selectedHolder.detailThread = ((TextView) v.findViewById(R.id.id_process_detail_thread));
+			selectedHolder.detailNice = ((TextView) v.findViewById(R.id.id_process_detail_nice));
+		}
+	}
+	
+	private void resetSelectedHolder() {
+		selectedHolder = null;
 	}
 	
 
@@ -648,9 +688,14 @@ public class ProcessFragment extends SherlockListFragment
 		// color
 		int bkcolor;
 		
-		// detail information
+		// phone layout detail information
 		LinearLayout detail;
 		
+		// tablet layout detail information
+		TextView detailTitle;
+		ImageView detailIcon;
+		
+		// common detail information
 		TextView detailName;
 		TextView detailStatus;
 		TextView detailStime;
@@ -664,7 +709,7 @@ public class ProcessFragment extends SherlockListFragment
 		TextView detailNice;
 	}
 	
-	private static void setItemStatus(View v, boolean status) {
+	private  void setItemStatus(View v, boolean status) {
 
 		// change expand status
 		if (status) {
@@ -696,7 +741,7 @@ public class ProcessFragment extends SherlockListFragment
 		} else {
 			ViewHolder holder = (ViewHolder) v.getTag();
 			if (holder.detail != null) 
-				holder.detail.setVisibility(View.GONE);
+				holder.detail.setVisibility(View.GONE); 
 		}
 	}
 	
@@ -769,10 +814,12 @@ public class ProcessFragment extends SherlockListFragment
 			sv.setOnLongClickListener(new ProcessLongClickListener(position));
 			
 			// check expand status
-			if (expandStatus.containsKey(data.get(position).getName()) == true)
-				setItemStatus(sv, true);
-			else 
-                setItemStatus(sv, false);
+			if (!tabletLayout) {
+				if (expandStatus.containsKey(data.get(position).getName()) == true)
+					setItemStatus(sv, true);
+				else 
+					setItemStatus(sv, false);
+			}
 			
 			// draw current color for each item
 			if (selectedStatus.containsKey(data.get(position).getName()) == true) 
@@ -820,66 +867,93 @@ public class ProcessFragment extends SherlockListFragment
 			
 			// prepare detail information
 			if (holder.detail != null)
-			{
-				holder.detailName.setText(item.getName());
-				holder.detailStime.setText(String.format("%,d", item.getUsedSystemTime()));
-				holder.detailUtime.setText(String.format("%,d", item.getUsedUserTime()));
-				
-				holder.detailCPUtime.setText(String.format("%02d:%02d", item.getCpuTime()/60, item.getCpuTime() % 60));
-				
-				holder.detailThread.setText(String.format("%d", item.getThreadCount()));
-				holder.detailNice.setText(String.format("%d", item.getPriorityLevel()));
-				
-				// get memory information
-				MemoryInfo memInfo = infoHelper.getMemoryInfo(item.getPid());
-				String memoryData = CommonUtil.convertToSize((item.getRss()*1024), true)+" /  "+
-						                                     CommonUtil.convertToSize(memInfo.getTotalPss()*1024, true)+" / " +
-						                                     CommonUtil.convertToSize(memInfo.getTotalPrivateDirty()*1024, true) ;
-
-				holder.detailMemory.setText(memoryData); 
-				
-				holder.detailPPID.setText(""+item.getPpid());
-				
-				// convert time format
-				final Calendar calendar = Calendar.getInstance();
-				final DateFormat convertTool = DateFormat.getDateTimeInstance(DateFormat.LONG,
-						                                   DateFormat.MEDIUM, Locale.getDefault());
-				calendar.setTimeInMillis(item.getStartTime()*1000);
-				holder.detailStarttime.setText(convertTool.format(calendar.getTime()));
-				
-				holder.detailUser.setText(item.getOwner());
-				
-				// convert status
-				switch(item.getStatus().getNumber())
-				{
-				case processInfo.processStatus.Unknown_VALUE:
-					holder.detailStatus.setText(R.string.ui_process_status_unknown);
-					break;
-				case processInfo.processStatus.Running_VALUE:
-					holder.detailStatus.setText(R.string.ui_process_status_running);
-					break;
-				case processInfo.processStatus.Sleep_VALUE:
-					holder.detailStatus.setText(R.string.ui_process_status_sleep);
-					break;
-				case processInfo.processStatus.Stopped_VALUE:
-					holder.detailStatus.setText(R.string.ui_process_status_stop);
-					break;
-				case processInfo.processStatus.Page_VALUE:
-				case processInfo.processStatus.Disk_VALUE:
-					holder.detailStatus.setText(R.string.ui_process_status_waitio);
-					break;
-				case processInfo.processStatus.Zombie_VALUE:
-					holder.detailStatus.setText(R.string.ui_process_status_zombie);
-					break;
-				}
-				
-			}
+				showProcessDetail(holder, item);
 
 			return sv;
+		}
+		
+		private void refreshTabletPanel() {
+			
+			if (selectedPID == -1)
+				return;
+			
+			// find target Item
+			processInfo targetItem = null; 
+			for (int i = 0; i < data.size(); i++) {
+				if (data.get(i).getPid() != selectedPID) continue; 
+				targetItem = data.get(i);
+				break;
+			}
+				
+			// show 
+			if (targetItem != null && selectedHolder != null) 
+				showProcessDetail(selectedHolder, targetItem );
+		}
+
+		private void showProcessDetail( ViewHolder holder, processInfo item) {
+			
+			if (holder.detailTitle != null)
+				holder.detailTitle.setText(infoHelper.getPackageName(item.getName()));
+			
+			if (holder.detailIcon != null)
+				holder.detailIcon.setImageDrawable(infoHelper.getPackageIcon(item.getName()));
+			
+			holder.detailName.setText(item.getName());
+			holder.detailStime.setText(String.format("%,d", item.getUsedSystemTime()));
+			holder.detailUtime.setText(String.format("%,d", item.getUsedUserTime()));
+			
+			holder.detailCPUtime.setText(String.format("%02d:%02d", item.getCpuTime()/60, item.getCpuTime() % 60));
+			
+			holder.detailThread.setText(String.format("%d", item.getThreadCount()));
+			holder.detailNice.setText(String.format("%d", item.getPriorityLevel()));
+			
+			// get memory information
+			MemoryInfo memInfo = infoHelper.getMemoryInfo(item.getPid());
+			String memoryData = CommonUtil.convertToSize((item.getRss()*1024), true)+" /  "+
+					                                     CommonUtil.convertToSize(memInfo.getTotalPss()*1024, true)+" / " +
+					                                     CommonUtil.convertToSize(memInfo.getTotalPrivateDirty()*1024, true) ;
+
+			holder.detailMemory.setText(memoryData); 
+			
+			holder.detailPPID.setText(""+item.getPpid());
+			
+			// convert time format
+			final Calendar calendar = Calendar.getInstance();
+			final DateFormat convertTool = DateFormat.getDateTimeInstance(DateFormat.LONG,
+					                                   DateFormat.MEDIUM, Locale.getDefault());
+			calendar.setTimeInMillis(item.getStartTime()*1000);
+			holder.detailStarttime.setText(convertTool.format(calendar.getTime()));
+			
+			holder.detailUser.setText(item.getOwner());
+			
+			// convert status
+			switch(item.getStatus().getNumber())
+			{
+			case processInfo.processStatus.Unknown_VALUE:
+				holder.detailStatus.setText(R.string.ui_process_status_unknown);
+				break;
+			case processInfo.processStatus.Running_VALUE:
+				holder.detailStatus.setText(R.string.ui_process_status_running);
+				break;
+			case processInfo.processStatus.Sleep_VALUE:
+				holder.detailStatus.setText(R.string.ui_process_status_sleep);
+				break;
+			case processInfo.processStatus.Stopped_VALUE:
+				holder.detailStatus.setText(R.string.ui_process_status_stop);
+				break;
+			case processInfo.processStatus.Page_VALUE:
+			case processInfo.processStatus.Disk_VALUE:
+				holder.detailStatus.setText(R.string.ui_process_status_waitio);
+				break;
+			case processInfo.processStatus.Zombie_VALUE:
+				holder.detailStatus.setText(R.string.ui_process_status_zombie);
+				break;
+			}
 		}
 
 		public void refresh() {
 			this.notifyDataSetChanged();
+			if (tabletLayout == true) refreshTabletPanel();
 		}
 		
 		private class ProcessLongClickListener implements OnLongClickListener {
@@ -989,10 +1063,25 @@ public class ProcessFragment extends SherlockListFragment
 
 			public void onClick(View v) {
 
-			    if( killSetting == KillMode.Select)
+				// enter kill mode
+			    if( killSetting == KillMode.Select) {
 					this.ToogleSelected(v);
-			    else
-					this.ToogleExpand(v);
+					return;
+			    }
+			    
+			    // phone
+		    	if(!tabletLayout) {
+		    		this.ToogleExpand(v);
+		    		return;
+		    	}
+		    	
+		    	// tablet
+	    		ViewHolder holder = (ViewHolder) v.getTag();
+	    		if (holder != null)  
+	    			selectedPID = Integer.parseInt(holder.pid.getText().toString().trim());
+
+	    		// refresh
+    			refreshTabletPanel();
 			    
 			    return;
 			}
@@ -1013,6 +1102,11 @@ public class ProcessFragment extends SherlockListFragment
 				if (expandStatus.containsKey(data.get(position).getName()) == false) {
 					expandStatus.put(data.get(position).getName(),	Boolean.TRUE);
 					setItemStatus(v, true);
+					
+					// force redraw single row
+					ListView list = getListView();
+					list.getAdapter().getView(position, v, list);
+					
 				} else {
 					expandStatus.remove(data.get(position).getName());
 					setItemStatus(v, false);
@@ -1027,4 +1121,5 @@ public class ProcessFragment extends SherlockListFragment
     {
     	CommonUtil.showHelp(getActivity(), "file:///android_asset/help/help-process.html");
     }
+
 }

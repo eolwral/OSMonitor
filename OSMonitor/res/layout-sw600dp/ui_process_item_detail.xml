@@ -1,0 +1,269 @@
+<ScrollView android:orientation="vertical" 
+            android:layout_width="fill_parent" 
+            android:layout_height="fill_parent" 
+			xmlns:android="http://schemas.android.com/apk/res/android">
+  <LinearLayout android:orientation="vertical" 
+                                android:layout_width="fill_parent" 
+                                android:layout_height="wrap_content">
+            
+      <LinearLayout android:layout_width="fill_parent" 
+                                    android:layout_height="wrap_content" >
+
+          <ImageView  android:id="@+id/id_process_detail_image"
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:src="@drawable/ic_process_console" />
+
+          <TextView android:padding="3dip" 
+                                android:textColor="?android:attr/textColorSecondary" 
+                                android:id="@+id/id_process_detail_title"
+                                android:gravity="left" 
+                                android:textAppearance="?android:attr/textAppearanceMedium" 
+                                android:layout_width="match_parent" 
+                                android:layout_height="wrap_content" />
+        
+      </LinearLayout>
+
+      <TextView android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#80993366"
+                            android:gravity="center"
+                            android:padding="3dip"
+                            android:text="@string/ui_process_tab"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="?android:attr/textColorSecondary" />
+
+      <LinearLayout android:layout_width="match_parent" 
+                                     android:orientation="vertical" 
+                                     android:layout_height="fill_parent">
+        
+          <TableLayout android:layout_width="match_parent" 
+                                       android:layout_height="match_parent"
+                                       android:layout_weight="1" >
+            <TableRow android:layout_height="wrap_content" 
+                                    android:layout_width="wrap_content" 
+                                    android:background="#80444444" 
+                                    android:layout_margin="2dip" >
+
+               <TextView android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:padding="3dip"
+                                     android:text="@string/ui_process_detail_process"
+                                     android:textAppearance="?android:attr/textAppearanceSmall"
+                                     android:textColor="?android:attr/textColorSecondary" />
+
+                  <TextView android:id="@+id/id_process_detail_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="3dip"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textColor="?android:attr/textColorSecondary" />
+
+            </TableRow>
+            <TableRow android:layout_height="wrap_content"
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444" 
+                      android:layout_margin="2dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:text="@string/ui_process_detail_user"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_user"
+                          android:textAppearance="?android:attr/textAppearanceSmall"
+            			  android:textColor="?android:attr/textColorSecondary" 
+                          android:layout_width="wrap_content" 
+                          android:layout_height="wrap_content" 
+                          android:padding="3dip" />
+            </TableRow>
+            <TableRow android:layout_height="wrap_content"
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444" 
+                      android:layout_margin="2dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:text="@string/ui_process_detail_ppid"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_ppid"
+                          android:textAppearance="?android:attr/textAppearanceSmall"
+            			  android:textColor="?android:attr/textColorSecondary" 
+                          android:layout_width="wrap_content" 
+                          android:layout_height="wrap_content" 
+                          android:padding="3dip" />
+            </TableRow>
+            <TableRow android:layout_height="wrap_content" 
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444" 
+                      android:layout_margin="2dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:text="@string/ui_process_detail_nice"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_nice"
+                          android:textAppearance="?android:attr/textAppearanceSmall"
+            			  android:textColor="?android:attr/textColorSecondary" 
+                          android:layout_width="wrap_content" 
+                          android:layout_height="wrap_content" 
+                          android:padding="3dip" />
+            </TableRow>
+            <TableRow android:layout_height="wrap_content" 
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444" 
+                      android:layout_margin="2dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:text="@string/ui_process_detail_thread"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_thread"
+                          android:textAppearance="?android:attr/textAppearanceSmall"
+            			  android:textColor="?android:attr/textColorSecondary" 
+                          android:layout_width="wrap_content" 
+                          android:layout_height="wrap_content" 
+                          android:padding="3dip" />
+            </TableRow>
+            <TableRow android:layout_height="wrap_content" 
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444"
+                      android:layout_margin="2dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:text="@string/ui_process_detail_memory"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_memory"
+                          android:textAppearance="?android:attr/textAppearanceSmall"
+            			  android:textColor="?android:attr/textColorSecondary" 
+                          android:layout_width="wrap_content" 
+                          android:layout_height="wrap_content" 
+                          android:padding="3dip" />
+            </TableRow>
+            <TableRow android:layout_height="wrap_content" 
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444" 
+                      android:layout_margin="2dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:text="@string/ui_process_detail_cputime"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_cputime" 
+                          android:textAppearance="?android:attr/textAppearanceSmall"
+            			  android:textColor="?android:attr/textColorSecondary" 
+                          android:layout_width="wrap_content" 
+                          android:layout_height="wrap_content" 
+                          android:padding="3dip" />
+            </TableRow>
+            <TableRow android:layout_height="wrap_content" 
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444" 
+                      android:layout_margin="2dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:text="@string/ui_process_detail_utime"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_utime" 
+                          android:textAppearance="?android:attr/textAppearanceSmall"
+            			  android:textColor="?android:attr/textColorSecondary" 
+                          android:layout_width="wrap_content" 
+                          android:layout_height="wrap_content" 
+                          android:padding="3dip" />
+            </TableRow>
+            <TableRow android:layout_height="wrap_content" 
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444"
+                      android:layout_margin="2dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:text="@string/ui_process_detail_stime"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_stime"
+                          android:textAppearance="?android:attr/textAppearanceSmall"
+            			  android:textColor="?android:attr/textColorSecondary" 
+                          android:layout_width="wrap_content" 
+                          android:layout_height="wrap_content" 
+                          android:padding="3dip" />
+            </TableRow>
+            <TableRow android:layout_height="wrap_content" 
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444" 
+                      android:layout_margin="2dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:text="@string/ui_process_detail_status"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_status" 
+                          android:textAppearance="?android:attr/textAppearanceSmall"
+            			  android:textColor="?android:attr/textColorSecondary" 
+                          android:layout_width="wrap_content" 
+                          android:layout_height="wrap_content" 
+                          android:padding="3dip" />
+            </TableRow>
+
+            <TableRow android:layout_height="wrap_content" 
+                      android:layout_width="wrap_content" 
+                      android:background="#80444444" 
+                      android:layout_margin="2dip"  >
+
+		       <TextView
+		           android:layout_width="wrap_content"
+		           android:layout_height="wrap_content"
+		           android:padding="3dip"
+		           android:text="@string/ui_process_detail_time"
+		           android:textAppearance="?android:attr/textAppearanceSmall"
+		           android:textColor="?android:attr/textColorSecondary" />
+
+                <TextView android:id="@+id/id_process_detail_starttime" 
+                                      android:textAppearance="?android:attr/textAppearanceSmall"
+            			              android:textColor="?android:attr/textColorSecondary" 
+                                      android:layout_width="wrap_content" 
+                                      android:layout_height="wrap_content" 
+                                      android:padding="3dip" />
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+
+  </LinearLayout>        
+</ScrollView>

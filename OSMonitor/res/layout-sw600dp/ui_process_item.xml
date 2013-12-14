@@ -44,14 +44,4 @@
         android:padding="3dp"
         android:text="" />
 
-    <ViewStub
-        android:id="@+id/id_process_detail_viewstub"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/id_process_pid"
-        android:inflatedId="@+id/id_process_detail_stub"
-        android:layout="@layout/ui_process_item_detail" />
-
 </RelativeLayout>

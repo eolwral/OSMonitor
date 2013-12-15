@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+    
+  <RelativeLayout 
+    android:id="@+id/ui_connection_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:orientation="vertical" >
+
+      <TextView
+        android:id="@+id/tx_connection_protocol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:padding="5dp"        
+        android:textStyle="bold"
+        android:text="@string/ui_connection_protocol"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+      <TextView
+        android:id="@+id/tx_connection_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="5dp"        
+        android:textStyle="bold"
+        android:text="@string/ui_connection_status"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+      <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/tx_connection_protocol"        
+        android:drawSelectorOnTop="false"
+        android:scrollingCache="true"
+        android:smoothScrollbar="true" />
+
+      <TextView
+        android:id="@+id/tx_connection_localremote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tx_connection_protocol"
+        android:padding="5dp"
+        android:text="@string/ui_connection_localremote"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold" />
+
+  </RelativeLayout>
+   <LinearLayout
+        android:id="@+id/ui_connection_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" 
+        android:layout_marginBottom="10dp"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp"
+	    android:layout_marginTop="10dp"  >
+      
+  </LinearLayout>
+</LinearLayout>

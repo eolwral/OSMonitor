@@ -21,12 +21,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -67,6 +69,10 @@ public class ConnectionFragment extends SherlockListFragment
 	@SuppressLint("UseSparseArrays")
 	private HashMap<Integer, String> map = new HashMap<Integer, String>();
 
+	// tablet
+	private boolean tabletLayout = false;
+	private Fragment previousMap = null;
+
 	// stop or start
 	private boolean stopUpdate = false;
 	private MenuItem stopButton = null;
@@ -82,6 +88,12 @@ public class ConnectionFragment extends SherlockListFragment
 			Bundle savedInstanceState) {
 
 		View v = inflater.inflate(R.layout.ui_connection_fragment, container, false);
+		
+		// detect layout
+		if (v.findViewById(R.id.ui_connection_map) != null) 
+			tabletLayout = true;
+		else
+			tabletLayout = false;
  
 		// enable fragment option menu 
 		setHasOptionsMenu(true);
@@ -426,6 +438,12 @@ public class ConnectionFragment extends SherlockListFragment
 		protected void onPreExecute() {
 	    	super.onPreExecute();
 
+	    	final FragmentTransaction transaction = getSherlockActivity().getSupportFragmentManager().beginTransaction();
+	    	if(previousMap != null) {
+    			transaction.remove(previousMap).commit();
+    			previousMap = null;
+	    	}
+	    	
 	    	// show progress dialog
 			ProcDialog = ProgressDialog.show(mContext, "", 
 					  getSherlockActivity().getResources().getText(R.string.ui_text_refresh), true);
@@ -456,12 +474,20 @@ public class ConnectionFragment extends SherlockListFragment
 	    	args.putString(ConnectionMapFragment.MESSAGE, result.Msg);
 	    	newMap.setArguments(args);
 	    	
-	    	// replace current fragment
-	    	final FragmentManager fragmanger = getSherlockActivity().getSupportFragmentManager();
-	    	final FragmentTransaction transaction = fragmanger.beginTransaction();
-	    	transaction.replace(R.id.ui_connection_layout, newMap, "WHOIS");
-	    	transaction.addToBackStack(null);
-	    	transaction.commit();
+	    	final FragmentTransaction transaction = getSherlockActivity().getSupportFragmentManager().beginTransaction();
+	    	
+	    	if (tabletLayout) {
+	    		// push current fragment
+	    		transaction.replace(R.id.ui_connection_map, newMap, "WHOIS");
+	    		transaction.commitAllowingStateLoss();
+	    		previousMap = newMap;
+	    	}
+	    	else {
+		    	// replace current fragment
+		    	transaction.replace(R.id.ui_connection_layout, newMap, "WHOIS");
+		    	transaction.addToBackStack(null);
+		    	transaction.commit();
+	    	}
 	    	
 	    }
 		

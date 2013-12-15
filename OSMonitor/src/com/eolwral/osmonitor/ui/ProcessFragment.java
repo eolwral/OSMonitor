@@ -678,10 +678,13 @@ public class ProcessFragment extends SherlockListFragment
 
 		processCount.setText(""+data.size());
 		cpuUsage.setText(CommonUtil.convertToUsage(totalCPUUsage) + "%");
-		memoryTotal.setText(CommonUtil.convertToSize(info.getTotalMemory(), true));
-		memoryFree.setText(CommonUtil.convertToSize(info.getFreeMemory()+
-				                                  info.getBufferedMemory()+
-				                                  info.getCachedMemory(), true));
+		
+		if (info != null) {
+			memoryTotal.setText(CommonUtil.convertToSize(info.getTotalMemory(), true));
+			memoryFree.setText(CommonUtil.convertToSize(info.getFreeMemory()+
+					                                                                                              info.getBufferedMemory()+
+				                                                                                                  info.getCachedMemory(), true));
+		}
 
 		getSherlockActivity().runOnUiThread( new Runnable() {
 			public void run() { 
@@ -747,9 +750,16 @@ public class ProcessFragment extends SherlockListFragment
 		@Override
 		public int compare(processInfo lhs, processInfo rhs) {
 			Collator collator = Collator.getInstance();
-			if (collator.compare(lhs.getName(), rhs.getName()) == -1)
+			
+			String lhsName = infoHelper.getPackageName(lhs.getName());
+			if (lhsName == null) lhsName = lhs.getName();
+			
+			String rhsName = infoHelper.getPackageName(rhs.getName());
+			if (rhsName == null) rhsName = rhs.getName();
+			
+			if (collator.compare(lhsName, rhsName) == -1)
 				return -1;
-			else if (collator.compare(lhs.getName(), rhs.getName()) == 1)
+			else if (collator.compare(lhsName, rhsName) == 1)
 				return 1;
 			return 0;
 		}		
@@ -1146,6 +1156,11 @@ public class ProcessFragment extends SherlockListFragment
 			} 
 			
 			private void ToogleExpand(View v)	{
+				
+				// data must ready to read
+				if (position > data.size())
+					return;
+				
 				// change expand status
 				if (expandStatus.containsKey(data.get(position).getName()) == false) {
 					expandStatus.put(data.get(position).getName(),	Boolean.TRUE);

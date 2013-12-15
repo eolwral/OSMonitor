@@ -24,7 +24,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Debug.MemoryInfo;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,6 +34,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.WindowManager.LayoutParams;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -80,6 +80,7 @@ public class ProcessFragment extends SherlockListFragment
 	private TextView memoryFree = null;
 
 	// data
+	private ProcessUtil infoHelper = null;
 	private ArrayList<processInfo> data = new ArrayList<processInfo>();
 	private osInfo info = null;
 	private Settings settings = null;
@@ -96,6 +97,8 @@ public class ProcessFragment extends SherlockListFragment
 	// tablet
 	private boolean  tabletLayout = false;  
 	private int selectedPID = -1;
+	private int selectedPrority = 0;
+	private String selectedProcess = "";
 	private ViewHolder selectedHolder = null;
 
 	// preference
@@ -134,6 +137,7 @@ public class ProcessFragment extends SherlockListFragment
 		itemColor[selectedItem] = getResources().getColor(R.color.selected_osmonitor);
 
 		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
+		infoHelper = ProcessUtil.getInstance(getSherlockActivity().getApplicationContext(), true);
 	
 		setListAdapter(new ProcessListAdapter(getSherlockActivity().getApplicationContext()));
 	
@@ -195,6 +199,48 @@ public class ProcessFragment extends SherlockListFragment
 			selectedHolder.detailThread = ((TextView) v.findViewById(R.id.id_process_detail_thread));
 			selectedHolder.detailNice = ((TextView) v.findViewById(R.id.id_process_detail_nice));
 		}
+		
+		String[] menuText = getResources().getStringArray(R.array.ui_process_menu_item);
+		
+		Button buttonAction = (Button) v.findViewById(R.id.id_process_button_kill);
+		buttonAction.setText(menuText[0]);
+		buttonAction.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (selectedPID != -1 && !selectedProcess.isEmpty())
+					killProcess(selectedPID, selectedProcess);
+			}
+		});
+		
+		buttonAction = (Button) v.findViewById(R.id.id_process_button_switch);
+		buttonAction.setText(menuText[1]);
+		buttonAction.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (selectedPID != -1 && !selectedProcess.isEmpty())
+					switchToProcess(selectedPID, selectedProcess);
+			}
+		});
+
+		buttonAction = (Button) v.findViewById(R.id.id_process_button_watchlog);
+		buttonAction.setText(menuText[2]);
+		buttonAction.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (selectedPID != -1 && !selectedProcess.isEmpty())
+					watchLog(selectedPID, selectedProcess);
+			}
+		});
+		buttonAction = (Button) v.findViewById(R.id.id_process_button_setprority);		
+		buttonAction.setText(menuText[3]);
+		buttonAction.setOnClickListener( new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (selectedPID != -1 && !selectedProcess.isEmpty())
+					setPrority(selectedPID, selectedProcess, selectedPrority);
+			}
+		});
+		
 	}
 	
 	private void resetSelectedHolder() {
@@ -448,6 +494,56 @@ public class ProcessFragment extends SherlockListFragment
 		((ActivityManager) getSherlockActivity().
 			getSystemService(Context.ACTIVITY_SERVICE)).restartPackage(process);
 	}
+	
+	private void watchLog(int pid, String process) {
+    	// pass information
+		ProcessLogViewFragment newLog = new ProcessLogViewFragment();
+    	Bundle args = new Bundle();
+    	args.putInt(ProcessLogViewFragment.TARGETPID, pid);
+    	args.putString(ProcessLogViewFragment.TARGETNAME, infoHelper.getPackageName(process));
+    	newLog.setArguments(args);
+    	
+    	// replace current fragment
+    	final FragmentManager fragmanger = getSherlockActivity().getSupportFragmentManager();
+    	newLog.show(fragmanger, "logview");
+	}
+
+	private void switchToProcess(int pid, String process) {
+		PackageManager QueryPackage = getSherlockActivity().getPackageManager();
+		Intent mainIntent = new Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER);
+		List<ResolveInfo> appList = QueryPackage.queryIntentActivities(mainIntent, 0);
+		String className = null;
+		for(int index = 0; index < appList.size(); index++)
+			if(appList.get(index).activityInfo.applicationInfo.packageName.equals(process))
+				className = appList.get(index).activityInfo.name;
+		
+		if(className != null) {
+		    Intent switchIntent = new Intent();
+		    switchIntent.setAction(Intent.ACTION_MAIN);
+		    switchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+		    switchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+		    		   			  Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED |
+		    		   			  Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+		    switchIntent.setComponent(new ComponentName(process, className));
+		    startActivity(switchIntent);
+		    getSherlockActivity().finish();
+		}
+	}
+	
+	private void setPrority(int pid, String process, int prority) {
+    	// pass information
+		ProcessProrityFragment newPrority = new ProcessProrityFragment();
+    	Bundle args = new Bundle();
+    	args.putInt(ProcessProrityFragment.TARGETPID, pid);
+    	args.putString(ProcessProrityFragment.TARGETNAME, infoHelper.getPackageName(process));
+    	args.putInt(ProcessProrityFragment.DEFAULTPRORITY, prority);
+    	newPrority.setArguments(args);
+    	
+    	// replace current fragment
+    	final FragmentManager fragmanger = getSherlockActivity().getSupportFragmentManager();
+    	newPrority.show(fragmanger, "prority");
+	}
+	
 
 	
 	@Override
@@ -759,12 +855,10 @@ public class ProcessFragment extends SherlockListFragment
 	private class ProcessListAdapter extends BaseAdapter {
 
 		private LayoutInflater itemInflater = null;
-		private ProcessUtil infoHelper = null;
 		private ViewHolder holder = null;
 
 		public ProcessListAdapter(Context mContext) {
 			itemInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			infoHelper = ProcessUtil.getInstance(mContext, true);
 		}
 
 		public int getCount() {
@@ -886,8 +980,11 @@ public class ProcessFragment extends SherlockListFragment
 			}
 				
 			// show 
-			if (targetItem != null && selectedHolder != null) 
+			if (targetItem != null && selectedHolder != null) {
+				selectedProcess = targetItem.getName();
+				selectedPrority = targetItem.getPriorityLevel();
 				showProcessDetail(selectedHolder, targetItem );
+			}
 		}
 
 		private void showProcessDetail( ViewHolder holder, processInfo item) {
@@ -992,66 +1089,17 @@ public class ProcessFragment extends SherlockListFragment
 					killProcess(pid, process);
 					break;
 				case 1:
-		   	    	switchToProcess();
+		   	    	switchToProcess(pid, process);
 		   	        break;
 				case 2:
-					watchLog();
+					watchLog(pid, process);
 					break;
 				case 3:
-					setPrority();
+					setPrority(pid, process, prority);
 					break;
 		   	        					
 				}
             }
-			
-			private void setPrority() {
-		    	// pass information
-				ProcessProrityFragment newPrority = new ProcessProrityFragment();
-		    	Bundle args = new Bundle();
-		    	args.putInt(ProcessProrityFragment.TARGETPID, pid);
-		    	args.putString(ProcessProrityFragment.TARGETNAME, infoHelper.getPackageName(process));
-		    	args.putInt(ProcessProrityFragment.DEFAULTPRORITY, prority);
-		    	newPrority.setArguments(args);
-		    	
-		    	// replace current fragment
-		    	final FragmentManager fragmanger = getSherlockActivity().getSupportFragmentManager();
-		    	newPrority.show(fragmanger, "prority");
-			}
-			
-			private void watchLog() {
-		    	// pass information
-				ProcessLogViewFragment newLog = new ProcessLogViewFragment();
-		    	Bundle args = new Bundle();
-		    	args.putInt(ProcessLogViewFragment.TARGETPID, pid);
-		    	args.putString(ProcessLogViewFragment.TARGETNAME, infoHelper.getPackageName(process));
-		    	newLog.setArguments(args);
-		    	
-		    	// replace current fragment
-		    	final FragmentManager fragmanger = getSherlockActivity().getSupportFragmentManager();
-		    	newLog.show(fragmanger, "logview");
-			}
-
-			private void switchToProcess() {
-				PackageManager QueryPackage = getSherlockActivity().getPackageManager();
-				Intent mainIntent = new Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER);
-				List<ResolveInfo> appList = QueryPackage.queryIntentActivities(mainIntent, 0);
-				String className = null;
-				for(int index = 0; index < appList.size(); index++)
-					if(appList.get(index).activityInfo.applicationInfo.packageName.equals(process))
-						className = appList.get(index).activityInfo.name;
-				
-				if(className != null) {
-				    Intent switchIntent = new Intent();
-				    switchIntent.setAction(Intent.ACTION_MAIN);
-				    switchIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-				    switchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-				    		   			  Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED |
-				    		   			  Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-				    switchIntent.setComponent(new ComponentName(process, className));
-				    startActivity(switchIntent);
-				    getSherlockActivity().finish();
-				}
-			}
 		}
 		
 		private class ProcessClickListener implements OnClickListener {

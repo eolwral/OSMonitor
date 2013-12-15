@@ -265,5 +265,35 @@
         </TableLayout>
     </LinearLayout>
 
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" >
+
+          <Button
+              android:id="@+id/id_process_button_kill"
+              style="?android:attr/buttonStyleSmall"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+
+          <Button
+              android:id="@+id/id_process_button_switch"
+              style="?android:attr/buttonStyleSmall"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"  />
+
+          <Button
+              android:id="@+id/id_process_button_watchlog"
+              style="?android:attr/buttonStyleSmall"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"  />
+
+          <Button
+              android:id="@+id/id_process_button_setprority"
+              style="?android:attr/buttonStyleSmall"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+
+      </LinearLayout>
+
   </LinearLayout>        
 </ScrollView>

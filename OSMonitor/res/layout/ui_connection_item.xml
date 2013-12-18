@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
-    <TextView
-        android:id="@+id/id_connection_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/id_connection_src"
-        android:paddingLeft="1dp"
-        android:paddingRight="10dp"
-        android:text="type"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content" >
 
     <TextView
         android:id="@+id/id_connection_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/id_connection_src"
+         android:layout_below="@+id/id_connection_src"
+         android:layout_alignParentRight="true"
+        android:padding="1dp"
         android:text="status"
-        android:padding="1dp"        
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
+    
     <TextView
-        android:id="@+id/id_connection_owner"
+        android:id="@+id/id_connection_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/id_connection_dst"
-        android:layout_below="@+id/id_connection_dst"
-        android:text="owner"
-        android:padding="1dp"        
+        android:layout_below="@+id/id_connection_src"
+        android:layout_alignParentLeft="true"        
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="type"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
+        
     <TextView
         android:id="@+id/id_connection_src"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/id_connection_type"
+        android:padding="1dp"
         android:text="src"
-        android:padding="1dp"        
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/id_connection_dst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/id_connection_src"
-        android:layout_below="@+id/id_connection_src"
+        android:layout_alignTop="@+id/id_connection_type"
+        android:layout_toRightOf="@+id/id_connection_type"
+        android:padding="1dp"
         android:text="dst"
-        android:padding="1dp"        
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/id_connection_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/id_connection_dst"
+        android:layout_below="@+id/id_connection_dst"
+        android:paddingRight="5dp" />
+    
+    <TextView
+        android:id="@+id/id_connection_owner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/id_connection_icon"
+        android:layout_below="@+id/id_connection_dst"
+        android:padding="1dp"
+        android:text="owner"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    
+  </RelativeLayout>

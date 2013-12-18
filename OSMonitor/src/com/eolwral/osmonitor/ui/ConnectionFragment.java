@@ -22,13 +22,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -234,7 +233,7 @@ public class ConnectionFragment extends SherlockListFragment
 						if (!infoHelper.checkPackageInformation(psInfo.getName())) {
 							infoHelper.doCacheInfo(psInfo.getUid(), psInfo.getOwner(), psInfo.getName());
 						}
-						map.put(psInfo.getUid(), infoHelper.getPackageName(psInfo.getName()));
+						map.put(psInfo.getUid(), psInfo.getName());
 					}
 				}
 				
@@ -265,6 +264,7 @@ public class ConnectionFragment extends SherlockListFragment
 	 */
 	private class ViewHolder {
 		// main information
+		ImageView icon;
 		TextView type;
 		TextView src;
 		TextView dst;
@@ -306,6 +306,7 @@ public class ConnectionFragment extends SherlockListFragment
 				sv = (View) itemInflater.inflate(R.layout.ui_connection_item, parent, false);
 
 				holder = new ViewHolder();
+				holder.icon = ((ImageView) sv.findViewById(R.id.id_connection_icon));
 				holder.type = ((TextView) sv.findViewById(R.id.id_connection_type));
 				holder.src = ((TextView) sv.findViewById(R.id.id_connection_src));
 				holder.dst = ((TextView) sv.findViewById(R.id.id_connection_dst));
@@ -324,6 +325,14 @@ public class ConnectionFragment extends SherlockListFragment
 			else
 				sv.setBackgroundColor(getResources().getColor(R.color.black_osmonitor));
 
+			// draw icon when screen is not small
+			if (holder.icon != null)  {
+				if (item.getUid() == 0)
+					holder.icon.setImageDrawable(infoHelper.getDefaultIcon());
+				else
+					holder.icon.setImageDrawable(infoHelper.getPackageIcon(map.get(item.getUid())));
+			}
+				
 			// prepare main information
 			switch (item.getType().getNumber()) {
 			case connectionInfo.connectionType.TCPv4_VALUE:
@@ -392,7 +401,7 @@ public class ConnectionFragment extends SherlockListFragment
 			if(item.getUid() == 0)
 				holder.owner.setText("System");
 			else if(map.containsKey(item.getUid()))
-				holder.owner.setText(map.get(item.getUid()));
+				holder.owner.setText(infoHelper.getPackageName(map.get(item.getUid())));
 			else
 				holder.owner.setText(item.getUid()+"(UID)");
 			

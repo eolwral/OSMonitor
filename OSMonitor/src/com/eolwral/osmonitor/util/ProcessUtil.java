@@ -18,7 +18,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Debug.MemoryInfo;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.WindowManager;
 
 /**
@@ -248,6 +247,14 @@ public class ProcessUtil extends Thread {
 		if (Process != null)
 			return cacheStorage.get(process).icon;
 		return null;
+	}
+
+	/**
+	 * get the default icon of process
+	 * @return icon 
+	 */
+	public Drawable getDefaultIcon() {
+		return commonIcon;
 	}
 
 	/**

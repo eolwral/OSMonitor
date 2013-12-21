@@ -24,7 +24,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Debug.MemoryInfo;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ListFragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.MenuItemCompat.OnActionExpandListener;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,12 +52,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
-import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
@@ -66,7 +66,7 @@ import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 
-public class ProcessFragment extends SherlockListFragment 
+public class ProcessFragment extends ListFragment 
                              implements	ipcClientListener {
 	
 	// ipc client  
@@ -136,10 +136,10 @@ public class ProcessFragment extends SherlockListFragment
 		itemColor[evenItem] = getResources().getColor(R.color.black_osmonitor);
 		itemColor[selectedItem] = getResources().getColor(R.color.selected_osmonitor);
 
-		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
-		infoHelper = ProcessUtil.getInstance(getSherlockActivity().getApplicationContext(), true);
+		settings = Settings.getInstance(getActivity().getApplicationContext());
+		infoHelper = ProcessUtil.getInstance(getActivity().getApplicationContext(), true);
 	
-		setListAdapter(new ProcessListAdapter(getSherlockActivity().getApplicationContext()));
+		setListAdapter(new ProcessListAdapter(getActivity().getApplicationContext()));
 	
 	}
 
@@ -247,33 +247,26 @@ public class ProcessFragment extends SherlockListFragment
 		selectedHolder = null;
 	}
 	
-
+	 
 	@Override 
 	public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
 		inflater.inflate(R.menu.ui_process_menu, menu);
-		super.onCreateOptionsMenu(menu, inflater);
 
-		MenuItem helpMenu = menu.findItem(R.id.ui_menu_help);
-		helpMenu.setOnMenuItemClickListener( new HelpMenuClickListener());
-
-		MenuItem settingMenu = menu.findItem(R.id.ui_menu_setting);
-		settingMenu.setOnMenuItemClickListener( new SettingMenuClickListener());
-
+		
 		MenuItem toolsMenu = menu.findItem(R.id.ui_menu_tools);
-		toolsMenu.setOnActionExpandListener(new ToolActionExpandListener());
+		MenuItemCompat.setOnActionExpandListener(toolsMenu, new ToolActionExpandListener());
 
-		MenuItem exitMenu = menu.findItem(R.id.ui_menu_exit);
-		exitMenu.setOnMenuItemClickListener(new ExitMenuClickListener());
-
-		ImageButton sortButton = (ImageButton) toolsMenu.getActionView().findViewById(R.id.id_action_sort);
+		View toolsView = MenuItemCompat.getActionView(toolsMenu);
+		
+		ImageButton sortButton = (ImageButton) toolsView.findViewById(R.id.id_action_sort);
 		sortButton.setOnClickListener( new SortMenuClickListener());
 
-		killButton = (ImageButton) toolsMenu.getActionView().findViewById(R.id.id_action_kill);
+		killButton = (ImageButton) toolsView.findViewById(R.id.id_action_kill);
 		killButton.setOnClickListener( new KillButtonClickListener());
 		killSetting = KillMode.None;
 
 		// refresh button
-		stopButton = (ImageButton) toolsMenu.getActionView().findViewById(R.id.id_action_stop);
+		stopButton = (ImageButton) toolsView.findViewById(R.id.id_action_stop);
 
 		if(stopUpdate) 
 			stopButton.setImageResource(R.drawable.ic_action_start);
@@ -295,37 +288,39 @@ public class ProcessFragment extends SherlockListFragment
 		return; 
 	}
 
-	private class ExitMenuClickListener implements OnMenuItemClickListener {
-
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
-			android.os.Process.killProcess(android.os.Process.myPid());
-			return false;
-		}
-		
+	  
+    @Override  
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	 switch (item.getItemId()) {  
+    	 case R.id.ui_menu_help:
+    		 onHelpClick();
+    		 break;
+    	 case R.id.ui_menu_setting:
+    		 onSettingClick();
+    		 break;
+    	 case R.id.ui_menu_exit: 
+    		 onExitClick();
+    		 break;
+    	 }
+		return super.onOptionsItemSelected(item);  
+    }
+    
+    private void onExitClick() {
+		getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
+		android.os.Process.killProcess(android.os.Process.myPid());
+		return ;
 	}
 
-	private class SettingMenuClickListener implements OnMenuItemClickListener {
-
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			Intent settings = new Intent(getActivity(), Preference.class);
-			settings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	        startActivity(settings);
-			return false;
-		}
-		
+    private void onSettingClick() {
+		Intent settings = new Intent(getActivity(), Preference.class);
+		settings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(settings);
+		return;
 	}
 
-	private class HelpMenuClickListener implements OnMenuItemClickListener {
-
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			ShowHelp();
-			return false;
-		}
-		
+    private void onHelpClick() {
+		ShowHelp();
+		return;
 	}
 	
 	private class ToolActionExpandListener implements OnActionExpandListener {
@@ -368,7 +363,7 @@ public class ProcessFragment extends SherlockListFragment
 			// show message
 			String rawFormat = getResources().getString(R.string.ui_text_kill);  
 			String strFormat = String.format(rawFormat, selectedStatus.size());  
-			Toast.makeText(getSherlockActivity().getApplicationContext(),
+			Toast.makeText(getActivity().getApplicationContext(),
 							strFormat, Toast.LENGTH_SHORT).show();
 			
 			// kill all selected items
@@ -391,7 +386,7 @@ public class ProcessFragment extends SherlockListFragment
 			}
 
 			if (null == sortMenu) {
-				View layout = LayoutInflater.from(getSherlockActivity())
+				View layout = LayoutInflater.from(getActivity())
 						.inflate(R.layout.ui_process_menu_sort, null);
 				sortMenu = new PopupWindow(layout);
 				sortMenu.setBackgroundDrawable(new BitmapDrawable());
@@ -491,7 +486,7 @@ public class ProcessFragment extends SherlockListFragment
 	
 	private void killProcess(int pid, String process) {
 		CommonUtil.killProcess(pid, getActivity());
-		((ActivityManager) getSherlockActivity().
+		((ActivityManager) getActivity().
 			getSystemService(Context.ACTIVITY_SERVICE)).restartPackage(process);
 	}
 	
@@ -504,12 +499,12 @@ public class ProcessFragment extends SherlockListFragment
     	newLog.setArguments(args);
     	
     	// replace current fragment
-    	final FragmentManager fragmanger = getSherlockActivity().getSupportFragmentManager();
+    	final FragmentManager fragmanger = getActivity().getSupportFragmentManager();
     	newLog.show(fragmanger, "logview");
 	}
 
 	private void switchToProcess(int pid, String process) {
-		PackageManager QueryPackage = getSherlockActivity().getPackageManager();
+		PackageManager QueryPackage = getActivity().getPackageManager();
 		Intent mainIntent = new Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER);
 		List<ResolveInfo> appList = QueryPackage.queryIntentActivities(mainIntent, 0);
 		String className = null;
@@ -526,7 +521,7 @@ public class ProcessFragment extends SherlockListFragment
 		    		   			  Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
 		    switchIntent.setComponent(new ComponentName(process, className));
 		    startActivity(switchIntent);
-		    getSherlockActivity().finish();
+		    getActivity().finish();
 		}
 	}
 	
@@ -540,7 +535,7 @@ public class ProcessFragment extends SherlockListFragment
     	newPrority.setArguments(args);
     	
     	// replace current fragment
-    	final FragmentManager fragmanger = getSherlockActivity().getSupportFragmentManager();
+    	final FragmentManager fragmanger = getActivity().getSupportFragmentManager();
     	newPrority.show(fragmanger, "prority");
 	}
 	
@@ -686,7 +681,7 @@ public class ProcessFragment extends SherlockListFragment
 				                                                                                                  info.getCachedMemory(), true));
 		}
 
-		getSherlockActivity().runOnUiThread( new Runnable() {
+		getActivity().runOnUiThread( new Runnable() {
 			public void run() { 
 				((ProcessListAdapter) getListAdapter()).refresh();
 			}

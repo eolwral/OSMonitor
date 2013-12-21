@@ -7,7 +7,6 @@
 
     <EditText
         android:id="@+id/id_action_search_text"
-        style="@style/Theme.osmonitor"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -16,7 +15,7 @@
     
     <ImageButton
         android:id="@+id/id_action_filter"
-        style="@style/Widget.Sherlock.ActionButton"
+         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
@@ -24,7 +23,7 @@
     
     <ImageButton
         android:id="@+id/id_action_stop"
-        style="@style/Widget.Sherlock.ActionButton"
+         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"

@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.settings.Settings;
  
-public class ConnectionMapFragment extends SherlockFragment
+public class ConnectionMapFragment extends Fragment
 {
     public static String LONGTIUDE = "Longtiude";
     public static String LATITUDE = "Latitude";
@@ -45,7 +45,7 @@ public class ConnectionMapFragment extends SherlockFragment
 			url = url + "#lat=" + lat + "&lon=" + lon + "&msg=" + URLEncoder.encode(msg, "utf-8").replace("+", "%20");
 		} catch (UnsupportedEncodingException e) {}
         
-        mapView =  new WebView(getSherlockActivity().getApplicationContext());
+        mapView =  new WebView(getActivity().getApplicationContext());
         WebSettings settings = mapView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setBuiltInZoomControls(false);

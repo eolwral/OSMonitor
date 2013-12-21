@@ -15,6 +15,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -28,7 +29,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockDialogFragment;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
@@ -39,7 +39,7 @@ import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.settings.Settings;
 import com.google.protobuf.InvalidProtocolBufferException;
 
-public class ProcessLogViewFragment extends SherlockDialogFragment 
+public class ProcessLogViewFragment extends DialogFragment 
                                      implements ipcClientListener {
 	
 	// ipc client
@@ -64,7 +64,7 @@ public class ProcessLogViewFragment extends SherlockDialogFragment
 		super.onCreate(savedInstanceState);   
 
 		// settings
-		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
+		settings = Settings.getInstance(getActivity().getApplicationContext());
 		
 		// set list
 		messageList = new MessageListAdapter(getActivity().getApplicationContext());

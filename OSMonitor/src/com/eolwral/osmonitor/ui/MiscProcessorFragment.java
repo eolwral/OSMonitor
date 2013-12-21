@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ProcessorInfo.processorInfo;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
@@ -29,7 +29,7 @@ import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.settings.Settings;
 
-public class MiscProcessorFragment extends SherlockListFragment 
+public class MiscProcessorFragment extends ListFragment 
                                    implements ipcClientListener {
 
 	private ArrayList<processorInfo> coredata = new ArrayList<processorInfo>();
@@ -48,7 +48,7 @@ public class MiscProcessorFragment extends SherlockListFragment
 		super.onCreate(savedInstanceState);
 		
 		// settings
-		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
+		settings = Settings.getInstance(getActivity().getApplicationContext());
 
 		setListAdapter(new ProcessorListAdapter(getActivity()));
 		
@@ -73,7 +73,7 @@ public class MiscProcessorFragment extends SherlockListFragment
 		// enable fragment option menu 
 		setHasOptionsMenu(false);
 
-		ipcProcess = ProgressDialog.show(getSherlockActivity(), getResources().getString(R.string.ui_processor_enable_title),
+		ipcProcess = ProgressDialog.show(getActivity(), getResources().getString(R.string.ui_processor_enable_title),
 									getResources().getString(R.string.ui_processor_enable_msg), true, true);
 		
 		ipcAction newCommand[] = { ipcAction.PROCESSOR };

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- File created by the Android Action Bar Style Generator
 
+     Copyright (C) 2011 The Android Open Source Project
      Copyright (C) 2012 readyState Software Ltd
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,87 +19,69 @@
 
 <resources>
 
-    <style name="Theme.osmonitor" parent="@style/Theme.Sherlock">
+    <style name="Theme.Osmonitor" parent="@style/Theme.AppCompat">
         <item name="actionBarItemBackground">@drawable/selectable_background_osmonitor</item>
-        <item name="popupMenuStyle">@style/osmonitor_PopupMenu</item>
-        <item name="dropDownListViewStyle">@style/osmonitor_DropDownListView</item>
-        <item name="actionBarTabStyle">@style/osmonitor_ActionBarTabStyle</item>
-        <item name="actionDropDownStyle">@style/osmonitor_DropDownNav</item>
-        <item name="actionBarStyle">@style/osmonitor_solid_ActionBar</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Osmonitor</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Osmonitor</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Osmonitor</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Osmonitor</item>
+        <item name="actionBarStyle">@style/ActionBar.Solid.Osmonitor</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_osmonitor</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_osmonitor</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Osmonitor</item>
 
-        <item name="android:actionBarItemBackground">@drawable/selectable_background_osmonitor</item>
-        <item name="android:popupMenuStyle">@style/osmonitor_PopupMenu</item>
-        <item name="android:dropDownListViewStyle">@style/osmonitor_DropDownListView</item>
-        <item name="android:actionBarTabStyle">@style/osmonitor_ActionBarTabStyle</item>
-        <item name="android:actionDropDownStyle">@style/osmonitor_DropDownNav</item>
-        <item name="android:actionBarStyle">@style/osmonitor_solid_ActionBar</item>
-        <item name="android:panelBackground">@drawable/menu_hardkey_panel_osmonitor</item>
-        
         
     </style>
 
-    <style name="osmonitor_solid_ActionBar" parent="@style/Widget.Sherlock.ActionBar.Solid">
+    <style name="ActionBar.Solid.Osmonitor" parent="@style/Widget.AppCompat.ActionBar.Solid">
         <item name="background">@drawable/ab_solid_osmonitor</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_osmonitor</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_osmonitor</item>
-        <item name="progressBarStyle">@style/osmonitor_ProgressBar</item>
-
-        <item name="android:background">@drawable/ab_solid_osmonitor</item>
-        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_osmonitor</item>
-        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_osmonitor</item>
-        <item name="android:progressBarStyle">@style/osmonitor_ProgressBar</item>
+        <item name="progressBarStyle">@style/ProgressBar.Osmonitor</item>
     </style>
 
-    <style name="osmonitor_transparent_ActionBar" parent="@style/Widget.Sherlock.ActionBar">
+    <style name="ActionBar.Transparent.Osmonitor" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">@drawable/ab_transparent_osmonitor</item>
-        <item name="progressBarStyle">@style/osmonitor_ProgressBar</item>
-        
-        <item name="android:background">@drawable/ab_transparent_osmonitor</item>
-        <item name="android:progressBarStyle">@style/osmonitor_ProgressBar</item>
+        <item name="progressBarStyle">@style/ProgressBar.Osmonitor</item>
     </style>
 	
-    <style name="osmonitor_PopupMenu" parent="@style/Widget.Sherlock.ListPopupWindow">	
+    <style name="PopupMenu.Osmonitor" parent="@style/Widget.AppCompat.PopupMenu">	
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_osmonitor</item>	
     </style>
 	
-    <style name="osmonitor_DropDownListView" parent="@style/Widget.Sherlock.ListView.DropDown">
+    <style name="DropDownListView.Osmonitor" parent="@style/Widget.AppCompat.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_osmonitor</item>
     </style>
 
-    <style name="osmonitor_ActionBarTabStyle" parent="@style/Widget.Sherlock.ActionBar.TabView">
-        <item name="background">@drawable/tab_indicator_ab_osmonitor</item>
-
+    <style name="ActionBarTabStyle.Osmonitor" parent="@style/Widget.AppCompat.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_osmonitor</item>
     </style>
 	
-    <style name="osmonitor_DropDownNav" parent="@style/Widget.Sherlock.Spinner.DropDown.ActionBar">
-        <item name="background">@drawable/spinner_background_ab_osmonitor</item>
-
+    <style name="DropDownNav.Osmonitor" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
         <item name="android:background">@drawable/spinner_background_ab_osmonitor</item>
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_osmonitor</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_osmonitor</item>
     </style>
     
-    <style name="osmonitor_ProgressBar" parent="@style/Widget.Sherlock.ProgressBar.Horizontal">
+    <style name="ProgressBar.Osmonitor" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_osmonitor</item>
     </style>
     
-    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.osmonitor.widget" parent="@style/Theme.Sherlock">
-        <item name="popupMenuStyle">@style/osmonitor_PopupMenu</item>
-        <item name="dropDownListViewStyle">@style/osmonitor_DropDownListView</item>
-        
-        <item name="android:popupMenuStyle">@style/osmonitor_PopupMenu</item>
-        <item name="android:dropDownListViewStyle">@style/osmonitor_DropDownListView</item>
+    <style name="ActionButton.CloseMode.Osmonitor" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_osmonitor</item>
     </style>
     
-    <style name="osmonitor_DorpDownMenu" parent="@style/Widget.Sherlock.ActionBar.Solid">
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Osmonitor.Widget" parent="@style/Theme.AppCompat">
+        <item name="popupMenuStyle">@style/PopupMenu.Osmonitor</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Osmonitor</item>
+    </style>
+    
+    <style name="osmonitor_DorpDownMenu" parent="@style/Theme.AppCompat">
         <item name="background">@drawable/ab_solid_osmonitor</item>
         <item name="backgroundStacked">@drawable/ab_stacked_solid_osmonitor</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_osmonitor</item>
         <item name="android:background">@drawable/ab_solid_osmonitor</item>
-        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_osmonitor</item>
-        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_osmonitor</item>
         <item name="android:padding">10dp</item>
     </style>
     
@@ -122,5 +105,6 @@
     
      <style name="osmonitor_NotificationText" parent="android:TextAppearance.StatusBar.EventContent" />
     <style name="osmonitor_NotificationTitle" parent="android:TextAppearance.StatusBar.EventContent.Title" />
-    
+        
+
 </resources>

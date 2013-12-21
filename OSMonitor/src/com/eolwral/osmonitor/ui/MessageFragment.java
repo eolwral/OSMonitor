@@ -18,10 +18,15 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ListFragment;
+import android.support.v4.view.MenuItemCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,11 +41,6 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo;
@@ -54,7 +54,7 @@ import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 
 
-public class MessageFragment extends SherlockListFragment 
+public class MessageFragment extends ListFragment 
                                 implements ipcClientListener {
 
 	// ipc client
@@ -100,10 +100,10 @@ public class MessageFragment extends SherlockListFragment
 			filterDmesgArray[index] = true;
 
 		// settings
-		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
+		settings = Settings.getInstance(getActivity().getApplicationContext());
 		
 		// set list
-		messageList = new MessageListAdapter(getSherlockActivity().getApplicationContext());
+		messageList = new MessageListAdapter(getActivity().getApplicationContext());
 		setListAdapter(messageList);
 	}
 	
@@ -120,20 +120,10 @@ public class MessageFragment extends SherlockListFragment
 	@Override 
 	public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
 		inflater.inflate(R.menu.ui_message_menu, menu);
-
-		MenuItem helpMenu = menu.findItem(R.id.ui_menu_help);
-		helpMenu.setOnMenuItemClickListener( new HelpMenuClickListener());
-
-		// export menu
-		MenuItem exportItem = menu.findItem(R.id.ui_message_export);
-		exportItem.setOnMenuItemClickListener(new ExportMenuClickListener());
-
-		MenuItem exitMenu = menu.findItem(R.id.ui_menu_exit);
-		exitMenu.setOnMenuItemClickListener(new ExitMenuClickListener());
-
+	
 		// sort extend menu
 		MenuItem expendMenu = menu.findItem(R.id.ui_message_sort);
-		Spinner expendItem = (Spinner) expendMenu.getActionView();
+		Spinner expendItem = (Spinner) MenuItemCompat.getActionView(expendMenu);
 
 		switch(selectedType) {
 		case LOGCAT_MAIN:
@@ -189,7 +179,7 @@ public class MessageFragment extends SherlockListFragment
 		
 		// sort extend menu
 		MenuItem searchMenu = menu.findItem(R.id.ui_message_search);
-		View searchItem = (View) searchMenu.getActionView();
+		View searchItem = (View) MenuItemCompat.getActionView(searchMenu);
 
 		// instant search
 		TextView searchView = (TextView) searchItem.findViewById(R.id.id_action_search_text);
@@ -251,7 +241,7 @@ public class MessageFragment extends SherlockListFragment
 	}
 	
     private void showMultiChoiceItems() {
-        Builder builder = new AlertDialog.Builder(getSherlockActivity());
+        Builder builder = new AlertDialog.Builder(getActivity());
         
         if(isLogcat(logType)) {
         	builder.setMultiChoiceItems(R.array.ui_message_logcat_level,
@@ -434,53 +424,58 @@ public class MessageFragment extends SherlockListFragment
 	  	return;
 	}
     
-	private class ExitMenuClickListener implements OnMenuItemClickListener {
-
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
-			android.os.Process.killProcess(android.os.Process.myPid());
-			return false;
-		}
-		
+	@Override  
+	 public boolean onOptionsItemSelected(MenuItem item) {
+	   	 switch (item.getItemId()) {
+	   	 case R.id.ui_message_export:
+	   		 onExportClick();
+	   		 break;
+	   	 case R.id.ui_menu_exit:
+	   		 onExitClick();
+	   		 break;
+	   	 case R.id.ui_menu_help:
+	   		 onHelpClick();
+	   		 break;
+	   	 }
+		return super.onOptionsItemSelected(item);  	   	 
 	}
 	
-    private class ExportMenuClickListener implements OnMenuItemClickListener {
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
+    private void onExitClick() {
+		getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
+		android.os.Process.killProcess(android.os.Process.myPid());
+		return;
+	}
+	
+	private void onExportClick() {
 			
-			final Resources exportRes = getActivity().getResources();
-			final Calendar calendar = Calendar.getInstance();
-			final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss", Locale.getDefault());
+		final Resources exportRes = getActivity().getResources();
+		final Calendar calendar = Calendar.getInstance();
+		final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss", Locale.getDefault());
+		
+		Builder exportDialog = new AlertDialog.Builder(getActivity());
+		View exportView = LayoutInflater.from(getActivity()).inflate(R.layout.ui_message_export, null);
+		TextView exportFile = (TextView) exportView.findViewById(R.id.id_export_filename);
+		exportFile.setText("Log-"+formatter.format(calendar.getTime()));
+		exportDialog.setView(exportView);
+		
+		exportDialog.setTitle(exportRes.getText(R.string.ui_menu_logexport));
+		exportDialog.setNegativeButton(exportRes.getText(R.string.ui_text_cancel), null);
+		
+		exportDialog.setPositiveButton(exportRes.getText(R.string.ui_text_okay),
+	    new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            	String FileName = ((EditText)((AlertDialog)dialog).findViewById(R.id.id_export_filename)).getText().toString();
+            	exportLog(FileName);
+            }
+        });
 			
-			Builder exportDialog = new AlertDialog.Builder(getActivity());
-			View exportView = LayoutInflater.from(getActivity()).inflate(R.layout.ui_message_export, null);
-			TextView exportFile = (TextView) exportView.findViewById(R.id.id_export_filename);
-			exportFile.setText("Log-"+formatter.format(calendar.getTime()));
-			exportDialog.setView(exportView);
-			
-			exportDialog.setTitle(exportRes.getText(R.string.ui_menu_logexport));
-			exportDialog.setNegativeButton(exportRes.getText(R.string.ui_text_cancel), null);
-			
-			exportDialog.setPositiveButton(exportRes.getText(R.string.ui_text_okay),
-		    new DialogInterface.OnClickListener() {
-	            public void onClick(DialogInterface dialog, int whichButton) {
-	            	String FileName = ((EditText)((AlertDialog)dialog).findViewById(R.id.id_export_filename)).getText().toString();
-	            	exportLog(FileName);
-	            }
-	        });
-			
-			exportDialog.create().show();
-			return false;
-		}
+		exportDialog.create().show();
+		return ;
 	}
     
-	private class HelpMenuClickListener implements OnMenuItemClickListener {
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			ShowHelp();
-			return false;
-		}
+	private void onHelpClick() {
+		ShowHelp();
+		return;
 	}
 
 	

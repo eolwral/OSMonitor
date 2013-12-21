@@ -25,7 +25,7 @@
     
     <application android:label="@string/ui_appname" 
                  android:icon="@drawable/ic_launcher" 
-                 android:theme="@style/Theme.osmonitor" 
+                 android:theme="@style/Theme.Osmonitor" 
                  android:allowBackup="true">
                  
     	<activity android:name="com.eolwral.osmonitor.OSMonitor" 

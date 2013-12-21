@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+               xmlns:osmonitor="http://schemas.android.com/apk/res-auto">
     
     <group android:id="@+id/ui_process_menu_group">
         <item 
             android:id="@+id/ui_menu_help" 
             android:title="@string/ui_menu_help" 
-            android:showAsAction="ifRoom" 
-            android:icon="@drawable/ic_action_help" />
+            android:icon="@drawable/ic_action_help" 
+            osmonitor:showAsAction="ifRoom" />
         
         <item android:id="@+id/ui_menu_setting" 
             android:title="@string/ui_menu_setting" 
-            android:showAsAction="ifRoom" 
-            android:icon="@drawable/ic_action_option" />
+            android:icon="@drawable/ic_action_option" 
+            osmonitor:showAsAction="ifRoom" />
         
         <item android:id="@+id/ui_menu_tools" 
             android:title="@string/ui_menu_tools" 
-            android:showAsAction="ifRoom|collapseActionView" 
             android:icon="@drawable/ic_action_tools" 
-            android:actionLayout="@layout/ui_process_action" />
+            osmonitor:showAsAction="ifRoom|collapseActionView" 
+            osmonitor:actionLayout="@layout/ui_process_action" />
     </group>
     
     <item android:id="@+id/ui_menu_exit" 
             android:title="@string/ui_menu_exit" 
-            android:showAsAction="ifRoom" 
-            android:icon="@drawable/ic_action_exit" />  
+            android:icon="@drawable/ic_action_exit" 
+            osmonitor:showAsAction="ifRoom" />  
 </menu>

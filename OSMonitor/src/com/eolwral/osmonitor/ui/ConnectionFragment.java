@@ -23,7 +23,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -31,11 +35,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockListFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
@@ -52,7 +51,7 @@ import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.WhoisUtil;
 import com.eolwral.osmonitor.util.WhoisUtilDataSet;
 
-public class ConnectionFragment extends SherlockListFragment 
+public class ConnectionFragment extends ListFragment 
                                 implements ipcClientListener {
 
 	// ipc client
@@ -78,9 +77,9 @@ public class ConnectionFragment extends SherlockListFragment
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
-		infoHelper = ProcessUtil.getInstance(getSherlockActivity().getApplicationContext(), true);
-		setListAdapter(new ConnectionListAdapter(getSherlockActivity().getApplicationContext()));
+		settings = Settings.getInstance(getActivity().getApplicationContext());
+		infoHelper = ProcessUtil.getInstance(getActivity().getApplicationContext(), true);
+		setListAdapter(new ConnectionListAdapter(getActivity().getApplicationContext()));
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,15 +103,6 @@ public class ConnectionFragment extends SherlockListFragment
 	public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
 		inflater.inflate(R.menu.ui_connection_menu, menu);
 		super.onCreateOptionsMenu(menu, inflater);
-		
-		MenuItem helpMenu = menu.findItem(R.id.ui_menu_help);
-		helpMenu.setOnMenuItemClickListener( new HelpMenuClickListener());
-		
-		MenuItem settingMenu = menu.findItem(R.id.ui_menu_setting);
-		settingMenu.setOnMenuItemClickListener( new SettingMenuClickListener());
-		
-		MenuItem exitMenu = menu.findItem(R.id.ui_menu_exit);
-		exitMenu.setOnMenuItemClickListener(new ExitMenuClickListener());
 
 		// refresh button
 		stopButton = (MenuItem) menu.findItem(R.id.ui_menu_stop);
@@ -122,51 +112,54 @@ public class ConnectionFragment extends SherlockListFragment
 		else
 			stopButton.setIcon(R.drawable.ic_action_stop);
 
-		stopButton.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				stopUpdate = !stopUpdate;
-				
-				if(stopUpdate) 
-					stopButton.setIcon(R.drawable.ic_action_start);
-				else
-					stopButton.setIcon(R.drawable.ic_action_stop);
-				return false;
-			}
-		});
-		
 		return; 
 	}
 	
-	private class ExitMenuClickListener implements OnMenuItemClickListener {
-   
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
-			android.os.Process.killProcess(android.os.Process.myPid());
-			return false;
-		}
-		
+	@Override  
+	 public boolean onOptionsItemSelected(MenuItem item) {
+	   	 switch (item.getItemId()) {
+	   	 case R.id.ui_menu_setting:
+	   		 onSettingClick();
+	   		 break;
+	   	 case R.id.ui_menu_stop:
+	   		 onStopClick(item);
+	   		 break;
+	   	 case R.id.ui_menu_exit:
+	   		 onExitClick();
+	   		 break;
+	   	 case R.id.ui_menu_help:
+	   		 onHelpClick();
+	   		 break;
+	   	 }
+		return super.onOptionsItemSelected(item);  	   	 
 	}
 	
-	private class SettingMenuClickListener implements OnMenuItemClickListener {
-
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
+	private void onStopClick(MenuItem stopButton) {
+		stopUpdate = !stopUpdate;
+		
+		if(stopUpdate) 
+			stopButton.setIcon(R.drawable.ic_action_start);
+		else
+			stopButton.setIcon(R.drawable.ic_action_stop);
+		return ;
+	}
+	
+	private void onExitClick() {
+		getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
+		android.os.Process.killProcess(android.os.Process.myPid());
+		return ;
+	}
+	
+	private void onSettingClick() {
 			Intent settings = new Intent(getActivity(), Preference.class);
 			settings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	        startActivity(settings);
-			return false;
-		}
-		
+			return;
 	}
 	
-	private class HelpMenuClickListener implements OnMenuItemClickListener {
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			ShowHelp();
-			return false;
-		}
+	private void onHelpClick() {
+		ShowHelp();
+		return;
 	}
  
 	@SuppressLint("NewApi")
@@ -447,7 +440,7 @@ public class ConnectionFragment extends SherlockListFragment
 		protected void onPreExecute() {
 	    	super.onPreExecute();
 
-	    	final FragmentTransaction transaction = getSherlockActivity().getSupportFragmentManager().beginTransaction();
+	    	final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 	    	if(previousMap != null) {
     			transaction.remove(previousMap).commit();
     			previousMap = null;
@@ -455,7 +448,7 @@ public class ConnectionFragment extends SherlockListFragment
 	    	
 	    	// show progress dialog
 			ProcDialog = ProgressDialog.show(mContext, "", 
-					  getSherlockActivity().getResources().getText(R.string.ui_text_refresh), true);
+					  getActivity().getResources().getText(R.string.ui_text_refresh), true);
 			ProcDialog.setOnCancelListener( new OnCancelListener() {
 				@Override
 				public void onCancel(DialogInterface dialog) {
@@ -483,7 +476,7 @@ public class ConnectionFragment extends SherlockListFragment
 	    	args.putString(ConnectionMapFragment.MESSAGE, result.Msg);
 	    	newMap.setArguments(args);
 	    	
-	    	final FragmentTransaction transaction = getSherlockActivity().getSupportFragmentManager().beginTransaction();
+	    	final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 	    	
 	    	if (tabletLayout) {
 	    		// push current fragment

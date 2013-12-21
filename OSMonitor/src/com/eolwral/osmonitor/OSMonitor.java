@@ -1,18 +1,11 @@
 package com.eolwral.osmonitor;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ui.ConnectionFragment;
 import com.eolwral.osmonitor.ui.MessageFragment;
@@ -26,9 +19,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.view.View;
+import android.support.v7.app.ActionBar.Tab;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.view.Menu;
 
-public class OSMonitor extends SherlockFragmentActivity implements
+
+public class OSMonitor extends ActionBarActivity  implements
 		ActionBar.TabListener, ViewPager.OnPageChangeListener {
  
 	private ViewPager mViewPager = null;
@@ -62,9 +59,6 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		// load layout
 		setContentView(R.layout.ui_main);
  
-		// set process
-		getSherlock().setProgressBarIndeterminateVisibility(false);
-
 		// prepare pager
 		mViewPager = (ViewPager) findViewById(R.id.mainpager);
 		mViewPager.setAdapter(new OSMonitorPagerAdapter(getSupportFragmentManager()));
@@ -94,6 +88,7 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		final Settings setting = Settings.getInstance(this);
 		if(( setting.isEnableCPUMeter() || setting.isAddShortCut()) && !CommonUtil.isServiceRunning(this))
 			startService(new Intent(this, OSMonitorService.class));
+		
 	}
 	
 
@@ -130,19 +125,10 @@ public class OSMonitor extends SherlockFragmentActivity implements
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		mViewPager.setCurrentItem(tab.getPosition());
-		if (mViewPager.getCurrentItem() != tab.getPosition())
-			mViewPager.setCurrentItem(tab.getPosition());
-
-		// force display menu when selected
-		((OSMonitorPagerAdapter)mViewPager.getAdapter()).
-		   getItem(mViewPager.getCurrentItem()).setMenuVisibility(true);
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// force to hidden when unselected
-		((OSMonitorPagerAdapter)mViewPager.getAdapter()).
-		   getItem(tab.getPosition()).setMenuVisibility(false);
 	}
 
 	@Override
@@ -160,60 +146,7 @@ public class OSMonitor extends SherlockFragmentActivity implements
 	@Override
 	public void onPageSelected(int arg0) {
 		getSupportActionBar().setSelectedNavigationItem(arg0);
-		selectInSpinnerIfPresent(arg0, true);
 	}     
-	
-	/**
-	* Hack that takes advantage of interface parity between ActionBarSherlock and the native interface to reach inside
-	* the classes to manually select the appropriate tab spinner position if the overflow tab spinner is showing.
-	*
-	* Related issues: https://github.com/JakeWharton/ActionBarSherlock/issues/240 and
-	* https://android-review.googlesource.com/#/c/32492/
-	*
-	* @author toulouse@crunchyroll.com
-	*/
-	private void selectInSpinnerIfPresent(int position, boolean animate) {
-		try {
-			View actionBarView = findViewById(R.id.abs__action_bar);
-			if (actionBarView == null) {
-				int id = getResources().getIdentifier("action_bar", "id", "android");
-				actionBarView = findViewById(id);
-			}
-
-			Class<?> actionBarViewClass = actionBarView.getClass();
-			Field mTabScrollViewField = actionBarViewClass.getDeclaredField("mTabScrollView");
-			mTabScrollViewField.setAccessible(true);
-
-			Object mTabScrollView = mTabScrollViewField.get(actionBarView);
-			if (mTabScrollView == null) {
-				return;
-			}
-
-			Field mTabSpinnerField = mTabScrollView.getClass().getDeclaredField("mTabSpinner");
-			mTabSpinnerField.setAccessible(true);
-
-			Object mTabSpinner = mTabSpinnerField.get(mTabScrollView);
-			if (mTabSpinner == null) {
-				return;
-			}
-
-			Method setSelectionMethod = mTabSpinner.getClass().getSuperclass().getDeclaredMethod("setSelection", Integer.TYPE, Boolean.TYPE);
-			setSelectionMethod.invoke(mTabSpinner, position, animate);
-
-			Method requestLayoutMethod = mTabSpinner.getClass().getSuperclass().getDeclaredMethod("requestLayout");
-			requestLayoutMethod.invoke(mTabSpinner);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	/* Pager Adapter for OSMonitor */
 	public class OSMonitorPagerAdapter extends FragmentPagerAdapter {
@@ -267,6 +200,8 @@ public class OSMonitor extends SherlockFragmentActivity implements
 		}
 		
 	}
+
+
 }
 
 

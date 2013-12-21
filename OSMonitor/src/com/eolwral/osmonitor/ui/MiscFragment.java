@@ -14,10 +14,14 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -26,11 +30,6 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.NetworkInfo.networkInfo;
@@ -45,7 +44,7 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 
-public class MiscFragment extends SherlockFragment 
+public class MiscFragment extends Fragment 
                                 implements ipcClientListener {
 
 	// ipc client
@@ -77,7 +76,7 @@ public class MiscFragment extends SherlockFragment
 		super.onCreate(savedInstanceState);
 
 		// settings
-		settings = Settings.getInstance(getSherlockActivity().getApplicationContext());
+		settings = Settings.getInstance(getActivity().getApplicationContext());
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,7 +87,7 @@ public class MiscFragment extends SherlockFragment
 		miscItems = getResources().getStringArray(R.array.ui_misc_item);
 
 		ExpandableListView miscList = (ExpandableListView) v.findViewById(android.R.id.list);
-		misckAdapter = new MiscListAdapter(getSherlockActivity().getApplicationContext());
+		misckAdapter = new MiscListAdapter(getActivity().getApplicationContext());
 		miscList.setGroupIndicator(null);
 		miscList.setAdapter(misckAdapter);
 		
@@ -108,15 +107,6 @@ public class MiscFragment extends SherlockFragment
 		inflater.inflate(R.menu.ui_misc_menu, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 
-		MenuItem helpMenu = menu.findItem(R.id.ui_menu_help);
-		helpMenu.setOnMenuItemClickListener( new HelpMenuClickListener());
-		
-		MenuItem settingMenu = menu.findItem(R.id.ui_menu_setting);
-		settingMenu.setOnMenuItemClickListener( new SettingMenuClickListener());
-		
-		MenuItem exitMenu = menu.findItem(R.id.ui_menu_exit);
-		exitMenu.setOnMenuItemClickListener(new ExitMenuClickListener());
-
 		// refresh button
 		stopButton = (MenuItem) menu.findItem(R.id.ui_menu_stop);
 
@@ -125,48 +115,54 @@ public class MiscFragment extends SherlockFragment
 		else
 			stopButton.setIcon(R.drawable.ic_action_stop);
 
-		stopButton.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				stopUpdate = !stopUpdate;
-				
-				if(stopUpdate) 
-					stopButton.setIcon(R.drawable.ic_action_start);
-				else
-					stopButton.setIcon(R.drawable.ic_action_stop);
-				return false;
-			}
-		});		
 		return; 
 	}
 	
-	private class ExitMenuClickListener implements OnMenuItemClickListener {
-
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
-			android.os.Process.killProcess(android.os.Process.myPid());
-			return false;
-		}
-		
+	@Override  
+	 public boolean onOptionsItemSelected(MenuItem item) {
+	   	 switch (item.getItemId()) {
+	   	 case R.id.ui_menu_setting:
+	   		 onSettingClick();
+	   		 break;
+	   	 case R.id.ui_menu_stop:
+	   		 onStopClick(item);
+	   		 break;
+	   	 case R.id.ui_menu_exit:
+	   		 onExitClick();
+	   		 break;
+	   	 case R.id.ui_menu_help:
+	   		 onHelpClick();
+	   		 break;
+	   	 }
+		return super.onOptionsItemSelected(item);  	   	 
 	}
-
-	private class SettingMenuClickListener implements OnMenuItemClickListener {
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
+	
+	private void onStopClick(MenuItem stopButton) {
+		stopUpdate = !stopUpdate;
+		
+		if(stopUpdate) 
+			stopButton.setIcon(R.drawable.ic_action_start);
+		else
+			stopButton.setIcon(R.drawable.ic_action_stop);
+		return ;
+	}
+	
+	private void onExitClick() {
+		getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
+		android.os.Process.killProcess(android.os.Process.myPid());
+		return ;
+	}
+	
+	private void onSettingClick() {
 			Intent settings = new Intent(getActivity(), Preference.class);
 			settings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	        startActivity(settings);
-			return false;
-		}
+			return;
 	}
 	
-	private class HelpMenuClickListener implements OnMenuItemClickListener {
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			ShowHelp();
-			return false;
-		}
+	private void onHelpClick() {
+		ShowHelp();
+		return;
 	}
 	
 	// TODO: use view holder to reduce consuming resource 
@@ -261,7 +257,7 @@ public class MiscFragment extends SherlockFragment
 			
 			StringBuilder status = new StringBuilder();
 
-			final Resources resMgr = getSherlockActivity().getResources();
+			final Resources resMgr = getActivity().getResources();
 			
 			// IFF_UP = 0x1,         /* Interface is up.  */
 			if((item.getFlags() & 0x1) != 0)
@@ -383,10 +379,10 @@ public class MiscFragment extends SherlockFragment
 			 
 			if(item.getOffLine() == true)
 				((TextView) sv.findViewById(R.id.id_processor_status)).setText(
-					getSherlockActivity().getResources().getText(R.string.ui_processor_status_offline));
+					getActivity().getResources().getText(R.string.ui_processor_status_offline));
 			else
 				((TextView) sv.findViewById(R.id.id_processor_status)).setText(
-					getSherlockActivity().getResources().getText(R.string.ui_processor_status_online));
+					getActivity().getResources().getText(R.string.ui_processor_status_online));
   
 			// prepare click
 			sv.setTag(""+item.getNumber());
@@ -588,7 +584,7 @@ public class MiscFragment extends SherlockFragment
 				MiscProcessorFragment procFragment = new MiscProcessorFragment();
 
 				// replace current fragment
-				final FragmentManager fragmanger = getSherlockActivity().getSupportFragmentManager();
+				final FragmentManager fragmanger = getActivity().getSupportFragmentManager();
 				final FragmentTransaction transaction = fragmanger.beginTransaction();
 				transaction.replace(R.id.ui_misc_layout, procFragment, "Processor");
 				transaction.addToBackStack(null);

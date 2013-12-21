@@ -7,21 +7,21 @@
     
     <ImageButton
         android:id="@+id/id_action_kill"
-        style="@style/Widget.Sherlock.ActionButton"
+        style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_action_kill" />
        
     <ImageButton
         android:id="@+id/id_action_sort"
-        style="@style/Widget.Sherlock.ActionButton"
+        style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_action_sort" />
 
     <ImageButton
         android:id="@+id/id_action_stop"
-        style="@style/Widget.Sherlock.ActionButton"
+        style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_action_stop" />

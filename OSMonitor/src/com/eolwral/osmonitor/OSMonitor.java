@@ -64,9 +64,6 @@ public class OSMonitor extends ActionBarActivity  implements
 		mViewPager.setAdapter(new OSMonitorPagerAdapter(getSupportFragmentManager()));
 		mViewPager.setOnPageChangeListener(this);
 
-		// keep all fragments 
-		mViewPager.setOffscreenPageLimit(5);
-		
 		// prepare action bar
 		final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);

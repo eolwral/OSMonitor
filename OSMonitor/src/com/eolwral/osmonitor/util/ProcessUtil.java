@@ -1,6 +1,5 @@
 package com.eolwral.osmonitor.util;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
@@ -17,6 +16,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Debug.MemoryInfo;
+import android.support.v4.util.SimpleArrayMap;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -40,7 +40,7 @@ public class ProcessUtil extends Thread {
 	}
 
 	// cache
-	private final HashMap<String, CacheItem> cacheStorage = new HashMap<String, CacheItem>();
+	private final SimpleArrayMap<String, CacheItem> cacheStorage = new SimpleArrayMap<String, CacheItem>();
 
 	// work queue for background thread
 	private final Semaphore queryQueueLock = new Semaphore(1, true);
@@ -197,7 +197,7 @@ public class ProcessUtil extends Thread {
 
 		if (curPackageInfo != null) {
 			processItem.name = curPackageInfo.applicationInfo.loadLabel(packageMgr).toString();
-			if(useDetail == true)
+			if(useDetail == true) 
 				processItem.icon = resizeImage(curPackageInfo.applicationInfo.loadIcon(packageMgr), iconSize);
 		} else {
 			processItem.name = curPackageName;
@@ -220,7 +220,6 @@ public class ProcessUtil extends Thread {
 		Canvas BitmapCanvas = new Canvas(BitmapOrg);
 		Icon.setBounds(0, 0, iconSize, iconSize);
 		Icon.draw(BitmapCanvas);
-		
 		BitmapCanvas = null;
 		return new BitmapDrawable(BitmapOrg);
 	}

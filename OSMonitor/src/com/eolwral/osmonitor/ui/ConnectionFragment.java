@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v4.util.SimpleArrayMap;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,7 +66,7 @@ public class ConnectionFragment extends ListFragment
 	private ProcessUtil infoHelper = null;
 
 	@SuppressLint("UseSparseArrays")
-	private HashMap<Integer, String> map = new HashMap<Integer, String>();
+	private SimpleArrayMap<Integer, String> map = new SimpleArrayMap<Integer, String>();
 
 	// tablet
 	private boolean tabletLayout = false;
@@ -425,7 +426,7 @@ public class ConnectionFragment extends ListFragment
         public float Latitude; 
     }
     
-    private final HashMap<String, CacheQuery> CacheWhois = new HashMap<String, CacheQuery>();
+    private final SimpleArrayMap<String, CacheQuery> CacheWhois = new SimpleArrayMap<String, CacheQuery>();
 	class QueryWhois extends AsyncTask<String, Integer, CacheQuery>
 	{
 		private Context mContext = null;

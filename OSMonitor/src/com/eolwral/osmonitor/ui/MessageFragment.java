@@ -145,8 +145,8 @@ public class MessageFragment extends ListFragment
 		// source menu
 		expendItem.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				switch(arg2) {
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				switch(position) {
 				case 0:
 					selectedType = ipcAction.LOGCAT_MAIN;
 					break;
@@ -161,6 +161,9 @@ public class MessageFragment extends ListFragment
 					break;
 				}
 
+				// fix font color on Android 2.3.x
+				 ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
+			        
 				// keep it going
 				if(stopUpdate == true)
 					stopButton.performClick();

@@ -1,18 +1,11 @@
 package com.eolwral.osmonitor.ui;
 
-import java.io.InputStream;
-import java.io.StringReader;
 import java.net.InetAddress;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -24,10 +17,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v4.util.SimpleArrayMap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,11 +33,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
@@ -59,8 +52,7 @@ import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.HttpUtil;
-import com.eolwral.osmonitor.util.WhoisUtil;
-import com.eolwral.osmonitor.util.WhoisUtilDataSet;
+
 
 public class ConnectionFragment extends ListFragment 
                                 implements ipcClientListener {
@@ -463,14 +455,15 @@ public class ConnectionFragment extends ListFragment
     	// http://developer.android.com/training/basics/fragments/fragment-ui.html#Replace
     	
     	// pass information
-    	ConnectionMapFragment newMap = new ConnectionMapFragment();
+		ConnectionStaticMapFragment newMap = new ConnectionStaticMapFragment();
     	Bundle args = new Bundle();
-    	args.putFloat(ConnectionMapFragment.LONGTIUDE, result.Longtiude);
-    	args.putFloat(ConnectionMapFragment.LATITUDE, result.Latitude);
-    	args.putString(ConnectionMapFragment.MESSAGE, result.Msg);
+    	args.putFloat(ConnectionStaticMapFragment.LONGTIUDE, result.Longtiude);
+    	args.putFloat(ConnectionStaticMapFragment.LATITUDE, result.Latitude);
+    	args.putString(ConnectionStaticMapFragment.MESSAGE, result.Msg);
     	newMap.setArguments(args);
     	
-    	final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+    	final FragmentManager fm = getActivity().getSupportFragmentManager();
+    	final FragmentTransaction transaction = fm.beginTransaction();
     	
     	if (tabletLayout) {
     		// push current fragment
@@ -525,21 +518,16 @@ public class ConnectionFragment extends ListFragment
 				return;
 			}
 			
-			// if querying IP is utrace.de, showMap directly
-			if (isUtrace(QueryIP)) {
-				showMap(generateUtraceResult());
-			}
-    		
 			// clean up
     		cleanUp();
     		
     		// show prepare dialog
     		showLoading();
     		
-    		String URL = "http://xml.utrace.de/?query="+QueryIP;
-    		StringRequest WHOISRequest = new StringRequest(Request.Method.GET, URL,  
+    		String URL = "http://smart-ip.net/geoip-json/"+QueryIP;
+    		JsonRequest<?> WHOISRequest = new JsonObjectRequest(Request.Method.GET, URL,  null,
     				 																		new Response(QueryIP),  new ResponseError() );
-    		HttpUtil.getInstance(getActivity().getApplicationContext()).addRequest(WHOISRequest);
+    		HttpUtil.getInstance(getActivity().getApplicationContext()).addRequest(WHOISRequest);	
     	}
     	
     	private String getHostName(String QueryIP) {
@@ -552,27 +540,7 @@ public class ConnectionFragment extends ListFragment
 			return HostName;
     	}
     	
-    	private boolean isUtrace(String QueryIP) {
-	        String HostName = getHostName(QueryIP);
-			// detect if it is belong to our API's IP
-	        if(HostName.contains("utrace.de")) 
-	        	return true;
-	        return false;
-    	}
-    	
-    	private CacheQuery generateUtraceResult() {
-    		CacheQuery WhoisQuery = new CacheQuery();
-    		
-        	WhoisQuery.Msg = "<b>WHOIS API</b><br/>"+
-                    								"http://en.utrace.de/api.php";
-        	
-        	WhoisQuery.Latitude = (float) 51.165691;
-        	WhoisQuery.Longtiude = (float) 10.451526;
-        	
-        	return WhoisQuery;    		
-    	}
-    	
-    	private class Response implements Listener<String> {
+    	private class Response implements Listener<JSONObject> {
     		
     		private String QueryIP;
     		private String HostName;
@@ -583,45 +551,32 @@ public class ConnectionFragment extends ListFragment
     		}
     		
 			@Override
-			public void onResponse(String response) {
-				
-				StringBuilder whoisInfo = new StringBuilder();
+			public void onResponse(JSONObject response) {
 		        CacheQuery WhoisQuery = new CacheQuery();
-				WhoisUtilDataSet parsedDataSet = parseWHOISData(response);
+		        StringBuilder whoisInfo = new StringBuilder();
+		        
+		        whoisInfo.append("<b>DNS:</b> "+HostName+"<br/>");
+				whoisInfo.append("<b>IP:</b> "+QueryIP+"<br/>");
 				
-	            whoisInfo.append(parsedDataSet.toString());
+				try {
+					whoisInfo.append("<b>Country:</b> "+response.getString("countryName")+"<br/>");
+					whoisInfo.append("<b>City:</b> "+response.getString("city")+"<br/>");
+					whoisInfo.append("<b>Region:</b> "+response.getString("region")+"<br/>");
+					whoisInfo.append("<b>Latitude:</b> "+response.getString("latitude")+"<br/>");
+					whoisInfo.append("<b>Longitude:</b> "+response.getString("longitude"));
 
-	            String WhoisMsg = whoisInfo.toString();
-	            WhoisMsg = "<b>DNS:</b> "+HostName+"<br/>" + WhoisMsg;
-
-				WhoisQuery.Msg = WhoisMsg;
-				WhoisQuery.Longtiude = parsedDataSet.getMapLongtiude();
-				WhoisQuery.Latitude = parsedDataSet.getMapnLatitude();
+					WhoisQuery.Longtiude = (float) response.getDouble("longitude");
+					WhoisQuery.Latitude = (float) response.getDouble("latitude");
+					
+				} catch (JSONException e) { }
+		        
+				WhoisQuery.Msg = whoisInfo.toString();
 				
 		        CacheWhois.put(QueryIP, WhoisQuery);
 		        
 		        closeLoading();
 		        
 		        showMap(WhoisQuery);
-			}
-
-			private WhoisUtilDataSet parseWHOISData(String response) {
-				XMLReader xmlReader;
-	            WhoisUtil SAXHandler = new WhoisUtil();
-
-	            // prepare input source
-	            InputSource inputSource = new InputSource();
-	            inputSource.setEncoding("UTF-8");
-	            inputSource.setCharacterStream(new StringReader(response));
-	            
-	            try {
-					xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
-		            xmlReader.setContentHandler(SAXHandler);
-		            xmlReader.parse(inputSource);
-				} catch (Exception e) {	}
-
-	            WhoisUtilDataSet parsedDataSet = SAXHandler.getParsedData();
-				return parsedDataSet;
 			}
     	}
     	

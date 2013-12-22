@@ -524,7 +524,7 @@ public class ConnectionFragment extends ListFragment
     		// show prepare dialog
     		showLoading();
     		
-    		String URL = "http://smart-ip.net/geoip-json/"+QueryIP;
+    		String URL = "http://ip-api.com/json/"+QueryIP;
     		JsonRequest<?> WHOISRequest = new JsonObjectRequest(Request.Method.GET, URL,  null,
     				 																		new Response(QueryIP),  new ResponseError() );
     		HttpUtil.getInstance(getActivity().getApplicationContext()).addRequest(WHOISRequest);	
@@ -559,14 +559,16 @@ public class ConnectionFragment extends ListFragment
 				whoisInfo.append("<b>IP:</b> "+QueryIP+"<br/>");
 				
 				try {
-					whoisInfo.append("<b>Country:</b> "+response.getString("countryName")+"<br/>");
+					whoisInfo.append("<b>Country:</b> "+response.getString("country")+"<br/>");
+					whoisInfo.append("<b>Region:</b> "+response.getString("regionName")+"<br/>");
 					whoisInfo.append("<b>City:</b> "+response.getString("city")+"<br/>");
-					whoisInfo.append("<b>Region:</b> "+response.getString("region")+"<br/>");
-					whoisInfo.append("<b>Latitude:</b> "+response.getString("latitude")+"<br/>");
-					whoisInfo.append("<b>Longitude:</b> "+response.getString("longitude"));
+					whoisInfo.append("<b>ISP:</b> "+response.getString("isp")+"<br/>");
+					whoisInfo.append("<b>Org:</b> "+response.getString("org")+"<br/>");
+					whoisInfo.append("<b>Latitude:</b> "+response.getString("lat")+"<br/>");
+					whoisInfo.append("<b>Longitude:</b> "+response.getString("lon"));
 
-					WhoisQuery.Longtiude = (float) response.getDouble("longitude");
-					WhoisQuery.Latitude = (float) response.getDouble("latitude");
+					WhoisQuery.Longtiude = (float) response.getDouble("lon");
+					WhoisQuery.Latitude = (float) response.getDouble("lat");
 					
 				} catch (JSONException e) { }
 		        

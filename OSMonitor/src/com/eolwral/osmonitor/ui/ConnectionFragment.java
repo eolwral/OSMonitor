@@ -1,15 +1,17 @@
 package com.eolwral.osmonitor.ui;
 
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import android.annotation.SuppressLint;
@@ -25,6 +27,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v4.util.SimpleArrayMap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,6 +39,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
@@ -49,6 +58,7 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
+import com.eolwral.osmonitor.util.HttpUtil;
 import com.eolwral.osmonitor.util.WhoisUtil;
 import com.eolwral.osmonitor.util.WhoisUtilDataSet;
 
@@ -71,6 +81,7 @@ public class ConnectionFragment extends ListFragment
 	// tablet
 	private boolean tabletLayout = false;
 	private Fragment previousMap = null;
+	private ProgressDialog procDialog = null;
 
 	// stop or start
 	private boolean stopUpdate = false;
@@ -172,10 +183,10 @@ public class ConnectionFragment extends ListFragment
 		if (QueryIP.equals("0.0.0.0"))
 			return;
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-			new QueryWhois(getActivity()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, QueryIP);
-		else
-			new QueryWhois(getActivity()).execute(QueryIP);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                new PrepareQuery().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, QueryIP);
+        else
+                new PrepareQuery().execute(QueryIP);
 	};
 
 	@Override
@@ -419,6 +430,70 @@ public class ConnectionFragment extends ListFragment
 		
 	}
 	
+   	private void showLoading() {
+		getActivity().runOnUiThread(new Runnable() {
+		    public void run() {
+		    	// show progress dialog
+		    	procDialog = ProgressDialog.show(getActivity(), "", 
+		    			getActivity().getResources().getText(R.string.ui_text_refresh), true);
+			
+		    	procDialog.setOnCancelListener( new OnCancelListener() {
+		    		@Override
+		    		public void onCancel(DialogInterface dialog) {
+		    			HttpUtil.getInstance(getActivity().getApplicationContext()).cancelRequest();
+		    		}
+		    	});
+		    	procDialog.setCancelable(true);
+		    }
+		});
+	}
+	
+	private void closeLoading() {
+		getActivity().runOnUiThread(new Runnable() {
+		    public void run() {
+		    	if (procDialog != null)
+		    		procDialog.dismiss();
+		    	procDialog = null;
+		    }
+		});
+	}
+	
+	private void showMap(CacheQuery result) {
+    	// Replace One Fragment with Another
+    	// http://developer.android.com/training/basics/fragments/fragment-ui.html#Replace
+    	
+    	// pass information
+    	ConnectionMapFragment newMap = new ConnectionMapFragment();
+    	Bundle args = new Bundle();
+    	args.putFloat(ConnectionMapFragment.LONGTIUDE, result.Longtiude);
+    	args.putFloat(ConnectionMapFragment.LATITUDE, result.Latitude);
+    	args.putString(ConnectionMapFragment.MESSAGE, result.Msg);
+    	newMap.setArguments(args);
+    	
+    	final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+    	
+    	if (tabletLayout) {
+    		// push current fragment
+    		transaction.replace(R.id.ui_connection_map, newMap, "WHOIS");
+    		transaction.commitAllowingStateLoss();
+    		previousMap = newMap;
+    	}
+    	else {
+	    	// replace current fragment
+	    	transaction.replace(R.id.ui_connection_layout, newMap, "WHOIS");
+	    	transaction.addToBackStack(null);
+	    	transaction.commitAllowingStateLoss();
+    	}    		
+	}	
+	
+	private void cleanUp() {
+    	final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+    	if(previousMap != null) {
+			transaction.remove(previousMap).commit();
+			previousMap = null;
+    	}    		
+	}
+	
     class CacheQuery 
     {
     	public String Msg;
@@ -427,133 +502,137 @@ public class ConnectionFragment extends ListFragment
     }
     
     private final SimpleArrayMap<String, CacheQuery> CacheWhois = new SimpleArrayMap<String, CacheQuery>();
-	class QueryWhois extends AsyncTask<String, Integer, CacheQuery>
-	{
-		private Context mContext = null;
-		private ProgressDialog ProcDialog = null;
-		private boolean forceStop = false;
+    
+	class PrepareQuery extends AsyncTask<String, Void, Void> {
 
-		
-		public QueryWhois(Context mContext) {
-		     this.mContext = mContext;
-		}
-
-		protected void onPreExecute() {
-	    	super.onPreExecute();
-
-	    	final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-	    	if(previousMap != null) {
-    			transaction.remove(previousMap).commit();
-    			previousMap = null;
-	    	}
-	    	
-	    	// show progress dialog
-			ProcDialog = ProgressDialog.show(mContext, "", 
-					  getActivity().getResources().getText(R.string.ui_text_refresh), true);
-			ProcDialog.setOnCancelListener( new OnCancelListener() {
-				@Override
-				public void onCancel(DialogInterface dialog) {
-					forceStop = true;
-				}
-			});
-			ProcDialog.setCancelable(true);
-		}
-		
-	    protected void onPostExecute(CacheQuery result) {
-	    	ProcDialog.dismiss();
-	    	
-	    	// stopped by user
-	    	if(forceStop == true)
-	    		return;
-	    	
-	    	// Replace One Fragment with Another
-	    	// http://developer.android.com/training/basics/fragments/fragment-ui.html#Replace
-	    	
-	    	// pass information
-	    	ConnectionMapFragment newMap = new ConnectionMapFragment();
-	    	Bundle args = new Bundle();
-	    	args.putFloat(ConnectionMapFragment.LONGTIUDE, result.Longtiude);
-	    	args.putFloat(ConnectionMapFragment.LATITUDE, result.Latitude);
-	    	args.putString(ConnectionMapFragment.MESSAGE, result.Msg);
-	    	newMap.setArguments(args);
-	    	
-	    	final FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-	    	
-	    	if (tabletLayout) {
-	    		// push current fragment
-	    		transaction.replace(R.id.ui_connection_map, newMap, "WHOIS");
-	    		transaction.commitAllowingStateLoss();
-	    		previousMap = newMap;
-	    	}
-	    	else {
-		    	// replace current fragment
-		    	transaction.replace(R.id.ui_connection_layout, newMap, "WHOIS");
-		    	transaction.addToBackStack(null);
-		    	transaction.commit();
-	    	}
-	    	
-	    }
-		
 		@Override
-		protected CacheQuery doInBackground(String... params) {
-			
+		protected Void doInBackground(String... params) {
 			String QueryIP = params[0];
-			if(CacheWhois.get(QueryIP) != null)
-				return CacheWhois.get(QueryIP);
+			if(QueryIP != null) 
+				new QueryWhois(QueryIP);
+			return null;
+		}
+	
+	}
+	
+    class QueryWhois {
+		
+    	public QueryWhois(String QueryIP) {
 
-			StringBuilder whoisInfo = new StringBuilder();
-	        CacheQuery WhoisQuery = new CacheQuery();
-	        
+    		// if data cached, showMap directly
+			if(CacheWhois.get(QueryIP) != null) {
+				showMap(CacheWhois.get(QueryIP));
+				return;
+			}
+			
+			// if querying IP is utrace.de, showMap directly
+			if (isUtrace(QueryIP)) {
+				showMap(generateUtraceResult());
+			}
+    		
+			// clean up
+    		cleanUp();
+    		
+    		// show prepare dialog
+    		showLoading();
+    		
+    		String URL = "http://xml.utrace.de/?query="+QueryIP;
+    		StringRequest WHOISRequest = new StringRequest(Request.Method.GET, URL,  
+    				 																		new Response(QueryIP),  new ResponseError() );
+    		HttpUtil.getInstance(getActivity().getApplicationContext()).addRequest(WHOISRequest);
+    	}
+    	
+    	private String getHostName(String QueryIP) {
 	        // nslookup 
 	        String HostName = QueryIP;
 			try {
 				HostName = InetAddress.getByName(QueryIP).getHostName();
 			} catch (UnknownHostException e) { }
-	        
+
+			return HostName;
+    	}
+    	
+    	private boolean isUtrace(String QueryIP) {
+	        String HostName = getHostName(QueryIP);
 			// detect if it is belong to our API's IP
-	        if(HostName.contains("utrace.de"))
-	        {
-	        	WhoisQuery.Msg = "<b>WHOIS API</b><br/>"+
-	                             "http://en.utrace.de/api.php";
-	        	WhoisQuery.Latitude = (float) 51.165691;
-	        	WhoisQuery.Longtiude = (float) 10.451526;
-	        	return WhoisQuery;
-	        }
-	        
-	        // execute whois query
-			try {
-	            XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
-	            WhoisUtil SAXHandler = new WhoisUtil();
-
-	            URL url = new URL("http://xml.utrace.de/?query="+QueryIP);
-	            
-	            InputStream urlData = url.openStream();
-	            xmlReader.setContentHandler(SAXHandler);
-	            xmlReader.parse(new InputSource(urlData));
-	            urlData.close();
-
-	            WhoisUtilDataSet parsedDataSet = SAXHandler.getParsedData();
-
+	        if(HostName.contains("utrace.de")) 
+	        	return true;
+	        return false;
+    	}
+    	
+    	private CacheQuery generateUtraceResult() {
+    		CacheQuery WhoisQuery = new CacheQuery();
+    		
+        	WhoisQuery.Msg = "<b>WHOIS API</b><br/>"+
+                    								"http://en.utrace.de/api.php";
+        	
+        	WhoisQuery.Latitude = (float) 51.165691;
+        	WhoisQuery.Longtiude = (float) 10.451526;
+        	
+        	return WhoisQuery;    		
+    	}
+    	
+    	private class Response implements Listener<String> {
+    		
+    		private String QueryIP;
+    		private String HostName;
+    		
+    		public Response(String QueryIP) {
+    			this.QueryIP = QueryIP;
+    			this.HostName = getHostName(QueryIP);
+    		}
+    		
+			@Override
+			public void onResponse(String response) {
+				
+				StringBuilder whoisInfo = new StringBuilder();
+		        CacheQuery WhoisQuery = new CacheQuery();
+				WhoisUtilDataSet parsedDataSet = parseWHOISData(response);
+				
 	            whoisInfo.append(parsedDataSet.toString());
 
 	            String WhoisMsg = whoisInfo.toString();
-
 	            WhoisMsg = "<b>DNS:</b> "+HostName+"<br/>" + WhoisMsg;
 
 				WhoisQuery.Msg = WhoisMsg;
 				WhoisQuery.Longtiude = parsedDataSet.getMapLongtiude();
 				WhoisQuery.Latitude = parsedDataSet.getMapnLatitude();
+				
 		        CacheWhois.put(QueryIP, WhoisQuery);
-	        } 
-			catch (Exception e) 
-	        {
-				WhoisQuery.Msg = "Query failed!";
-	        }  
+		        
+		        closeLoading();
+		        
+		        showMap(WhoisQuery);
+			}
 
-			return WhoisQuery;
-		}
+			private WhoisUtilDataSet parseWHOISData(String response) {
+				XMLReader xmlReader;
+	            WhoisUtil SAXHandler = new WhoisUtil();
+
+	            // prepare input source
+	            InputSource inputSource = new InputSource();
+	            inputSource.setEncoding("UTF-8");
+	            inputSource.setCharacterStream(new StringReader(response));
+	            
+	            try {
+					xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+		            xmlReader.setContentHandler(SAXHandler);
+		            xmlReader.parse(inputSource);
+				} catch (Exception e) {	}
+
+	            WhoisUtilDataSet parsedDataSet = SAXHandler.getParsedData();
+				return parsedDataSet;
+			}
+    	}
+    	
+    	private class ResponseError implements ErrorListener {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				closeLoading();
+			}
+    	}
     }
-	
+ 	
     @SuppressLint("SetJavaScriptEnabled")
 	void ShowHelp()
     {

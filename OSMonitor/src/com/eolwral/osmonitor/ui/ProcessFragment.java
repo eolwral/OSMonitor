@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map.Entry;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -25,6 +23,7 @@ import android.os.Bundle;
 import android.os.Debug.MemoryInfo;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
+import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.MenuItemCompat.OnActionExpandListener;
 import android.view.LayoutInflater;
@@ -91,8 +90,8 @@ public class ProcessFragment extends ListFragment
 	private static int evenItem = 1;
 	private static int selectedItem = 2;
 	
-	private final HashMap<String, Boolean> expandStatus = new HashMap<String, Boolean>();
-	private final HashMap<String, Integer> selectedStatus = new HashMap<String, Integer>();
+	private final SimpleArrayMap<String, Boolean> expandStatus = new SimpleArrayMap<String, Boolean>();
+	private final SimpleArrayMap<String, Integer> selectedStatus = new SimpleArrayMap<String, Integer>();
 	
 	// tablet
 	private boolean  tabletLayout = false;  
@@ -251,7 +250,6 @@ public class ProcessFragment extends ListFragment
 	@Override 
 	public void onCreateOptionsMenu (Menu menu, MenuInflater inflater){
 		inflater.inflate(R.menu.ui_process_menu, menu);
-
 		
 		MenuItem toolsMenu = menu.findItem(R.id.ui_menu_tools);
 		MenuItemCompat.setOnActionExpandListener(toolsMenu, new ToolActionExpandListener());
@@ -367,8 +365,8 @@ public class ProcessFragment extends ListFragment
 							strFormat, Toast.LENGTH_SHORT).show();
 			
 			// kill all selected items
-			for(Entry<String, Integer> item : selectedStatus.entrySet())
-				killProcess(item.getValue(), item.getKey());
+			for(int i = 0; i < selectedStatus.size(); i++)
+				killProcess(selectedStatus.valueAt(i), selectedStatus.keyAt(i));
 			
 			// clean up selected items
 			selectedStatus.clear();

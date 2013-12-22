@@ -95,11 +95,19 @@ public class WhoisUtilDataSet
 	
 	public float getMapnLatitude()
 	{
-		return Float.parseFloat(latitude);
+		float Lat = 0;
+		try {
+			Lat = Float.parseFloat(latitude);
+		} catch (Exception e) {};
+		return Lat;
 	}
 	
 	public float getMapLongtiude()
 	{
-		return Float.parseFloat(longitude);
+		float Long = 0;
+		try {
+			Long = Float.parseFloat(longitude);
+		} catch (Exception e) {};
+		return Long;
 	}
 }

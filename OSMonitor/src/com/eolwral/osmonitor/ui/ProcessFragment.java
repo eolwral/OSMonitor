@@ -182,22 +182,21 @@ public class ProcessFragment extends ListFragment
 	}
 
 	private void prepareSelectedHolder(View v) {
-		if (selectedHolder == null) {
-			selectedHolder = new ViewHolder();
-			selectedHolder.detailIcon = ((ImageView) v.findViewById(R.id.id_process_detail_image));
-			selectedHolder.detailTitle = ((TextView) v.findViewById(R.id.id_process_detail_title));
-			selectedHolder.detailName = ((TextView) v.findViewById(R.id.id_process_detail_name));
-			selectedHolder.detailStatus = ((TextView) v.findViewById(R.id.id_process_detail_status));
-			selectedHolder.detailStime = ((TextView) v.findViewById(R.id.id_process_detail_stime));
-			selectedHolder.detailUtime = ((TextView) v.findViewById(R.id.id_process_detail_utime));
-			selectedHolder.detailCPUtime = ((TextView) v.findViewById(R.id.id_process_detail_cputime));
-			selectedHolder.detailMemory = ((TextView) v.findViewById(R.id.id_process_detail_memory));
-			selectedHolder.detailPPID = ((TextView) v.findViewById(R.id.id_process_detail_ppid));
-			selectedHolder.detailUser = ((TextView) v.findViewById(R.id.id_process_detail_user));
-			selectedHolder.detailStarttime = ((TextView) v.findViewById(R.id.id_process_detail_starttime));
-			selectedHolder.detailThread = ((TextView) v.findViewById(R.id.id_process_detail_thread));
-			selectedHolder.detailNice = ((TextView) v.findViewById(R.id.id_process_detail_nice));
-		}
+		
+		selectedHolder = new ViewHolder();
+		selectedHolder.detailIcon = ((ImageView) v.findViewById(R.id.id_process_detail_image));
+		selectedHolder.detailTitle = ((TextView) v.findViewById(R.id.id_process_detail_title));
+		selectedHolder.detailName = ((TextView) v.findViewById(R.id.id_process_detail_name));
+		selectedHolder.detailStatus = ((TextView) v.findViewById(R.id.id_process_detail_status));
+		selectedHolder.detailStime = ((TextView) v.findViewById(R.id.id_process_detail_stime));
+		selectedHolder.detailUtime = ((TextView) v.findViewById(R.id.id_process_detail_utime));
+		selectedHolder.detailCPUtime = ((TextView) v.findViewById(R.id.id_process_detail_cputime));
+		selectedHolder.detailMemory = ((TextView) v.findViewById(R.id.id_process_detail_memory));
+		selectedHolder.detailPPID = ((TextView) v.findViewById(R.id.id_process_detail_ppid));
+		selectedHolder.detailUser = ((TextView) v.findViewById(R.id.id_process_detail_user));
+		selectedHolder.detailStarttime = ((TextView) v.findViewById(R.id.id_process_detail_starttime));
+		selectedHolder.detailThread = ((TextView) v.findViewById(R.id.id_process_detail_thread));
+		selectedHolder.detailNice = ((TextView) v.findViewById(R.id.id_process_detail_nice));
 		
 		String[] menuText = getResources().getStringArray(R.array.ui_process_menu_item);
 		
@@ -971,7 +970,7 @@ public class ProcessFragment extends ListFragment
 		
 		private void refreshTabletPanel() {
 			
-			if (selectedPID == -1)
+			if (selectedPID == -1) 
 				return;
 			
 			// find target Item
@@ -988,6 +987,7 @@ public class ProcessFragment extends ListFragment
 				selectedPrority = targetItem.getPriorityLevel();
 				showProcessDetail(selectedHolder, targetItem );
 			}
+
 		}
 
 		private void showProcessDetail( ViewHolder holder, processInfo item) {
@@ -1119,13 +1119,13 @@ public class ProcessFragment extends ListFragment
 					this.ToogleSelected(v);
 					return;
 			    }
-			    
+
 			    // phone
 		    	if(!tabletLayout) {
 		    		this.ToogleExpand(v);
 		    		return;
 		    	}
-		    	
+
 		    	// tablet
 	    		ViewHolder holder = (ViewHolder) v.getTag();
 	    		if (holder != null)  

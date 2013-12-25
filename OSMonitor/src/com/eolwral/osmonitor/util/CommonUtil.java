@@ -16,6 +16,7 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -190,10 +191,20 @@ public class CommonUtil {
 			process = Runtime.getRuntime().exec("su");
 		
 		DataOutputStream os = new DataOutputStream(process.getOutputStream());
-		os.writeBytes("chmod 777 " + binary + "\n");
+		
+		os.writeBytes("chmod 755 " + binary + "\n");
 		os.writeBytes(binary + " " + settings.getToken().toString()+ " &\n");
-		os.writeBytes("exit \n");
-		process.waitFor(); 
+
+		// !! CM11 will terminate orphan process with root permission
+		if (!settings.isRoot()) { 
+			os.writeBytes("exit \n");
+			process.waitFor();
+		}
+		else {
+			// Don't exit until osmcore finished
+			process.destroy();
+		}
+
 	} catch (Exception e) {
 		return false;
 	}

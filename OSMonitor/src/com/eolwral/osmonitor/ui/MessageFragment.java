@@ -21,6 +21,8 @@ import android.os.Environment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.MenuItemCompat;
 import android.text.Editable;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -644,9 +646,9 @@ public class MessageFragment extends ListFragment
 				calendar.setTimeInMillis(item.getSeconds()*1000);
 				holder.time.setText(convertTool.format(calendar.getTime()));
 				
-				holder.tag.setText(item.getTag());
+				holder.tag.setText(highlightText(item.getTag(), filterString));
 				
-				holder.msg.setText(item.getMessage().toString());
+				holder.msg.setText(highlightText(item.getMessage().toString(), filterString));
 				
 				holder.level.setTextColor(Color.BLACK);
  
@@ -703,7 +705,7 @@ public class MessageFragment extends ListFragment
 				}
 				
 				holder.tag.setText("");
-				holder.msg.setText(item.getMessage().toString());
+				holder.msg.setText(highlightText(item.getMessage().toString(), filterString));
 
 				holder.level.setTextColor(Color.BLACK);
 				switch(item.getLevel().getNumber())
@@ -754,6 +756,12 @@ public class MessageFragment extends ListFragment
 			});
 			
 			return sv;
+		}
+		
+		private Spanned  highlightText(String Msg, String HLText) {
+			if (HLText.length() == 0)
+				return Html.fromHtml(Msg);
+			return Html.fromHtml(Msg.replaceAll("(?i)("+HLText+")",  "<font color='red'>$1</font>"));
 		}
 		
 		public void refresh() {

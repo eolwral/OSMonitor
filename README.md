@@ -57,6 +57,9 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.0.8.1**
+- Fix infinite loop when enabled root privileges (Thanks to Ken Ellinwood)
+
 **Version 3.0.8.0**
 - Add a app icon for each connection.
 - Fix sort by name

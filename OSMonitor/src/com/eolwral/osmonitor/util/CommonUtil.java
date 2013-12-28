@@ -197,16 +197,16 @@ public class CommonUtil {
 		DataOutputStream os = new DataOutputStream(process.getOutputStream());
 		
 		os.writeBytes("chmod 755 " + binary + "\n");
-		os.writeBytes(binary + " " + settings.getToken().toString()+ " &\n");
 
 		// !! CM11 will terminate orphan process with root permission
 		if (!settings.isRoot()) { 
+			os.writeBytes(binary + " " + settings.getToken().toString()+ " &\n");
 			os.writeBytes("exit \n");
 			process.waitFor();
 		}
 		else {
 			// Don't exit until osmcore finished
-			process.destroy();
+			os.writeBytes(binary + " " + settings.getToken().toString()+ ";exit\n");
 		}
 
 	} catch (Exception e) {

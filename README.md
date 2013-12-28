@@ -57,6 +57,17 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.0.8.0**
+- Add a app icon for each connection.
+- Fix sort by name
+- Add layout for tablet 
+- Modify web base map to static map 
+- Move help files to web
+- Highlight search string on message tab
+- Fix the root privileges in CM11
+- Modify WHOIS API to smart-ip.com
+- Improve performance
+
 **Version 3.0.7.2**
 - Fix icon size on large screen
 - Save settings to SQLite 

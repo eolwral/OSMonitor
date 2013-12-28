@@ -590,9 +590,8 @@ public class ConnectionFragment extends ListFragment
     	}
     }
  	
-    @SuppressLint("SetJavaScriptEnabled")
 	void ShowHelp()
     {
-    	CommonUtil.showHelp(getActivity(), "file:///android_asset/help/help-connection.html");
+    	CommonUtil.showHelp(getActivity(), "http://eolwral.github.io/OSMonitor/help/help-connection.html");
     }
 }

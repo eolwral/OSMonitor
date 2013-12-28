@@ -4,7 +4,7 @@
      <group android:id="@+id/ui_message_menu_group">
          <item
              android:id="@+id/ui_message_sort"
-             android:title="@string/ui_menu_sort" 
+             android:title="@string/ui_menu_sort"
              osmonitor:actionLayout="@layout/ui_message_options" 
              osmonitor:showAsAction="ifRoom"/>
          

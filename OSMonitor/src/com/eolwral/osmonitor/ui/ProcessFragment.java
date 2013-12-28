@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -556,6 +555,7 @@ public class ProcessFragment extends ListFragment
 		while (!data.isEmpty())
 			data.remove(0);
 		data.clear();
+		System.gc();
 
 		// convert data
 		// TODO: reuse old objects
@@ -1172,10 +1172,9 @@ public class ProcessFragment extends ListFragment
 		}
 	}
 	
-    @SuppressLint("SetJavaScriptEnabled")
 	void ShowHelp()
     {
-    	CommonUtil.showHelp(getActivity(), "file:///android_asset/help/help-process.html");
+    	CommonUtil.showHelp(getActivity(), "http://eolwral.github.io/OSMonitor/help/help-process.html");
     }
 
 }

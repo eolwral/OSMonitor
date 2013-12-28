@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -780,9 +779,8 @@ public class MiscFragment extends Fragment
 		}
 	};
 	
-    @SuppressLint("SetJavaScriptEnabled")
 	void ShowHelp()
     {
-    	CommonUtil.showHelp(getActivity(), "file:///android_asset/help/help-misc.html");
+    	CommonUtil.showHelp(getActivity(), "http://eolwral.github.io/OSMonitor/help/help-misc.html");
     }
 }

@@ -3,7 +3,7 @@
     android:id="@+id/id_message_option"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/spinner_ab_default_osmonitor"
+    android:background="@drawable/spinner_ab_default_osmonitor" 
     android:entries="@array/ui_message_type" >
 
  </Spinner>

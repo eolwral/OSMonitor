@@ -16,12 +16,11 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.net.Uri;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.settings.Settings;
-import com.eolwral.osmonitor.ui.HelpWindows;
 
 public class CommonUtil {
   
@@ -38,10 +37,15 @@ public class CommonUtil {
   @SuppressLint("SetJavaScriptEnabled")
   public static void showHelp(Context context, String url)
   {
-	  Intent intent = new Intent(context, HelpWindows.class);
-	  intent.putExtra("URL", url);
-	  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	  context.startActivity(intent);
+	  //Intent intent = new Intent(context, HelpWindows.class);
+	  //intent.putExtra("URL", url);
+	  //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	  //context.startActivity(intent);
+	  
+  	Intent intent = new Intent(Intent.ACTION_VIEW);
+  	intent.setData(Uri.parse(url));
+  	context.startActivity(intent);
+
   }
   
   /**

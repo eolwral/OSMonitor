@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -917,10 +916,9 @@ public class MessageFragment extends ListFragment
 		return result;
 	}
 	
-    @SuppressLint("SetJavaScriptEnabled")
 	private void ShowHelp()
     {
-    	CommonUtil.showHelp(getActivity(), "file:///android_asset/help/help-message.html");
+    	CommonUtil.showHelp(getActivity(), "http://eolwral.github.io/OSMonitor/help/help-message.html");
     }
 
 }

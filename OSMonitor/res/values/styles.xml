@@ -29,7 +29,6 @@
         <item name="actionModeBackground">@drawable/cab_background_top_osmonitor</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_osmonitor</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Osmonitor</item>
-
         
     </style>
 
@@ -106,5 +105,5 @@
      <style name="osmonitor_NotificationText" parent="android:TextAppearance.StatusBar.EventContent" />
     <style name="osmonitor_NotificationTitle" parent="android:TextAppearance.StatusBar.EventContent.Title" />
         
-
+        
 </resources>

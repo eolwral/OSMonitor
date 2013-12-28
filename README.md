@@ -64,7 +64,7 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 - Modify web base map to static map 
 - Move help files to web
 - Highlight search string on message tab
-- Fix the root privileges in CM11
+- Fix the root privileges in CM11 (Thanks to Timothy Huang)
 - Modify WHOIS API to smart-ip.com
 - Improve performance
 

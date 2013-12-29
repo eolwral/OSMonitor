@@ -17,6 +17,7 @@ import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -199,14 +200,15 @@ public class CommonUtil {
 		os.writeBytes("chmod 755 " + binary + "\n");
 
 		// !! CM11 will terminate orphan process with root permission
-		if (!settings.isRoot()) { 
+		if (isCyanogenMod() && isKitKat() && settings.isRoot()) { 
+			os.writeBytes(binary + " " + settings.getToken().toString()+ ";exit\n");
+			Thread.sleep(500);
+			process.destroy();
+		}
+		else {
 			os.writeBytes(binary + " " + settings.getToken().toString()+ " &\n");
 			os.writeBytes("exit \n");
 			process.waitFor();
-		}
-		else {
-			// Don't exit until osmcore finished
-			os.writeBytes(binary + " " + settings.getToken().toString()+ ";exit\n");
 		}
 
 	} catch (Exception e) {
@@ -220,6 +222,28 @@ public class CommonUtil {
 	} catch (Exception e) {}
        
 	return true;
+  }
+  
+  /**
+   * detect CyanogenMod
+   * @return true == CM, false == non-CM
+   */
+  public static boolean isCyanogenMod() {
+	  String version = System.getProperty("os.version");
+	  if (version.contains("cyanogenmod")) 
+	      return true;
+	  return false;
+  }
+  
+  /**
+   * detect KitKat
+   * @return true == KitKat, false == non-KitKat
+   */
+  public static boolean isKitKat() {
+	  final int KITKAT = 19;
+	  if (Build.VERSION.SDK_INT == KITKAT)
+		  return true;
+	  return false;
   }
   
   /**

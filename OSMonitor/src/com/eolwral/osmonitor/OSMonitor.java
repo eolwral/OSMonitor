@@ -64,6 +64,9 @@ public class OSMonitor extends ActionBarActivity  implements
 		mViewPager.setAdapter(new OSMonitorPagerAdapter(getSupportFragmentManager()));
 		mViewPager.setOnPageChangeListener(this);
 
+		// keep all fragments 
+		mViewPager.setOffscreenPageLimit(5);
+		
 		// prepare action bar
 		final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
@@ -122,10 +125,17 @@ public class OSMonitor extends ActionBarActivity  implements
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		mViewPager.setCurrentItem(tab.getPosition());
+		 if (mViewPager.getCurrentItem() != tab.getPosition())
+			 mViewPager.setCurrentItem(tab.getPosition());
+
+		 // force display menu when selected
+		((OSMonitorPagerAdapter)mViewPager.getAdapter()).getItem(mViewPager.getCurrentItem()).setMenuVisibility(true);		
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// force to hidden when unselected
+		((OSMonitorPagerAdapter)mViewPager.getAdapter()).getItem(tab.getPosition()).setMenuVisibility(false);		
 	}
 
 	@Override

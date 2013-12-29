@@ -163,7 +163,8 @@ public class MessageFragment extends ListFragment
 				}
 
 				// fix font color on Android 2.3.x
-				 ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
+				if (parent.getChildAt(0) != null)
+					((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
 			        
 				// keep it going
 				if(stopUpdate == true)

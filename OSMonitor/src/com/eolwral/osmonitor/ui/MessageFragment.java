@@ -371,7 +371,15 @@ public class MessageFragment extends ListFragment
     					break;
     				}        	
         			logLine.append(viewLogcatData.get(index).getTag() + ",");
-        			logLine.append(viewLogcatData.get(index).getMessage() + "\n");       					 
+
+        			if(viewLogcatData.get(index).getPid() == 0)
+            			logLine.append("System,");
+    				else if(map.containsKey(viewLogcatData.get(index).getPid()))
+    					logLine.append(infoHelper.getPackageName(map.get(viewLogcatData.get(index).getPid()))+",");
+    				else
+    					logLine.append("Unknown,");
+        			
+        			logLine.append(viewLogcatData.get(index).getMessage() + "\n");    
         			
         		}
         		else

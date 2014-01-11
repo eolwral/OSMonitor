@@ -384,6 +384,9 @@ namespace core {
 
      // open logcat device
      this->_logfd = open(logDevice, O_NONBLOCK);
+     if (this->_logfd < 0)
+       this->_logfd = 0;
+
      return (this->_logfd);
   }
 
@@ -395,9 +398,6 @@ namespace core {
 
   void logcat::refresh()
   {
-    // clean up
-    //this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
-
     if (this->_logfd == 0)
       this->_logfd = this->getLogDeivce();
 

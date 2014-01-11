@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -18,6 +19,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.MenuItemCompat;
 import android.text.Editable;
 import android.text.Html;
@@ -46,6 +48,7 @@ import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo;
 import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo;
+import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
@@ -53,6 +56,7 @@ import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.util.ProcessUtil;
 
 
 public class MessageFragment extends ListFragment 
@@ -68,6 +72,11 @@ public class MessageFragment extends ListFragment
 	private ArrayList<dmesgInfo> viewDmesgData = new ArrayList<dmesgInfo>();
 	private ipcAction logType = ipcAction.LOGCAT_MAIN; 
 	private Settings settings = null;
+	
+	// process mapping
+	private ProcessUtil infoHelper = null;
+	@SuppressLint("UseSparseArrays")
+	private SimpleArrayMap<Integer, String> map = new SimpleArrayMap<Integer, String>();
 	
 	// filter
 	private ArrayList<logcatInfo> sourceLogcatData = new ArrayList<logcatInfo>();
@@ -103,6 +112,9 @@ public class MessageFragment extends ListFragment
 
 		// settings
 		settings = Settings.getInstance(getActivity().getApplicationContext());
+		
+		// process utility
+		infoHelper = ProcessUtil.getInstance(getActivity().getApplicationContext(), true);
 		
 		// set list
 		messageList = new MessageListAdapter(getActivity().getApplicationContext());
@@ -493,7 +505,7 @@ public class MessageFragment extends ListFragment
 		ipcStop = !isVisibleToUser;
 
 		if(isVisibleToUser == true) {
-			ipcAction newCommand[] = { logType };
+			ipcAction newCommand[] = { logType,  ipcAction.PROCESS };
 			ipc.addRequest(newCommand, 0, this);
 		}
 		
@@ -508,8 +520,9 @@ public class MessageFragment extends ListFragment
 		
 		// update
 		if (stopUpdate == true || result == null) {
-			ipcAction newCommand[] = new ipcAction[1];
+			ipcAction newCommand[] = new ipcAction[2];
 			newCommand [0] =  selectedType; 
+			newCommand[1] =  ipcAction.PROCESS;
 			ipc.addRequest(newCommand, settings.getInterval(), this);
 			return;
 		}
@@ -518,6 +531,8 @@ public class MessageFragment extends ListFragment
 		sourceLogcatData.clear();
 		sourceDmesgData.clear();
 
+		map.clear();
+		
 		// convert data
 		// TODO: reuse old objects
 		for (int index = 0; index < result.getDataCount(); index++) {
@@ -525,6 +540,19 @@ public class MessageFragment extends ListFragment
 			try {
 				ipcData rawData = result.getData(index);
 
+				// prepare mapping table
+				if(rawData.getAction() == ipcAction.PROCESS)
+				{
+					for (int count = 0; count < rawData.getPayloadCount(); count++) {
+						processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
+						if (!infoHelper.checkPackageInformation(psInfo.getName())) {
+							infoHelper.doCacheInfo(psInfo.getUid(), psInfo.getOwner(), psInfo.getName());
+						}
+						map.put(psInfo.getPid(), psInfo.getName());
+					}
+					continue;
+				}
+				
 				if(isLogcat(rawData.getAction())) {
 					for (int count = 0; count < rawData.getPayloadCount(); count++) {
 						logcatInfo lgInfo = logcatInfo.parseFrom(rawData.getPayload(count));
@@ -552,8 +580,9 @@ public class MessageFragment extends ListFragment
 		messageList.getFilter().doFilter();
 
 		// send command again
-		ipcAction newCommand[] = new ipcAction[1];
+		ipcAction newCommand[] = new ipcAction[2];
 		newCommand [0] =  selectedType ; 
+		newCommand[1] =  ipcAction.PROCESS;
 		if(selectedType != logType) 
 			ipc.addRequest(newCommand, 0, this);
 		else
@@ -576,6 +605,7 @@ public class MessageFragment extends ListFragment
 		// main information
 		TextView time;
 		TextView tag;
+		TextView proc;
 		TextView level;
 		TextView msg;
 	}	
@@ -624,6 +654,7 @@ public class MessageFragment extends ListFragment
 				holder.time = ((TextView) sv.findViewById(R.id.id_message_time));
 				holder.level = ((TextView) sv.findViewById(R.id.id_message_level));
 				holder.tag = ((TextView) sv.findViewById(R.id.id_message_tag));
+				holder.proc = ((TextView) sv.findViewById(R.id.id_message_proc));
 				holder.msg = ((TextView) sv.findViewById(R.id.id_message_text));
 
 				sv.setTag(holder);
@@ -650,6 +681,13 @@ public class MessageFragment extends ListFragment
 				holder.tag.setText(highlightText(item.getTag(), filterString));
 				
 				holder.msg.setText(highlightText(item.getMessage().toString(), filterString));
+				
+				if(item.getPid() == 0)
+					holder.proc.setText(highlightProc("System"));
+				else if(map.containsKey(item.getPid()))
+					holder.proc.setText(highlightProc(infoHelper.getPackageName(map.get(item.getPid()))));
+				else
+					holder.proc.setText("");
 				
 				holder.level.setTextColor(Color.BLACK);
  
@@ -707,7 +745,7 @@ public class MessageFragment extends ListFragment
 				
 				holder.tag.setText("");
 				holder.msg.setText(highlightText(item.getMessage().toString(), filterString));
-
+				holder.proc.setText("");
 				holder.level.setTextColor(Color.BLACK);
 				switch(item.getLevel().getNumber())
 				{
@@ -764,6 +802,11 @@ public class MessageFragment extends ListFragment
 				return Html.fromHtml(Msg);
 			return Html.fromHtml(Msg.replaceAll("(?i)("+HLText+")",  "<font color='red'>$1</font>"));
 		}
+
+		private Spanned  highlightProc(String Msg) {
+			return Html.fromHtml("- <font color='#A1D0F7'>"+Msg+"</font>");
+		}
+
 		
 		public void refresh() {
 			

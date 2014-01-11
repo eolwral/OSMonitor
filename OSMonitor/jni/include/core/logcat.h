@@ -52,7 +52,7 @@ namespace core {
   /**
    * maximum log size
    */
-  const static int MAXLOGSIZE = 10000;
+  const static int MAXLOGSIZE = 30000;
 
   /**
    * @class logcat

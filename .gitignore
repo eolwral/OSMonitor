@@ -1,6 +1,9 @@
 # built application files
 *.apk
 *.ap_
+*/*/*.o
+*/*/*.d
+*/*/osmcore_*
 
 # files for the dex VM
 *.dex
@@ -11,6 +14,7 @@
 # generated files
 bin/
 gen/
+obj/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -18,3 +22,5 @@ local.properties
 # Eclipse project files
 .classpath
 .project
+.settings
+.externalToolBuilders

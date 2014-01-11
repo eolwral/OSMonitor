@@ -12,6 +12,7 @@ namespace core {
 
   logcat::logcat(logcatLogger source)
   {
+    this->_logfd = 0;
     this->_sourceLogger = source;
 
     if (eventTagMap == NULL)
@@ -20,7 +21,14 @@ namespace core {
 
   logcat::~logcat()
   {
-    // clean up _lastCPUStatus
+    // close logger device
+    if (this->_logfd != 0) {
+        this->closeLogDevice(this->_logfd);
+        this->_logfd = 0;
+    }
+
+
+    // clean up
     this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
   }
 
@@ -111,6 +119,8 @@ namespace core {
     if(this->processBinaryLog(&message, &messageLen, &charBuffer, &outBufferLen))
     {
       curLogcatInfo->set_message(outBuffer);
+      if (_curLogcatList.size() >= MAXLOGSIZE)
+        _curLogcatList.erase(_curLogcatList.begin());
       _curLogcatList.push_back(curLogcatInfo);
     }
     else
@@ -345,44 +355,56 @@ namespace core {
       break;
     }
 
+    if (_curLogcatList.size() >= MAXLOGSIZE)
+      _curLogcatList.erase(_curLogcatList.begin());
     this->_curLogcatList.push_back(curLogcatInfo);
 
     return;
   }
 
-  void logcat::refresh()
+  int logcat::getLogDeivce()
   {
-    // clean up _lastCPUStatus
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
-
     // set data source
-    char *logDevice = 0;
-    switch (this->_sourceLogger)
-    {
-    case RADIO:
-      logDevice = strdup("/dev/"LOGGER_LOG_RADIO);
-      break;
-    case EVENTS:
-      logDevice = strdup("/dev/"LOGGER_LOG_EVENTS);
-      break;
-    case SYSTEM:
-      logDevice = strdup("/dev/"LOGGER_LOG_SYSTEM);
-      break;
-    case MAIN:
-      logDevice = strdup("/dev/"LOGGER_LOG_MAIN);
-      break;
-    }
+     char *logDevice = 0;
+     switch (this->_sourceLogger)
+     {
+     case RADIO:
+       logDevice = strdup("/dev/"LOGGER_LOG_RADIO);
+       break;
+     case EVENTS:
+       logDevice = strdup("/dev/"LOGGER_LOG_EVENTS);
+       break;
+     case SYSTEM:
+       logDevice = strdup("/dev/"LOGGER_LOG_SYSTEM);
+       break;
+     case MAIN:
+       logDevice = strdup("/dev/"LOGGER_LOG_MAIN);
+       break;
+     }
 
-    // open logcat device
-    int logfd = open(logDevice, O_NONBLOCK);
-    if (logfd < 0)
-      return;
+     // open logcat device
+     this->_logfd = open(logDevice, O_NONBLOCK);
+     return (this->_logfd);
+  }
 
-    // reload all logcat
-    this->fetchLogcat(logfd);
-
+  void logcat::closeLogDevice(int logfd)
+  {
     // close logcat device
     close(logfd);
+  }
+
+  void logcat::refresh()
+  {
+    // clean up
+    //this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
+
+    if (this->_logfd == 0)
+      this->_logfd = this->getLogDeivce();
+
+    // reload all logcat
+    if (this->_logfd != 0)
+      this->fetchLogcat(this->_logfd);
+
   }
 
   const std::vector<google::protobuf::Message*>& logcat::getData()

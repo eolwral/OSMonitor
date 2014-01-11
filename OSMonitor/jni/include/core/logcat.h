@@ -50,6 +50,11 @@ namespace core {
    };
 
   /**
+   * maximum log size
+   */
+  const static int MAXLOGSIZE = 10000;
+
+  /**
    * @class logcat
    * @brief get logcat information
    */
@@ -58,6 +63,17 @@ namespace core {
   private:
     logcatLogger _sourceLogger;                 /**< data source */
     std::vector<logcatInfo*> _curLogcatList;    /**< internal logcat list */
+    int _logfd;                                 /**< device handle */
+
+    /**
+     * get logger device
+     */
+    int getLogDeivce();
+
+    /**
+     * close logger device
+     */
+    void closeLogDevice(int logfd);
 
     /**
      * read logcat from device

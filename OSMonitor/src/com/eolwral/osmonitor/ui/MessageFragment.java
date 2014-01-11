@@ -82,6 +82,7 @@ public class MessageFragment extends ListFragment
 	// stop or start
 	private boolean stopUpdate = false;
 	private ImageButton stopButton = null;
+	private boolean autoScrollEnd = false;
 	
 	private TextView messageCount = null;
 	  
@@ -770,8 +771,13 @@ public class MessageFragment extends ListFragment
 				messageCount.setText(String.format("%,d", viewLogcatData.size()));
 			else
 				messageCount.setText(String.format("%,d", viewDmesgData.size()));
-			
+
 			notifyDataSetChanged();
+			
+			if (autoScrollEnd == true) {
+				getListView().setSelection(getListView().getCount() - 1);
+				getListView().clearFocus();
+			}
 		}
 		
 		private class MessageFilter extends Filter {
@@ -786,7 +792,6 @@ public class MessageFragment extends ListFragment
 				FilterResults result = new FilterResults();
 
 				// non-filter
-
 				if(constraint != null)
 					filterString = constraint.toString().toLowerCase(Locale.getDefault());
 				else 
@@ -834,6 +839,12 @@ public class MessageFragment extends ListFragment
 			@SuppressWarnings("unchecked")
 			@Override
 			protected void publishResults(CharSequence constraint, FilterResults results) {
+
+				// detect user behavior
+				if ( getListView().getLastVisiblePosition() == (getListView().getCount() -1 ))
+					autoScrollEnd = true;
+				else
+					autoScrollEnd = false;
 				
 				if(results.values == null)
 				{

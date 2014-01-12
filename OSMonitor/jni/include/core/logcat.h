@@ -76,6 +76,13 @@ namespace core {
     void closeLogDevice(int logfd);
 
     /**
+     * check logger device status
+     * @param logfd file handle
+     * @return status
+     */
+    bool checkLogDevice(int logfd);
+
+    /**
      * read logcat from device
      * @param logcat device handle
      */

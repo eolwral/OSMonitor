@@ -12,6 +12,7 @@ import android.content.Context;
 import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
@@ -40,7 +41,8 @@ public class IpcService {
 	/**
 	 * predefine buffer size
 	 */
-	private final static int bufferSize = 131072; /* 128K */
+	private final static int sendBufferSize = 131072; /* 128K */
+	private final static int recvBufferSize = 1048576; /* 1M */
 
 	/**
 	 * Unix socket
@@ -181,8 +183,8 @@ public class IpcService {
 
 			clientSocket = new LocalSocket();
 			clientSocket.connect(clientAddress);
-			clientSocket.setSendBufferSize(bufferSize);
-			clientSocket.setReceiveBufferSize(bufferSize);
+			clientSocket.setSendBufferSize(sendBufferSize);
+			clientSocket.setReceiveBufferSize(recvBufferSize);
 			
 			// Notice: the value is milliseconds
 			clientSocket.setSoTimeout(settings.getInterval()*1000);
@@ -503,8 +505,8 @@ public class IpcService {
 		/**
 		 * internal receive buffer
 		 */
-		private byte[] buffer = new byte[bufferSize];
-		private int curBufferSize = bufferSize;
+		private byte[] buffer = new byte[recvBufferSize];
+		private int curBufferSize = recvBufferSize;
 
 		private boolean prepareIpc() {
 			// check connection's status
@@ -636,10 +638,9 @@ public class IpcService {
 				totalSize |= (int) (buffer[2] & 0xFF ) << 16; 
 				totalSize |= (int) (buffer[3] & 0xFF ) << 24;
 				
-				// check limit (1M)
-				if(totalSize > 1048576)
+				// check limit (10M)
+				if(totalSize > recvBufferSize*10)
 					throw new Exception("Excced memory limit");
-				
 				 
 				// prepare enough buffer size
 				if (curBufferSize < totalSize) {
@@ -649,7 +650,7 @@ public class IpcService {
 				
 				// receive data  
 				int transferSize = 0; 
-				while(transferSize != totalSize) 
+				while(transferSize != totalSize)  
 					transferSize += inData.read(buffer, transferSize, totalSize-transferSize);
     
 				// convert to ipcMessage

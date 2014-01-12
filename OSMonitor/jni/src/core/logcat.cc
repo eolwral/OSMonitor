@@ -396,10 +396,26 @@ namespace core {
     close(logfd);
   }
 
+  bool logcat::checkLogDevice(int logfd)
+  {
+    struct stat fileStat;
+    if(fstat(logfd,&fileStat) < 0)
+      return (false);
+    return (true);
+  }
+
   void logcat::refresh()
   {
     if (this->_logfd == 0)
       this->_logfd = this->getLogDeivce();
+
+    if (!this->checkLogDevice(this->_logfd)) {
+      this->closeLogDevice(this->_logfd);
+      this->_logfd = this->getLogDeivce();
+
+      // clean up
+      this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
+    }
 
     // reload all logcat
     if (this->_logfd != 0)

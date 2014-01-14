@@ -17,6 +17,7 @@ before_install:
   - ls ${ANDROID_HOME}/platforms
   # download volley
   - git clone https://android.googlesource.com/platform/frameworks/volley
+  - ls
   # Make build.xml
   - android update project --path ./android-sdk-linux/extras/android/support/v7/appcompat/ --target android-17
   - android update project --path ./volley --target android-17

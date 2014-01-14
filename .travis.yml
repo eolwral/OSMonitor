@@ -25,4 +25,5 @@ before_install:
   - cd ./OSMonitor
 
 script:
-  - ant clean debug
+  - ant clean
+  - ant debug

@@ -16,6 +16,7 @@ before_install:
   # Make build.xml
   - android update lib-project --path ./android-sdk-linux/extras/android/support/v7/appcompat/ --target android-17
   - android update lib-project --path ./volley --target android-17
+  - echo "android.library=true" >> ./volley/project.properties
   - android update project --path ./OSMonitor --target android-17
   - cd ./OSMonitor
 

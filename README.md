@@ -1,4 +1,4 @@
-OS Monitor for Android 
+OS Monitor for Android   [![Build Status](https://travis-ci.org/eolwral/OSMonitor.png?branch=master)](https://travis-ci.org/eolwral/OSMonitor)
 =======
 
 OS Monitor is a tool for monitoring your Android system.
@@ -21,8 +21,7 @@ if you would like to know that how it works, please check Wiki page!
 
 ### Ongoing ###
 
-- Preparing to upgrade table version.
-- Keep logcat/dmesg as long as possible. 
+- Keep logcat/dmesg as long as possible. (Working)
 - Offer a feature to monitor and save data for long term.
 
 ### Developed By ###

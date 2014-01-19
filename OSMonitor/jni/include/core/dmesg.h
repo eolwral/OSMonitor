@@ -36,6 +36,11 @@ namespace core {
   public:
 
     /**
+     * constructor for Dmesg
+     */
+    dmesg();
+
+    /**
      * destructor for Dmesg
      */
     ~dmesg();

@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import android.annotation.SuppressLint;
@@ -79,7 +80,8 @@ public class MessageFragment extends ListFragment
 	private SimpleArrayMap<Integer, String> map = new SimpleArrayMap<Integer, String>();
 	
 	// filter
-	private ArrayList<logcatInfo> sourceLogcatData = new ArrayList<logcatInfo>();
+	private final static int MAXLOGCAT = 30000;
+	private List<ArrayList<logcatInfo>> sourceLogcatData =  new ArrayList<ArrayList<logcatInfo>>();
 	private boolean [] filterLogcatArray = new boolean[logcatInfo.logPriority.SILENT_VALUE+1];  
 
 	private ArrayList<dmesgInfo> sourceDmesgData = new ArrayList<dmesgInfo>();
@@ -119,6 +121,10 @@ public class MessageFragment extends ListFragment
 		// set list
 		messageList = new MessageListAdapter(getActivity().getApplicationContext());
 		setListAdapter(messageList);
+
+		// create array
+		for (int count = 0; count < 3; count++)
+			sourceLogcatData.add(new ArrayList<logcatInfo>());
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -138,42 +144,13 @@ public class MessageFragment extends ListFragment
 		// sort extend menu
 		MenuItem expendMenu = menu.findItem(R.id.ui_message_sort);
 		Spinner expendItem = (Spinner) MenuItemCompat.getActionView(expendMenu);
-
-		switch(selectedType) {
-		case LOGCAT_MAIN:
-			expendItem.setSelection(0);
-			break;
-		case LOGCAT_SYSTEM:
-			expendItem.setSelection(1);
-			break;
-		case LOGCAT_EVENT:
-			expendItem.setSelection(2);
-			break;
-		case DMESG:
-			expendItem.setSelection(3);
-			break;
-		default:
-			break;
-		}
+		expendItem.setSelection(convertTypeToLoc(selectedType));
 		
 		// source menu
 		expendItem.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				switch(position) {
-				case 0:
-					selectedType = ipcAction.LOGCAT_MAIN;
-					break;
-				case 1:
-					selectedType = ipcAction.LOGCAT_SYSTEM;
-					break;
-				case 2:
-					selectedType = ipcAction.LOGCAT_EVENT;
-					break;
-				case 3:
-					selectedType = ipcAction.DMESG;
-					break;
-				}
+				selectedType = convertLocToType(position);
 
 				// fix font color on Android 2.3.x
 				if (parent.getChildAt(0) != null)
@@ -536,7 +513,6 @@ public class MessageFragment extends ListFragment
 		}
 		
 		// clean up
-		sourceLogcatData.clear();
 		sourceDmesgData.clear();
 
 		map.clear();
@@ -564,10 +540,12 @@ public class MessageFragment extends ListFragment
 				if(isLogcat(rawData.getAction())) {
 					for (int count = 0; count < rawData.getPayloadCount(); count++) {
 						logcatInfo lgInfo = logcatInfo.parseFrom(rawData.getPayload(count));
-						sourceLogcatData.add(lgInfo);
+						if (sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).size() > MAXLOGCAT)
+							sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).remove(0);
+						sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).add(lgInfo);
 					}
 				}
-				else {
+				else  if (rawData.getAction() == ipcAction.DMESG){
 					for (int count = 0; count < rawData.getPayloadCount(); count++) {
 						dmesgInfo dgInfo = dmesgInfo.parseFrom(rawData.getPayload(count));
 						sourceDmesgData.add(dgInfo);
@@ -851,8 +829,8 @@ public class MessageFragment extends ListFragment
 				// filter
 				if (isLogcat(logType)) {
 					ArrayList<logcatInfo> filteredItems = new ArrayList<logcatInfo>();
-					for (int index = 0; index < sourceLogcatData.size(); index++) {
-						logcatInfo item = sourceLogcatData.get(index);
+					for (int index = 0; index < sourceLogcatData.get(convertTypeToLoc(logType)).size(); index++) {
+						logcatInfo item = sourceLogcatData.get(convertTypeToLoc(logType)).get(index);
 						
 						if (filterLogcatArray[convertLogcatType(item.getPriority().getNumber())] == false )
 							continue;
@@ -900,7 +878,7 @@ public class MessageFragment extends ListFragment
 				if(results.values == null)
 				{
 					viewDmesgData = sourceDmesgData;
-					viewLogcatData = sourceLogcatData;
+					viewLogcatData = sourceLogcatData.get(convertTypeToLoc(selectedType));
 				}
 				else {
 					
@@ -977,6 +955,49 @@ public class MessageFragment extends ListFragment
 			break;
 		}
 		return result;
+	}
+	
+	private ipcAction convertLocToType(int loc) {
+		ipcAction type = ipcAction.LOGCAT_MAIN;
+		switch(loc) {
+		case 0:
+			type = ipcAction.LOGCAT_MAIN;
+			break;
+		case 1:
+			type = ipcAction.LOGCAT_SYSTEM;
+			break;
+		case 2:
+			type = ipcAction.LOGCAT_EVENT;
+			break;
+		case 3:
+			type = ipcAction.DMESG;
+			break;
+		default:
+			break;
+		}		
+
+		return type;
+	}
+	
+	private int convertTypeToLoc(ipcAction type) {
+		int loc = 0;
+		switch(type) {
+		case LOGCAT_MAIN:
+			loc = 0;
+			break;
+		case LOGCAT_SYSTEM:
+			loc = 1;
+			break;
+		case LOGCAT_EVENT:
+			loc = 2;
+			break;
+		case DMESG:
+			loc = 3;
+			break;
+		default:
+			break;
+		}		
+		return loc;
 	}
 	
 	private void ShowHelp()

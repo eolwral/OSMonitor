@@ -12,6 +12,11 @@ namespace eolwral {
 namespace osmonitor {
 namespace core {
 
+  dmesg::dmesg()
+  {
+    this->_bootTime = 0;
+  }
+
   dmesg::~dmesg()
   {
     // clean up _curDemsgList
@@ -43,7 +48,8 @@ namespace core {
     this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curDmesgList);
 
     // refresh boot time
-    this->getBootTime();
+    if (this->_bootTime == 0)
+      this->getBootTime();
 
     char buffer[KLOG_BUF_LEN+1];
     char procLine[BufferSize];

@@ -406,15 +406,15 @@ namespace core {
 
   void logcat::refresh()
   {
+    // clean up
+    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
+
     if (this->_logfd == 0)
       this->_logfd = this->getLogDeivce();
 
     if (!this->checkLogDevice(this->_logfd)) {
       this->closeLogDevice(this->_logfd);
       this->_logfd = this->getLogDeivce();
-
-      // clean up
-      this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
     }
 
     // reload all logcat

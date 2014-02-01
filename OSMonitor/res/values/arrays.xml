@@ -55,7 +55,7 @@
 	    <item>OpenStreeMap</item>
 	</string-array>
 
-	<string-array name="ui_preference_interval_value">
+	<string-array name="ui_preference_interval_value" translatable="false">
 		<item>1</item>
 		<item>2</item>
 		<item>3</item>
@@ -66,12 +66,12 @@
 		<item>Blue</item>
 	</string-array>
 
-	<string-array name="ui_preference_color_value">
+	<string-array name="ui_preference_color_value" translatable="false">
 		<item>1</item>
 		<item>2</item>
 	</string-array>
 			
-	<string-array name="ui_process_prority_value">
+	<string-array name="ui_process_prority_value" translatable="false">
 		<item>19</item>
 		<item>18</item>
 		<item>17</item>

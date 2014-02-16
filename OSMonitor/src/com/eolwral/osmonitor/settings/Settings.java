@@ -23,6 +23,7 @@ public class Settings {
 	public final static String PREFERENCE_SORTTYPE = "id_preference_sorttype";
 	public final static String PREFERENCE_NOTIFICATION_COLOR = "id_preference_notification_fontcolor";
 	public final static String PREFERENCE_NOTIFICATION_TOP = "id_preference_notification_top";
+	public final static String PREFERENCE_LOGCAT_FORMAT = "id_preference_logcat_format";
 	
 	/**
 	 * get an instance for settings 
@@ -191,4 +192,13 @@ public class Settings {
 	public boolean isNotificationOnTop() {
 		return helper.getBoolean(PREFERENCE_NOTIFICATION_TOP, false);
 	}
+	
+	/**
+	 * get logcat format 
+	 * @return format
+	 */
+	public int getLogcatFormat() {
+	    return helper.getInteger(PREFERENCE_LOGCAT_FORMAT,  0);
+	}
+
 }

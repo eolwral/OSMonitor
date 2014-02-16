@@ -63,6 +63,14 @@ import com.eolwral.osmonitor.util.ProcessUtil;
 public class MessageFragment extends ListFragment 
                                 implements ipcClientListener {
 
+	// print format
+	private enum PrintFormat {
+		FORMAT_OFF, FORMAT_BRIEF, FORMAT_PROCESS, FORMAT_TAG, FORMAT_THREAD, FORMAT_RAW ,
+	    FORMAT_TIME , FORMAT_THREADTIME, FORMAT_LONG;
+	};
+	
+	private PrintFormat printfmt = PrintFormat.FORMAT_OFF;
+	
 	// ipc client
 	private static IpcService ipc = IpcService.getInstance();
 	private static boolean ipcStop = false;
@@ -117,6 +125,37 @@ public class MessageFragment extends ListFragment
 		
 		// process utility
 		infoHelper = ProcessUtil.getInstance(getActivity().getApplicationContext(), true);
+		
+		// logcat format
+		switch (settings.getLogcatFormat()) {
+		case 1:
+			printfmt = PrintFormat.FORMAT_BRIEF;
+			break;
+		case 2:
+			printfmt = PrintFormat.FORMAT_PROCESS;
+			break;
+		case 3:
+			printfmt = PrintFormat.FORMAT_TAG;
+			break;
+		case 4:
+			printfmt = PrintFormat.FORMAT_THREAD;
+			break;
+		case 5:
+			printfmt = PrintFormat.FORMAT_RAW;
+			break;
+		case 6:
+			printfmt = PrintFormat.FORMAT_TIME;
+			break;
+		case 7:
+			printfmt = PrintFormat.FORMAT_THREADTIME;
+			break;
+		case 8:
+			printfmt = PrintFormat.FORMAT_LONG;
+			break;
+		default:
+			printfmt = PrintFormat.FORMAT_OFF;
+			break;
+		}
 		
 		// set list
 		messageList = new MessageListAdapter(getActivity().getApplicationContext());
@@ -657,65 +696,13 @@ public class MessageFragment extends ListFragment
 
 			// get data 
 			if(isLogcat(logType) && viewLogcatData.size() > position) {
+
 				logcatInfo item = viewLogcatData.get(position);
-				
-				final Calendar calendar = Calendar.getInstance();
-				final java.text.DateFormat convertTool = java.text.DateFormat.getDateTimeInstance();
-				calendar.setTimeInMillis(item.getSeconds()*1000);
-				holder.time.setText(convertTool.format(calendar.getTime()));
-				
-				holder.tag.setText(highlightText(item.getTag(), filterString));
-				
-				holder.msg.setText(highlightText(item.getMessage().toString(), filterString));
-				
-				if(item.getPid() == 0)
-					holder.proc.setText(highlightProc("System"));
-				else if(map.containsKey(item.getPid()))
-					holder.proc.setText(highlightProc(infoHelper.getPackageName(map.get(item.getPid()))));
-				else
-					holder.proc.setText("");
-				
-				holder.level.setTextColor(Color.BLACK);
- 
-				switch(item.getPriority().getNumber())
-				{
-				case logcatInfo.logPriority.SILENT_VALUE:
-				case logcatInfo.logPriority.UNKNOWN_VALUE:
-				case logcatInfo.logPriority.DEFAULT_VALUE:
-					holder.level.setBackgroundColor(Color.LTGRAY);
-					holder.level.setText("S");
-					break;
-					
-				case logcatInfo.logPriority.VERBOSE_VALUE:
-					holder.level.setBackgroundColor(Color.WHITE);
-					holder.level.setText("V");
-					break;
-					
-				case logcatInfo.logPriority.WARN_VALUE:
-					holder.level.setBackgroundColor(Color.YELLOW);
-					holder.level.setText("W");
-					break;
-					
-				case logcatInfo.logPriority.INFO_VALUE:
-					holder.level.setBackgroundColor(Color.GREEN);
-					holder.level.setText("I");
-					break;
-					
-				case logcatInfo.logPriority.FATAL_VALUE:
-					holder.level.setBackgroundColor(Color.RED);
-					holder.level.setText("F");
-					break;
-					
-				case logcatInfo.logPriority.ERROR_VALUE:
-					holder.level.setBackgroundColor(Color.RED);
-					holder.level.setText("E");
-					break;
-					
-				case logcatInfo.logPriority.DEBUG_VALUE:
-					holder.level.setBackgroundColor(Color.BLUE);
-					holder.level.setText("D");
-					break;
-				}
+
+				if (printfmt == PrintFormat.FORMAT_OFF) 
+					showDefaultFormat(item);
+				else 
+					showLogcatFormat(item);
 			}
 			else if (viewDmesgData.size() > position)
 			{
@@ -728,7 +715,12 @@ public class MessageFragment extends ListFragment
 					calendar.setTimeInMillis(item.getSeconds()*1000);
 					holder.time.setText(convertTool.format(calendar.getTime()));
 				}
-				
+
+				holder.level.setVisibility(View.VISIBLE);
+				holder.time.setVisibility(View.VISIBLE);
+				holder.tag.setVisibility(View.GONE);
+				holder.proc.setVisibility(View.GONE);
+
 				holder.tag.setText("");
 				holder.msg.setText(highlightText(item.getMessage().toString(), filterString));
 				holder.proc.setText("");
@@ -781,6 +773,142 @@ public class MessageFragment extends ListFragment
 			});
 			
 			return sv;
+		}
+
+		private void showLogcatFormat(logcatInfo item) {
+
+			final Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(item.getSeconds()*1000);
+
+			holder.level.setVisibility(View.GONE);
+			holder.time.setVisibility(View.GONE);
+			holder.tag.setVisibility(View.GONE);
+			holder.proc.setVisibility(View.GONE);
+
+			switch (printfmt) {
+			case FORMAT_PROCESS:
+				holder.msg.setText(String.format("%s(%5d)  %s (%s)",  getPriorityText(item.getPriority().getNumber()), item.getPid(),
+																				highlightText(item.getMessage().toString(), filterString), item.getTag()));
+				break;
+			case FORMAT_TAG:
+				holder.msg.setText(String.format("%s/%-8s: %s",  getPriorityText(item.getPriority().getNumber()), item.getTag(),
+																				highlightText(item.getMessage().toString(), filterString)));
+				break;
+			case FORMAT_THREAD:
+				holder.msg.setText(String.format("%s(%5d:%5d) %s",  getPriorityText(item.getPriority().getNumber()), item.getPid(),
+																				item.getTid(), highlightText(item.getMessage().toString(), filterString)));
+				break;
+			case FORMAT_RAW:
+				holder.msg.setText(String.format("%s", highlightText(item.getMessage().toString(), filterString)));
+				break;
+			case FORMAT_TIME:
+				holder.msg.setText(String.format("%s.%03d %s/%-8s(%5d):  %s", DateFormat.format("MM-dd HH:mm:ss",calendar.getTime()),
+						                                                        item.getNanoSeconds()/1000000,  getPriorityText(item.getPriority().getNumber()), 
+						                                                        item.getTag(),  item.getPid(), highlightText(item.getMessage().toString(), filterString)));
+				break;
+			case FORMAT_THREADTIME:
+				holder.msg.setText(String.format("%s.%03d %5d %5d %s %-8s: %s",  DateFormat.format("MM-dd HH:mm:ss",calendar.getTime()),
+			            														item.getNanoSeconds()/1000000, item.getPid(), item.getTid(), getPriorityText(item.getPriority().getNumber()),
+			            														item.getTag(), highlightText(item.getMessage().toString(), filterString)));
+				break;
+			case FORMAT_LONG:					
+				holder.msg.setText(String.format("[ %s.%03d %5d:%5d %s/%-8s ]\n%s",  DateFormat.format("MM-dd HH:mm:ss",calendar.getTime()),
+																				item.getNanoSeconds()/1000000, item.getPid(), item.getTid(), getPriorityText(item.getPriority().getNumber()),
+																				item.getTag(), highlightText(item.getMessage().toString(), filterString)));
+				break;
+			case FORMAT_BRIEF:
+			default:
+				holder.msg.setText(String.format("%s/%-8s(%5d): %s",  getPriorityText(item.getPriority().getNumber()), item.getTag(),
+																															item.getPid(), highlightText(item.getMessage().toString(), filterString)));
+				break;
+			}
+		}
+
+		private void showDefaultFormat(logcatInfo item) {
+
+			final Calendar calendar = Calendar.getInstance();
+			final java.text.DateFormat convertTool = java.text.DateFormat.getDateTimeInstance();
+			calendar.setTimeInMillis(item.getSeconds()*1000);
+
+			holder.level.setVisibility(View.VISIBLE);
+			holder.time.setVisibility(View.VISIBLE);
+			holder.tag.setVisibility(View.VISIBLE);
+			holder.proc.setVisibility(View.VISIBLE);
+			
+			holder.time.setText(convertTool.format(calendar.getTime()));
+			holder.tag.setText(highlightText(item.getTag(), filterString));
+			holder.msg.setText(highlightText(item.getMessage().toString(), filterString));
+
+			if(item.getPid() == 0)
+				holder.proc.setText(highlightProc("System"));
+			else if(map.containsKey(item.getPid()))
+				holder.proc.setText(highlightProc(infoHelper.getPackageName(map.get(item.getPid()))));
+			else
+				holder.proc.setText("");
+
+			holder.level.setTextColor(Color.BLACK);
+ 
+			switch(item.getPriority().getNumber())
+			{
+			case logcatInfo.logPriority.SILENT_VALUE:
+			case logcatInfo.logPriority.UNKNOWN_VALUE:
+			case logcatInfo.logPriority.DEFAULT_VALUE:
+				holder.level.setBackgroundColor(Color.LTGRAY);
+				holder.level.setText("S");
+				break;
+				
+			case logcatInfo.logPriority.VERBOSE_VALUE:
+				holder.level.setBackgroundColor(Color.WHITE);
+				holder.level.setText("V");
+				break;
+				
+			case logcatInfo.logPriority.WARN_VALUE:
+				holder.level.setBackgroundColor(Color.YELLOW);
+				holder.level.setText("W");
+				break;
+				
+			case logcatInfo.logPriority.INFO_VALUE:
+				holder.level.setBackgroundColor(Color.GREEN);
+				holder.level.setText("I");
+				break;
+				
+			case logcatInfo.logPriority.FATAL_VALUE:
+				holder.level.setBackgroundColor(Color.RED);
+				holder.level.setText("F");
+				break;
+				
+			case logcatInfo.logPriority.ERROR_VALUE:
+				holder.level.setBackgroundColor(Color.RED);
+				holder.level.setText("E");
+				break;
+				
+			case logcatInfo.logPriority.DEBUG_VALUE:
+				holder.level.setBackgroundColor(Color.BLUE);
+				holder.level.setText("D");
+				break;
+			}
+		}
+		
+		private String getPriorityText(int priority) {
+			switch(priority) {
+			case logcatInfo.logPriority.SILENT_VALUE:
+			case logcatInfo.logPriority.UNKNOWN_VALUE:
+			case logcatInfo.logPriority.DEFAULT_VALUE:
+				return "S";
+			case logcatInfo.logPriority.VERBOSE_VALUE:
+				return "V";
+			case logcatInfo.logPriority.WARN_VALUE:
+				return "W";
+			case logcatInfo.logPriority.INFO_VALUE:
+				return "I";
+			case logcatInfo.logPriority.FATAL_VALUE:
+				return "F";
+			case logcatInfo.logPriority.ERROR_VALUE:
+				return "E";
+			case logcatInfo.logPriority.DEBUG_VALUE:
+				return "D";
+			}
+			return "S";
 		}
 		
 		private Spanned  highlightText(String Msg, String HLText) {

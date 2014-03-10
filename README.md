@@ -1,4 +1,4 @@
-OS Monitor for Android   [![Build Status](https://travis-ci.org/eolwral/OSMonitor.png?branch=master)](https://travis-ci.org/eolwral/OSMonitor)
+OS Monitor for Android  [![Build Status](https://drone.io/github.com/eolwral/OSMonitor/status.png)](https://drone.io/github.com/eolwral/OSMonitor/latest)
 =======
 
 OS Monitor is a tool for monitoring your Android system.

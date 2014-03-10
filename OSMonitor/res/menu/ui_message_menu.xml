@@ -15,7 +15,12 @@
              osmonitor:actionLayout="@layout/ui_message_action" 
              osmonitor:showAsAction="ifRoom|collapseActionView"/>
       </group>
-      
+
+        <item android:id="@+id/ui_menu_setting" 
+                    android:title="@string/ui_menu_setting" 
+                    android:icon="@drawable/ic_action_option" 
+                    osmonitor:showAsAction="ifRoom" />  
+                 
       <item android:id="@+id/ui_menu_help" 
                    android:title="@string/ui_menu_help" 
                    android:icon="@drawable/ic_action_help" 

@@ -55,6 +55,7 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
+import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
@@ -127,6 +128,18 @@ public class MessageFragment extends ListFragment
 		infoHelper = ProcessUtil.getInstance(getActivity().getApplicationContext(), true);
 		
 		// logcat format
+		loadLogcatFormat();
+		
+		// set list
+		messageList = new MessageListAdapter(getActivity().getApplicationContext());
+		setListAdapter(messageList);
+
+		// create array
+		for (int count = 0; count < 3; count++)
+			sourceLogcatData.add(new ArrayList<logcatInfo>());
+	}
+
+	private void loadLogcatFormat() {
 		switch (settings.getLogcatFormat()) {
 		case 1:
 			printfmt = PrintFormat.FORMAT_BRIEF;
@@ -141,29 +154,21 @@ public class MessageFragment extends ListFragment
 			printfmt = PrintFormat.FORMAT_THREAD;
 			break;
 		case 5:
-			printfmt = PrintFormat.FORMAT_RAW;
+			printfmt = PrintFormat.FORMAT_THREADTIME;
 			break;
 		case 6:
 			printfmt = PrintFormat.FORMAT_TIME;
 			break;
 		case 7:
-			printfmt = PrintFormat.FORMAT_THREADTIME;
+			printfmt = PrintFormat.FORMAT_LONG;
 			break;
 		case 8:
-			printfmt = PrintFormat.FORMAT_LONG;
+			printfmt = PrintFormat.FORMAT_RAW;
 			break;
 		default:
 			printfmt = PrintFormat.FORMAT_OFF;
 			break;
 		}
-		
-		// set list
-		messageList = new MessageListAdapter(getActivity().getApplicationContext());
-		setListAdapter(messageList);
-
-		// create array
-		for (int count = 0; count < 3; count++)
-			sourceLogcatData.add(new ArrayList<logcatInfo>());
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -469,6 +474,9 @@ public class MessageFragment extends ListFragment
 	@Override  
 	 public boolean onOptionsItemSelected(MenuItem item) {
 	   	 switch (item.getItemId()) {
+	   	 case R.id.ui_menu_setting:
+	   		 onSettingClick();	   	 
+	   		 break;
 	   	 case R.id.ui_message_export:
 	   		 onExportClick();
 	   		 break;
@@ -481,6 +489,13 @@ public class MessageFragment extends ListFragment
 	   	 }
 		return super.onOptionsItemSelected(item);  	   	 
 	}
+
+	private void onSettingClick() {
+		Intent settings = new Intent(getActivity(), Preference.class);
+		settings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(settings);
+		return;
+	}	
 	
     private void onExitClick() {
 		getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
@@ -532,7 +547,10 @@ public class MessageFragment extends ListFragment
 			ipcAction newCommand[] = { logType,  ipcAction.PROCESS };
 			ipc.addRequest(newCommand, 0, this);
 		}
-		
+
+	    // reload format (re-enter)
+	    if (settings != null)
+	    	loadLogcatFormat();		
 	}
 	
 	@Override

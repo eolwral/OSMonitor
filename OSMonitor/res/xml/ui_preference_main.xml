@@ -110,5 +110,15 @@
             android:title="@string/ui_preferences_setcpu_data" />
         
     </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/ui_debug_tab" >
+        <ListPreference
+            android:persistent="false"
+            android:entries="@array/ui_preference_logcat_format_entry"
+            android:entryValues="@array/ui_preference_logcat_format_value"
+            android:key="id_preference_logcat_format"
+            android:summary="@string/ui_preferences_logcat_format_detail"
+            android:title="@string/ui_preferences_logcat_format" />        
+    </PreferenceCategory>
 
 </PreferenceScreen>

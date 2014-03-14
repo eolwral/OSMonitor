@@ -34,9 +34,8 @@ public class ConnectionStaticMapFragment extends Fragment {
     		targetURL =  "http://ojw.dev.openstreetmap.org/StaticMap/?lat="+lat+"&lon="+lon+"&z=9&mode=Add+icon&"
     								+ "mlat0="+lat+"&mlon0="+lon+"&show=1&w=640&h=600";
     	else
-    		targetURL = "http://maps.google.com/maps/api/staticmap?center="+lat+","+lon
+    		targetURL = "https://maps.google.com/maps/api/staticmap?center="+lat+","+lon
     								+"&zoom=8&markers="+lat+","+lon+"&size=640x600&sensor=false&scale=1";
-    	
     	
 		// load image
 		NetworkImageView mapView = (NetworkImageView) view.findViewById(R.id.id_connection_static_map);

@@ -36,8 +36,6 @@ import com.android.volley.Request;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
@@ -52,6 +50,7 @@ import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.HttpUtil;
+import com.eolwral.osmonitor.util.WHOISRequest;
 
 
 public class ConnectionFragment extends ListFragment 
@@ -525,9 +524,11 @@ public class ConnectionFragment extends ListFragment
     		showLoading();
     		
     		String URL = "http://ip-api.com/json/"+QueryIP;
-    		JsonRequest<?> WHOISRequest = new JsonObjectRequest(Request.Method.GET, URL,  null,
-    				 																		new Response(QueryIP),  new ResponseError() );
-    		HttpUtil.getInstance(getActivity().getApplicationContext()).addRequest(WHOISRequest);	
+    		
+    		WHOISRequest queryRequest = new WHOISRequest(Request.Method.GET, URL,  null,
+    				 																		new Response(QueryIP),  new ResponseError());
+    		
+    		HttpUtil.getInstance(getActivity().getApplicationContext()).addRequest(queryRequest);	
     	}
     	
     	private String getHostName(String QueryIP) {

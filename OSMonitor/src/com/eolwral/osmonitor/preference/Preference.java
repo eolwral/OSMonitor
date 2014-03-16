@@ -1,5 +1,7 @@
 package com.eolwral.osmonitor.preference;
 
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
+
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -13,6 +15,8 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
+import android.preference.PreferenceScreen;
 
 public class Preference extends PreferenceActivity  {
 	
@@ -33,31 +37,49 @@ public class Preference extends PreferenceActivity  {
 	}
 
 	private void initPreferences() {
-		int prefCategoryCount =  getPreferenceScreen().getPreferenceCount();
+		PreferenceScreen prefScreen = getPreferenceScreen();
+		if (prefScreen != null)
+			preparePreferenceScreen(prefScreen);
+	}
+	
+	private void preparePreferenceScreen (PreferenceScreen prefScreen) {
+		int prefCategoryCount =  prefScreen.getPreferenceCount();
 		for(int checkCategoryItem = 0; checkCategoryItem < prefCategoryCount; checkCategoryItem++) {
-
-			// lookup all categories
-			android.preference.PreferenceCategory prefCategory =  
-						(android.preference.PreferenceCategory) getPreferenceScreen().getPreference(checkCategoryItem);
-			if(prefCategory == null) continue;
-
-			// lookup all preferences
-		   int prefCount  = prefCategory.getPreferenceCount();
-		   for(int checkItem = 0; checkItem < prefCount; checkItem++) {
-				android.preference.Preference pref =  prefCategory.getPreference(checkItem);
-				if (pref == null) continue;
-			   pref.setOnPreferenceChangeListener(new preferencChangeListener());
-
-			   // set value 
-			   if(pref instanceof CheckBoxPreference) {
-					((CheckBoxPreference) pref).setChecked(helper.getBoolean(pref.getKey(), false));
-				}
-				else if (pref instanceof ListPreference) {
-					((ListPreference) pref).setValue(helper.getString(pref.getKey(), ""));
-				}
-			   
-		   }
+			// lookup all subitems
+			if ( prefScreen.getPreference(checkCategoryItem) instanceof PreferenceCategory)  {
+			    PreferenceCategory prefCategory =(PreferenceCategory) prefScreen.getPreference(checkCategoryItem);
+				if(prefCategory == null) continue;
+				preparePreferenceClickListener(prefCategory);
+			}
+			else if (prefScreen.getPreference(checkCategoryItem) instanceof PreferenceScreen) {
+				PreferenceScreen prefSubScreen =(PreferenceScreen) prefScreen.getPreference(checkCategoryItem);
+				if(prefSubScreen == null) continue;
+				preparePreferenceScreen(prefSubScreen);
+			}
 		}
+	}
+
+	private void preparePreferenceClickListener(PreferenceCategory prefCategory) {
+		// lookup all preferences
+		for(int checkItem = 0; checkItem < prefCategory.getPreferenceCount(); checkItem++) {
+			android.preference.Preference pref =  prefCategory.getPreference(checkItem);
+			if (pref == null) continue;
+			pref.setOnPreferenceChangeListener(new preferencChangeListener());
+
+			// set value 
+			if(pref instanceof CheckBoxPreference) {
+				((CheckBoxPreference) pref).setChecked(helper.getBoolean(pref.getKey(), false));
+			}
+			else if (pref instanceof ListPreference) {
+				((ListPreference) pref).setValue(helper.getString(pref.getKey(), ""));
+			}
+			else if (pref instanceof ColorPickerPreference) {
+				int defaultColor =  helper.getInteger(pref.getKey(), 0x00000000);
+				if (defaultColor != 0x00000000)
+					((ColorPickerPreference) pref).setColor(defaultColor);
+			}
+		}
+		return;
 	}
 
 	private class preferencChangeListener implements  OnPreferenceChangeListener {
@@ -76,7 +98,7 @@ public class Preference extends PreferenceActivity  {
 				helper.setString(preference.getKey(),  (String) newValue);
 			}
 			else if (preference instanceof ColorPickerPreference) {
-				helper.setInteger(preference.getKey(),  (Integer) newValue);
+				helper.setInteger(preference.getKey(), (Integer) newValue);
 			}
 			else if (preference instanceof ProcessorPreference) {
 				helper.setString(preference.getKey(),  (String) newValue);

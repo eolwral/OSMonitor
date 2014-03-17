@@ -24,6 +24,7 @@ public class Settings {
 	public final static String PREFERENCE_NOTIFICATION_COLOR = "id_preference_notification_fontcolor";
 	public final static String PREFERENCE_NOTIFICATION_TOP = "id_preference_notification_top";
 	public final static String PREFERENCE_LOGCAT_FORMAT = "id_preference_logcat_format";
+	public final static String PREFERENCE_DMESG_FORMAT = "id_preference_dmesg_format";
 	
 	/**
 	 * get an instance for settings 
@@ -199,6 +200,14 @@ public class Settings {
 	 */
 	public int getLogcatFormat() {
 	    return helper.getInteger(PREFERENCE_LOGCAT_FORMAT,  0);
+	}
+
+	/**
+	 * get dmesg format 
+	 * @return format
+	 */
+	public int getDmesgFormat() {
+	    return helper.getInteger(PREFERENCE_DMESG_FORMAT,  0);
 	}
 
 }

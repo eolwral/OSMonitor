@@ -123,10 +123,102 @@
         
         <PreferenceScreen 
             android:summary="@string/ui_preferences_message_color_detail" 
-            android:title="@string/ui_preferences_message_color">
-  
+            android:title="@string/ui_preferences_logcat_message_color">
+            
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xff888888"
+                 android:persistent="false"
+                 android:key="id_preference_logcat_verbose_color"
+                 android:title="@string/ui_preferences_message_verbose_color" />
+             
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xff0000ff"
+                 android:persistent="false"
+                 android:key="id_preference_logcat_debug_color"
+                 android:title="@string/ui_preferences_message_debug_color" />
+
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xff00ff00"
+                 android:persistent="false"
+                 android:key="id_preference_logcat_info_color"
+                 android:title="@string/ui_preferences_message_info_color" />
+             
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xffff00ff"
+                 android:persistent="false"
+                 android:key="id_preference_logcat_warning_color"
+                 android:title="@string/ui_preferences_message_warning_color" />
+
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xffff0000"
+                 android:persistent="false"
+                 android:key="id_preference_logcat_error_color"
+                 android:title="@string/ui_preferences_message_error_color" />
+             
         </PreferenceScreen>
-		            
+        
+        <ListPreference
+            android:persistent="false"
+            android:entries="@array/ui_preference_dmesg_format_entry"
+            android:entryValues="@array/ui_preference_dmesg_format_value"
+            android:key="id_preference_dmesg_format"
+            android:summary="@string/ui_preferences_dmesg_format_detail"
+            android:title="@string/ui_preferences_dmesg_format" />
+        
+        <PreferenceScreen 
+            android:summary="@string/ui_preferences_message_color_detail" 
+            android:title="@string/ui_preferences_dmesg_message_color">
+            
+            <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xffff0000"
+                 android:persistent="false"
+                 android:key="id_preference_dmesg_emergency_color"
+                 android:title="@string/ui_preferences_message_emergency_color" />
+            
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xffcccc00"
+                 android:persistent="false"
+                 android:key="id_preference_dmesg_alert_color"
+                 android:title="@string/ui_preferences_message_alert_color" />
+            
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xff66ff66"
+                 android:persistent="false"
+                 android:key="id_preference_dmesg_critical_color"
+                 android:title="@string/ui_preferences_message_critical_color" />
+             
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xff00ff00"
+                 android:persistent="false"
+                 android:key="id_preference_dmesg_error_color"
+                 android:title="@string/ui_preferences_message_error_color" />
+
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xff006600"
+                 android:persistent="false"
+                 android:key="id_preference_dmesg_warning_color"
+                 android:title="@string/ui_preferences_message_warning_color" />
+             
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xff3399ff"
+                 android:persistent="false"
+                 android:key="id_preference_dmesg_notice_color"
+                 android:title="@string/ui_preferences_message_notice_color" />
+
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xff0000ff"
+                 android:persistent="false"
+                 android:key="id_preference_dmesg_info_color"
+                 android:title="@string/ui_preferences_message_info_color" />
+             
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xff9933ff"
+                 android:persistent="false"
+                 android:key="id_preference_dmesg_debug_color"
+                 android:title="@string/ui_preferences_message_debug_color" />
+             
+        </PreferenceScreen>
+        		            
     </PreferenceCategory>
 
 </PreferenceScreen>

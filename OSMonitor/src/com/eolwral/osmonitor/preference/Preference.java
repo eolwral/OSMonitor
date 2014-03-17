@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
@@ -38,7 +39,7 @@ public class Preference extends PreferenceActivity  {
 
 	private void initPreferences() {
 		PreferenceScreen prefScreen = getPreferenceScreen();
-		if (prefScreen != null)
+		if (prefScreen != null) 
 			preparePreferenceScreen(prefScreen);
 	}
 	
@@ -49,39 +50,57 @@ public class Preference extends PreferenceActivity  {
 			if ( prefScreen.getPreference(checkCategoryItem) instanceof PreferenceCategory)  {
 			    PreferenceCategory prefCategory =(PreferenceCategory) prefScreen.getPreference(checkCategoryItem);
 				if(prefCategory == null) continue;
-				preparePreferenceClickListener(prefCategory);
+				preparePreferenceCategory(prefCategory);
 			}
-			else if (prefScreen.getPreference(checkCategoryItem) instanceof PreferenceScreen) {
-				PreferenceScreen prefSubScreen =(PreferenceScreen) prefScreen.getPreference(checkCategoryItem);
-				if(prefSubScreen == null) continue;
-				preparePreferenceScreen(prefSubScreen);
+			else {
+				preparePreferenceItem(prefScreen.getPreference(checkCategoryItem));
 			}
 		}
 	}
 
-	private void preparePreferenceClickListener(PreferenceCategory prefCategory) {
+	private void preparePreferenceCategory(PreferenceCategory prefCategory) {
 		// lookup all preferences
 		for(int checkItem = 0; checkItem < prefCategory.getPreferenceCount(); checkItem++) {
 			android.preference.Preference pref =  prefCategory.getPreference(checkItem);
 			if (pref == null) continue;
-			pref.setOnPreferenceChangeListener(new preferencChangeListener());
-
-			// set value 
-			if(pref instanceof CheckBoxPreference) {
-				((CheckBoxPreference) pref).setChecked(helper.getBoolean(pref.getKey(), false));
-			}
-			else if (pref instanceof ListPreference) {
-				((ListPreference) pref).setValue(helper.getString(pref.getKey(), ""));
-			}
-			else if (pref instanceof ColorPickerPreference) {
-				int defaultColor =  helper.getInteger(pref.getKey(), 0x00000000);
-				if (defaultColor != 0x00000000)
-					((ColorPickerPreference) pref).setColor(defaultColor);
-			}
+			preparePreferenceItem(pref);
 		}
 		return;
 	}
 
+	private void preparePreferenceItem(android.preference.Preference pref) {
+		// set value 
+		if(pref instanceof CheckBoxPreference) {
+			((CheckBoxPreference) pref).setChecked(helper.getBoolean(pref.getKey(), false));
+			pref.setOnPreferenceChangeListener(new preferencChangeListener());
+		}
+		else if (pref instanceof ListPreference) {
+			((ListPreference) pref).setValue(helper.getString(pref.getKey(), ""));
+			pref.setOnPreferenceChangeListener(new preferencChangeListener());
+		}
+		else if (pref instanceof ColorPickerPreference) {
+			int defaultColor =  helper.getInteger(pref.getKey(), 0x00000000);
+			if (defaultColor != 0x00000000) ((ColorPickerPreference) pref).setColor(defaultColor);
+			pref.setOnPreferenceChangeListener(new preferencChangeListener());
+		}
+		else if (pref instanceof PreferenceScreen) {
+			pref.setOnPreferenceClickListener( new preferencScreenChangeListener());
+		}
+	}
+	
+    private class preferencScreenChangeListener implements  OnPreferenceClickListener {
+		@Override
+		public boolean onPreferenceClick( android.preference.Preference prefSubScreen) {
+			PreferenceScreen prefScreen =(PreferenceScreen) prefSubScreen;
+			for(int checkItem = 0; checkItem < prefScreen.getPreferenceCount(); checkItem++) {
+				android.preference.Preference pref =  prefScreen.getPreference(checkItem);
+				if (pref == null) continue;
+				preparePreferenceItem(pref);
+			}
+			return false;
+		}
+    }
+	
 	private class preferencChangeListener implements  OnPreferenceChangeListener {
 
 		@Override

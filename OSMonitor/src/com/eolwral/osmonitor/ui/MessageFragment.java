@@ -64,13 +64,18 @@ import com.eolwral.osmonitor.util.ProcessUtil;
 public class MessageFragment extends ListFragment 
                                 implements ipcClientListener {
 
-	// print format
-	private enum PrintFormat {
+	// print logcat format
+	private enum PrintLogcatFormat {
 		FORMAT_OFF, FORMAT_BRIEF, FORMAT_PROCESS, FORMAT_TAG, FORMAT_THREAD, FORMAT_RAW ,
 	    FORMAT_TIME , FORMAT_THREADTIME, FORMAT_LONG;
 	};
+	private PrintLogcatFormat printLogcatFMT = PrintLogcatFormat.FORMAT_OFF;
 	
-	private PrintFormat printfmt = PrintFormat.FORMAT_OFF;
+	// print dmesg format 
+	private enum PrintDmesgFormat {
+		FORMAT_OFF, FORMAT_RAW
+	};
+	private PrintDmesgFormat printDmesgFMT  = PrintDmesgFormat.FORMAT_OFF;
 	
 	// ipc client
 	private static IpcService ipc = IpcService.getInstance();
@@ -127,8 +132,8 @@ public class MessageFragment extends ListFragment
 		// process utility
 		infoHelper = ProcessUtil.getInstance(getActivity().getApplicationContext(), true);
 		
-		// logcat format
-		loadLogcatFormat();
+		// reload format
+		reloadFomrat();
 		
 		// set list
 		messageList = new MessageListAdapter(getActivity().getApplicationContext());
@@ -139,34 +144,49 @@ public class MessageFragment extends ListFragment
 			sourceLogcatData.add(new ArrayList<logcatInfo>());
 	}
 
+	private void reloadFomrat() {
+		loadDmesgFormat();
+		loadLogcatFormat();
+	}
+	
+	private void loadDmesgFormat() {
+		switch (settings.getDmesgFormat()) {
+		case 1:
+			printDmesgFMT = PrintDmesgFormat.FORMAT_RAW;
+		default:
+			printDmesgFMT = PrintDmesgFormat.FORMAT_OFF;
+			break;
+		}
+	}
+	
 	private void loadLogcatFormat() {
 		switch (settings.getLogcatFormat()) {
 		case 1:
-			printfmt = PrintFormat.FORMAT_BRIEF;
+			printLogcatFMT = PrintLogcatFormat.FORMAT_BRIEF;
 			break;
 		case 2:
-			printfmt = PrintFormat.FORMAT_PROCESS;
+			printLogcatFMT = PrintLogcatFormat.FORMAT_PROCESS;
 			break;
 		case 3:
-			printfmt = PrintFormat.FORMAT_TAG;
+			printLogcatFMT = PrintLogcatFormat.FORMAT_TAG;
 			break;
 		case 4:
-			printfmt = PrintFormat.FORMAT_THREAD;
+			printLogcatFMT = PrintLogcatFormat.FORMAT_THREAD;
 			break;
 		case 5:
-			printfmt = PrintFormat.FORMAT_THREADTIME;
+			printLogcatFMT = PrintLogcatFormat.FORMAT_THREADTIME;
 			break;
 		case 6:
-			printfmt = PrintFormat.FORMAT_TIME;
+			printLogcatFMT = PrintLogcatFormat.FORMAT_TIME;
 			break;
 		case 7:
-			printfmt = PrintFormat.FORMAT_LONG;
+			printLogcatFMT = PrintLogcatFormat.FORMAT_LONG;
 			break;
 		case 8:
-			printfmt = PrintFormat.FORMAT_RAW;
+			printLogcatFMT = PrintLogcatFormat.FORMAT_RAW;
 			break;
 		default:
-			printfmt = PrintFormat.FORMAT_OFF;
+			printLogcatFMT = PrintLogcatFormat.FORMAT_OFF;
 			break;
 		}
 	}
@@ -550,7 +570,7 @@ public class MessageFragment extends ListFragment
 
 	    // reload format (re-enter)
 	    if (settings != null)
-	    	loadLogcatFormat();		
+	    	reloadFomrat();		
 	}
 	
 	@Override
@@ -571,7 +591,6 @@ public class MessageFragment extends ListFragment
 		
 		// clean up
 		sourceDmesgData.clear();
-
 		map.clear();
 		
 		// convert data
@@ -717,7 +736,7 @@ public class MessageFragment extends ListFragment
 
 				logcatInfo item = viewLogcatData.get(position);
 
-				if (printfmt == PrintFormat.FORMAT_OFF) 
+				if (printLogcatFMT == PrintLogcatFormat.FORMAT_OFF) 
 					showDefaultFormat(item);
 				else 
 					showLogcatFormat(item);
@@ -803,7 +822,7 @@ public class MessageFragment extends ListFragment
 			holder.tag.setVisibility(View.GONE);
 			holder.proc.setVisibility(View.GONE);
 
-			switch (printfmt) {
+			switch (printLogcatFMT) {
 			case FORMAT_PROCESS:
 				holder.msg.setText(String.format("%s(%5d)  %s (%s)",  getPriorityText(item.getPriority().getNumber()), item.getPid(),
 																				highlightText(item.getMessage().toString(), filterString), item.getTag()));

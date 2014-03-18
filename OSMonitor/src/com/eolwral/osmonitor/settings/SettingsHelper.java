@@ -99,6 +99,9 @@ public class SettingsHelper {
 		// insert
 		Uri uri = contentResolver.insert(PreferenceContentProvider.CONTENT_URI, data);
 
+     	//  Fix: java.lang.NullPointerException
+		if (uri == null)  return false;
+		
 		if (uri.getLastPathSegment().equals(PreferenceContentProvider.NOEXIST))
 			return false;
 		return true;

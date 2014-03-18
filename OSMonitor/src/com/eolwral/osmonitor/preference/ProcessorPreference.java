@@ -81,6 +81,8 @@ public class ProcessorPreference extends DialogPreference
 		if(result == null ) {
 			ipcAction newCommand[] = { ipcAction.PROCESSOR };
 			ipcService.addRequest(newCommand, 0, this);
+			// return when result is null
+			return;  
 		}
 		
 		coredata.clear();

@@ -878,6 +878,11 @@ public class ProcessFragment extends ListFragment
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View sv = null;
 
+			// Check size to avoid IndexOutOfBoundsException,  this issue should only happen when data is updating,
+			// just returning a empty view to prevent exception, it will be fixed automatically on next time.
+			if (data.size() < position)
+				return (View) itemInflater.inflate(R.layout.ui_process_item, parent, false);
+
 			// get data
 			processInfo item = data.get(position);
 

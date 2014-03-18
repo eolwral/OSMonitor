@@ -1,5 +1,6 @@
 package com.eolwral.osmonitor.util;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.Semaphore;
 
@@ -16,7 +17,6 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Debug.MemoryInfo;
-import android.support.v4.util.SimpleArrayMap;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
@@ -40,7 +40,7 @@ public class ProcessUtil extends Thread {
 	}
 
 	// cache
-	private final SimpleArrayMap<String, CacheItem> cacheStorage = new SimpleArrayMap<String, CacheItem>();
+	private final HashMap<String, CacheItem> cacheStorage = new HashMap<String, CacheItem>();
 
 	// work queue for background thread
 	private final Semaphore queryQueueLock = new Semaphore(1, true);

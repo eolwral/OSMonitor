@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -440,6 +441,11 @@ public class ConnectionFragment extends ListFragment
 	}
 	
 	private void closeLoading() {
+		
+		//  because activity may be destroyed by system,  we need check it before using.  
+		//  Fix: java.lang.NullPointerException
+		if ( getActivity() == null) return;
+		
 		getActivity().runOnUiThread(new Runnable() {
 		    public void run() {
 		    	if (procDialog != null)

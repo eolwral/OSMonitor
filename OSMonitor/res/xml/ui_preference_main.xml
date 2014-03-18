@@ -132,7 +132,7 @@
                  android:title="@string/ui_preferences_message_verbose_color" />
              
              <net.margaritov.preference.colorpicker.ColorPickerPreference
-                 android:defaultValue="0xff0000ff"
+                 android:defaultValue="0xff3399ff"
                  android:persistent="false"
                  android:key="id_preference_logcat_debug_color"
                  android:title="@string/ui_preferences_message_debug_color" />
@@ -154,6 +154,12 @@
                  android:persistent="false"
                  android:key="id_preference_logcat_error_color"
                  android:title="@string/ui_preferences_message_error_color" />
+             
+             <net.margaritov.preference.colorpicker.ColorPickerPreference
+                 android:defaultValue="0xffff0000"
+                 android:persistent="false"
+                 android:key="id_preference_logcat_fatal_color"
+                 android:title="@string/ui_preferences_message_fatal_color" />
              
         </PreferenceScreen>
         
@@ -182,19 +188,19 @@
                  android:title="@string/ui_preferences_message_alert_color" />
             
              <net.margaritov.preference.colorpicker.ColorPickerPreference
-                 android:defaultValue="0xff66ff66"
+                 android:defaultValue="0xff66ff99"
                  android:persistent="false"
                  android:key="id_preference_dmesg_critical_color"
                  android:title="@string/ui_preferences_message_critical_color" />
              
              <net.margaritov.preference.colorpicker.ColorPickerPreference
-                 android:defaultValue="0xff00ff00"
+                 android:defaultValue="0xff33cc33"
                  android:persistent="false"
                  android:key="id_preference_dmesg_error_color"
                  android:title="@string/ui_preferences_message_error_color" />
 
              <net.margaritov.preference.colorpicker.ColorPickerPreference
-                 android:defaultValue="0xff006600"
+                 android:defaultValue="0xff339933"
                  android:persistent="false"
                  android:key="id_preference_dmesg_warning_color"
                  android:title="@string/ui_preferences_message_warning_color" />

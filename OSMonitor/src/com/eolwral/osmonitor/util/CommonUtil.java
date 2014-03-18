@@ -16,6 +16,7 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 
@@ -350,4 +351,31 @@ public class CommonUtil {
     }
     return false;
   }
+  
+  /**
+	 * For custom purposes. Not used by ColorPickerPreference
+	 * @param color
+	 * @author Charles Rosaaen
+	 * @return A string representing the hex value of color,
+	 * without the alpha value
+	 */
+   public static String convertToRGB(int color) {
+       String red = Integer.toHexString(Color.red(color));
+       String green = Integer.toHexString(Color.green(color));
+       String blue = Integer.toHexString(Color.blue(color));
+
+       if (red.length() == 1) {
+           red = "0" + red;
+       }
+
+       if (green.length() == 1) {
+           green = "0" + green;
+       }
+
+       if (blue.length() == 1) {
+           blue = "0" + blue;
+       }
+
+       return "#" + red + green + blue;
+   }
 }

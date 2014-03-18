@@ -10,21 +10,42 @@ public class Settings {
 	private SettingsHelper helper = null;
 	
 	public final static String PREFRENCE_INTERVAL = "id_preference_interval";
+	public final static String PREFERENCE_TEMPVALUE = "id_preference_tempvalue";
+	public final static String PREFERENCE_AUTOSTART = "id_preference_autostart";
+	public final static String PREFERENCE_ROOT = "id_preference_root";
+	
+	public final static String PREFERENCE_MAP = "id_preference_map";
+	
+	public final static String PREFERENCE_EXPERTMODE = "id_preference_expertmode";
+
+	public final static String PREFERENCE_SETCPU = "id_preference_setcpu";
+	public final static String PREFERENCE_SETCPUDATA = "id_preference_setcpu_data";
+
+	public final static String PREFERENCE_SORTTYPE = "id_preference_sorttype";
+
 	public final static String PREFERENCE_SHORTCUT = "id_preference_shortcut";
 	public final static String PREFERENCE_CPUUSAGE = "id_preference_cpuusage";
 	public final static String PREFERENCE_COLOR = "id_preference_color";
-	public final static String PREFERENCE_TEMPVALUE = "id_preference_tempvalue";
-	public final static String PREFERENCE_AUTOSTART = "id_preference_autostart";
-	public final static String PREFERENCE_MAP = "id_preference_map";
-	public final static String PREFERENCE_EXPERTMODE = "id_preference_expertmode";
-	public final static String PREFERENCE_ROOT = "id_preference_root";
-	public final static String PREFERENCE_SETCPU = "id_preference_setcpu";
-	public final static String PREFERENCE_SETCPUDATA = "id_preference_setcpu_data";
-	public final static String PREFERENCE_SORTTYPE = "id_preference_sorttype";
 	public final static String PREFERENCE_NOTIFICATION_COLOR = "id_preference_notification_fontcolor";
 	public final static String PREFERENCE_NOTIFICATION_TOP = "id_preference_notification_top";
+	
 	public final static String PREFERENCE_LOGCAT_FORMAT = "id_preference_logcat_format";
+	public final static String PREFERENCE_LOGCAT_VERBOSE = "id_preference_logcat_verbose_color";
+	public final static String PREFERENCE_LOGCAT_DEBUG = "id_preference_logcat_debug_color";
+	public final static String PREFERENCE_LOGCAT_INFO = "id_preference_logcat_info_color";
+	public final static String PREFERENCE_LOGCAT_WARNING = "id_preference_logcat_warning_color";
+	public final static String PREFERENCE_LOGCAT_ERROR = "id_preference_logcat_error_color";
+	public final static String PREFERENCE_LOGCAT_FATAL = "id_preference_logcat_fatal_color";
+	
 	public final static String PREFERENCE_DMESG_FORMAT = "id_preference_dmesg_format";
+	public final static String PREFERENCE_DMESG_EMERGENCY = "id_preference_dmesg_emergency_color";
+	public final static String PREFERENCE_DMESG_ALERT  = "id_preference_dmesg_alert_color";
+	public final static String PREFERENCE_DMESG_CRITICAL = "id_preference_dmesg_critical_color";
+	public final static String PREFERENCE_DMESG_ERROR  = "id_preference_dmesg_error_color";
+	public final static String PREFERENCE_DMESG_WARNING = "id_preference_dmesg_warning_color";
+	public final static String PREFERENCE_DMESG_NOTICE = "id_preference_dmesg_notice_color";
+	public final static String PREFERENCE_DMESG_INFO = "id_preference_dmesg_info_color";
+	public final static String PREFERENCE_DMESG_DEBUG = "id_preference_dmesg_debug_color";
 	
 	/**
 	 * get an instance for settings 
@@ -201,7 +222,56 @@ public class Settings {
 	public int getLogcatFormat() {
 	    return helper.getInteger(PREFERENCE_LOGCAT_FORMAT,  0);
 	}
+	
+	/**
+	 * get color of verbose level 
+	 * @return color
+	 */
+	public int getLogcatVerboseColor() {
+		return helper.getInteger(PREFERENCE_LOGCAT_VERBOSE,  0xff888888);
+	}
 
+	/**
+	 * get color of debug level 
+	 * @return color
+	 */
+	public int getLogcatDebugColor() {
+		return helper.getInteger(PREFERENCE_LOGCAT_DEBUG,  0xff3399ff);
+	}
+
+	/**
+	 * get color of information level 
+	 * @return color
+	 */
+	public int getLogcatInfoColor() {
+		return helper.getInteger(PREFERENCE_LOGCAT_INFO,  0xff00ff00);
+	}
+
+	/**
+	 * get color of warning level 
+	 * @return color
+	 */
+	public int getLogcatWarningColor() {
+		return helper.getInteger(PREFERENCE_LOGCAT_WARNING,  0xffff00ff);
+	}
+
+	/**
+	 * get color of error level 
+	 * @return color
+	 */
+	public int getLogcatErrorColor() {
+		return helper.getInteger(PREFERENCE_LOGCAT_ERROR, 0xffff0000);
+	}
+
+	/**
+	 * get color of fatal level 
+	 * @return color
+	 */
+	public int getLogcatFatalColor() {
+		return helper.getInteger(PREFERENCE_LOGCAT_FATAL, 0xffff0000);
+	}
+
+	
 	/**
 	 * get dmesg format 
 	 * @return format
@@ -209,5 +279,68 @@ public class Settings {
 	public int getDmesgFormat() {
 	    return helper.getInteger(PREFERENCE_DMESG_FORMAT,  0);
 	}
+	
+	/**
+	 * get color of emergency level 
+	 * @return color
+	 */
+	public int getDmesgEmergencyColor() {
+		return helper.getInteger(PREFERENCE_DMESG_EMERGENCY,  0xffff0000);
+	}
 
+	/**
+	 * get color of alert level 
+	 * @return color
+	 */
+	public int getDmesgAlertColor() {
+		return helper.getInteger(PREFERENCE_DMESG_ALERT,  0xffcccc00);
+	}
+
+	/**
+	 * get color of critical level 
+	 * @return color
+	 */
+	public int getDmesgCriticalColor() {
+		return helper.getInteger(PREFERENCE_DMESG_CRITICAL,  0xff66ff99);
+	}
+	
+	/**
+	 * get color of error level 
+	 * @return color
+	 */
+	public int getDmesgErrorColor() {
+		return helper.getInteger(PREFERENCE_DMESG_ERROR,  0xff33cc33);
+	}
+	
+	/**
+	 * get color of warning level 
+	 * @return color
+	 */
+	public int getDmesgWarningColor() {
+		return helper.getInteger(PREFERENCE_DMESG_WARNING,  0xff339933);
+	}
+
+	/**
+	 * get color of notice level 
+	 * @return color
+	 */
+	public int getDmesgNoticeColor() {
+		return helper.getInteger(PREFERENCE_DMESG_NOTICE,  0xff3399ff);
+	}
+
+	/**
+	 * get color of information level 
+	 * @return color
+	 */
+	public int getDmesgInfoColor() {
+		return helper.getInteger(PREFERENCE_DMESG_INFO,  0xff0000ff);
+	}
+
+	/**
+	 * get color of debug level 
+	 * @return color
+	 */
+	public int getDmesgDebugColor() {
+		return helper.getInteger(PREFERENCE_DMESG_DEBUG,  0xff9933ff);
+	}
 }

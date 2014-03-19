@@ -44,6 +44,11 @@
 		<item>Set Prority</item>
 	</string-array>
 
+	<string-array name="ui_message_menu_item">
+		<item>Lookup Process</item>
+		<item>Select Log</item>
+	</string-array>
+	
 	<string-array name="ui_preference_interval">
 		<item>Fast</item>
 		<item>Normal</item>

@@ -72,20 +72,20 @@ public class Preference extends PreferenceActivity  {
 		// set value 
 		if(pref instanceof CheckBoxPreference) {
 			((CheckBoxPreference) pref).setChecked(helper.getBoolean(pref.getKey(), false));
-			pref.setOnPreferenceChangeListener(new preferencChangeListener());
 		}
 		else if (pref instanceof ListPreference) {
 			((ListPreference) pref).setValue(helper.getString(pref.getKey(), ""));
-			pref.setOnPreferenceChangeListener(new preferencChangeListener());
 		}
 		else if (pref instanceof ColorPickerPreference) {
 			int defaultColor =  helper.getInteger(pref.getKey(), 0x00000000);
 			if (defaultColor != 0x00000000) ((ColorPickerPreference) pref).setColor(defaultColor);
-			pref.setOnPreferenceChangeListener(new preferencChangeListener());
 		}
-		else if (pref instanceof PreferenceScreen) {
+		
+		// bind event
+		 if (pref instanceof PreferenceScreen) 
 			pref.setOnPreferenceClickListener( new preferencScreenChangeListener());
-		}
+		else
+			pref.setOnPreferenceChangeListener(new preferencChangeListener());
 	}
 	
     private class preferencScreenChangeListener implements  OnPreferenceClickListener {

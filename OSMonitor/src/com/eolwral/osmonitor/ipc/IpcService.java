@@ -12,7 +12,6 @@ import android.content.Context;
 import android.net.LocalSocket;
 import android.net.LocalSocketAddress;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;

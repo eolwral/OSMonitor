@@ -33,6 +33,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -43,6 +44,7 @@ import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
@@ -87,10 +89,14 @@ public class MessageFragment extends ListFragment
 	private ipcAction logType = ipcAction.LOGCAT_MAIN; 
 	private Settings settings = null;
 	
+	// selected log
+	private SimpleArrayMap<Integer, Boolean> selectedData = new SimpleArrayMap<Integer, Boolean>();
+	private boolean selectedMode = false;
+	
 	// process mapping
 	private ProcessUtil infoHelper = null;
 	@SuppressLint("UseSparseArrays")
-	private SimpleArrayMap<Integer, String> map = new SimpleArrayMap<Integer, String>();
+	private SimpleArrayMap<Integer, processInfo> map = new SimpleArrayMap<Integer, processInfo>();
 	
 	// filter
 	private final static int MAXLOGCAT = 30000;
@@ -416,7 +422,7 @@ public class MessageFragment extends ListFragment
         			if(viewLogcatData.get(index).getPid() == 0)
             			logLine.append("System,");
     				else if(map.containsKey(viewLogcatData.get(index).getPid()))
-    					logLine.append(infoHelper.getPackageName(map.get(viewLogcatData.get(index).getPid()))+",");
+    					logLine.append(infoHelper.getPackageName(map.get(viewLogcatData.get(index).getPid()).getName())+",");
     				else
     					logLine.append("Unknown,");
         			
@@ -608,7 +614,7 @@ public class MessageFragment extends ListFragment
 						if (!infoHelper.checkPackageInformation(psInfo.getName())) {
 							infoHelper.doCacheInfo(psInfo.getUid(), psInfo.getOwner(), psInfo.getName());
 						}
-						map.put(psInfo.getPid(), psInfo.getName());
+						map.put(psInfo.getPid(), psInfo);
 					}
 					continue;
 				}
@@ -669,6 +675,9 @@ public class MessageFragment extends ListFragment
 		TextView tag;
 		TextView level;
 		TextView msg;
+
+		// color
+		int bkcolor;
 	}	
 	
 	private class MessageListAdapter extends BaseAdapter {
@@ -724,10 +733,13 @@ public class MessageFragment extends ListFragment
 			}
 
 			// draw current color for each item
-			if (position % 2 == 0)
-				sv.setBackgroundColor(getResources().getColor(R.color.dkgrey_osmonitor));
-			else
-				sv.setBackgroundColor(getResources().getColor(R.color.black_osmonitor));
+			if (selectedData.containsKey(position) == true) 
+				holder.bkcolor = getResources().getColor(R.color.selected_osmonitor);
+			else if (position % 2 == 0) 
+				holder.bkcolor = getResources().getColor(R.color.dkgrey_osmonitor);
+			else 
+				holder.bkcolor = getResources().getColor(R.color.black_osmonitor);
+			sv.setBackgroundColor(holder.bkcolor);
 
 			// get data 
 			if(isLogcat(logType) && viewLogcatData.size() > position) {
@@ -747,17 +759,107 @@ public class MessageFragment extends ListFragment
 					showDmesgFormat(item);
 			}
 			
-			// avoid to trigger errors when refreshing
-			sv.setOnTouchListener(new OnTouchListener(){
+			// long click
+			sv.setOnLongClickListener( new MenuLongClickListener(position));
+			
+			sv.setOnClickListener( new MenuShortClickListener(position));
+			
+			// offer better indicator for interactive
+			sv.setOnTouchListener(new OnTouchListener () {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
-					return true;
+					
+					switch(event.getAction())
+					{
+					case MotionEvent.ACTION_DOWN:
+					    v.setBackgroundColor(getResources().getColor(R.color.selected_osmonitor));
+					    break;
+					case MotionEvent.ACTION_UP:
+					case MotionEvent.ACTION_CANCEL:
+					    ViewHolder holder = (ViewHolder) v.getTag();
+					    v.setBackgroundColor(holder.bkcolor);
+					    break;
+					}
+					return false;
 				}
-				
 			});
 			
 			return sv;
+		}
+		
+		private class MenuShortClickListener implements OnClickListener {
+			private int position;
+
+			public MenuShortClickListener(int position) {
+				this.position = position;
+			}
+
+			@Override
+			public void onClick(View v) {
+				if (selectedMode && !selectedData.containsKey(position)) 
+					selectedData.put(position, true);
+				else
+					selectedData.remove(position);
+				messageList.notifyDataSetChanged();
+			}
+			
+		}
+		
+		private class MenuLongClickListener implements OnLongClickListener {
+			private int position;
+
+			public MenuLongClickListener(int position) {
+				this.position = position;
+			}
+
+			@Override
+			public boolean onLongClick(View v) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			    builder.setItems(R.array.ui_message_menu_item, new MessageItemMenu(position));
+			    builder.create().show();
+			    return false;
+			}
+		}
+		
+		private class MessageItemMenu implements DialogInterface.OnClickListener {
+			private int position;
+			
+            public MessageItemMenu(int position) {
+				this.position = position;
+			}
+
+			public void onClick(DialogInterface dialog, int which) {
+				switch(which) {
+				case 0:
+					showProcessInformation(position);
+					break;
+				case 1:
+					selectedMode = true;
+					selectedData.put(position, true);
+					messageList.notifyDataSetChanged();
+		   	        break;
+				}
+            }
+		}
+		
+		private void showProcessInformation(int position) {
+
+			if(!isLogcat(logType)) {
+			    Toast.makeText(getActivity(), getActivity().getResources().getText(R.string.ui_text_notfound), Toast.LENGTH_LONG).show();
+				return;
+			}
+			
+			int pid = viewLogcatData.get(position).getPid();
+			if (!map.containsKey(pid)) {
+				Toast.makeText(getActivity(), getActivity().getResources().getText(R.string.ui_text_notfound), Toast.LENGTH_LONG).show();
+				return;
+			}
+			
+			MessageProcessFragment procView = new MessageProcessFragment(getActivity());
+			procView.setTitle(infoHelper.getPackageName(map.get(pid).getName()));
+			procView.setProcessData(map.get(pid));
+			procView.show();
 		}
 
 		private void showDmesgFormat(dmesgInfo item) {

@@ -215,6 +215,7 @@
 <string name="ui_text_okay">OKay</string>
 <string name="ui_text_cancel">Cancel</string>
 <string name="ui_text_default">Default</string>
+<string name="ui_text_notfound">Not Found!</string>
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">Please wait..</string>

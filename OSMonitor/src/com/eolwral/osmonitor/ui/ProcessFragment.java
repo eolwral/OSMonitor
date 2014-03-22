@@ -555,7 +555,6 @@ public class ProcessFragment extends ListFragment
 		while (!data.isEmpty())
 			data.remove(0);
 		data.clear();
-		System.gc();
 
 		// convert data
 		// TODO: reuse old objects

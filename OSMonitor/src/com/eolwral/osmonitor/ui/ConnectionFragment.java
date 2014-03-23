@@ -47,7 +47,6 @@ import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
-import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.HttpUtil;
 import com.eolwral.osmonitor.util.WHOISRequest;
@@ -130,9 +129,6 @@ public class ConnectionFragment extends ListFragment
 	   	 case R.id.ui_menu_exit:
 	   		 onExitClick();
 	   		 break;
-	   	 case R.id.ui_menu_help:
-	   		 onHelpClick();
-	   		 break;
 	   	 }
 		return super.onOptionsItemSelected(item);  	   	 
 	}
@@ -160,11 +156,6 @@ public class ConnectionFragment extends ListFragment
 			return;
 	}
 	
-	private void onHelpClick() {
-		ShowHelp();
-		return;
-	}
- 
 	@SuppressLint("NewApi")
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -594,10 +585,5 @@ public class ConnectionFragment extends ListFragment
 				closeLoading();
 			}
     	}
-    }
- 	
-	void ShowHelp()
-    {
-    	CommonUtil.showHelp(getActivity(), "http://eolwral.github.io/OSMonitor/help/help-connection.html");
     }
 }

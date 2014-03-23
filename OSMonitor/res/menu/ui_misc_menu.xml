@@ -4,12 +4,6 @@
     
     <group android:id="@+id/ui_connection_menu_group">
         
-        <item 
-            android:id="@+id/ui_menu_help" 
-            android:title="@string/ui_menu_help" 
-            android:icon="@drawable/ic_action_help" 
-            osmonitor:showAsAction="ifRoom" />
-        
         <item android:id="@+id/ui_menu_setting" 
             android:title="@string/ui_menu_setting" 
             android:icon="@drawable/ic_action_option" 
@@ -18,13 +12,13 @@
         <item android:id="@+id/ui_menu_stop" 
             android:title="@string/ui_menu_stop" 
             android:icon="@drawable/ic_action_stop" 
-            osmonitor:showAsAction="ifRoom" />    
-        
-    </group>
-    
-    <item android:id="@+id/ui_menu_exit" 
+            osmonitor:showAsAction="ifRoom" />
+            
+       <item android:id="@+id/ui_menu_exit" 
             android:title="@string/ui_menu_exit" 
             android:icon="@drawable/ic_action_exit" 
             osmonitor:showAsAction="ifRoom" />   
- 
+        
+    </group>
+    
 </menu>

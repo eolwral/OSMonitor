@@ -129,9 +129,6 @@ public class MiscFragment extends Fragment
 	   	 case R.id.ui_menu_exit:
 	   		 onExitClick();
 	   		 break;
-	   	 case R.id.ui_menu_help:
-	   		 onHelpClick();
-	   		 break;
 	   	 }
 		return super.onOptionsItemSelected(item);  	   	 
 	}
@@ -157,11 +154,6 @@ public class MiscFragment extends Fragment
 			settings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 	        startActivity(settings);
 			return;
-	}
-	
-	private void onHelpClick() {
-		ShowHelp();
-		return;
 	}
 	
 	// TODO: use view holder to reduce consuming resource 
@@ -778,9 +770,5 @@ public class MiscFragment extends Fragment
 			batteryStatus.setText(Html.fromHtml(statusBuilder.toString()));
 		}
 	};
-	
-	void ShowHelp()
-    {
-    	CommonUtil.showHelp(getActivity(), "http://eolwral.github.io/OSMonitor/help/help-misc.html");
-    }
+
 }

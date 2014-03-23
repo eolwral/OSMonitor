@@ -1178,7 +1178,7 @@ public class ProcessFragment extends ListFragment
 	
 	void ShowHelp()
     {
-    	CommonUtil.showHelp(getActivity(), "http://eolwral.github.io/OSMonitor/help/help-process.html");
+    	CommonUtil.showHelp(getActivity(), "http://eolwral.github.io/OSMonitor/maunal/index.html");
     }
 
 }

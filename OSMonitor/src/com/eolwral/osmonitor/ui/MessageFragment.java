@@ -212,7 +212,7 @@ public class MessageFragment extends ListFragment
 		inflater.inflate(R.menu.ui_message_menu, menu);
 	
 		// sort extend menu
-		MenuItem expendMenu = menu.findItem(R.id.ui_message_sort);
+		MenuItem expendMenu = menu.findItem(R.id.ui_message_type);
 		Spinner expendItem = (Spinner) MenuItemCompat.getActionView(expendMenu);
 		expendItem.setSelection(convertTypeToLoc(selectedType));
 		
@@ -509,9 +509,6 @@ public class MessageFragment extends ListFragment
 	   	 case R.id.ui_menu_exit:
 	   		 onExitClick();
 	   		 break;
-	   	 case R.id.ui_menu_help:
-	   		 onHelpClick();
-	   		 break;
 	   	 }
 		return super.onOptionsItemSelected(item);  	   	 
 	}
@@ -555,12 +552,6 @@ public class MessageFragment extends ListFragment
 		exportDialog.create().show();
 		return ;
 	}
-    
-	private void onHelpClick() {
-		ShowHelp();
-		return;
-	}
-
 	
 	@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -1266,10 +1257,5 @@ public class MessageFragment extends ListFragment
 		}		
 		return loc;
 	}
-	
-	private void ShowHelp()
-    {
-    	CommonUtil.showHelp(getActivity(), "http://eolwral.github.io/OSMonitor/help/help-message.html");
-    }
 
 }

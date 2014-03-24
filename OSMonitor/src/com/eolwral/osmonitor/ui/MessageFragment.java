@@ -19,6 +19,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.MenuItemCompat;
@@ -296,6 +297,17 @@ public class MessageFragment extends ListFragment
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 	
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		MenuItem expendMenu = menu.findItem(R.id.ui_message_type);
+		if (selectedMode == true) 
+			expendMenu.setVisible(false);
+		else 
+			expendMenu.setVisible(true);
+		super.onPrepareOptionsMenu(menu);
+	}
+
+
 	private void forceRefresh() {
 		if(logType != selectedType) {
 			ipc.removeRequest(this);
@@ -380,6 +392,10 @@ public class MessageFragment extends ListFragment
         	for(int index = 0; index < LogCount ; index++)
         	{
         		StringBuilder logLine = new StringBuilder();
+
+        		// filter specific entries
+        		if(selectedMode == true && !selectedData.containsKey(index))
+        			continue;
         		
         		if(isLogcat(logType))
         		{
@@ -472,6 +488,12 @@ public class MessageFragment extends ListFragment
 
         	logWriter.close();
 
+        	// refresh
+        	selectedMode = false;
+        	selectedData.clear();
+			ActivityCompat.invalidateOptionsMenu(getActivity());
+        	messageList.notifyDataSetChanged();
+        	
     	} catch (Exception e) {
 	    	new AlertDialog.Builder(getActivity())
 		  		.setTitle(R.string.ui_menu_logexport)
@@ -792,6 +814,12 @@ public class MessageFragment extends ListFragment
 					selectedData.put(position, true);
 				else
 					selectedData.remove(position);
+				
+				if (selectedData.size() == 0) {
+					selectedMode = false;
+					ActivityCompat.invalidateOptionsMenu(getActivity());
+				}
+				
 				messageList.notifyDataSetChanged();
 			}
 			
@@ -828,6 +856,7 @@ public class MessageFragment extends ListFragment
 				case 1:
 					selectedMode = true;
 					selectedData.put(position, true);
+					ActivityCompat.invalidateOptionsMenu(getActivity());
 					messageList.notifyDataSetChanged();
 		   	        break;
 				}

@@ -4,6 +4,7 @@
      <group android:id="@+id/ui_message_menu_group">
          <item
              android:id="@+id/ui_message_type"
+             android:title=""
              osmonitor:actionLayout="@layout/ui_message_options" 
              osmonitor:showAsAction="ifRoom"/>
          
@@ -15,17 +16,18 @@
              osmonitor:showAsAction="ifRoom|collapseActionView"/>
       </group>
 
-        <item android:id="@+id/ui_menu_setting" 
-                    android:title="@string/ui_menu_setting" 
-                    android:icon="@drawable/ic_action_option" 
-                    osmonitor:showAsAction="ifRoom" />  
-
-        <item 
+      <item 
           android:id="@+id/ui_message_export"
           android:title="@string/ui_menu_logexport"
           android:icon="@drawable/ic_action_export"
           osmonitor:showAsAction="ifRoom"  />
      
+      <item 
+            android:id="@+id/ui_menu_setting" 
+            android:title="@string/ui_menu_setting" 
+            android:icon="@drawable/ic_action_option" 
+            osmonitor:showAsAction="ifRoom" />  
+
      <item android:id="@+id/ui_menu_exit" 
           android:title="@string/ui_menu_exit" 
           android:icon="@drawable/ic_action_exit" 

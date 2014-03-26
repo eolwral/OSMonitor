@@ -9,6 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/ui_message_filename" >
+        android:hint="@string/ui_text_filename" >
     </EditText>
 </LinearLayout>

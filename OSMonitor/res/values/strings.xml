@@ -159,9 +159,6 @@
 
 <!-- Header -->
 <string name="ui_message_count">Message:</string>
-<string name="ui_message_filename">FileName</string>
-<string name="ui_message_fileexist">File Exists!</string>
-<string name="ui_message_exportdone">Done!</string>
 
 <!-- Message Tab End -->
 
@@ -216,6 +213,10 @@
 <string name="ui_text_cancel">Cancel</string>
 <string name="ui_text_default">Default</string>
 <string name="ui_text_notfound">Not Found!</string>
+
+<string name="ui_text_filename">FileName</string>
+<string name="ui_text_fileexist">File Exists!</string>
+<string name="ui_text_exportdone">Done!</string>
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">Please wait..</string>

@@ -159,9 +159,6 @@
 
 <!-- Header -->
 <string name="ui_message_count">Wiadomości:</string>
-<string name="ui_message_filename">Nazwa</string>
-<string name="ui_message_fileexist">Plik istnieje!</string>
-<string name="ui_message_exportdone">Zrobione!</string>
 
 <!-- Message Tab End -->
 
@@ -191,6 +188,24 @@
 <string name="ui_preferences_notificaiton_color_detail">Kliknij i wybierz</string>
 <string name="ui_preferences_notificaiton_top">Trzymaj powiadomienia w pamięci</string>
 <string name="ui_preferences_notificaiton_top_detail">Zwiększ priorytet powiadomienia (Android 4.1.2 i wyżej)</string>
+<string name="ui_preferences_logcat_format">Logcat Format</string>
+<string name="ui_preferences_logcat_format_detail">Format używany podczas wyświetlania wpisów dziennika </string>
+<string name="ui_preferences_dmesg_format">Dmesg Format</string>
+<string name="ui_preferences_dmesg_format_detail">Format używany podczas wyświetlania wpisów dziennika </string>
+<string name="ui_preferences_logcat_message_color">Logcat Wiadomość Kolor </string>
+<string name="ui_preferences_dmesg_message_color">Dmesg Wiadomość Kolor </string>
+<string name="ui_preferences_message_color_detail">Wiadomość kolor używany podczas wyświetlania wpisów dziennika </string>
+<string name="ui_preferences_message_emergency_color">Awaryjne (Emergency) </string>
+<string name="ui_preferences_message_alert_color">Alarmy (Alert) </string>
+<string name="ui_preferences_message_critical_color">Krytyczne (Critical) </string>
+<string name="ui_preferences_message_verbose_color">Szczegółowe (Verbose) </string>
+<string name="ui_preferences_message_warning_color">Ostrzeżenia (Warning)</string>
+<string name="ui_preferences_message_notice_color">Uwagi (Notice)</string>
+<string name="ui_preferences_message_info_color">Informacje (Information)</string>
+<string name="ui_preferences_message_debug_color">Diagnostyczne (Debug)</string>
+<string name="ui_preferences_message_error_color">Błędy (Error)</string>
+<string name="ui_preferences_message_fatal_color">Krytyczne (Fatal)</string>
+
 
 <!-- Preferences End -->
 
@@ -198,6 +213,11 @@
 <string name="ui_text_okay">OK</string>
 <string name="ui_text_cancel">Anuluj</string>
 <string name="ui_text_default">Domyślnie</string>
+<string name="ui_text_notfound">Nie znaleziono!</string>
+
+<string name="ui_text_filename">Nazwa</string>
+<string name="ui_text_fileexist">Plik istnieje!</string>
+<string name="ui_text_exportdone">Zrobione!</string>
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">Czekaj...</string>

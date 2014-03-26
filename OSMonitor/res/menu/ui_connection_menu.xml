@@ -13,13 +13,17 @@
             android:title="@string/ui_menu_stop" 
             android:icon="@drawable/ic_action_stop" 
             osmonitor:showAsAction="ifRoom" />
+        
+       <item android:id="@+id/ui_connection_export"
+           android:title="@string/ui_menu_logexport"
+           android:icon="@drawable/ic_action_export"
+           osmonitor:showAsAction="ifRoom"  />
+       
+    </group>
 
-         <item android:id="@+id/ui_menu_exit" 
+     <item android:id="@+id/ui_menu_exit" 
           android:title="@string/ui_menu_exit" 
           android:icon="@drawable/ic_action_exit" 
           osmonitor:showAsAction="ifRoom" />  
-        
-    </group>
-    
     
 </menu>

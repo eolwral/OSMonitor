@@ -159,9 +159,6 @@
 
 <!-- Header -->
 <string name="ui_message_count">Messaggio:</string>
-<string name="ui_message_filename">Nome del file</string>
-<string name="ui_message_fileexist">Il File esiste!</string>
-<string name="ui_message_exportdone">Fatto!</string>
 
 <!-- Message Tab End -->
 
@@ -191,6 +188,23 @@
 <string name="ui_preferences_notificaiton_color_detail">clicca e scegli</string>
 <string name="ui_preferences_notificaiton_top">Tieni le notifiche in alto </string>
 <string name="ui_preferences_notificaiton_top_detail">aumenta la priorità delle notifiche (Android 4.1.2 e successive)</string>
+<string name="ui_preferences_logcat_format">Logcat Formato </string>
+<string name="ui_preferences_logcat_format_detail">Logcat formato da utilizzare per la visualizzazione di voci di registro</string>
+<string name="ui_preferences_dmesg_format">Dmesg Formato </string>
+<string name="ui_preferences_dmesg_format_detail">dmesg formato da utilizzare per la visualizzazione voci di registro</string>
+<string name="ui_preferences_logcat_message_color">Logcat Messaggio colore </string>
+<string name="ui_preferences_dmesg_message_color">Dmesg Messaggio colore </string>
+<string name="ui_preferences_message_color_detail">messaggio di colore da utilizzare per la visualizzazione voci di registro</string>
+<string name="ui_preferences_message_emergency_color">Emergenza </string>
+<string name="ui_preferences_message_alert_color">Allerta </string>
+<string name="ui_preferences_message_critical_color">Critico </string>
+<string name="ui_preferences_message_verbose_color">Verbose </string>
+<string name="ui_preferences_message_warning_color">Attenzione</string>
+<string name="ui_preferences_message_notice_color">Notifica</string>
+<string name="ui_preferences_message_info_color">Informazione</string>
+<string name="ui_preferences_message_debug_color">Debug</string>
+<string name="ui_preferences_message_error_color">Errore</string>
+<string name="ui_preferences_message_fatal_color">Fatale</string>
 
 <!-- Preferences End -->
 
@@ -198,6 +212,11 @@
 <string name="ui_text_okay">OKay</string>
 <string name="ui_text_cancel">Annulla</string>
 <string name="ui_text_default">Default</string>
+<string name="ui_text_notfound">Not Found!</string>
+
+<string name="ui_text_filename">Nome del file</string>
+<string name="ui_text_fileexist">Il File esiste!</string>
+<string name="ui_text_exportdone">Fatto!</string>
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">Attendere prego..</string>

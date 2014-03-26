@@ -368,7 +368,7 @@ public class MessageFragment extends ListFragment
         	{
         		new AlertDialog.Builder(getActivity())
    		   		    .setTitle(R.string.ui_menu_logexport)
-    		   		.setMessage(R.string.ui_message_fileexist)
+    		   		.setMessage(R.string.ui_text_fileexist)
     		   		.setPositiveButton(R.string.ui_text_okay,
     		   				new DialogInterface.OnClickListener() {
     		   			public void onClick(DialogInterface dialog, int whichButton) { } })
@@ -509,7 +509,7 @@ public class MessageFragment extends ListFragment
 	    	
     	new AlertDialog.Builder(getActivity())
 	  		.setTitle(R.string.ui_menu_logexport)
-	  		.setMessage(R.string.ui_message_exportdone)
+	  		.setMessage(R.string.ui_text_exportdone)
 	  		.setPositiveButton(R.string.ui_text_okay,
 	  				new DialogInterface.OnClickListener() {
 	  			public void onClick(DialogInterface dialog, int whichButton) { } })

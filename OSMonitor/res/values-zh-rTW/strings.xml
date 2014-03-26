@@ -102,6 +102,7 @@
 <!-- Misc Tab Start -->
 <string name="ui_misc_more">更多</string>
 
+<!-- Memory -->
 <string name="ui_memory_title">記憶體</string>
 <string name="ui_swap_title">Swap</string>
 <string name="ui_memory_total">全部</string>
@@ -123,7 +124,7 @@
 <string name="ui_processor_freq_max_title">最大頻率</string>
 <string name="ui_processor_freq_min_title">最小頻率</string>
 <string name="ui_processor_enable">啟用</string>
-<string name="ui_processor_enable_title">啟用全部 CPUs</string>
+<string name="ui_processor_enable_title">啟用全部 CPU</string>
 <string name="ui_processor_enable_msg">收集資訊中..</string>
 
 <string name="ui_processor_status_online">Online</string>
@@ -159,9 +160,6 @@
 
 <!-- Header -->
 <string name="ui_message_count">訊息:</string>
-<string name="ui_message_filename">檔案</string>
-<string name="ui_message_fileexist">檔案己存在!</string>
-<string name="ui_message_exportdone">完成!</string>
 
 <!-- Message Tab End -->
 
@@ -191,6 +189,23 @@
 <string name="ui_preferences_notificaiton_color_detail">按下後可重新選擇</string>
 <string name="ui_preferences_notificaiton_top">把訊息放在最上面 </string>
 <string name="ui_preferences_notificaiton_top_detail">提高訊息優先權(Android 4.1.2 後)</string>
+<string name="ui_preferences_logcat_format">Logcat 格式</string>
+<string name="ui_preferences_logcat_format_detail">選擇顯示 Logcat 格式.</string>
+<string name="ui_preferences_dmesg_format">Dmesg 格式</string>
+<string name="ui_preferences_dmesg_format_detail">選擇顯示 dmesg 格式.</string>
+<string name="ui_preferences_logcat_message_color">Logcat 訊息格式</string>
+<string name="ui_preferences_dmesg_message_color">Dmesg 訊息格式</string>
+<string name="ui_preferences_message_color_detail">顯示訊息的顏色.</string>
+<string name="ui_preferences_message_emergency_color">Emergency </string>
+<string name="ui_preferences_message_alert_color">Alert </string>
+<string name="ui_preferences_message_critical_color">Critical </string>
+<string name="ui_preferences_message_verbose_color">Verbose </string>
+<string name="ui_preferences_message_warning_color">Warning</string>
+<string name="ui_preferences_message_notice_color">Notice</string>
+<string name="ui_preferences_message_info_color">Information</string>
+<string name="ui_preferences_message_debug_color">Debug</string>
+<string name="ui_preferences_message_error_color">Error</string>
+<string name="ui_preferences_message_fatal_color">Fatal</string>
 
 <!-- Preferences End -->
 
@@ -198,6 +213,12 @@
 <string name="ui_text_okay">確定</string>
 <string name="ui_text_cancel">取消</string>
 <string name="ui_text_default">預設</string>
+<string name="ui_text_notfound">無法找到!</string>
+
+<string name="ui_text_filename">檔案</string>
+<string name="ui_text_fileexist">檔案己存在!</string>
+<string name="ui_text_exportdone">完成!</string>
+
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">請稍等..</string>

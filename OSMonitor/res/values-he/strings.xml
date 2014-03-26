@@ -159,9 +159,7 @@
 
 <!-- Header -->
 <string name="ui_message_count">הודעה:</string>
-<string name="ui_message_filename">שם קובץ</string>
-<string name="ui_message_fileexist">הקובץ כבר קיים!</string>
-<string name="ui_message_exportdone">מוכן!</string>
+
 
 <!-- Message Tab End -->
 
@@ -191,6 +189,23 @@
 <string name="ui_preferences_notificaiton_color_detail">לחץ ובחר</string>
 <string name="ui_preferences_notificaiton_top">שמור על ההודעה מלמעלה</string>
 <string name="ui_preferences_notificaiton_top_detail">העלה את חשיבות ההודעה (עבור גרסת אנדרואיד 4.1.2 ומעלה)</string>
+<string name="ui_preferences_logcat_format">פורמט Logcat </string>
+<string name="ui_preferences_logcat_format_detail">פורמט להיכנס לשימוש בעת הצגת ערכי יומן</string>
+<string name="ui_preferences_dmesg_format">פורמט dmesg </string>
+<string name="ui_preferences_dmesg_format_detail">פורמט dmesg להשתמש בעת הצגת ערכי יומן</string>
+<string name="ui_preferences_logcat_message_color">Logcat מסר צבע </string>
+<string name="ui_preferences_dmesg_message_color">Dmesg מסר צבע </string>
+<string name="ui_preferences_message_color_detail">צבע הודעה לשימוש בעת הצגת ערכי יומן</string>
+<string name="ui_preferences_message_emergency_color">חירום </string>
+<string name="ui_preferences_message_alert_color">התראה </string>
+<string name="ui_preferences_message_critical_color">קריטי </string>
+<string name="ui_preferences_message_verbose_color">מפורט </string>
+<string name="ui_preferences_message_warning_color">אזהרה</string>
+<string name="ui_preferences_message_notice_color">שים לב</string>
+<string name="ui_preferences_message_info_color">מידע</string>
+<string name="ui_preferences_message_debug_color">איתור באגים</string>
+<string name="ui_preferences_message_error_color">שגיאה</string>
+<string name="ui_preferences_message_fatal_color">קריטי</string>
 
 <!-- Preferences End -->
 
@@ -198,6 +213,10 @@
 <string name="ui_text_okay">אוקי</string>
 <string name="ui_text_cancel">ביטול</string>
 <string name="ui_text_default">ברירת מחדל</string>
+
+<string name="ui_text_filename">שם קובץ</string>
+<string name="ui_text_fileexist">הקובץ כבר קיים!</string>
+<string name="ui_text_exportdone">מוכן!</string>
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">חכה בבקשה..</string>

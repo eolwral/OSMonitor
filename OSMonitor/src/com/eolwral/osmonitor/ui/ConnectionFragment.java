@@ -1,21 +1,30 @@
 package com.eolwral.osmonitor.ui;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.res.Resources;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -28,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -129,8 +139,181 @@ public class ConnectionFragment extends ListFragment
 	   	 case R.id.ui_menu_exit:
 	   		 onExitClick();
 	   		 break;
+	   	 case R.id.ui_connection_export:
+	   		onExportClick();
+	   		 break;
 	   	 }
 		return super.onOptionsItemSelected(item);  	   	 
+	}
+	
+	private void onExportClick() {
+		
+		final Resources exportRes = getActivity().getResources();
+		final Calendar calendar = Calendar.getInstance();
+		final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss", Locale.getDefault());
+		
+		Builder exportDialog = new AlertDialog.Builder(getActivity());
+		View exportView = LayoutInflater.from(getActivity()).inflate(R.layout.ui_message_export, null);
+		TextView exportFile = (TextView) exportView.findViewById(R.id.id_export_filename);
+		exportFile.setText("Connection-"+formatter.format(calendar.getTime()));
+		exportDialog.setView(exportView);
+		
+		exportDialog.setTitle(exportRes.getText(R.string.ui_menu_logexport));
+		exportDialog.setNegativeButton(exportRes.getText(R.string.ui_text_cancel), null);
+		
+		exportDialog.setPositiveButton(exportRes.getText(R.string.ui_text_okay),
+	    new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            	String FileName = ((EditText)((AlertDialog)dialog).findViewById(R.id.id_export_filename)).getText().toString();
+            	exportLog(FileName);
+            }
+        });
+			
+		exportDialog.create().show();
+		return;
+	}
+	
+	private void exportLog(String fileName) {
+
+		if(fileName.trim().equals(""))
+			return;
+
+		if(!fileName.contains(".csv"))
+			fileName += ".csv";
+
+		try {
+			
+			File logFile = new File(Environment.getExternalStorageDirectory().getPath() + "/" + fileName);
+
+			if (logFile.exists())
+			{
+				new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.ui_menu_logexport)
+				.setMessage(R.string.ui_text_fileexist)
+				.setPositiveButton(R.string.ui_text_okay,
+						new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) { } })
+					.create()
+					.show();
+				return;
+			}
+
+			logFile.createNewFile();
+
+			FileWriter logWriter = new FileWriter(logFile);
+
+			for (int index = 0 ; index < data.size(); index++) {
+
+				StringBuilder logLine = new StringBuilder();
+
+				// item 
+				connectionInfo item = data.get(index);
+
+				// prepare main information
+				switch (item.getType().getNumber()) {
+				case connectionInfo.connectionType.TCPv4_VALUE:
+					logLine.append("TCP4");
+					break;
+				case connectionInfo.connectionType.TCPv6_VALUE:
+					logLine.append("TCP6");
+					break;
+				case connectionInfo.connectionType.UDPv4_VALUE:
+					logLine.append("UDP4");
+					break;
+				case connectionInfo.connectionType.UDPv6_VALUE:
+					logLine.append("UDP6");
+					break;
+				case connectionInfo.connectionType.RAWv4_VALUE:
+					logLine.append("RAW4");
+					break;
+				case connectionInfo.connectionType.RAWv6_VALUE:
+					logLine.append("RAW6");
+					break;
+				}
+				logLine.append(",");
+
+				logLine.append(convertFormat(item.getLocalIP(), item.getLocalPort()));
+				logLine.append(",");
+
+				logLine.append(convertFormat(item.getRemoteIP(), item.getRemotePort()));
+				logLine.append(",");
+
+				switch(item.getStatus().getNumber())
+				{
+				case connectionInfo.connectionStatus.CLOSE_VALUE:
+					logLine.append("CLOSE");
+					break;
+				case connectionInfo.connectionStatus.CLOSE_WAIT_VALUE:
+					logLine.append("CLOSE_WAIT");
+					break;
+				case connectionInfo.connectionStatus.CLOSING_VALUE:
+					logLine.append("CLOSING");
+					break;
+				case connectionInfo.connectionStatus.ESTABLISHED_VALUE:
+					logLine.append("ESTABLISHED");
+					break;
+				case connectionInfo.connectionStatus.FIN_WAIT1_VALUE:
+					logLine.append("FIN_WAIT1");
+					break;
+				case connectionInfo.connectionStatus.FIN_WAIT2_VALUE:
+					logLine.append("FIN_WAIT2");
+					break;
+				case connectionInfo.connectionStatus.LAST_ACK_VALUE:
+					logLine.append("LAST_ACK");
+					break;
+				case connectionInfo.connectionStatus.LISTEN_VALUE:
+					logLine.append("LISTEN");
+					break;
+				case connectionInfo.connectionStatus.SYN_RECV_VALUE:
+					logLine.append("SYN_RECV");
+					break;
+				case connectionInfo.connectionStatus.SYN_SENT_VALUE:
+					logLine.append("SYN_SENT");
+					break;
+				case connectionInfo.connectionStatus.TIME_WAIT_VALUE:
+					logLine.append("TIME_WAIT");
+					break;
+				case connectionInfo.connectionStatus.UNKNOWN_VALUE:
+					logLine.append("UNKNOWN");
+					break;
+				}
+				logLine.append(",");
+
+				if(item.getUid() == 0)
+					logLine.append("System");
+				else if(map.containsKey(item.getUid()))
+					logLine.append(infoHelper.getPackageName(map.get(item.getUid())));
+				else
+					logLine.append(item.getUid()+"(UID)");
+				logLine.append("\n");
+
+				logWriter.write(logLine.toString());
+			}
+			
+			logWriter.close();
+		}
+		catch (Exception e) {
+	    	new AlertDialog.Builder(getActivity())
+		  		.setTitle(R.string.ui_menu_logexport)
+		  		.setMessage(e.getMessage())
+		  		.setPositiveButton(R.string.ui_text_okay,
+		  				new DialogInterface.OnClickListener() {
+		  			public void onClick(DialogInterface dialog, int whichButton) { } })
+		  		.create()
+		  		.show();
+
+	    	return;
+	    }
+	    	
+    	new AlertDialog.Builder(getActivity())
+	  		.setTitle(R.string.ui_menu_logexport)
+	  		.setMessage(R.string.ui_text_exportdone)
+	  		.setPositiveButton(R.string.ui_text_okay,
+	  				new DialogInterface.OnClickListener() {
+	  			public void onClick(DialogInterface dialog, int whichButton) { } })
+	  		.create()
+	  		.show();
+		
 	}
 	
 	private void onStopClick(MenuItem stopButton) {
@@ -395,17 +578,6 @@ public class ConnectionFragment extends ListFragment
 			return sv;
 		}
 		
-		private String convertFormat(String ip, int port) {
-			
-			// replace IPv6 to IPv4
-			ip = ip.replace("::ffff:", "");
-
-			if(port == 0)
-				return ip+":*";
-			return ip+":"+port;
-			
-		}
-		
 		public void refresh() {
 			this.notifyDataSetChanged();
 		}
@@ -428,6 +600,17 @@ public class ConnectionFragment extends ListFragment
 		    	procDialog.setCancelable(true);
 		    }
 		});
+	}
+
+	private String convertFormat(String ip, int port) {
+		
+		// replace IPv6 to IPv4
+		ip = ip.replace("::ffff:", "");
+
+		if(port == 0)
+			return ip+":*";
+		return ip+":"+port;
+		
 	}
 	
 	private void closeLoading() {

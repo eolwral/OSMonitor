@@ -246,7 +246,8 @@ public class MessageFragment extends ListFragment
 		// sort extend menu
 		MenuItem searchMenu = menu.findItem(R.id.ui_message_search);
 		View searchItem = (View) MenuItemCompat.getActionView(searchMenu);
-
+		MenuItemCompat.setOnActionExpandListener(searchMenu, new HiddenTypeMenu(expendMenu));
+		
 		// instant search
 		TextView searchView = (TextView) searchItem.findViewById(R.id.id_action_search_text);
 		searchView.setText(filterString);
@@ -295,6 +296,34 @@ public class MessageFragment extends ListFragment
 		});
 		
 		super.onCreateOptionsMenu(menu, inflater);
+	}
+	
+	
+	private class  HiddenTypeMenu implements MenuItemCompat.OnActionExpandListener
+	{
+		private MenuItem expendMenu = null;
+		
+		public HiddenTypeMenu(MenuItem item) {
+			this.expendMenu = item;
+		}
+		
+		@Override
+		public boolean onMenuItemActionExpand(MenuItem item) {
+			if (expendMenu != null) {
+				expendMenu.setVisible(false);
+				expendMenu.setEnabled(false);
+			}
+			return true;
+		}
+
+		@Override
+		public boolean onMenuItemActionCollapse(MenuItem item) {
+			if (expendMenu != null) {
+				expendMenu.setVisible(true);
+				expendMenu.setEnabled(true);
+			}
+			return true;
+		}
 	}
 	
 	@Override
@@ -389,21 +418,20 @@ public class MessageFragment extends ListFragment
         	
         	final Calendar calendar = Calendar.getInstance();
         	
-        	for(int index = 0; index < LogCount ; index++)
-        	{
+        	for(int index = 0; index < LogCount ; index++) {
+        		
         		StringBuilder logLine = new StringBuilder();
 
         		// filter specific entries
         		if(selectedMode == true && !selectedData.containsKey(index))
         			continue;
         		
-        		if(isLogcat(logType))
-        		{
+        		if(isLogcat(logType)) {
         			calendar.setTimeInMillis(viewLogcatData.get(index).getSeconds()*1000);
         			
         			logLine.append(DateFormat.format("yyyy-MM-dd hh:mm:ss", calendar.getTime()) + ",");
         			
-    				switch(viewLogcatData.get(index).getPriority().getNumber())
+    				switch(viewLogcatData.get(index).getPriority().getNumber()) 
     				{
     				case logcatInfo.logPriority.SILENT_VALUE:
     					logLine.append("SILENT,");
@@ -445,10 +473,10 @@ public class MessageFragment extends ListFragment
         			logLine.append(viewLogcatData.get(index).getMessage() + "\n");    
         			
         		}
-        		else
+        		else 
         		{
-    				if(viewDmesgData.get(index).getSeconds() != 0) 
-    				{
+        			
+    				if(viewDmesgData.get(index).getSeconds() != 0) 	{
     					calendar.setTimeInMillis(viewDmesgData.get(index).getSeconds()*1000);
     					logLine.append(DateFormat.format("yyyy-MM-dd hh:mm:ss", calendar.getTime()) + ",");
     				}

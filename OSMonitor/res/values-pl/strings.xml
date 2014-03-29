@@ -20,6 +20,7 @@
 <string name="ui_menu_sort">Sortowanie</string>
 <string name="ui_menu_search">Szukanie</string>
 <string name="ui_menu_stop">Stop</string>
+<string name="ui_menu_type">Typ</string>
 <string name="ui_menu_help">Pomoc</string>
 <string name="ui_menu_logexport">Eksport</string>
 <string name="ui_menu_exit">Wyjście</string>

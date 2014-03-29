@@ -20,6 +20,7 @@
 <string name="ui_menu_sort">排序</string>
 <string name="ui_menu_search">搜尋</string>
 <string name="ui_menu_stop">停止</string>
+<string name="ui_menu_type">種類</string>
 <string name="ui_menu_help">幫助</string>
 <string name="ui_menu_logexport">匯出</string>
 <string name="ui_menu_exit">結束</string>

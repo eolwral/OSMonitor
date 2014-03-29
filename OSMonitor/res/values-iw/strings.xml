@@ -20,6 +20,7 @@
 <string name="ui_menu_sort">מיון</string>
 <string name="ui_menu_search">חיפוש</string>
 <string name="ui_menu_stop">עצור</string>
+<string name="ui_menu_type">סוג</string>
 <string name="ui_menu_help">עזרה</string>
 <string name="ui_menu_logexport">ייצא</string>
 <string name="ui_menu_exit">סגור</string>

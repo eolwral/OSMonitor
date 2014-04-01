@@ -16,9 +16,11 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -29,7 +31,7 @@ public class CommonUtil {
   /**
   * predefine location for osmcore
   */
-  private final static String binaryName = "osmcore";
+  private final static String binaryName = "libosmcore.so";
   
   /**
    * bring up help activity
@@ -39,15 +41,9 @@ public class CommonUtil {
   @SuppressLint("SetJavaScriptEnabled")
   public static void showHelp(Context context, String url)
   {
-	  //Intent intent = new Intent(context, HelpWindows.class);
-	  //intent.putExtra("URL", url);
-	  //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	  //context.startActivity(intent);
-	  
   	Intent intent = new Intent(Intent.ACTION_VIEW);
   	intent.setData(Uri.parse(url));
   	context.startActivity(intent);
-
   }
   
   /**
@@ -63,46 +59,6 @@ public class CommonUtil {
 		  IpcService.getInstance().killProcess(pid);
   }
 
-  /**
-   * copy a binary from asset directory to working directory.
-   * @param assetPath
-   * @param localPath
-   * @param context
-   * @return true == copied, false == text busy
-   */
-  private static boolean copyFile(String assetPath, String localPath, Context context) {
-    try {
-    	
-      // detect architecture
-       if (isARM()) 
-        assetPath += "_arm";
-      else if (isX86()) 
-    	assetPath += "_x86";  
-      else if  (isMIPS())
-          assetPath += "_mips";
-      else
-    	  assetPath += "_arm"; 
-
-	  InputStream binary = context.getAssets().open(assetPath);
-      FileOutputStream execute = new FileOutputStream(localPath);
-      
-      int read = 0;
-	  byte[] buffer = new byte[4096];
-		      
-      while ((read = binary.read(buffer)) > 0) 
-	    execute.write(buffer, 0, read);
-		      
-	  execute.close();
-	  binary.close();
-	  
-	  execute = null;
-	  binary = null;
-		      
-	} catch (IOException e) {
-	  return false;
-	}
-    return true;
-  }
 
   /**
    * is ARMv7 base ?
@@ -168,14 +124,9 @@ public class CommonUtil {
 	if(context == null)
 		return false;
 	
-	String binary = context.getFilesDir().getAbsolutePath()+"/"+binaryName;
-
-	// copy file 
-	if(!copyFile("osmcore", binary, context))
-		return false; 
-	
 	// lock file
-	File file = new File(binary+".lock");
+	String lockfile = context.getFilesDir().getAbsolutePath()+"/"+binaryName+".lock";
+	File file = new File(lockfile);
 	FileChannel channel = null;
 	FileLock lock = null;
 	try {
@@ -185,7 +136,9 @@ public class CommonUtil {
 		return false;
 	}
 	
-	// execute osmcore
+	// execute libosmcore.so
+	ApplicationInfo info = context.getApplicationInfo();
+	String binary = info.nativeLibraryDir+"/"+binaryName;	
 	try {
 		final Settings settings = Settings.getInstance(context);
 		
@@ -197,8 +150,6 @@ public class CommonUtil {
 			process = Runtime.getRuntime().exec("su");
 		
 		DataOutputStream os = new DataOutputStream(process.getOutputStream());
-		
-		os.writeBytes("chmod 755 " + binary + "\n");
 
 		// !! CM11 will terminate orphan process with root permission
 		if (isCyanogenMod() && isKitKat() && settings.isRoot()) { 

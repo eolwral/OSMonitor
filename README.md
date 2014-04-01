@@ -1,6 +1,8 @@
 OS Monitor for Android  [![Build Status](https://drone.io/github.com/eolwral/OSMonitor/status.png)](https://drone.io/github.com/eolwral/OSMonitor/latest)
 =======
 
+#### [Become a Beta Tester](https://play.google.com/apps/testing/com.eolwral.osmonitor) #### 
+
 OS Monitor is a tool for monitoring your Android system.
 
 It offers the following information.

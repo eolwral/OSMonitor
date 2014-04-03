@@ -96,3 +96,4 @@ LOCAL_CFLAGS := -DGOOGLE_PROTOBUF_NO_RTTI -D_GLIBCXX_PERMIT_BACKWARD_HASH
 
 # compile executeable binary for test 
 include $(BUILD_EXECUTABLE)
+

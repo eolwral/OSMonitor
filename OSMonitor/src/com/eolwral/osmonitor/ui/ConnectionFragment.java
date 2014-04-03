@@ -46,6 +46,7 @@ import com.android.volley.Request;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
@@ -59,8 +60,6 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.HttpUtil;
-import com.eolwral.osmonitor.util.WHOISRequest;
-
 
 public class ConnectionFragment extends ListFragment 
                                 implements ipcClientListener {
@@ -702,9 +701,9 @@ public class ConnectionFragment extends ListFragment
     		// show prepare dialog
     		showLoading();
     		
-    		String URL = "http://ip-api.com/json/"+QueryIP;
+    		String URL = "https://osmonitor.mobi/WhoisAPI?IP="+QueryIP;
     		
-    		WHOISRequest queryRequest = new WHOISRequest(Request.Method.GET, URL,  null,
+    		JsonObjectRequest  queryRequest = new JsonObjectRequest (Request.Method.GET, URL,  null,
     				 																		new Response(QueryIP),  new ResponseError());
     		
     		HttpUtil.getInstance(getActivity().getApplicationContext()).addRequest(queryRequest);	

@@ -68,16 +68,6 @@ public class HttpUtil {
         return;
     }
     
-   public void addRequest(WHOISRequest newRequest){
-    	
-    	if (newRequest == null)
-    		return;
-    	
-    	newRequest.setTag(TAG);
-    	mRequestQueue.add(newRequest);
-        return;
-    }
-
     public void cancelRequest() {
     	mRequestQueue.cancelAll(TAG);
     }

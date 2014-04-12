@@ -2,9 +2,6 @@ package com.eolwral.osmonitor.util;
 
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
@@ -20,7 +17,6 @@ import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
-import android.util.Log;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -38,7 +34,6 @@ public class CommonUtil {
    * @param context  
    * @param url 
    */
-  @SuppressLint("SetJavaScriptEnabled")
   public static void showHelp(Context context, String url)
   {
   	Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -113,6 +108,34 @@ public class CommonUtil {
 	  File dbFile=context.getDatabasePath(dbName);
 	  return dbFile.exists();
   }
+
+  /**
+   * get native library 
+   * @param context 
+   * @return native library path
+   */
+  @SuppressLint("SdCardPath") 
+  public static String getNativeLibrary(Context context) {
+
+	  ApplicationInfo info = context.getApplicationInfo();
+	  
+	  try {
+
+		  // use standard way
+		  String library = info.nativeLibraryDir + "/" + binaryName;
+		  File nativeFile = new File(library);
+		  if(nativeFile.exists()) return library;
+		  
+		  // check via dataDir
+		  library = info.dataDir + "/lib/" + binaryName;
+		  nativeFile = new File(library);
+		  if(nativeFile.exists()) return library;
+		  
+	  } catch (Exception e) {}
+	  
+	  // final fail-over
+	  return "/data/data/com.eolwral.osmonitor/lib/" + binaryName;
+  }
   
   /**
    * execute osmcore as a binary execute
@@ -137,8 +160,7 @@ public class CommonUtil {
 	}
 	
 	// execute libosmcore.so
-	ApplicationInfo info = context.getApplicationInfo();
-	String binary = info.nativeLibraryDir+"/"+binaryName;	
+	String binary = getNativeLibrary(context);	
 	try {
 		final Settings settings = Settings.getInstance(context);
 		

@@ -63,6 +63,10 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.0.9.5**
+
+- Fix "No Data" issue
+
 **Version 3.0.9.3**
 
 - Improve Whois function with own server

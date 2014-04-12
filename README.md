@@ -63,6 +63,15 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+** Version 3.0.9.3 **
+
+- Improve Whois function with own server
+
+** Version 3.0.9.2 **
+
+- Fix incorrect swap value
+- Use a new way to execute the binary
+
 **Version 3.0.9.0**
 
 - Fix crash and ANR issues 

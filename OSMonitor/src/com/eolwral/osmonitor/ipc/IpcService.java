@@ -35,7 +35,7 @@ public class IpcService {
 	/**
 	 * predefine socket name 
 	 */
-	private final static String socketName = "osmipc";
+	private final static String socketName = "osmipcV1";
 
 	/**
 	 * predefine buffer size

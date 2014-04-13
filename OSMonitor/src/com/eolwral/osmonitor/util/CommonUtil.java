@@ -2,6 +2,9 @@ package com.eolwral.osmonitor.util;
 
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
@@ -27,7 +30,7 @@ public class CommonUtil {
   /**
   * predefine location for osmcore
   */
-  private final static String binaryName = "libosmcore.so";
+  private final static String binaryName = "osmcore";
   
   /**
    * bring up help activity
@@ -120,21 +123,72 @@ public class CommonUtil {
 	  ApplicationInfo info = context.getApplicationInfo();
 	  
 	  try {
-
 		  // use standard way
 		  String library = info.nativeLibraryDir + "/" + binaryName;
 		  File nativeFile = new File(library);
 		  if(nativeFile.exists()) return library;
-		  
+	  } catch (Exception e) {} 
+
+	  try {
 		  // check via dataDir
-		  library = info.dataDir + "/lib/" + binaryName;
-		  nativeFile = new File(library);
+		  String library = info.dataDir + "/lib/" + binaryName;
+		  File nativeFile = new File(library);
 		  if(nativeFile.exists()) return library;
-		  
+	  } catch (Exception e) {} 
+
+	  try {
+		  // force check 
+		  for (int num = 1; num < 5; num++) {
+			  // check via app-lib
+			  String library = "/data/app-lib/" + context.getPackageName() + "-" + num + "/" + binaryName;
+			  File nativeFile = new File(library);
+			  if(nativeFile.exists()) return library;
+		  }
 	  } catch (Exception e) {}
-	  
+
 	  // final fail-over
 	  return "/data/data/com.eolwral.osmonitor/lib/" + binaryName;
+  }
+  
+  /**
+   * copy a binary from asset directory to working directory.
+   * @param assetPath
+   * @param localPath
+   * @param context
+   * @return true == copied, false == text busy
+   */
+  private static boolean copyFile(String assetPath, String localPath, Context context) {
+	  try {
+
+		  // detect architecture
+		  if (isARM()) 
+			  assetPath += "_arm";
+		  else if (isX86()) 
+			  assetPath += "_x86";  
+		  else if  (isMIPS())
+			  assetPath += "_mips";
+		  else
+			  assetPath += "_arm"; 
+
+		  InputStream binary = context.getAssets().open(assetPath);
+		  FileOutputStream execute = new FileOutputStream(localPath);
+
+		  int read = 0;
+		  byte[] buffer = new byte[4096];
+
+		  while ((read = binary.read(buffer)) > 0) 
+			  execute.write(buffer, 0, read);
+
+		  execute.close();
+		  binary.close();
+
+		  execute = null;
+		  binary = null;
+
+	  } catch (IOException e) {
+		  return false;
+	  }
+	  return true;
   }
   
   /**
@@ -147,9 +201,14 @@ public class CommonUtil {
 	if(context == null)
 		return false;
 	
+	String binary = context.getFilesDir().getAbsolutePath()+"/"+binaryName;
+	// copy file 
+	if(!copyFile("osmcore", binary, context))
+		return false; 
+
+
 	// lock file
-	String lockfile = context.getFilesDir().getAbsolutePath()+"/"+binaryName+".lock";
-	File file = new File(lockfile);
+	File file = new File(binary+".lock");
 	FileChannel channel = null;
 	FileLock lock = null;
 	try {
@@ -159,8 +218,7 @@ public class CommonUtil {
 		return false;
 	}
 	
-	// execute libosmcore.so
-	String binary = getNativeLibrary(context);	
+	// execute osmcore
 	try {
 		final Settings settings = Settings.getInstance(context);
 		
@@ -172,6 +230,8 @@ public class CommonUtil {
 			process = Runtime.getRuntime().exec("su");
 		
 		DataOutputStream os = new DataOutputStream(process.getOutputStream());
+
+		os.writeBytes("chmod 755 " + binary + "\n");
 
 		// !! CM11 will terminate orphan process with root permission
 		if (isCyanogenMod() && isKitKat() && settings.isRoot()) { 

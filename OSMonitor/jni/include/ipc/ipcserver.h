@@ -21,7 +21,7 @@
 
 #include "ipcMessage.pb.h"
 
-#define SOCKETNAME "osmipc"
+#define SOCKETNAME "osmipcV1"
 #define SOCKETBUF 1024
 #define TRANSIZE 4096
 

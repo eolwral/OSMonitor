@@ -20,6 +20,7 @@
 #include "cpu.h"
 #include "processInfo.pb.h"
 
+#define HZ 100
 #define SYS_BOOT_TIME "/proc/uptime"
 #define SYS_PROC_DIR "/proc"
 #define SYS_PROC_LOC "/proc/%d"

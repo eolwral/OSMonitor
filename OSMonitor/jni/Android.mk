@@ -11,6 +11,8 @@ LOCAL_CPP_EXTENSION := .cc .cpp
 LOCAL_PBC_FILES := \
                   src/google/protobuf/stubs/strutil.cc                 \
                   src/google/protobuf/stubs/substitute.cc              \
+                  src/google/protobuf/stubs/stringprintf.cc	               \
+                  src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc       \
                   src/google/protobuf/stubs/structurally_valid.cc      \
                   src/google/protobuf/descriptor.cc                    \
                   src/google/protobuf/descriptor.pb.cc                 \

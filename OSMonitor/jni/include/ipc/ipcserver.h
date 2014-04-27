@@ -24,7 +24,7 @@
 #define SOCKETNAME "osmipcV1"
 #define SOCKETBUF 1024
 #define TRANSIZE 4096
-#define BUFFERSIZE 256
+#define TOKENSIZE 256
 
 #include <android/log.h>
 

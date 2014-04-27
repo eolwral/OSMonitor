@@ -8,48 +8,289 @@ public final class IpcMessage {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  /**
+   * Protobuf enum {@code com.eolwral.osmonitor.ipc.ipcAction}
+   */
   public enum ipcAction
       implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>OS = 1;</code>
+     *
+     * <pre>
+     **&lt; OS 
+     * </pre>
+     */
     OS(0, 1),
+    /**
+     * <code>CPU = 2;</code>
+     *
+     * <pre>
+     **&lt; CPU 
+     * </pre>
+     */
     CPU(1, 2),
+    /**
+     * <code>PROCESSOR = 3;</code>
+     *
+     * <pre>
+     **&lt; Processor 
+     * </pre>
+     */
     PROCESSOR(2, 3),
+    /**
+     * <code>PROCESS = 4;</code>
+     *
+     * <pre>
+     **&lt; Process 
+     * </pre>
+     */
     PROCESS(3, 4),
+    /**
+     * <code>CONNECTION = 5;</code>
+     *
+     * <pre>
+     **&lt; Connection 
+     * </pre>
+     */
     CONNECTION(4, 5),
+    /**
+     * <code>NETWORK = 6;</code>
+     *
+     * <pre>
+     **&lt; Network 
+     * </pre>
+     */
     NETWORK(5, 6),
+    /**
+     * <code>DMESG = 7;</code>
+     *
+     * <pre>
+     **&lt; DMesg 
+     * </pre>
+     */
     DMESG(6, 7),
+    /**
+     * <code>LOGCAT_RADIO = 8;</code>
+     *
+     * <pre>
+     **&lt; LogCat Radio 
+     * </pre>
+     */
     LOGCAT_RADIO(7, 8),
+    /**
+     * <code>LOGCAT_EVENT = 9;</code>
+     *
+     * <pre>
+     **&lt; LogCat Event 
+     * </pre>
+     */
     LOGCAT_EVENT(8, 9),
+    /**
+     * <code>LOGCAT_SYSTEM = 10;</code>
+     *
+     * <pre>
+     **&lt; LogCat System 
+     * </pre>
+     */
     LOGCAT_SYSTEM(9, 10),
+    /**
+     * <code>LOGCAT_MAIN = 11;</code>
+     *
+     * <pre>
+     **&lt; LogCat Main 
+     * </pre>
+     */
     LOGCAT_MAIN(10, 11),
+    /**
+     * <code>SETPRIORITY = 20;</code>
+     *
+     * <pre>
+     **&lt; Set Priority 
+     * </pre>
+     */
     SETPRIORITY(11, 20),
+    /**
+     * <code>KILLPROCESS = 21;</code>
+     *
+     * <pre>
+     **&lt; Kill Processes 
+     * </pre>
+     */
     KILLPROCESS(12, 21),
+    /**
+     * <code>SETCPUSTATUS = 22;</code>
+     *
+     * <pre>
+     **&lt; Set CPU online 
+     * </pre>
+     */
     SETCPUSTATUS(13, 22),
+    /**
+     * <code>SETCPUMAXFREQ = 23;</code>
+     *
+     * <pre>
+     **&lt; Set CPU Frequency 
+     * </pre>
+     */
     SETCPUMAXFREQ(14, 23),
+    /**
+     * <code>SETCPUMINFREQ = 24;</code>
+     *
+     * <pre>
+     **&lt; Set CPU Frequency 
+     * </pre>
+     */
     SETCPUMINFREQ(15, 24),
+    /**
+     * <code>SETCPUGORV = 25;</code>
+     *
+     * <pre>
+     **&lt; Set CPU Governor  
+     * </pre>
+     */
     SETCPUGORV(16, 25),
     ;
-    
+
+    /**
+     * <code>OS = 1;</code>
+     *
+     * <pre>
+     **&lt; OS 
+     * </pre>
+     */
     public static final int OS_VALUE = 1;
+    /**
+     * <code>CPU = 2;</code>
+     *
+     * <pre>
+     **&lt; CPU 
+     * </pre>
+     */
     public static final int CPU_VALUE = 2;
+    /**
+     * <code>PROCESSOR = 3;</code>
+     *
+     * <pre>
+     **&lt; Processor 
+     * </pre>
+     */
     public static final int PROCESSOR_VALUE = 3;
+    /**
+     * <code>PROCESS = 4;</code>
+     *
+     * <pre>
+     **&lt; Process 
+     * </pre>
+     */
     public static final int PROCESS_VALUE = 4;
+    /**
+     * <code>CONNECTION = 5;</code>
+     *
+     * <pre>
+     **&lt; Connection 
+     * </pre>
+     */
     public static final int CONNECTION_VALUE = 5;
+    /**
+     * <code>NETWORK = 6;</code>
+     *
+     * <pre>
+     **&lt; Network 
+     * </pre>
+     */
     public static final int NETWORK_VALUE = 6;
+    /**
+     * <code>DMESG = 7;</code>
+     *
+     * <pre>
+     **&lt; DMesg 
+     * </pre>
+     */
     public static final int DMESG_VALUE = 7;
+    /**
+     * <code>LOGCAT_RADIO = 8;</code>
+     *
+     * <pre>
+     **&lt; LogCat Radio 
+     * </pre>
+     */
     public static final int LOGCAT_RADIO_VALUE = 8;
+    /**
+     * <code>LOGCAT_EVENT = 9;</code>
+     *
+     * <pre>
+     **&lt; LogCat Event 
+     * </pre>
+     */
     public static final int LOGCAT_EVENT_VALUE = 9;
+    /**
+     * <code>LOGCAT_SYSTEM = 10;</code>
+     *
+     * <pre>
+     **&lt; LogCat System 
+     * </pre>
+     */
     public static final int LOGCAT_SYSTEM_VALUE = 10;
+    /**
+     * <code>LOGCAT_MAIN = 11;</code>
+     *
+     * <pre>
+     **&lt; LogCat Main 
+     * </pre>
+     */
     public static final int LOGCAT_MAIN_VALUE = 11;
+    /**
+     * <code>SETPRIORITY = 20;</code>
+     *
+     * <pre>
+     **&lt; Set Priority 
+     * </pre>
+     */
     public static final int SETPRIORITY_VALUE = 20;
+    /**
+     * <code>KILLPROCESS = 21;</code>
+     *
+     * <pre>
+     **&lt; Kill Processes 
+     * </pre>
+     */
     public static final int KILLPROCESS_VALUE = 21;
+    /**
+     * <code>SETCPUSTATUS = 22;</code>
+     *
+     * <pre>
+     **&lt; Set CPU online 
+     * </pre>
+     */
     public static final int SETCPUSTATUS_VALUE = 22;
+    /**
+     * <code>SETCPUMAXFREQ = 23;</code>
+     *
+     * <pre>
+     **&lt; Set CPU Frequency 
+     * </pre>
+     */
     public static final int SETCPUMAXFREQ_VALUE = 23;
+    /**
+     * <code>SETCPUMINFREQ = 24;</code>
+     *
+     * <pre>
+     **&lt; Set CPU Frequency 
+     * </pre>
+     */
     public static final int SETCPUMINFREQ_VALUE = 24;
+    /**
+     * <code>SETCPUGORV = 25;</code>
+     *
+     * <pre>
+     **&lt; Set CPU Governor  
+     * </pre>
+     */
     public static final int SETCPUGORV_VALUE = 25;
-    
-    
+
+
     public final int getNumber() { return value; }
-    
+
     public static ipcAction valueOf(int value) {
       switch (value) {
         case 1: return OS;
@@ -72,7 +313,7 @@ public final class IpcMessage {
         default: return null;
       }
     }
-    
+
     public static com.google.protobuf.Internal.EnumLiteMap<ipcAction>
         internalGetValueMap() {
       return internalValueMap;
@@ -84,7 +325,7 @@ public final class IpcMessage {
               return ipcAction.valueOf(number);
             }
           };
-    
+
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
       return getDescriptor().getValues().get(index);
@@ -97,11 +338,9 @@ public final class IpcMessage {
         getDescriptor() {
       return com.eolwral.osmonitor.ipc.IpcMessage.getDescriptor().getEnumTypes().get(0);
     }
-    
-    private static final ipcAction[] VALUES = {
-      OS, CPU, PROCESSOR, PROCESS, CONNECTION, NETWORK, DMESG, LOGCAT_RADIO, LOGCAT_EVENT, LOGCAT_SYSTEM, LOGCAT_MAIN, SETPRIORITY, KILLPROCESS, SETCPUSTATUS, SETCPUMAXFREQ, SETCPUMINFREQ, SETCPUGORV, 
-    };
-    
+
+    private static final ipcAction[] VALUES = values();
+
     public static ipcAction valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
@@ -110,92 +349,206 @@ public final class IpcMessage {
       }
       return VALUES[desc.getIndex()];
     }
-    
+
     private final int index;
     private final int value;
-    
+
     private ipcAction(int index, int value) {
       this.index = index;
       this.value = value;
     }
-    
+
     // @@protoc_insertion_point(enum_scope:com.eolwral.osmonitor.ipc.ipcAction)
   }
-  
+
   public interface ipcDataOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required .com.eolwral.osmonitor.ipc.ipcAction action = 1;
+    /**
+     * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
+     */
     boolean hasAction();
+    /**
+     * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
+     */
     com.eolwral.osmonitor.ipc.IpcMessage.ipcAction getAction();
-    
+
     // repeated bytes payload = 2;
+    /**
+     * <code>repeated bytes payload = 2;</code>
+     */
     java.util.List<com.google.protobuf.ByteString> getPayloadList();
+    /**
+     * <code>repeated bytes payload = 2;</code>
+     */
     int getPayloadCount();
+    /**
+     * <code>repeated bytes payload = 2;</code>
+     */
     com.google.protobuf.ByteString getPayload(int index);
   }
+  /**
+   * Protobuf type {@code com.eolwral.osmonitor.ipc.ipcData}
+   */
   public static final class ipcData extends
       com.google.protobuf.GeneratedMessage
       implements ipcDataOrBuilder {
     // Use ipcData.newBuilder() to construct.
-    private ipcData(Builder builder) {
+    private ipcData(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private ipcData(boolean noInit) {}
-    
+    private ipcData(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final ipcData defaultInstance;
     public static ipcData getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public ipcData getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ipcData(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              com.eolwral.osmonitor.ipc.IpcMessage.ipcAction value = com.eolwral.osmonitor.ipc.IpcMessage.ipcAction.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                action_ = value;
+              }
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                payload_ = new java.util.ArrayList<com.google.protobuf.ByteString>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              payload_.add(input.readBytes());
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          payload_ = java.util.Collections.unmodifiableList(payload_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcData_fieldAccessorTable;
+      return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcData_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.eolwral.osmonitor.ipc.IpcMessage.ipcData.class, com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<ipcData> PARSER =
+        new com.google.protobuf.AbstractParser<ipcData>() {
+      public ipcData parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ipcData(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ipcData> getParserForType() {
+      return PARSER;
+    }
+
     private int bitField0_;
     // required .com.eolwral.osmonitor.ipc.ipcAction action = 1;
     public static final int ACTION_FIELD_NUMBER = 1;
     private com.eolwral.osmonitor.ipc.IpcMessage.ipcAction action_;
+    /**
+     * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
+     */
     public boolean hasAction() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
+     */
     public com.eolwral.osmonitor.ipc.IpcMessage.ipcAction getAction() {
       return action_;
     }
-    
+
     // repeated bytes payload = 2;
     public static final int PAYLOAD_FIELD_NUMBER = 2;
     private java.util.List<com.google.protobuf.ByteString> payload_;
+    /**
+     * <code>repeated bytes payload = 2;</code>
+     */
     public java.util.List<com.google.protobuf.ByteString>
         getPayloadList() {
       return payload_;
     }
+    /**
+     * <code>repeated bytes payload = 2;</code>
+     */
     public int getPayloadCount() {
       return payload_.size();
     }
+    /**
+     * <code>repeated bytes payload = 2;</code>
+     */
     public com.google.protobuf.ByteString getPayload(int index) {
       return payload_.get(index);
     }
-    
+
     private void initFields() {
       action_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcAction.OS;
-      payload_ = java.util.Collections.emptyList();;
+      payload_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       if (!hasAction()) {
         memoizedIsInitialized = 0;
         return false;
@@ -203,7 +556,7 @@ public final class IpcMessage {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -215,12 +568,12 @@ public final class IpcMessage {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -239,94 +592,83 @@ public final class IpcMessage {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcData parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(com.eolwral.osmonitor.ipc.IpcMessage.ipcData prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code com.eolwral.osmonitor.ipc.ipcData}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder {
@@ -334,18 +676,21 @@ public final class IpcMessage {
           getDescriptor() {
         return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcData_fieldAccessorTable;
+        return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcData_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.eolwral.osmonitor.ipc.IpcMessage.ipcData.class, com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder.class);
       }
-      
+
       // Construct using com.eolwral.osmonitor.ipc.IpcMessage.ipcData.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -356,29 +701,29 @@ public final class IpcMessage {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         action_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcAction.OS;
         bitField0_ = (bitField0_ & ~0x00000001);
-        payload_ = java.util.Collections.emptyList();;
+        payload_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.eolwral.osmonitor.ipc.IpcMessage.ipcData.getDescriptor();
+        return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor;
       }
-      
+
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcData getDefaultInstanceForType() {
         return com.eolwral.osmonitor.ipc.IpcMessage.ipcData.getDefaultInstance();
       }
-      
+
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcData build() {
         com.eolwral.osmonitor.ipc.IpcMessage.ipcData result = buildPartial();
         if (!result.isInitialized()) {
@@ -386,17 +731,7 @@ public final class IpcMessage {
         }
         return result;
       }
-      
-      private com.eolwral.osmonitor.ipc.IpcMessage.ipcData buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.eolwral.osmonitor.ipc.IpcMessage.ipcData result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcData buildPartial() {
         com.eolwral.osmonitor.ipc.IpcMessage.ipcData result = new com.eolwral.osmonitor.ipc.IpcMessage.ipcData(this);
         int from_bitField0_ = bitField0_;
@@ -414,7 +749,7 @@ public final class IpcMessage {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.eolwral.osmonitor.ipc.IpcMessage.ipcData) {
           return mergeFrom((com.eolwral.osmonitor.ipc.IpcMessage.ipcData)other);
@@ -423,7 +758,7 @@ public final class IpcMessage {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(com.eolwral.osmonitor.ipc.IpcMessage.ipcData other) {
         if (other == com.eolwral.osmonitor.ipc.IpcMessage.ipcData.getDefaultInstance()) return this;
         if (other.hasAction()) {
@@ -442,7 +777,7 @@ public final class IpcMessage {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         if (!hasAction()) {
           
@@ -450,60 +785,43 @@ public final class IpcMessage {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 8: {
-              int rawValue = input.readEnum();
-              com.eolwral.osmonitor.ipc.IpcMessage.ipcAction value = com.eolwral.osmonitor.ipc.IpcMessage.ipcAction.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
-              } else {
-                bitField0_ |= 0x00000001;
-                action_ = value;
-              }
-              break;
-            }
-            case 18: {
-              ensurePayloadIsMutable();
-              payload_.add(input.readBytes());
-              break;
-            }
+        com.eolwral.osmonitor.ipc.IpcMessage.ipcData parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.eolwral.osmonitor.ipc.IpcMessage.ipcData) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // required .com.eolwral.osmonitor.ipc.ipcAction action = 1;
       private com.eolwral.osmonitor.ipc.IpcMessage.ipcAction action_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcAction.OS;
+      /**
+       * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
+       */
       public boolean hasAction() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
+       */
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcAction getAction() {
         return action_;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
+       */
       public Builder setAction(com.eolwral.osmonitor.ipc.IpcMessage.ipcAction value) {
         if (value == null) {
           throw new NullPointerException();
@@ -513,31 +831,46 @@ public final class IpcMessage {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
+       */
       public Builder clearAction() {
         bitField0_ = (bitField0_ & ~0x00000001);
         action_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcAction.OS;
         onChanged();
         return this;
       }
-      
+
       // repeated bytes payload = 2;
-      private java.util.List<com.google.protobuf.ByteString> payload_ = java.util.Collections.emptyList();;
+      private java.util.List<com.google.protobuf.ByteString> payload_ = java.util.Collections.emptyList();
       private void ensurePayloadIsMutable() {
         if (!((bitField0_ & 0x00000002) == 0x00000002)) {
           payload_ = new java.util.ArrayList<com.google.protobuf.ByteString>(payload_);
           bitField0_ |= 0x00000002;
          }
       }
+      /**
+       * <code>repeated bytes payload = 2;</code>
+       */
       public java.util.List<com.google.protobuf.ByteString>
           getPayloadList() {
         return java.util.Collections.unmodifiableList(payload_);
       }
+      /**
+       * <code>repeated bytes payload = 2;</code>
+       */
       public int getPayloadCount() {
         return payload_.size();
       }
+      /**
+       * <code>repeated bytes payload = 2;</code>
+       */
       public com.google.protobuf.ByteString getPayload(int index) {
         return payload_.get(index);
       }
+      /**
+       * <code>repeated bytes payload = 2;</code>
+       */
       public Builder setPayload(
           int index, com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -548,6 +881,9 @@ public final class IpcMessage {
         onChanged();
         return this;
       }
+      /**
+       * <code>repeated bytes payload = 2;</code>
+       */
       public Builder addPayload(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
@@ -557,6 +893,9 @@ public final class IpcMessage {
         onChanged();
         return this;
       }
+      /**
+       * <code>repeated bytes payload = 2;</code>
+       */
       public Builder addAllPayload(
           java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
         ensurePayloadIsMutable();
@@ -564,85 +903,252 @@ public final class IpcMessage {
         onChanged();
         return this;
       }
+      /**
+       * <code>repeated bytes payload = 2;</code>
+       */
       public Builder clearPayload() {
-        payload_ = java.util.Collections.emptyList();;
+        payload_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:com.eolwral.osmonitor.ipc.ipcData)
     }
-    
+
     static {
       defaultInstance = new ipcData(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.ipc.ipcData)
   }
-  
+
   public interface ipcMessageOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];
+    /**
+     * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
+     */
     boolean hasType();
+    /**
+     * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
+     */
     com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType getType();
-    
+
     // repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     java.util.List<com.eolwral.osmonitor.ipc.IpcMessage.ipcData> 
         getDataList();
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     com.eolwral.osmonitor.ipc.IpcMessage.ipcData getData(int index);
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     int getDataCount();
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     java.util.List<? extends com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder> 
         getDataOrBuilderList();
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder getDataOrBuilder(
         int index);
   }
+  /**
+   * Protobuf type {@code com.eolwral.osmonitor.ipc.ipcMessage}
+   */
   public static final class ipcMessage extends
       com.google.protobuf.GeneratedMessage
       implements ipcMessageOrBuilder {
     // Use ipcMessage.newBuilder() to construct.
-    private ipcMessage(Builder builder) {
+    private ipcMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private ipcMessage(boolean noInit) {}
-    
+    private ipcMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final ipcMessage defaultInstance;
     public static ipcMessage getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public ipcMessage getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ipcMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType value = com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                type_ = value;
+              }
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                data_ = new java.util.ArrayList<com.eolwral.osmonitor.ipc.IpcMessage.ipcData>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              data_.add(input.readMessage(com.eolwral.osmonitor.ipc.IpcMessage.ipcData.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          data_ = java.util.Collections.unmodifiableList(data_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcMessage_fieldAccessorTable;
+      return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.class, com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<ipcMessage> PARSER =
+        new com.google.protobuf.AbstractParser<ipcMessage>() {
+      public ipcMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ipcMessage(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ipcMessage> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code com.eolwral.osmonitor.ipc.ipcMessage.ipcType}
+     */
     public enum ipcType
         implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>ACTION = 0;</code>
+       *
+       * <pre>
+       **&lt; ACTION 
+       * </pre>
+       */
       ACTION(0, 0),
+      /**
+       * <code>RESULT = 1;</code>
+       *
+       * <pre>
+       **&lt; RESULT 
+       * </pre>
+       */
       RESULT(1, 1),
+      /**
+       * <code>COMMAND = 2;</code>
+       *
+       * <pre>
+       **&lt; COMMAND 
+       * </pre>
+       */
       COMMAND(2, 2),
+      /**
+       * <code>EXIT = 10;</code>
+       *
+       * <pre>
+       **&lt; EXIT 
+       * </pre>
+       */
       EXIT(3, 10),
       ;
-      
+
+      /**
+       * <code>ACTION = 0;</code>
+       *
+       * <pre>
+       **&lt; ACTION 
+       * </pre>
+       */
       public static final int ACTION_VALUE = 0;
+      /**
+       * <code>RESULT = 1;</code>
+       *
+       * <pre>
+       **&lt; RESULT 
+       * </pre>
+       */
       public static final int RESULT_VALUE = 1;
+      /**
+       * <code>COMMAND = 2;</code>
+       *
+       * <pre>
+       **&lt; COMMAND 
+       * </pre>
+       */
       public static final int COMMAND_VALUE = 2;
+      /**
+       * <code>EXIT = 10;</code>
+       *
+       * <pre>
+       **&lt; EXIT 
+       * </pre>
+       */
       public static final int EXIT_VALUE = 10;
-      
-      
+
+
       public final int getNumber() { return value; }
-      
+
       public static ipcType valueOf(int value) {
         switch (value) {
           case 0: return ACTION;
@@ -652,7 +1158,7 @@ public final class IpcMessage {
           default: return null;
         }
       }
-      
+
       public static com.google.protobuf.Internal.EnumLiteMap<ipcType>
           internalGetValueMap() {
         return internalValueMap;
@@ -664,7 +1170,7 @@ public final class IpcMessage {
                 return ipcType.valueOf(number);
               }
             };
-      
+
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
         return getDescriptor().getValues().get(index);
@@ -677,11 +1183,9 @@ public final class IpcMessage {
           getDescriptor() {
         return com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.getDescriptor().getEnumTypes().get(0);
       }
-      
-      private static final ipcType[] VALUES = {
-        ACTION, RESULT, COMMAND, EXIT, 
-      };
-      
+
+      private static final ipcType[] VALUES = values();
+
       public static ipcType valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
@@ -690,50 +1194,71 @@ public final class IpcMessage {
         }
         return VALUES[desc.getIndex()];
       }
-      
+
       private final int index;
       private final int value;
-      
+
       private ipcType(int index, int value) {
         this.index = index;
         this.value = value;
       }
-      
+
       // @@protoc_insertion_point(enum_scope:com.eolwral.osmonitor.ipc.ipcMessage.ipcType)
     }
-    
+
     private int bitField0_;
     // required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];
     public static final int TYPE_FIELD_NUMBER = 1;
     private com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType type_;
+    /**
+     * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
+     */
     public boolean hasType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
+    /**
+     * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
+     */
     public com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType getType() {
       return type_;
     }
-    
+
     // repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;
     public static final int DATA_FIELD_NUMBER = 2;
     private java.util.List<com.eolwral.osmonitor.ipc.IpcMessage.ipcData> data_;
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     public java.util.List<com.eolwral.osmonitor.ipc.IpcMessage.ipcData> getDataList() {
       return data_;
     }
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     public java.util.List<? extends com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder> 
         getDataOrBuilderList() {
       return data_;
     }
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     public int getDataCount() {
       return data_.size();
     }
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     public com.eolwral.osmonitor.ipc.IpcMessage.ipcData getData(int index) {
       return data_.get(index);
     }
+    /**
+     * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+     */
     public com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder getDataOrBuilder(
         int index) {
       return data_.get(index);
     }
-    
+
     private void initFields() {
       type_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType.ACTION;
       data_ = java.util.Collections.emptyList();
@@ -742,7 +1267,7 @@ public final class IpcMessage {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       if (!hasType()) {
         memoizedIsInitialized = 0;
         return false;
@@ -756,7 +1281,7 @@ public final class IpcMessage {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -768,12 +1293,12 @@ public final class IpcMessage {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -787,94 +1312,83 @@ public final class IpcMessage {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code com.eolwral.osmonitor.ipc.ipcMessage}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements com.eolwral.osmonitor.ipc.IpcMessage.ipcMessageOrBuilder {
@@ -882,18 +1396,21 @@ public final class IpcMessage {
           getDescriptor() {
         return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcMessage_fieldAccessorTable;
+        return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.class, com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.Builder.class);
       }
-      
+
       // Construct using com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -905,7 +1422,7 @@ public final class IpcMessage {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         type_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType.ACTION;
@@ -918,20 +1435,20 @@ public final class IpcMessage {
         }
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.getDescriptor();
+        return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor;
       }
-      
+
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage getDefaultInstanceForType() {
         return com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.getDefaultInstance();
       }
-      
+
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage build() {
         com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage result = buildPartial();
         if (!result.isInitialized()) {
@@ -939,17 +1456,7 @@ public final class IpcMessage {
         }
         return result;
       }
-      
-      private com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage buildPartial() {
         com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage result = new com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage(this);
         int from_bitField0_ = bitField0_;
@@ -971,7 +1478,7 @@ public final class IpcMessage {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage) {
           return mergeFrom((com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage)other);
@@ -980,7 +1487,7 @@ public final class IpcMessage {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage other) {
         if (other == com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.getDefaultInstance()) return this;
         if (other.hasType()) {
@@ -1015,7 +1522,7 @@ public final class IpcMessage {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         if (!hasType()) {
           
@@ -1029,61 +1536,43 @@ public final class IpcMessage {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 8: {
-              int rawValue = input.readEnum();
-              com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType value = com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
-              } else {
-                bitField0_ |= 0x00000001;
-                type_ = value;
-              }
-              break;
-            }
-            case 18: {
-              com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder subBuilder = com.eolwral.osmonitor.ipc.IpcMessage.ipcData.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addData(subBuilder.buildPartial());
-              break;
-            }
+        com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];
       private com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType type_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType.ACTION;
+      /**
+       * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
+       */
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
+       */
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType getType() {
         return type_;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
+       */
       public Builder setType(com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType value) {
         if (value == null) {
           throw new NullPointerException();
@@ -1093,13 +1582,16 @@ public final class IpcMessage {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
+       */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
         type_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType.ACTION;
         onChanged();
         return this;
       }
-      
+
       // repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;
       private java.util.List<com.eolwral.osmonitor.ipc.IpcMessage.ipcData> data_ =
         java.util.Collections.emptyList();
@@ -1109,10 +1601,13 @@ public final class IpcMessage {
           bitField0_ |= 0x00000002;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           com.eolwral.osmonitor.ipc.IpcMessage.ipcData, com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder, com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder> dataBuilder_;
-      
+
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public java.util.List<com.eolwral.osmonitor.ipc.IpcMessage.ipcData> getDataList() {
         if (dataBuilder_ == null) {
           return java.util.Collections.unmodifiableList(data_);
@@ -1120,6 +1615,9 @@ public final class IpcMessage {
           return dataBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public int getDataCount() {
         if (dataBuilder_ == null) {
           return data_.size();
@@ -1127,6 +1625,9 @@ public final class IpcMessage {
           return dataBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcData getData(int index) {
         if (dataBuilder_ == null) {
           return data_.get(index);
@@ -1134,6 +1635,9 @@ public final class IpcMessage {
           return dataBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public Builder setData(
           int index, com.eolwral.osmonitor.ipc.IpcMessage.ipcData value) {
         if (dataBuilder_ == null) {
@@ -1148,6 +1652,9 @@ public final class IpcMessage {
         }
         return this;
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public Builder setData(
           int index, com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder builderForValue) {
         if (dataBuilder_ == null) {
@@ -1159,6 +1666,9 @@ public final class IpcMessage {
         }
         return this;
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public Builder addData(com.eolwral.osmonitor.ipc.IpcMessage.ipcData value) {
         if (dataBuilder_ == null) {
           if (value == null) {
@@ -1172,6 +1682,9 @@ public final class IpcMessage {
         }
         return this;
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public Builder addData(
           int index, com.eolwral.osmonitor.ipc.IpcMessage.ipcData value) {
         if (dataBuilder_ == null) {
@@ -1186,6 +1699,9 @@ public final class IpcMessage {
         }
         return this;
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public Builder addData(
           com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder builderForValue) {
         if (dataBuilder_ == null) {
@@ -1197,6 +1713,9 @@ public final class IpcMessage {
         }
         return this;
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public Builder addData(
           int index, com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder builderForValue) {
         if (dataBuilder_ == null) {
@@ -1208,6 +1727,9 @@ public final class IpcMessage {
         }
         return this;
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public Builder addAllData(
           java.lang.Iterable<? extends com.eolwral.osmonitor.ipc.IpcMessage.ipcData> values) {
         if (dataBuilder_ == null) {
@@ -1219,6 +1741,9 @@ public final class IpcMessage {
         }
         return this;
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public Builder clearData() {
         if (dataBuilder_ == null) {
           data_ = java.util.Collections.emptyList();
@@ -1229,6 +1754,9 @@ public final class IpcMessage {
         }
         return this;
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public Builder removeData(int index) {
         if (dataBuilder_ == null) {
           ensureDataIsMutable();
@@ -1239,10 +1767,16 @@ public final class IpcMessage {
         }
         return this;
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder getDataBuilder(
           int index) {
         return getDataFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder getDataOrBuilder(
           int index) {
         if (dataBuilder_ == null) {
@@ -1250,6 +1784,9 @@ public final class IpcMessage {
           return dataBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public java.util.List<? extends com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder> 
            getDataOrBuilderList() {
         if (dataBuilder_ != null) {
@@ -1258,15 +1795,24 @@ public final class IpcMessage {
           return java.util.Collections.unmodifiableList(data_);
         }
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder addDataBuilder() {
         return getDataFieldBuilder().addBuilder(
             com.eolwral.osmonitor.ipc.IpcMessage.ipcData.getDefaultInstance());
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder addDataBuilder(
           int index) {
         return getDataFieldBuilder().addBuilder(
             index, com.eolwral.osmonitor.ipc.IpcMessage.ipcData.getDefaultInstance());
       }
+      /**
+       * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
+       */
       public java.util.List<com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder> 
            getDataBuilderList() {
         return getDataFieldBuilder().getBuilderList();
@@ -1285,18 +1831,18 @@ public final class IpcMessage {
         }
         return dataBuilder_;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:com.eolwral.osmonitor.ipc.ipcMessage)
     }
-    
+
     static {
       defaultInstance = new ipcMessage(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.ipc.ipcMessage)
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor;
   private static
@@ -1307,7 +1853,7 @@ public final class IpcMessage {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_eolwral_osmonitor_ipc_ipcMessage_fieldAccessorTable;
-  
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -1342,17 +1888,13 @@ public final class IpcMessage {
           internal_static_com_eolwral_osmonitor_ipc_ipcData_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor,
-              new java.lang.String[] { "Action", "Payload", },
-              com.eolwral.osmonitor.ipc.IpcMessage.ipcData.class,
-              com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder.class);
+              new java.lang.String[] { "Action", "Payload", });
           internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_com_eolwral_osmonitor_ipc_ipcMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor,
-              new java.lang.String[] { "Type", "Data", },
-              com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.class,
-              com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.Builder.class);
+              new java.lang.String[] { "Type", "Data", });
           return null;
         }
       };
@@ -1361,6 +1903,6 @@ public final class IpcMessage {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
+
   // @@protoc_insertion_point(outer_class_scope)
 }

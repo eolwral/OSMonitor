@@ -10,978 +10,343 @@ public final class ProcessInfo {
   }
   public interface processInfoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required string name = 1;
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; process name 
+     * </pre>
+     */
     boolean hasName();
-    String getName();
-    
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; process name 
+     * </pre>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; process name 
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
     // required string owner = 2;
+    /**
+     * <code>required string owner = 2;</code>
+     *
+     * <pre>
+     **&lt; process owner 
+     * </pre>
+     */
     boolean hasOwner();
-    String getOwner();
-    
+    /**
+     * <code>required string owner = 2;</code>
+     *
+     * <pre>
+     **&lt; process owner 
+     * </pre>
+     */
+    java.lang.String getOwner();
+    /**
+     * <code>required string owner = 2;</code>
+     *
+     * <pre>
+     **&lt; process owner 
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getOwnerBytes();
+
     // required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];
+    /**
+     * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
+     *
+     * <pre>
+     **&lt; process status 
+     * </pre>
+     */
     boolean hasStatus();
+    /**
+     * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
+     *
+     * <pre>
+     **&lt; process status 
+     * </pre>
+     */
     com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus getStatus();
-    
+
     // required uint32 uid = 4;
+    /**
+     * <code>required uint32 uid = 4;</code>
+     *
+     * <pre>
+     **&lt; process uid 
+     * </pre>
+     */
     boolean hasUid();
+    /**
+     * <code>required uint32 uid = 4;</code>
+     *
+     * <pre>
+     **&lt; process uid 
+     * </pre>
+     */
     int getUid();
-    
+
     // required uint32 pid = 5;
+    /**
+     * <code>required uint32 pid = 5;</code>
+     *
+     * <pre>
+     **&lt; process pid 
+     * </pre>
+     */
     boolean hasPid();
+    /**
+     * <code>required uint32 pid = 5;</code>
+     *
+     * <pre>
+     **&lt; process pid 
+     * </pre>
+     */
     int getPid();
-    
+
     // required uint32 ppid = 6;
+    /**
+     * <code>required uint32 ppid = 6;</code>
+     *
+     * <pre>
+     **&lt; process pid for parent 
+     * </pre>
+     */
     boolean hasPpid();
+    /**
+     * <code>required uint32 ppid = 6;</code>
+     *
+     * <pre>
+     **&lt; process pid for parent 
+     * </pre>
+     */
     int getPpid();
-    
+
     // required uint64 rss = 7;
+    /**
+     * <code>required uint64 rss = 7;</code>
+     *
+     * <pre>
+     **&lt; resident set size 
+     * </pre>
+     */
     boolean hasRss();
+    /**
+     * <code>required uint64 rss = 7;</code>
+     *
+     * <pre>
+     **&lt; resident set size 
+     * </pre>
+     */
     long getRss();
-    
+
     // required uint64 vsz = 8;
+    /**
+     * <code>required uint64 vsz = 8;</code>
+     *
+     * <pre>
+     **&lt; virtual size 
+     * </pre>
+     */
     boolean hasVsz();
+    /**
+     * <code>required uint64 vsz = 8;</code>
+     *
+     * <pre>
+     **&lt; virtual size 
+     * </pre>
+     */
     long getVsz();
-    
+
     // required float cpuUsage = 9;
+    /**
+     * <code>required float cpuUsage = 9;</code>
+     *
+     * <pre>
+     **&lt; CPU usage 
+     * </pre>
+     */
     boolean hasCpuUsage();
+    /**
+     * <code>required float cpuUsage = 9;</code>
+     *
+     * <pre>
+     **&lt; CPU usage 
+     * </pre>
+     */
     float getCpuUsage();
-    
+
     // required uint32 threadCount = 10;
+    /**
+     * <code>required uint32 threadCount = 10;</code>
+     *
+     * <pre>
+     **&lt; thread count for this process 
+     * </pre>
+     */
     boolean hasThreadCount();
+    /**
+     * <code>required uint32 threadCount = 10;</code>
+     *
+     * <pre>
+     **&lt; thread count for this process 
+     * </pre>
+     */
     int getThreadCount();
-    
+
     // required uint32 priorityLevel = 11;
+    /**
+     * <code>required uint32 priorityLevel = 11;</code>
+     *
+     * <pre>
+     **&lt; priority from -20 to 20 
+     * </pre>
+     */
     boolean hasPriorityLevel();
+    /**
+     * <code>required uint32 priorityLevel = 11;</code>
+     *
+     * <pre>
+     **&lt; priority from -20 to 20 
+     * </pre>
+     */
     int getPriorityLevel();
-    
+
     // required uint64 usedUserTime = 12;
+    /**
+     * <code>required uint64 usedUserTime = 12;</code>
+     *
+     * <pre>
+     **&lt; used user time (user mode) 
+     * </pre>
+     */
     boolean hasUsedUserTime();
+    /**
+     * <code>required uint64 usedUserTime = 12;</code>
+     *
+     * <pre>
+     **&lt; used user time (user mode) 
+     * </pre>
+     */
     long getUsedUserTime();
-    
+
     // required uint64 usedSystemTime = 13;
+    /**
+     * <code>required uint64 usedSystemTime = 13;</code>
+     *
+     * <pre>
+     **&lt; used system time (kernel mode) 
+     * </pre>
+     */
     boolean hasUsedSystemTime();
+    /**
+     * <code>required uint64 usedSystemTime = 13;</code>
+     *
+     * <pre>
+     **&lt; used system time (kernel mode) 
+     * </pre>
+     */
     long getUsedSystemTime();
-    
+
     // required uint64 startTime = 14;
+    /**
+     * <code>required uint64 startTime = 14;</code>
+     *
+     * <pre>
+     **&lt; start time 
+     * </pre>
+     */
     boolean hasStartTime();
+    /**
+     * <code>required uint64 startTime = 14;</code>
+     *
+     * <pre>
+     **&lt; start time 
+     * </pre>
+     */
     long getStartTime();
-    
+
     // required uint64 cpuTime = 15;
+    /**
+     * <code>required uint64 cpuTime = 15;</code>
+     *
+     * <pre>
+     **&lt; CPU time 
+     * </pre>
+     */
     boolean hasCpuTime();
+    /**
+     * <code>required uint64 cpuTime = 15;</code>
+     *
+     * <pre>
+     **&lt; CPU time 
+     * </pre>
+     */
     long getCpuTime();
   }
+  /**
+   * Protobuf type {@code com.eolwral.osmonitor.core.processInfo}
+   */
   public static final class processInfo extends
       com.google.protobuf.GeneratedMessage
       implements processInfoOrBuilder {
     // Use processInfo.newBuilder() to construct.
-    private processInfo(Builder builder) {
+    private processInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private processInfo(boolean noInit) {}
-    
+    private processInfo(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final processInfo defaultInstance;
     public static processInfo getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public processInfo getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_fieldAccessorTable;
-    }
-    
-    public enum processStatus
-        implements com.google.protobuf.ProtocolMessageEnum {
-      Unknown(0, 0),
-      Running(1, 1),
-      Sleep(2, 2),
-      Stopped(3, 3),
-      Disk(4, 4),
-      Zombie(5, 5),
-      Page(6, 6),
-      ;
-      
-      public static final int Unknown_VALUE = 0;
-      public static final int Running_VALUE = 1;
-      public static final int Sleep_VALUE = 2;
-      public static final int Stopped_VALUE = 3;
-      public static final int Disk_VALUE = 4;
-      public static final int Zombie_VALUE = 5;
-      public static final int Page_VALUE = 6;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static processStatus valueOf(int value) {
-        switch (value) {
-          case 0: return Unknown;
-          case 1: return Running;
-          case 2: return Sleep;
-          case 3: return Stopped;
-          case 4: return Disk;
-          case 5: return Zombie;
-          case 6: return Page;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<processStatus>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<processStatus>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<processStatus>() {
-              public processStatus findValueByNumber(int number) {
-                return processStatus.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.eolwral.osmonitor.core.ProcessInfo.processInfo.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final processStatus[] VALUES = {
-        Unknown, Running, Sleep, Stopped, Disk, Zombie, Page, 
-      };
-      
-      public static processStatus valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private processStatus(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:com.eolwral.osmonitor.core.processInfo.processStatus)
-    }
-    
-    private int bitField0_;
-    // required string name = 1;
-    public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          name_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // required string owner = 2;
-    public static final int OWNER_FIELD_NUMBER = 2;
-    private java.lang.Object owner_;
-    public boolean hasOwner() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    public String getOwner() {
-      java.lang.Object ref = owner_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          owner_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getOwnerBytes() {
-      java.lang.Object ref = owner_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        owner_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];
-    public static final int STATUS_FIELD_NUMBER = 3;
-    private com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus status_;
-    public boolean hasStatus() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus getStatus() {
-      return status_;
-    }
-    
-    // required uint32 uid = 4;
-    public static final int UID_FIELD_NUMBER = 4;
-    private int uid_;
-    public boolean hasUid() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public int getUid() {
-      return uid_;
-    }
-    
-    // required uint32 pid = 5;
-    public static final int PID_FIELD_NUMBER = 5;
-    private int pid_;
-    public boolean hasPid() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    public int getPid() {
-      return pid_;
-    }
-    
-    // required uint32 ppid = 6;
-    public static final int PPID_FIELD_NUMBER = 6;
-    private int ppid_;
-    public boolean hasPpid() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
-    }
-    public int getPpid() {
-      return ppid_;
-    }
-    
-    // required uint64 rss = 7;
-    public static final int RSS_FIELD_NUMBER = 7;
-    private long rss_;
-    public boolean hasRss() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
-    }
-    public long getRss() {
-      return rss_;
-    }
-    
-    // required uint64 vsz = 8;
-    public static final int VSZ_FIELD_NUMBER = 8;
-    private long vsz_;
-    public boolean hasVsz() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
-    }
-    public long getVsz() {
-      return vsz_;
-    }
-    
-    // required float cpuUsage = 9;
-    public static final int CPUUSAGE_FIELD_NUMBER = 9;
-    private float cpuUsage_;
-    public boolean hasCpuUsage() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
-    }
-    public float getCpuUsage() {
-      return cpuUsage_;
-    }
-    
-    // required uint32 threadCount = 10;
-    public static final int THREADCOUNT_FIELD_NUMBER = 10;
-    private int threadCount_;
-    public boolean hasThreadCount() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
-    }
-    public int getThreadCount() {
-      return threadCount_;
-    }
-    
-    // required uint32 priorityLevel = 11;
-    public static final int PRIORITYLEVEL_FIELD_NUMBER = 11;
-    private int priorityLevel_;
-    public boolean hasPriorityLevel() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
-    }
-    public int getPriorityLevel() {
-      return priorityLevel_;
-    }
-    
-    // required uint64 usedUserTime = 12;
-    public static final int USEDUSERTIME_FIELD_NUMBER = 12;
-    private long usedUserTime_;
-    public boolean hasUsedUserTime() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
-    }
-    public long getUsedUserTime() {
-      return usedUserTime_;
-    }
-    
-    // required uint64 usedSystemTime = 13;
-    public static final int USEDSYSTEMTIME_FIELD_NUMBER = 13;
-    private long usedSystemTime_;
-    public boolean hasUsedSystemTime() {
-      return ((bitField0_ & 0x00001000) == 0x00001000);
-    }
-    public long getUsedSystemTime() {
-      return usedSystemTime_;
-    }
-    
-    // required uint64 startTime = 14;
-    public static final int STARTTIME_FIELD_NUMBER = 14;
-    private long startTime_;
-    public boolean hasStartTime() {
-      return ((bitField0_ & 0x00002000) == 0x00002000);
-    }
-    public long getStartTime() {
-      return startTime_;
-    }
-    
-    // required uint64 cpuTime = 15;
-    public static final int CPUTIME_FIELD_NUMBER = 15;
-    private long cpuTime_;
-    public boolean hasCpuTime() {
-      return ((bitField0_ & 0x00004000) == 0x00004000);
-    }
-    public long getCpuTime() {
-      return cpuTime_;
-    }
-    
-    private void initFields() {
-      name_ = "";
-      owner_ = "";
-      status_ = com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus.Unknown;
-      uid_ = 0;
-      pid_ = 0;
-      ppid_ = 0;
-      rss_ = 0L;
-      vsz_ = 0L;
-      cpuUsage_ = 0F;
-      threadCount_ = 0;
-      priorityLevel_ = 0;
-      usedUserTime_ = 0L;
-      usedSystemTime_ = 0L;
-      startTime_ = 0L;
-      cpuTime_ = 0L;
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasOwner()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPpid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRss()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasVsz()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCpuUsage()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasThreadCount()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPriorityLevel()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUsedUserTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUsedSystemTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStartTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCpuTime()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getOwnerBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeEnum(3, status_.getNumber());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeUInt32(4, uid_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeUInt32(5, pid_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeUInt32(6, ppid_);
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeUInt64(7, rss_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeUInt64(8, vsz_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeFloat(9, cpuUsage_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeUInt32(10, threadCount_);
-      }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeUInt32(11, priorityLevel_);
-      }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeUInt64(12, usedUserTime_);
-      }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        output.writeUInt64(13, usedSystemTime_);
-      }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        output.writeUInt64(14, startTime_);
-      }
-      if (((bitField0_ & 0x00004000) == 0x00004000)) {
-        output.writeUInt64(15, cpuTime_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getOwnerBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(3, status_.getNumber());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(4, uid_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(5, pid_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(6, ppid_);
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(7, rss_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(8, vsz_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(9, cpuUsage_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(10, threadCount_);
-      }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(11, priorityLevel_);
-      }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(12, usedUserTime_);
-      }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(13, usedSystemTime_);
-      }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(14, startTime_);
-      }
-      if (((bitField0_ & 0x00004000) == 0x00004000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(15, cpuTime_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
     }
-    
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
+    private processInfo(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.eolwral.osmonitor.core.ProcessInfo.processInfo prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.ProcessInfo.processInfoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_fieldAccessorTable;
-      }
-      
-      // Construct using com.eolwral.osmonitor.core.ProcessInfo.processInfo.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        owner_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        status_ = com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus.Unknown;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        uid_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000008);
-        pid_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000010);
-        ppid_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000020);
-        rss_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000040);
-        vsz_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000080);
-        cpuUsage_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000100);
-        threadCount_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000200);
-        priorityLevel_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000400);
-        usedUserTime_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000800);
-        usedSystemTime_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00001000);
-        startTime_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00002000);
-        cpuTime_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00004000);
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.eolwral.osmonitor.core.ProcessInfo.processInfo.getDescriptor();
-      }
-      
-      public com.eolwral.osmonitor.core.ProcessInfo.processInfo getDefaultInstanceForType() {
-        return com.eolwral.osmonitor.core.ProcessInfo.processInfo.getDefaultInstance();
-      }
-      
-      public com.eolwral.osmonitor.core.ProcessInfo.processInfo build() {
-        com.eolwral.osmonitor.core.ProcessInfo.processInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.eolwral.osmonitor.core.ProcessInfo.processInfo buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.eolwral.osmonitor.core.ProcessInfo.processInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.eolwral.osmonitor.core.ProcessInfo.processInfo buildPartial() {
-        com.eolwral.osmonitor.core.ProcessInfo.processInfo result = new com.eolwral.osmonitor.core.ProcessInfo.processInfo(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.name_ = name_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.owner_ = owner_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.status_ = status_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.uid_ = uid_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.pid_ = pid_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-          to_bitField0_ |= 0x00000020;
-        }
-        result.ppid_ = ppid_;
-        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
-          to_bitField0_ |= 0x00000040;
-        }
-        result.rss_ = rss_;
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
-          to_bitField0_ |= 0x00000080;
-        }
-        result.vsz_ = vsz_;
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000100;
-        }
-        result.cpuUsage_ = cpuUsage_;
-        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
-          to_bitField0_ |= 0x00000200;
-        }
-        result.threadCount_ = threadCount_;
-        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
-          to_bitField0_ |= 0x00000400;
-        }
-        result.priorityLevel_ = priorityLevel_;
-        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
-          to_bitField0_ |= 0x00000800;
-        }
-        result.usedUserTime_ = usedUserTime_;
-        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
-          to_bitField0_ |= 0x00001000;
-        }
-        result.usedSystemTime_ = usedSystemTime_;
-        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
-          to_bitField0_ |= 0x00002000;
-        }
-        result.startTime_ = startTime_;
-        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
-          to_bitField0_ |= 0x00004000;
-        }
-        result.cpuTime_ = cpuTime_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.eolwral.osmonitor.core.ProcessInfo.processInfo) {
-          return mergeFrom((com.eolwral.osmonitor.core.ProcessInfo.processInfo)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.eolwral.osmonitor.core.ProcessInfo.processInfo other) {
-        if (other == com.eolwral.osmonitor.core.ProcessInfo.processInfo.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          setName(other.getName());
-        }
-        if (other.hasOwner()) {
-          setOwner(other.getOwner());
-        }
-        if (other.hasStatus()) {
-          setStatus(other.getStatus());
-        }
-        if (other.hasUid()) {
-          setUid(other.getUid());
-        }
-        if (other.hasPid()) {
-          setPid(other.getPid());
-        }
-        if (other.hasPpid()) {
-          setPpid(other.getPpid());
-        }
-        if (other.hasRss()) {
-          setRss(other.getRss());
-        }
-        if (other.hasVsz()) {
-          setVsz(other.getVsz());
-        }
-        if (other.hasCpuUsage()) {
-          setCpuUsage(other.getCpuUsage());
-        }
-        if (other.hasThreadCount()) {
-          setThreadCount(other.getThreadCount());
-        }
-        if (other.hasPriorityLevel()) {
-          setPriorityLevel(other.getPriorityLevel());
-        }
-        if (other.hasUsedUserTime()) {
-          setUsedUserTime(other.getUsedUserTime());
-        }
-        if (other.hasUsedSystemTime()) {
-          setUsedSystemTime(other.getUsedSystemTime());
-        }
-        if (other.hasStartTime()) {
-          setStartTime(other.getStartTime());
-        }
-        if (other.hasCpuTime()) {
-          setCpuTime(other.getCpuTime());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasOwner()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!hasUid()) {
-          
-          return false;
-        }
-        if (!hasPid()) {
-          
-          return false;
-        }
-        if (!hasPpid()) {
-          
-          return false;
-        }
-        if (!hasRss()) {
-          
-          return false;
-        }
-        if (!hasVsz()) {
-          
-          return false;
-        }
-        if (!hasCpuUsage()) {
-          
-          return false;
-        }
-        if (!hasThreadCount()) {
-          
-          return false;
-        }
-        if (!hasPriorityLevel()) {
-          
-          return false;
-        }
-        if (!hasUsedUserTime()) {
-          
-          return false;
-        }
-        if (!hasUsedSystemTime()) {
-          
-          return false;
-        }
-        if (!hasStartTime()) {
-          
-          return false;
-        }
-        if (!hasCpuTime()) {
-          
-          return false;
-        }
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
+              done = true;
+              break;
             default: {
               if (!parseUnknownField(input, unknownFields,
                                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
               }
               break;
             }
@@ -1068,26 +433,1297 @@ public final class ProcessInfo {
             }
           }
         }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
       }
-      
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.eolwral.osmonitor.core.ProcessInfo.processInfo.class, com.eolwral.osmonitor.core.ProcessInfo.processInfo.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<processInfo> PARSER =
+        new com.google.protobuf.AbstractParser<processInfo>() {
+      public processInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new processInfo(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<processInfo> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code com.eolwral.osmonitor.core.processInfo.processStatus}
+     */
+    public enum processStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>Unknown = 0;</code>
+       *
+       * <pre>
+       **&lt; process status is unknown 
+       * </pre>
+       */
+      Unknown(0, 0),
+      /**
+       * <code>Running = 1;</code>
+       *
+       * <pre>
+       **&lt; process is running 
+       * </pre>
+       */
+      Running(1, 1),
+      /**
+       * <code>Sleep = 2;</code>
+       *
+       * <pre>
+       **&lt; process is s sleeping in an interruptible wait 
+       * </pre>
+       */
+      Sleep(2, 2),
+      /**
+       * <code>Stopped = 3;</code>
+       *
+       * <pre>
+       **&lt; process is traced or stopped 
+       * </pre>
+       */
+      Stopped(3, 3),
+      /**
+       * <code>Disk = 4;</code>
+       *
+       * <pre>
+       **&lt; process is is waiting in uninterruptible disk sleep 
+       * </pre>
+       */
+      Disk(4, 4),
+      /**
+       * <code>Zombie = 5;</code>
+       *
+       * <pre>
+       **&lt; process is zombie that couldn't be killed 
+       * </pre>
+       */
+      Zombie(5, 5),
+      /**
+       * <code>Page = 6;</code>
+       *
+       * <pre>
+       **&lt; process is paging 
+       * </pre>
+       */
+      Page(6, 6),
+      ;
+
+      /**
+       * <code>Unknown = 0;</code>
+       *
+       * <pre>
+       **&lt; process status is unknown 
+       * </pre>
+       */
+      public static final int Unknown_VALUE = 0;
+      /**
+       * <code>Running = 1;</code>
+       *
+       * <pre>
+       **&lt; process is running 
+       * </pre>
+       */
+      public static final int Running_VALUE = 1;
+      /**
+       * <code>Sleep = 2;</code>
+       *
+       * <pre>
+       **&lt; process is s sleeping in an interruptible wait 
+       * </pre>
+       */
+      public static final int Sleep_VALUE = 2;
+      /**
+       * <code>Stopped = 3;</code>
+       *
+       * <pre>
+       **&lt; process is traced or stopped 
+       * </pre>
+       */
+      public static final int Stopped_VALUE = 3;
+      /**
+       * <code>Disk = 4;</code>
+       *
+       * <pre>
+       **&lt; process is is waiting in uninterruptible disk sleep 
+       * </pre>
+       */
+      public static final int Disk_VALUE = 4;
+      /**
+       * <code>Zombie = 5;</code>
+       *
+       * <pre>
+       **&lt; process is zombie that couldn't be killed 
+       * </pre>
+       */
+      public static final int Zombie_VALUE = 5;
+      /**
+       * <code>Page = 6;</code>
+       *
+       * <pre>
+       **&lt; process is paging 
+       * </pre>
+       */
+      public static final int Page_VALUE = 6;
+
+
+      public final int getNumber() { return value; }
+
+      public static processStatus valueOf(int value) {
+        switch (value) {
+          case 0: return Unknown;
+          case 1: return Running;
+          case 2: return Sleep;
+          case 3: return Stopped;
+          case 4: return Disk;
+          case 5: return Zombie;
+          case 6: return Page;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<processStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<processStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<processStatus>() {
+              public processStatus findValueByNumber(int number) {
+                return processStatus.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.eolwral.osmonitor.core.ProcessInfo.processInfo.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final processStatus[] VALUES = values();
+
+      public static processStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private processStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:com.eolwral.osmonitor.core.processInfo.processStatus)
+    }
+
+    private int bitField0_;
+    // required string name = 1;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; process name 
+     * </pre>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; process name 
+     * </pre>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; process name 
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required string owner = 2;
+    public static final int OWNER_FIELD_NUMBER = 2;
+    private java.lang.Object owner_;
+    /**
+     * <code>required string owner = 2;</code>
+     *
+     * <pre>
+     **&lt; process owner 
+     * </pre>
+     */
+    public boolean hasOwner() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string owner = 2;</code>
+     *
+     * <pre>
+     **&lt; process owner 
+     * </pre>
+     */
+    public java.lang.String getOwner() {
+      java.lang.Object ref = owner_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          owner_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string owner = 2;</code>
+     *
+     * <pre>
+     **&lt; process owner 
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getOwnerBytes() {
+      java.lang.Object ref = owner_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        owner_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];
+    public static final int STATUS_FIELD_NUMBER = 3;
+    private com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus status_;
+    /**
+     * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
+     *
+     * <pre>
+     **&lt; process status 
+     * </pre>
+     */
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
+     *
+     * <pre>
+     **&lt; process status 
+     * </pre>
+     */
+    public com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus getStatus() {
+      return status_;
+    }
+
+    // required uint32 uid = 4;
+    public static final int UID_FIELD_NUMBER = 4;
+    private int uid_;
+    /**
+     * <code>required uint32 uid = 4;</code>
+     *
+     * <pre>
+     **&lt; process uid 
+     * </pre>
+     */
+    public boolean hasUid() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required uint32 uid = 4;</code>
+     *
+     * <pre>
+     **&lt; process uid 
+     * </pre>
+     */
+    public int getUid() {
+      return uid_;
+    }
+
+    // required uint32 pid = 5;
+    public static final int PID_FIELD_NUMBER = 5;
+    private int pid_;
+    /**
+     * <code>required uint32 pid = 5;</code>
+     *
+     * <pre>
+     **&lt; process pid 
+     * </pre>
+     */
+    public boolean hasPid() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required uint32 pid = 5;</code>
+     *
+     * <pre>
+     **&lt; process pid 
+     * </pre>
+     */
+    public int getPid() {
+      return pid_;
+    }
+
+    // required uint32 ppid = 6;
+    public static final int PPID_FIELD_NUMBER = 6;
+    private int ppid_;
+    /**
+     * <code>required uint32 ppid = 6;</code>
+     *
+     * <pre>
+     **&lt; process pid for parent 
+     * </pre>
+     */
+    public boolean hasPpid() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>required uint32 ppid = 6;</code>
+     *
+     * <pre>
+     **&lt; process pid for parent 
+     * </pre>
+     */
+    public int getPpid() {
+      return ppid_;
+    }
+
+    // required uint64 rss = 7;
+    public static final int RSS_FIELD_NUMBER = 7;
+    private long rss_;
+    /**
+     * <code>required uint64 rss = 7;</code>
+     *
+     * <pre>
+     **&lt; resident set size 
+     * </pre>
+     */
+    public boolean hasRss() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>required uint64 rss = 7;</code>
+     *
+     * <pre>
+     **&lt; resident set size 
+     * </pre>
+     */
+    public long getRss() {
+      return rss_;
+    }
+
+    // required uint64 vsz = 8;
+    public static final int VSZ_FIELD_NUMBER = 8;
+    private long vsz_;
+    /**
+     * <code>required uint64 vsz = 8;</code>
+     *
+     * <pre>
+     **&lt; virtual size 
+     * </pre>
+     */
+    public boolean hasVsz() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>required uint64 vsz = 8;</code>
+     *
+     * <pre>
+     **&lt; virtual size 
+     * </pre>
+     */
+    public long getVsz() {
+      return vsz_;
+    }
+
+    // required float cpuUsage = 9;
+    public static final int CPUUSAGE_FIELD_NUMBER = 9;
+    private float cpuUsage_;
+    /**
+     * <code>required float cpuUsage = 9;</code>
+     *
+     * <pre>
+     **&lt; CPU usage 
+     * </pre>
+     */
+    public boolean hasCpuUsage() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <code>required float cpuUsage = 9;</code>
+     *
+     * <pre>
+     **&lt; CPU usage 
+     * </pre>
+     */
+    public float getCpuUsage() {
+      return cpuUsage_;
+    }
+
+    // required uint32 threadCount = 10;
+    public static final int THREADCOUNT_FIELD_NUMBER = 10;
+    private int threadCount_;
+    /**
+     * <code>required uint32 threadCount = 10;</code>
+     *
+     * <pre>
+     **&lt; thread count for this process 
+     * </pre>
+     */
+    public boolean hasThreadCount() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <code>required uint32 threadCount = 10;</code>
+     *
+     * <pre>
+     **&lt; thread count for this process 
+     * </pre>
+     */
+    public int getThreadCount() {
+      return threadCount_;
+    }
+
+    // required uint32 priorityLevel = 11;
+    public static final int PRIORITYLEVEL_FIELD_NUMBER = 11;
+    private int priorityLevel_;
+    /**
+     * <code>required uint32 priorityLevel = 11;</code>
+     *
+     * <pre>
+     **&lt; priority from -20 to 20 
+     * </pre>
+     */
+    public boolean hasPriorityLevel() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    /**
+     * <code>required uint32 priorityLevel = 11;</code>
+     *
+     * <pre>
+     **&lt; priority from -20 to 20 
+     * </pre>
+     */
+    public int getPriorityLevel() {
+      return priorityLevel_;
+    }
+
+    // required uint64 usedUserTime = 12;
+    public static final int USEDUSERTIME_FIELD_NUMBER = 12;
+    private long usedUserTime_;
+    /**
+     * <code>required uint64 usedUserTime = 12;</code>
+     *
+     * <pre>
+     **&lt; used user time (user mode) 
+     * </pre>
+     */
+    public boolean hasUsedUserTime() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    /**
+     * <code>required uint64 usedUserTime = 12;</code>
+     *
+     * <pre>
+     **&lt; used user time (user mode) 
+     * </pre>
+     */
+    public long getUsedUserTime() {
+      return usedUserTime_;
+    }
+
+    // required uint64 usedSystemTime = 13;
+    public static final int USEDSYSTEMTIME_FIELD_NUMBER = 13;
+    private long usedSystemTime_;
+    /**
+     * <code>required uint64 usedSystemTime = 13;</code>
+     *
+     * <pre>
+     **&lt; used system time (kernel mode) 
+     * </pre>
+     */
+    public boolean hasUsedSystemTime() {
+      return ((bitField0_ & 0x00001000) == 0x00001000);
+    }
+    /**
+     * <code>required uint64 usedSystemTime = 13;</code>
+     *
+     * <pre>
+     **&lt; used system time (kernel mode) 
+     * </pre>
+     */
+    public long getUsedSystemTime() {
+      return usedSystemTime_;
+    }
+
+    // required uint64 startTime = 14;
+    public static final int STARTTIME_FIELD_NUMBER = 14;
+    private long startTime_;
+    /**
+     * <code>required uint64 startTime = 14;</code>
+     *
+     * <pre>
+     **&lt; start time 
+     * </pre>
+     */
+    public boolean hasStartTime() {
+      return ((bitField0_ & 0x00002000) == 0x00002000);
+    }
+    /**
+     * <code>required uint64 startTime = 14;</code>
+     *
+     * <pre>
+     **&lt; start time 
+     * </pre>
+     */
+    public long getStartTime() {
+      return startTime_;
+    }
+
+    // required uint64 cpuTime = 15;
+    public static final int CPUTIME_FIELD_NUMBER = 15;
+    private long cpuTime_;
+    /**
+     * <code>required uint64 cpuTime = 15;</code>
+     *
+     * <pre>
+     **&lt; CPU time 
+     * </pre>
+     */
+    public boolean hasCpuTime() {
+      return ((bitField0_ & 0x00004000) == 0x00004000);
+    }
+    /**
+     * <code>required uint64 cpuTime = 15;</code>
+     *
+     * <pre>
+     **&lt; CPU time 
+     * </pre>
+     */
+    public long getCpuTime() {
+      return cpuTime_;
+    }
+
+    private void initFields() {
+      name_ = "";
+      owner_ = "";
+      status_ = com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus.Unknown;
+      uid_ = 0;
+      pid_ = 0;
+      ppid_ = 0;
+      rss_ = 0L;
+      vsz_ = 0L;
+      cpuUsage_ = 0F;
+      threadCount_ = 0;
+      priorityLevel_ = 0;
+      usedUserTime_ = 0L;
+      usedSystemTime_ = 0L;
+      startTime_ = 0L;
+      cpuTime_ = 0L;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasOwner()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPpid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRss()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasVsz()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCpuUsage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasThreadCount()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPriorityLevel()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUsedUserTime()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUsedSystemTime()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStartTime()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCpuTime()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getOwnerBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, status_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeUInt32(4, uid_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeUInt32(5, pid_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeUInt32(6, ppid_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeUInt64(7, rss_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeUInt64(8, vsz_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeFloat(9, cpuUsage_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeUInt32(10, threadCount_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeUInt32(11, priorityLevel_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeUInt64(12, usedUserTime_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeUInt64(13, usedSystemTime_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        output.writeUInt64(14, startTime_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        output.writeUInt64(15, cpuTime_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getOwnerBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, status_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, uid_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(5, pid_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(6, ppid_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(7, rss_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(8, vsz_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(9, cpuUsage_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(10, threadCount_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(11, priorityLevel_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(12, usedUserTime_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(13, usedSystemTime_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(14, startTime_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(15, cpuTime_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.eolwral.osmonitor.core.ProcessInfo.processInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.eolwral.osmonitor.core.ProcessInfo.processInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.eolwral.osmonitor.core.processInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.eolwral.osmonitor.core.ProcessInfo.processInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.eolwral.osmonitor.core.ProcessInfo.processInfo.class, com.eolwral.osmonitor.core.ProcessInfo.processInfo.Builder.class);
+      }
+
+      // Construct using com.eolwral.osmonitor.core.ProcessInfo.processInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        owner_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        status_ = com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus.Unknown;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        uid_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        pid_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        ppid_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        rss_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        vsz_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        cpuUsage_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        threadCount_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        priorityLevel_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        usedUserTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000800);
+        usedSystemTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00001000);
+        startTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00002000);
+        cpuTime_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00004000);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_descriptor;
+      }
+
+      public com.eolwral.osmonitor.core.ProcessInfo.processInfo getDefaultInstanceForType() {
+        return com.eolwral.osmonitor.core.ProcessInfo.processInfo.getDefaultInstance();
+      }
+
+      public com.eolwral.osmonitor.core.ProcessInfo.processInfo build() {
+        com.eolwral.osmonitor.core.ProcessInfo.processInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.eolwral.osmonitor.core.ProcessInfo.processInfo buildPartial() {
+        com.eolwral.osmonitor.core.ProcessInfo.processInfo result = new com.eolwral.osmonitor.core.ProcessInfo.processInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.owner_ = owner_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.status_ = status_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.uid_ = uid_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.pid_ = pid_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.ppid_ = ppid_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.rss_ = rss_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.vsz_ = vsz_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.cpuUsage_ = cpuUsage_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.threadCount_ = threadCount_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.priorityLevel_ = priorityLevel_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000800;
+        }
+        result.usedUserTime_ = usedUserTime_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00001000;
+        }
+        result.usedSystemTime_ = usedSystemTime_;
+        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
+          to_bitField0_ |= 0x00002000;
+        }
+        result.startTime_ = startTime_;
+        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
+          to_bitField0_ |= 0x00004000;
+        }
+        result.cpuTime_ = cpuTime_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.eolwral.osmonitor.core.ProcessInfo.processInfo) {
+          return mergeFrom((com.eolwral.osmonitor.core.ProcessInfo.processInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.eolwral.osmonitor.core.ProcessInfo.processInfo other) {
+        if (other == com.eolwral.osmonitor.core.ProcessInfo.processInfo.getDefaultInstance()) return this;
+        if (other.hasName()) {
+          bitField0_ |= 0x00000001;
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasOwner()) {
+          bitField0_ |= 0x00000002;
+          owner_ = other.owner_;
+          onChanged();
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        if (other.hasUid()) {
+          setUid(other.getUid());
+        }
+        if (other.hasPid()) {
+          setPid(other.getPid());
+        }
+        if (other.hasPpid()) {
+          setPpid(other.getPpid());
+        }
+        if (other.hasRss()) {
+          setRss(other.getRss());
+        }
+        if (other.hasVsz()) {
+          setVsz(other.getVsz());
+        }
+        if (other.hasCpuUsage()) {
+          setCpuUsage(other.getCpuUsage());
+        }
+        if (other.hasThreadCount()) {
+          setThreadCount(other.getThreadCount());
+        }
+        if (other.hasPriorityLevel()) {
+          setPriorityLevel(other.getPriorityLevel());
+        }
+        if (other.hasUsedUserTime()) {
+          setUsedUserTime(other.getUsedUserTime());
+        }
+        if (other.hasUsedSystemTime()) {
+          setUsedSystemTime(other.getUsedSystemTime());
+        }
+        if (other.hasStartTime()) {
+          setStartTime(other.getStartTime());
+        }
+        if (other.hasCpuTime()) {
+          setCpuTime(other.getCpuTime());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasOwner()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!hasUid()) {
+          
+          return false;
+        }
+        if (!hasPid()) {
+          
+          return false;
+        }
+        if (!hasPpid()) {
+          
+          return false;
+        }
+        if (!hasRss()) {
+          
+          return false;
+        }
+        if (!hasVsz()) {
+          
+          return false;
+        }
+        if (!hasCpuUsage()) {
+          
+          return false;
+        }
+        if (!hasThreadCount()) {
+          
+          return false;
+        }
+        if (!hasPriorityLevel()) {
+          
+          return false;
+        }
+        if (!hasUsedUserTime()) {
+          
+          return false;
+        }
+        if (!hasUsedSystemTime()) {
+          
+          return false;
+        }
+        if (!hasStartTime()) {
+          
+          return false;
+        }
+        if (!hasCpuTime()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.eolwral.osmonitor.core.ProcessInfo.processInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.eolwral.osmonitor.core.ProcessInfo.processInfo) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
       private int bitField0_;
-      
+
       // required string name = 1;
       private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; process name 
+       * </pre>
+       */
       public boolean hasName() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public String getName() {
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; process name 
+       * </pre>
+       */
+      public java.lang.String getName() {
         java.lang.Object ref = name_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           name_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setName(String value) {
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; process name 
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; process name 
+       * </pre>
+       */
+      public Builder setName(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1096,34 +1732,96 @@ public final class ProcessInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; process name 
+       * </pre>
+       */
       public Builder clearName() {
         bitField0_ = (bitField0_ & ~0x00000001);
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
-      void setName(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000001;
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; process name 
+       * </pre>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
         name_ = value;
         onChanged();
+        return this;
       }
-      
+
       // required string owner = 2;
       private java.lang.Object owner_ = "";
+      /**
+       * <code>required string owner = 2;</code>
+       *
+       * <pre>
+       **&lt; process owner 
+       * </pre>
+       */
       public boolean hasOwner() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public String getOwner() {
+      /**
+       * <code>required string owner = 2;</code>
+       *
+       * <pre>
+       **&lt; process owner 
+       * </pre>
+       */
+      public java.lang.String getOwner() {
         java.lang.Object ref = owner_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           owner_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setOwner(String value) {
+      /**
+       * <code>required string owner = 2;</code>
+       *
+       * <pre>
+       **&lt; process owner 
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getOwnerBytes() {
+        java.lang.Object ref = owner_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          owner_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string owner = 2;</code>
+       *
+       * <pre>
+       **&lt; process owner 
+       * </pre>
+       */
+      public Builder setOwner(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1132,26 +1830,66 @@ public final class ProcessInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>required string owner = 2;</code>
+       *
+       * <pre>
+       **&lt; process owner 
+       * </pre>
+       */
       public Builder clearOwner() {
         bitField0_ = (bitField0_ & ~0x00000002);
         owner_ = getDefaultInstance().getOwner();
         onChanged();
         return this;
       }
-      void setOwner(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000002;
+      /**
+       * <code>required string owner = 2;</code>
+       *
+       * <pre>
+       **&lt; process owner 
+       * </pre>
+       */
+      public Builder setOwnerBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
         owner_ = value;
         onChanged();
+        return this;
       }
-      
+
       // required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];
       private com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus status_ = com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus.Unknown;
+      /**
+       * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
+       *
+       * <pre>
+       **&lt; process status 
+       * </pre>
+       */
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
+       *
+       * <pre>
+       **&lt; process status 
+       * </pre>
+       */
       public com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus getStatus() {
         return status_;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
+       *
+       * <pre>
+       **&lt; process status 
+       * </pre>
+       */
       public Builder setStatus(com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus value) {
         if (value == null) {
           throw new NullPointerException();
@@ -1161,282 +1899,625 @@ public final class ProcessInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
+       *
+       * <pre>
+       **&lt; process status 
+       * </pre>
+       */
       public Builder clearStatus() {
         bitField0_ = (bitField0_ & ~0x00000004);
         status_ = com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus.Unknown;
         onChanged();
         return this;
       }
-      
+
       // required uint32 uid = 4;
       private int uid_ ;
+      /**
+       * <code>required uint32 uid = 4;</code>
+       *
+       * <pre>
+       **&lt; process uid 
+       * </pre>
+       */
       public boolean hasUid() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
+      /**
+       * <code>required uint32 uid = 4;</code>
+       *
+       * <pre>
+       **&lt; process uid 
+       * </pre>
+       */
       public int getUid() {
         return uid_;
       }
+      /**
+       * <code>required uint32 uid = 4;</code>
+       *
+       * <pre>
+       **&lt; process uid 
+       * </pre>
+       */
       public Builder setUid(int value) {
         bitField0_ |= 0x00000008;
         uid_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 uid = 4;</code>
+       *
+       * <pre>
+       **&lt; process uid 
+       * </pre>
+       */
       public Builder clearUid() {
         bitField0_ = (bitField0_ & ~0x00000008);
         uid_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint32 pid = 5;
       private int pid_ ;
+      /**
+       * <code>required uint32 pid = 5;</code>
+       *
+       * <pre>
+       **&lt; process pid 
+       * </pre>
+       */
       public boolean hasPid() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
+      /**
+       * <code>required uint32 pid = 5;</code>
+       *
+       * <pre>
+       **&lt; process pid 
+       * </pre>
+       */
       public int getPid() {
         return pid_;
       }
+      /**
+       * <code>required uint32 pid = 5;</code>
+       *
+       * <pre>
+       **&lt; process pid 
+       * </pre>
+       */
       public Builder setPid(int value) {
         bitField0_ |= 0x00000010;
         pid_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 pid = 5;</code>
+       *
+       * <pre>
+       **&lt; process pid 
+       * </pre>
+       */
       public Builder clearPid() {
         bitField0_ = (bitField0_ & ~0x00000010);
         pid_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint32 ppid = 6;
       private int ppid_ ;
+      /**
+       * <code>required uint32 ppid = 6;</code>
+       *
+       * <pre>
+       **&lt; process pid for parent 
+       * </pre>
+       */
       public boolean hasPpid() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
+      /**
+       * <code>required uint32 ppid = 6;</code>
+       *
+       * <pre>
+       **&lt; process pid for parent 
+       * </pre>
+       */
       public int getPpid() {
         return ppid_;
       }
+      /**
+       * <code>required uint32 ppid = 6;</code>
+       *
+       * <pre>
+       **&lt; process pid for parent 
+       * </pre>
+       */
       public Builder setPpid(int value) {
         bitField0_ |= 0x00000020;
         ppid_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 ppid = 6;</code>
+       *
+       * <pre>
+       **&lt; process pid for parent 
+       * </pre>
+       */
       public Builder clearPpid() {
         bitField0_ = (bitField0_ & ~0x00000020);
         ppid_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint64 rss = 7;
       private long rss_ ;
+      /**
+       * <code>required uint64 rss = 7;</code>
+       *
+       * <pre>
+       **&lt; resident set size 
+       * </pre>
+       */
       public boolean hasRss() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
+      /**
+       * <code>required uint64 rss = 7;</code>
+       *
+       * <pre>
+       **&lt; resident set size 
+       * </pre>
+       */
       public long getRss() {
         return rss_;
       }
+      /**
+       * <code>required uint64 rss = 7;</code>
+       *
+       * <pre>
+       **&lt; resident set size 
+       * </pre>
+       */
       public Builder setRss(long value) {
         bitField0_ |= 0x00000040;
         rss_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 rss = 7;</code>
+       *
+       * <pre>
+       **&lt; resident set size 
+       * </pre>
+       */
       public Builder clearRss() {
         bitField0_ = (bitField0_ & ~0x00000040);
         rss_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 vsz = 8;
       private long vsz_ ;
+      /**
+       * <code>required uint64 vsz = 8;</code>
+       *
+       * <pre>
+       **&lt; virtual size 
+       * </pre>
+       */
       public boolean hasVsz() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
       }
+      /**
+       * <code>required uint64 vsz = 8;</code>
+       *
+       * <pre>
+       **&lt; virtual size 
+       * </pre>
+       */
       public long getVsz() {
         return vsz_;
       }
+      /**
+       * <code>required uint64 vsz = 8;</code>
+       *
+       * <pre>
+       **&lt; virtual size 
+       * </pre>
+       */
       public Builder setVsz(long value) {
         bitField0_ |= 0x00000080;
         vsz_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 vsz = 8;</code>
+       *
+       * <pre>
+       **&lt; virtual size 
+       * </pre>
+       */
       public Builder clearVsz() {
         bitField0_ = (bitField0_ & ~0x00000080);
         vsz_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required float cpuUsage = 9;
       private float cpuUsage_ ;
+      /**
+       * <code>required float cpuUsage = 9;</code>
+       *
+       * <pre>
+       **&lt; CPU usage 
+       * </pre>
+       */
       public boolean hasCpuUsage() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
       }
+      /**
+       * <code>required float cpuUsage = 9;</code>
+       *
+       * <pre>
+       **&lt; CPU usage 
+       * </pre>
+       */
       public float getCpuUsage() {
         return cpuUsage_;
       }
+      /**
+       * <code>required float cpuUsage = 9;</code>
+       *
+       * <pre>
+       **&lt; CPU usage 
+       * </pre>
+       */
       public Builder setCpuUsage(float value) {
         bitField0_ |= 0x00000100;
         cpuUsage_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required float cpuUsage = 9;</code>
+       *
+       * <pre>
+       **&lt; CPU usage 
+       * </pre>
+       */
       public Builder clearCpuUsage() {
         bitField0_ = (bitField0_ & ~0x00000100);
         cpuUsage_ = 0F;
         onChanged();
         return this;
       }
-      
+
       // required uint32 threadCount = 10;
       private int threadCount_ ;
+      /**
+       * <code>required uint32 threadCount = 10;</code>
+       *
+       * <pre>
+       **&lt; thread count for this process 
+       * </pre>
+       */
       public boolean hasThreadCount() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
       }
+      /**
+       * <code>required uint32 threadCount = 10;</code>
+       *
+       * <pre>
+       **&lt; thread count for this process 
+       * </pre>
+       */
       public int getThreadCount() {
         return threadCount_;
       }
+      /**
+       * <code>required uint32 threadCount = 10;</code>
+       *
+       * <pre>
+       **&lt; thread count for this process 
+       * </pre>
+       */
       public Builder setThreadCount(int value) {
         bitField0_ |= 0x00000200;
         threadCount_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 threadCount = 10;</code>
+       *
+       * <pre>
+       **&lt; thread count for this process 
+       * </pre>
+       */
       public Builder clearThreadCount() {
         bitField0_ = (bitField0_ & ~0x00000200);
         threadCount_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint32 priorityLevel = 11;
       private int priorityLevel_ ;
+      /**
+       * <code>required uint32 priorityLevel = 11;</code>
+       *
+       * <pre>
+       **&lt; priority from -20 to 20 
+       * </pre>
+       */
       public boolean hasPriorityLevel() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
       }
+      /**
+       * <code>required uint32 priorityLevel = 11;</code>
+       *
+       * <pre>
+       **&lt; priority from -20 to 20 
+       * </pre>
+       */
       public int getPriorityLevel() {
         return priorityLevel_;
       }
+      /**
+       * <code>required uint32 priorityLevel = 11;</code>
+       *
+       * <pre>
+       **&lt; priority from -20 to 20 
+       * </pre>
+       */
       public Builder setPriorityLevel(int value) {
         bitField0_ |= 0x00000400;
         priorityLevel_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 priorityLevel = 11;</code>
+       *
+       * <pre>
+       **&lt; priority from -20 to 20 
+       * </pre>
+       */
       public Builder clearPriorityLevel() {
         bitField0_ = (bitField0_ & ~0x00000400);
         priorityLevel_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint64 usedUserTime = 12;
       private long usedUserTime_ ;
+      /**
+       * <code>required uint64 usedUserTime = 12;</code>
+       *
+       * <pre>
+       **&lt; used user time (user mode) 
+       * </pre>
+       */
       public boolean hasUsedUserTime() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
       }
+      /**
+       * <code>required uint64 usedUserTime = 12;</code>
+       *
+       * <pre>
+       **&lt; used user time (user mode) 
+       * </pre>
+       */
       public long getUsedUserTime() {
         return usedUserTime_;
       }
+      /**
+       * <code>required uint64 usedUserTime = 12;</code>
+       *
+       * <pre>
+       **&lt; used user time (user mode) 
+       * </pre>
+       */
       public Builder setUsedUserTime(long value) {
         bitField0_ |= 0x00000800;
         usedUserTime_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 usedUserTime = 12;</code>
+       *
+       * <pre>
+       **&lt; used user time (user mode) 
+       * </pre>
+       */
       public Builder clearUsedUserTime() {
         bitField0_ = (bitField0_ & ~0x00000800);
         usedUserTime_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 usedSystemTime = 13;
       private long usedSystemTime_ ;
+      /**
+       * <code>required uint64 usedSystemTime = 13;</code>
+       *
+       * <pre>
+       **&lt; used system time (kernel mode) 
+       * </pre>
+       */
       public boolean hasUsedSystemTime() {
         return ((bitField0_ & 0x00001000) == 0x00001000);
       }
+      /**
+       * <code>required uint64 usedSystemTime = 13;</code>
+       *
+       * <pre>
+       **&lt; used system time (kernel mode) 
+       * </pre>
+       */
       public long getUsedSystemTime() {
         return usedSystemTime_;
       }
+      /**
+       * <code>required uint64 usedSystemTime = 13;</code>
+       *
+       * <pre>
+       **&lt; used system time (kernel mode) 
+       * </pre>
+       */
       public Builder setUsedSystemTime(long value) {
         bitField0_ |= 0x00001000;
         usedSystemTime_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 usedSystemTime = 13;</code>
+       *
+       * <pre>
+       **&lt; used system time (kernel mode) 
+       * </pre>
+       */
       public Builder clearUsedSystemTime() {
         bitField0_ = (bitField0_ & ~0x00001000);
         usedSystemTime_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 startTime = 14;
       private long startTime_ ;
+      /**
+       * <code>required uint64 startTime = 14;</code>
+       *
+       * <pre>
+       **&lt; start time 
+       * </pre>
+       */
       public boolean hasStartTime() {
         return ((bitField0_ & 0x00002000) == 0x00002000);
       }
+      /**
+       * <code>required uint64 startTime = 14;</code>
+       *
+       * <pre>
+       **&lt; start time 
+       * </pre>
+       */
       public long getStartTime() {
         return startTime_;
       }
+      /**
+       * <code>required uint64 startTime = 14;</code>
+       *
+       * <pre>
+       **&lt; start time 
+       * </pre>
+       */
       public Builder setStartTime(long value) {
         bitField0_ |= 0x00002000;
         startTime_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 startTime = 14;</code>
+       *
+       * <pre>
+       **&lt; start time 
+       * </pre>
+       */
       public Builder clearStartTime() {
         bitField0_ = (bitField0_ & ~0x00002000);
         startTime_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 cpuTime = 15;
       private long cpuTime_ ;
+      /**
+       * <code>required uint64 cpuTime = 15;</code>
+       *
+       * <pre>
+       **&lt; CPU time 
+       * </pre>
+       */
       public boolean hasCpuTime() {
         return ((bitField0_ & 0x00004000) == 0x00004000);
       }
+      /**
+       * <code>required uint64 cpuTime = 15;</code>
+       *
+       * <pre>
+       **&lt; CPU time 
+       * </pre>
+       */
       public long getCpuTime() {
         return cpuTime_;
       }
+      /**
+       * <code>required uint64 cpuTime = 15;</code>
+       *
+       * <pre>
+       **&lt; CPU time 
+       * </pre>
+       */
       public Builder setCpuTime(long value) {
         bitField0_ |= 0x00004000;
         cpuTime_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 cpuTime = 15;</code>
+       *
+       * <pre>
+       **&lt; CPU time 
+       * </pre>
+       */
       public Builder clearCpuTime() {
         bitField0_ = (bitField0_ & ~0x00004000);
         cpuTime_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:com.eolwral.osmonitor.core.processInfo)
     }
-    
+
     static {
       defaultInstance = new processInfo(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.processInfo)
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_processInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_eolwral_osmonitor_core_processInfo_fieldAccessorTable;
-  
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -1469,9 +2550,7 @@ public final class ProcessInfo {
           internal_static_com_eolwral_osmonitor_core_processInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_eolwral_osmonitor_core_processInfo_descriptor,
-              new java.lang.String[] { "Name", "Owner", "Status", "Uid", "Pid", "Ppid", "Rss", "Vsz", "CpuUsage", "ThreadCount", "PriorityLevel", "UsedUserTime", "UsedSystemTime", "StartTime", "CpuTime", },
-              com.eolwral.osmonitor.core.ProcessInfo.processInfo.class,
-              com.eolwral.osmonitor.core.ProcessInfo.processInfo.Builder.class);
+              new java.lang.String[] { "Name", "Owner", "Status", "Uid", "Pid", "Ppid", "Rss", "Vsz", "CpuUsage", "ThreadCount", "PriorityLevel", "UsedUserTime", "UsedSystemTime", "StartTime", "CpuTime", });
           return null;
         }
       };
@@ -1480,6 +2559,6 @@ public final class ProcessInfo {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
+
   // @@protoc_insertion_point(outer_class_scope)
 }

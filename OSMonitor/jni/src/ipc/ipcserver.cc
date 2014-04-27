@@ -252,13 +252,13 @@ namespace ipc {
   void ipcserver::extractToken(char* fileName)
   {
     // load token from file
-    char tokenloc[BUFFERSIZE];
-    memset(tokenloc, 0, BUFFERSIZE);
+    char tokenloc[TOKENSIZE];
+    memset(tokenloc, 0, TOKENSIZE);
     FILE* tokenFile = fopen(fileName, "r");
     if (tokenFile == NULL) return;
-    fread(tokenloc, sizeof(char), BUFFERSIZE, tokenFile);
+    fread(tokenloc, sizeof(char), TOKENSIZE, tokenFile);
     fclose(tokenFile);
-    tokenloc[BUFFERSIZE-1] = '\0';
+    tokenloc[TOKENSIZE-1] = '\0';
 
     // save token
     token.assign(tokenloc);

@@ -10,762 +10,135 @@ public final class ConnectionInfo {
   }
   public interface connectionInfoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
+    /**
+     * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
+     */
     boolean hasType();
+    /**
+     * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
+     */
     com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType getType();
-    
+
     // required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];
+    /**
+     * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
+     */
     boolean hasStatus();
+    /**
+     * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
+     */
     com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus getStatus();
-    
+
     // required string localIP = 3;
+    /**
+     * <code>required string localIP = 3;</code>
+     */
     boolean hasLocalIP();
-    String getLocalIP();
-    
+    /**
+     * <code>required string localIP = 3;</code>
+     */
+    java.lang.String getLocalIP();
+    /**
+     * <code>required string localIP = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getLocalIPBytes();
+
     // required uint32 localPort = 4;
+    /**
+     * <code>required uint32 localPort = 4;</code>
+     */
     boolean hasLocalPort();
+    /**
+     * <code>required uint32 localPort = 4;</code>
+     */
     int getLocalPort();
-    
+
     // required string remoteIP = 5;
+    /**
+     * <code>required string remoteIP = 5;</code>
+     */
     boolean hasRemoteIP();
-    String getRemoteIP();
-    
+    /**
+     * <code>required string remoteIP = 5;</code>
+     */
+    java.lang.String getRemoteIP();
+    /**
+     * <code>required string remoteIP = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getRemoteIPBytes();
+
     // required uint32 remotePort = 6;
+    /**
+     * <code>required uint32 remotePort = 6;</code>
+     */
     boolean hasRemotePort();
+    /**
+     * <code>required uint32 remotePort = 6;</code>
+     */
     int getRemotePort();
-    
+
     // required uint32 uid = 7;
+    /**
+     * <code>required uint32 uid = 7;</code>
+     */
     boolean hasUid();
+    /**
+     * <code>required uint32 uid = 7;</code>
+     */
     int getUid();
   }
+  /**
+   * Protobuf type {@code com.eolwral.osmonitor.core.connectionInfo}
+   */
   public static final class connectionInfo extends
       com.google.protobuf.GeneratedMessage
       implements connectionInfoOrBuilder {
     // Use connectionInfo.newBuilder() to construct.
-    private connectionInfo(Builder builder) {
+    private connectionInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private connectionInfo(boolean noInit) {}
-    
+    private connectionInfo(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final connectionInfo defaultInstance;
     public static connectionInfo getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public connectionInfo getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_fieldAccessorTable;
-    }
-    
-    public enum connectionType
-        implements com.google.protobuf.ProtocolMessageEnum {
-      TCPv4(0, 0),
-      TCPv6(1, 1),
-      UDPv4(2, 2),
-      UDPv6(3, 3),
-      RAWv4(4, 4),
-      RAWv6(5, 5),
-      ;
-      
-      public static final int TCPv4_VALUE = 0;
-      public static final int TCPv6_VALUE = 1;
-      public static final int UDPv4_VALUE = 2;
-      public static final int UDPv6_VALUE = 3;
-      public static final int RAWv4_VALUE = 4;
-      public static final int RAWv6_VALUE = 5;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static connectionType valueOf(int value) {
-        switch (value) {
-          case 0: return TCPv4;
-          case 1: return TCPv6;
-          case 2: return UDPv4;
-          case 3: return UDPv6;
-          case 4: return RAWv4;
-          case 5: return RAWv6;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<connectionType>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<connectionType>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<connectionType>() {
-              public connectionType findValueByNumber(int number) {
-                return connectionType.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final connectionType[] VALUES = {
-        TCPv4, TCPv6, UDPv4, UDPv6, RAWv4, RAWv6, 
-      };
-      
-      public static connectionType valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private connectionType(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:com.eolwral.osmonitor.core.connectionInfo.connectionType)
-    }
-    
-    public enum connectionStatus
-        implements com.google.protobuf.ProtocolMessageEnum {
-      UNKNOWN(0, 0),
-      ESTABLISHED(1, 1),
-      SYN_SENT(2, 2),
-      SYN_RECV(3, 3),
-      FIN_WAIT1(4, 4),
-      FIN_WAIT2(5, 5),
-      TIME_WAIT(6, 6),
-      CLOSE(7, 7),
-      CLOSE_WAIT(8, 8),
-      LAST_ACK(9, 9),
-      LISTEN(10, 10),
-      CLOSING(11, 11),
-      ;
-      
-      public static final int UNKNOWN_VALUE = 0;
-      public static final int ESTABLISHED_VALUE = 1;
-      public static final int SYN_SENT_VALUE = 2;
-      public static final int SYN_RECV_VALUE = 3;
-      public static final int FIN_WAIT1_VALUE = 4;
-      public static final int FIN_WAIT2_VALUE = 5;
-      public static final int TIME_WAIT_VALUE = 6;
-      public static final int CLOSE_VALUE = 7;
-      public static final int CLOSE_WAIT_VALUE = 8;
-      public static final int LAST_ACK_VALUE = 9;
-      public static final int LISTEN_VALUE = 10;
-      public static final int CLOSING_VALUE = 11;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static connectionStatus valueOf(int value) {
-        switch (value) {
-          case 0: return UNKNOWN;
-          case 1: return ESTABLISHED;
-          case 2: return SYN_SENT;
-          case 3: return SYN_RECV;
-          case 4: return FIN_WAIT1;
-          case 5: return FIN_WAIT2;
-          case 6: return TIME_WAIT;
-          case 7: return CLOSE;
-          case 8: return CLOSE_WAIT;
-          case 9: return LAST_ACK;
-          case 10: return LISTEN;
-          case 11: return CLOSING;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<connectionStatus>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<connectionStatus>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<connectionStatus>() {
-              public connectionStatus findValueByNumber(int number) {
-                return connectionStatus.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.getDescriptor().getEnumTypes().get(1);
-      }
-      
-      private static final connectionStatus[] VALUES = {
-        UNKNOWN, ESTABLISHED, SYN_SENT, SYN_RECV, FIN_WAIT1, FIN_WAIT2, TIME_WAIT, CLOSE, CLOSE_WAIT, LAST_ACK, LISTEN, CLOSING, 
-      };
-      
-      public static connectionStatus valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private connectionStatus(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:com.eolwral.osmonitor.core.connectionInfo.connectionStatus)
-    }
-    
-    private int bitField0_;
-    // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
-    public static final int TYPE_FIELD_NUMBER = 1;
-    private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType type_;
-    public boolean hasType() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType getType() {
-      return type_;
-    }
-    
-    // required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];
-    public static final int STATUS_FIELD_NUMBER = 2;
-    private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus status_;
-    public boolean hasStatus() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus getStatus() {
-      return status_;
-    }
-    
-    // required string localIP = 3;
-    public static final int LOCALIP_FIELD_NUMBER = 3;
-    private java.lang.Object localIP_;
-    public boolean hasLocalIP() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public String getLocalIP() {
-      java.lang.Object ref = localIP_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          localIP_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getLocalIPBytes() {
-      java.lang.Object ref = localIP_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        localIP_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // required uint32 localPort = 4;
-    public static final int LOCALPORT_FIELD_NUMBER = 4;
-    private int localPort_;
-    public boolean hasLocalPort() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public int getLocalPort() {
-      return localPort_;
-    }
-    
-    // required string remoteIP = 5;
-    public static final int REMOTEIP_FIELD_NUMBER = 5;
-    private java.lang.Object remoteIP_;
-    public boolean hasRemoteIP() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    public String getRemoteIP() {
-      java.lang.Object ref = remoteIP_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          remoteIP_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getRemoteIPBytes() {
-      java.lang.Object ref = remoteIP_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        remoteIP_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // required uint32 remotePort = 6;
-    public static final int REMOTEPORT_FIELD_NUMBER = 6;
-    private int remotePort_;
-    public boolean hasRemotePort() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
-    }
-    public int getRemotePort() {
-      return remotePort_;
-    }
-    
-    // required uint32 uid = 7;
-    public static final int UID_FIELD_NUMBER = 7;
-    private int uid_;
-    public boolean hasUid() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
-    }
-    public int getUid() {
-      return uid_;
-    }
-    
-    private void initFields() {
-      type_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType.TCPv4;
-      status_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus.UNKNOWN;
-      localIP_ = "";
-      localPort_ = 0;
-      remoteIP_ = "";
-      remotePort_ = 0;
-      uid_ = 0;
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasStatus()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLocalIP()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasLocalPort()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRemoteIP()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRemotePort()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasUid()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeEnum(1, type_.getNumber());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeEnum(2, status_.getNumber());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getLocalIPBytes());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeUInt32(4, localPort_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(5, getRemoteIPBytes());
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeUInt32(6, remotePort_);
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeUInt32(7, uid_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, type_.getNumber());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, status_.getNumber());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getLocalIPBytes());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(4, localPort_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getRemoteIPBytes());
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(6, remotePort_);
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(7, uid_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
     }
-    
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
+    private connectionInfo(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.ConnectionInfo.connectionInfoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_fieldAccessorTable;
-      }
-      
-      // Construct using com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        type_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType.TCPv4;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        status_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus.UNKNOWN;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        localIP_ = "";
-        bitField0_ = (bitField0_ & ~0x00000004);
-        localPort_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000008);
-        remoteIP_ = "";
-        bitField0_ = (bitField0_ & ~0x00000010);
-        remotePort_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000020);
-        uid_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000040);
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.getDescriptor();
-      }
-      
-      public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo getDefaultInstanceForType() {
-        return com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.getDefaultInstance();
-      }
-      
-      public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo build() {
-        com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo buildPartial() {
-        com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo result = new com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.type_ = type_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.status_ = status_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.localIP_ = localIP_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.localPort_ = localPort_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.remoteIP_ = remoteIP_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-          to_bitField0_ |= 0x00000020;
-        }
-        result.remotePort_ = remotePort_;
-        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
-          to_bitField0_ |= 0x00000040;
-        }
-        result.uid_ = uid_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo) {
-          return mergeFrom((com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo other) {
-        if (other == com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.getDefaultInstance()) return this;
-        if (other.hasType()) {
-          setType(other.getType());
-        }
-        if (other.hasStatus()) {
-          setStatus(other.getStatus());
-        }
-        if (other.hasLocalIP()) {
-          setLocalIP(other.getLocalIP());
-        }
-        if (other.hasLocalPort()) {
-          setLocalPort(other.getLocalPort());
-        }
-        if (other.hasRemoteIP()) {
-          setRemoteIP(other.getRemoteIP());
-        }
-        if (other.hasRemotePort()) {
-          setRemotePort(other.getRemotePort());
-        }
-        if (other.hasUid()) {
-          setUid(other.getUid());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        if (!hasType()) {
-          
-          return false;
-        }
-        if (!hasStatus()) {
-          
-          return false;
-        }
-        if (!hasLocalIP()) {
-          
-          return false;
-        }
-        if (!hasLocalPort()) {
-          
-          return false;
-        }
-        if (!hasRemoteIP()) {
-          
-          return false;
-        }
-        if (!hasRemotePort()) {
-          
-          return false;
-        }
-        if (!hasUid()) {
-          
-          return false;
-        }
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
+              done = true;
+              break;
             default: {
               if (!parseUnknownField(input, unknownFields,
                                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
               }
               break;
             }
@@ -818,18 +191,962 @@ public final class ConnectionInfo {
             }
           }
         }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
       }
-      
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.class, com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<connectionInfo> PARSER =
+        new com.google.protobuf.AbstractParser<connectionInfo>() {
+      public connectionInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new connectionInfo(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<connectionInfo> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code com.eolwral.osmonitor.core.connectionInfo.connectionType}
+     */
+    public enum connectionType
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>TCPv4 = 0;</code>
+       *
+       * <pre>
+       **&lt; TCP version 4 
+       * </pre>
+       */
+      TCPv4(0, 0),
+      /**
+       * <code>TCPv6 = 1;</code>
+       *
+       * <pre>
+       **&lt; TCP version 6 
+       * </pre>
+       */
+      TCPv6(1, 1),
+      /**
+       * <code>UDPv4 = 2;</code>
+       *
+       * <pre>
+       **&lt; UDP version 4 
+       * </pre>
+       */
+      UDPv4(2, 2),
+      /**
+       * <code>UDPv6 = 3;</code>
+       *
+       * <pre>
+       **&lt; UDP version 6 
+       * </pre>
+       */
+      UDPv6(3, 3),
+      /**
+       * <code>RAWv4 = 4;</code>
+       *
+       * <pre>
+       **&lt; RAW version 4 
+       * </pre>
+       */
+      RAWv4(4, 4),
+      /**
+       * <code>RAWv6 = 5;</code>
+       *
+       * <pre>
+       **&lt; RAW version 6 
+       * </pre>
+       */
+      RAWv6(5, 5),
+      ;
+
+      /**
+       * <code>TCPv4 = 0;</code>
+       *
+       * <pre>
+       **&lt; TCP version 4 
+       * </pre>
+       */
+      public static final int TCPv4_VALUE = 0;
+      /**
+       * <code>TCPv6 = 1;</code>
+       *
+       * <pre>
+       **&lt; TCP version 6 
+       * </pre>
+       */
+      public static final int TCPv6_VALUE = 1;
+      /**
+       * <code>UDPv4 = 2;</code>
+       *
+       * <pre>
+       **&lt; UDP version 4 
+       * </pre>
+       */
+      public static final int UDPv4_VALUE = 2;
+      /**
+       * <code>UDPv6 = 3;</code>
+       *
+       * <pre>
+       **&lt; UDP version 6 
+       * </pre>
+       */
+      public static final int UDPv6_VALUE = 3;
+      /**
+       * <code>RAWv4 = 4;</code>
+       *
+       * <pre>
+       **&lt; RAW version 4 
+       * </pre>
+       */
+      public static final int RAWv4_VALUE = 4;
+      /**
+       * <code>RAWv6 = 5;</code>
+       *
+       * <pre>
+       **&lt; RAW version 6 
+       * </pre>
+       */
+      public static final int RAWv6_VALUE = 5;
+
+
+      public final int getNumber() { return value; }
+
+      public static connectionType valueOf(int value) {
+        switch (value) {
+          case 0: return TCPv4;
+          case 1: return TCPv6;
+          case 2: return UDPv4;
+          case 3: return UDPv6;
+          case 4: return RAWv4;
+          case 5: return RAWv6;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<connectionType>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<connectionType>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<connectionType>() {
+              public connectionType findValueByNumber(int number) {
+                return connectionType.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final connectionType[] VALUES = values();
+
+      public static connectionType valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private connectionType(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:com.eolwral.osmonitor.core.connectionInfo.connectionType)
+    }
+
+    /**
+     * Protobuf enum {@code com.eolwral.osmonitor.core.connectionInfo.connectionStatus}
+     */
+    public enum connectionStatus
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>UNKNOWN = 0;</code>
+       *
+       * <pre>
+       **&lt; Unknown or undefined 
+       * </pre>
+       */
+      UNKNOWN(0, 0),
+      /**
+       * <code>ESTABLISHED = 1;</code>
+       */
+      ESTABLISHED(1, 1),
+      /**
+       * <code>SYN_SENT = 2;</code>
+       */
+      SYN_SENT(2, 2),
+      /**
+       * <code>SYN_RECV = 3;</code>
+       */
+      SYN_RECV(3, 3),
+      /**
+       * <code>FIN_WAIT1 = 4;</code>
+       */
+      FIN_WAIT1(4, 4),
+      /**
+       * <code>FIN_WAIT2 = 5;</code>
+       */
+      FIN_WAIT2(5, 5),
+      /**
+       * <code>TIME_WAIT = 6;</code>
+       */
+      TIME_WAIT(6, 6),
+      /**
+       * <code>CLOSE = 7;</code>
+       */
+      CLOSE(7, 7),
+      /**
+       * <code>CLOSE_WAIT = 8;</code>
+       */
+      CLOSE_WAIT(8, 8),
+      /**
+       * <code>LAST_ACK = 9;</code>
+       */
+      LAST_ACK(9, 9),
+      /**
+       * <code>LISTEN = 10;</code>
+       */
+      LISTEN(10, 10),
+      /**
+       * <code>CLOSING = 11;</code>
+       */
+      CLOSING(11, 11),
+      ;
+
+      /**
+       * <code>UNKNOWN = 0;</code>
+       *
+       * <pre>
+       **&lt; Unknown or undefined 
+       * </pre>
+       */
+      public static final int UNKNOWN_VALUE = 0;
+      /**
+       * <code>ESTABLISHED = 1;</code>
+       */
+      public static final int ESTABLISHED_VALUE = 1;
+      /**
+       * <code>SYN_SENT = 2;</code>
+       */
+      public static final int SYN_SENT_VALUE = 2;
+      /**
+       * <code>SYN_RECV = 3;</code>
+       */
+      public static final int SYN_RECV_VALUE = 3;
+      /**
+       * <code>FIN_WAIT1 = 4;</code>
+       */
+      public static final int FIN_WAIT1_VALUE = 4;
+      /**
+       * <code>FIN_WAIT2 = 5;</code>
+       */
+      public static final int FIN_WAIT2_VALUE = 5;
+      /**
+       * <code>TIME_WAIT = 6;</code>
+       */
+      public static final int TIME_WAIT_VALUE = 6;
+      /**
+       * <code>CLOSE = 7;</code>
+       */
+      public static final int CLOSE_VALUE = 7;
+      /**
+       * <code>CLOSE_WAIT = 8;</code>
+       */
+      public static final int CLOSE_WAIT_VALUE = 8;
+      /**
+       * <code>LAST_ACK = 9;</code>
+       */
+      public static final int LAST_ACK_VALUE = 9;
+      /**
+       * <code>LISTEN = 10;</code>
+       */
+      public static final int LISTEN_VALUE = 10;
+      /**
+       * <code>CLOSING = 11;</code>
+       */
+      public static final int CLOSING_VALUE = 11;
+
+
+      public final int getNumber() { return value; }
+
+      public static connectionStatus valueOf(int value) {
+        switch (value) {
+          case 0: return UNKNOWN;
+          case 1: return ESTABLISHED;
+          case 2: return SYN_SENT;
+          case 3: return SYN_RECV;
+          case 4: return FIN_WAIT1;
+          case 5: return FIN_WAIT2;
+          case 6: return TIME_WAIT;
+          case 7: return CLOSE;
+          case 8: return CLOSE_WAIT;
+          case 9: return LAST_ACK;
+          case 10: return LISTEN;
+          case 11: return CLOSING;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<connectionStatus>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<connectionStatus>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<connectionStatus>() {
+              public connectionStatus findValueByNumber(int number) {
+                return connectionStatus.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.getDescriptor().getEnumTypes().get(1);
+      }
+
+      private static final connectionStatus[] VALUES = values();
+
+      public static connectionStatus valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private connectionStatus(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:com.eolwral.osmonitor.core.connectionInfo.connectionStatus)
+    }
+
+    private int bitField0_;
+    // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType type_;
+    /**
+     * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
+     */
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
+     */
+    public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType getType() {
+      return type_;
+    }
+
+    // required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus status_;
+    /**
+     * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
+     */
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
+     */
+    public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus getStatus() {
+      return status_;
+    }
+
+    // required string localIP = 3;
+    public static final int LOCALIP_FIELD_NUMBER = 3;
+    private java.lang.Object localIP_;
+    /**
+     * <code>required string localIP = 3;</code>
+     */
+    public boolean hasLocalIP() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required string localIP = 3;</code>
+     */
+    public java.lang.String getLocalIP() {
+      java.lang.Object ref = localIP_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          localIP_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string localIP = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLocalIPBytes() {
+      java.lang.Object ref = localIP_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        localIP_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required uint32 localPort = 4;
+    public static final int LOCALPORT_FIELD_NUMBER = 4;
+    private int localPort_;
+    /**
+     * <code>required uint32 localPort = 4;</code>
+     */
+    public boolean hasLocalPort() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required uint32 localPort = 4;</code>
+     */
+    public int getLocalPort() {
+      return localPort_;
+    }
+
+    // required string remoteIP = 5;
+    public static final int REMOTEIP_FIELD_NUMBER = 5;
+    private java.lang.Object remoteIP_;
+    /**
+     * <code>required string remoteIP = 5;</code>
+     */
+    public boolean hasRemoteIP() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>required string remoteIP = 5;</code>
+     */
+    public java.lang.String getRemoteIP() {
+      java.lang.Object ref = remoteIP_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          remoteIP_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string remoteIP = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRemoteIPBytes() {
+      java.lang.Object ref = remoteIP_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        remoteIP_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required uint32 remotePort = 6;
+    public static final int REMOTEPORT_FIELD_NUMBER = 6;
+    private int remotePort_;
+    /**
+     * <code>required uint32 remotePort = 6;</code>
+     */
+    public boolean hasRemotePort() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>required uint32 remotePort = 6;</code>
+     */
+    public int getRemotePort() {
+      return remotePort_;
+    }
+
+    // required uint32 uid = 7;
+    public static final int UID_FIELD_NUMBER = 7;
+    private int uid_;
+    /**
+     * <code>required uint32 uid = 7;</code>
+     */
+    public boolean hasUid() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>required uint32 uid = 7;</code>
+     */
+    public int getUid() {
+      return uid_;
+    }
+
+    private void initFields() {
+      type_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType.TCPv4;
+      status_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus.UNKNOWN;
+      localIP_ = "";
+      localPort_ = 0;
+      remoteIP_ = "";
+      remotePort_ = 0;
+      uid_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasStatus()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasLocalIP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasLocalPort()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRemoteIP()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRemotePort()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasUid()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, status_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getLocalIPBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeUInt32(4, localPort_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, getRemoteIPBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeUInt32(6, remotePort_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeUInt32(7, uid_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, status_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getLocalIPBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, localPort_);
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, getRemoteIPBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(6, remotePort_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(7, uid_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.eolwral.osmonitor.core.connectionInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.eolwral.osmonitor.core.ConnectionInfo.connectionInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.class, com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.Builder.class);
+      }
+
+      // Construct using com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        type_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType.TCPv4;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus.UNKNOWN;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        localIP_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        localPort_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        remoteIP_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
+        remotePort_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        uid_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor;
+      }
+
+      public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo getDefaultInstanceForType() {
+        return com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.getDefaultInstance();
+      }
+
+      public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo build() {
+        com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo buildPartial() {
+        com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo result = new com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.type_ = type_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.status_ = status_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.localIP_ = localIP_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.localPort_ = localPort_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.remoteIP_ = remoteIP_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.remotePort_ = remotePort_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.uid_ = uid_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo) {
+          return mergeFrom((com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo other) {
+        if (other == com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.getDefaultInstance()) return this;
+        if (other.hasType()) {
+          setType(other.getType());
+        }
+        if (other.hasStatus()) {
+          setStatus(other.getStatus());
+        }
+        if (other.hasLocalIP()) {
+          bitField0_ |= 0x00000004;
+          localIP_ = other.localIP_;
+          onChanged();
+        }
+        if (other.hasLocalPort()) {
+          setLocalPort(other.getLocalPort());
+        }
+        if (other.hasRemoteIP()) {
+          bitField0_ |= 0x00000010;
+          remoteIP_ = other.remoteIP_;
+          onChanged();
+        }
+        if (other.hasRemotePort()) {
+          setRemotePort(other.getRemotePort());
+        }
+        if (other.hasUid()) {
+          setUid(other.getUid());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasType()) {
+          
+          return false;
+        }
+        if (!hasStatus()) {
+          
+          return false;
+        }
+        if (!hasLocalIP()) {
+          
+          return false;
+        }
+        if (!hasLocalPort()) {
+          
+          return false;
+        }
+        if (!hasRemoteIP()) {
+          
+          return false;
+        }
+        if (!hasRemotePort()) {
+          
+          return false;
+        }
+        if (!hasUid()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
       private int bitField0_;
-      
+
       // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
       private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType type_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType.TCPv4;
+      /**
+       * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
+       */
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
+       */
       public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType getType() {
         return type_;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
+       */
       public Builder setType(com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType value) {
         if (value == null) {
           throw new NullPointerException();
@@ -839,21 +1156,33 @@ public final class ConnectionInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
+       */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
         type_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType.TCPv4;
         onChanged();
         return this;
       }
-      
+
       // required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];
       private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus status_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus.UNKNOWN;
+      /**
+       * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
+       */
       public boolean hasStatus() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
+       */
       public com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus getStatus() {
         return status_;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
+       */
       public Builder setStatus(com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus value) {
         if (value == null) {
           throw new NullPointerException();
@@ -863,29 +1192,59 @@ public final class ConnectionInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
+       */
       public Builder clearStatus() {
         bitField0_ = (bitField0_ & ~0x00000002);
         status_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus.UNKNOWN;
         onChanged();
         return this;
       }
-      
+
       // required string localIP = 3;
       private java.lang.Object localIP_ = "";
+      /**
+       * <code>required string localIP = 3;</code>
+       */
       public boolean hasLocalIP() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public String getLocalIP() {
+      /**
+       * <code>required string localIP = 3;</code>
+       */
+      public java.lang.String getLocalIP() {
         java.lang.Object ref = localIP_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           localIP_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setLocalIP(String value) {
+      /**
+       * <code>required string localIP = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getLocalIPBytes() {
+        java.lang.Object ref = localIP_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          localIP_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string localIP = 3;</code>
+       */
+      public Builder setLocalIP(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -894,55 +1253,105 @@ public final class ConnectionInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>required string localIP = 3;</code>
+       */
       public Builder clearLocalIP() {
         bitField0_ = (bitField0_ & ~0x00000004);
         localIP_ = getDefaultInstance().getLocalIP();
         onChanged();
         return this;
       }
-      void setLocalIP(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000004;
+      /**
+       * <code>required string localIP = 3;</code>
+       */
+      public Builder setLocalIPBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
         localIP_ = value;
         onChanged();
+        return this;
       }
-      
+
       // required uint32 localPort = 4;
       private int localPort_ ;
+      /**
+       * <code>required uint32 localPort = 4;</code>
+       */
       public boolean hasLocalPort() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
+      /**
+       * <code>required uint32 localPort = 4;</code>
+       */
       public int getLocalPort() {
         return localPort_;
       }
+      /**
+       * <code>required uint32 localPort = 4;</code>
+       */
       public Builder setLocalPort(int value) {
         bitField0_ |= 0x00000008;
         localPort_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 localPort = 4;</code>
+       */
       public Builder clearLocalPort() {
         bitField0_ = (bitField0_ & ~0x00000008);
         localPort_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required string remoteIP = 5;
       private java.lang.Object remoteIP_ = "";
+      /**
+       * <code>required string remoteIP = 5;</code>
+       */
       public boolean hasRemoteIP() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public String getRemoteIP() {
+      /**
+       * <code>required string remoteIP = 5;</code>
+       */
+      public java.lang.String getRemoteIP() {
         java.lang.Object ref = remoteIP_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           remoteIP_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setRemoteIP(String value) {
+      /**
+       * <code>required string remoteIP = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRemoteIPBytes() {
+        java.lang.Object ref = remoteIP_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          remoteIP_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string remoteIP = 5;</code>
+       */
+      public Builder setRemoteIP(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -951,77 +1360,112 @@ public final class ConnectionInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>required string remoteIP = 5;</code>
+       */
       public Builder clearRemoteIP() {
         bitField0_ = (bitField0_ & ~0x00000010);
         remoteIP_ = getDefaultInstance().getRemoteIP();
         onChanged();
         return this;
       }
-      void setRemoteIP(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000010;
+      /**
+       * <code>required string remoteIP = 5;</code>
+       */
+      public Builder setRemoteIPBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
         remoteIP_ = value;
         onChanged();
+        return this;
       }
-      
+
       // required uint32 remotePort = 6;
       private int remotePort_ ;
+      /**
+       * <code>required uint32 remotePort = 6;</code>
+       */
       public boolean hasRemotePort() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
+      /**
+       * <code>required uint32 remotePort = 6;</code>
+       */
       public int getRemotePort() {
         return remotePort_;
       }
+      /**
+       * <code>required uint32 remotePort = 6;</code>
+       */
       public Builder setRemotePort(int value) {
         bitField0_ |= 0x00000020;
         remotePort_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 remotePort = 6;</code>
+       */
       public Builder clearRemotePort() {
         bitField0_ = (bitField0_ & ~0x00000020);
         remotePort_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint32 uid = 7;
       private int uid_ ;
+      /**
+       * <code>required uint32 uid = 7;</code>
+       */
       public boolean hasUid() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
+      /**
+       * <code>required uint32 uid = 7;</code>
+       */
       public int getUid() {
         return uid_;
       }
+      /**
+       * <code>required uint32 uid = 7;</code>
+       */
       public Builder setUid(int value) {
         bitField0_ |= 0x00000040;
         uid_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 uid = 7;</code>
+       */
       public Builder clearUid() {
         bitField0_ = (bitField0_ & ~0x00000040);
         uid_ = 0;
         onChanged();
         return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:com.eolwral.osmonitor.core.connectionInfo)
     }
-    
+
     static {
       defaultInstance = new connectionInfo(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.connectionInfo)
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_eolwral_osmonitor_core_connectionInfo_fieldAccessorTable;
-  
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -1056,9 +1500,7 @@ public final class ConnectionInfo {
           internal_static_com_eolwral_osmonitor_core_connectionInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor,
-              new java.lang.String[] { "Type", "Status", "LocalIP", "LocalPort", "RemoteIP", "RemotePort", "Uid", },
-              com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.class,
-              com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.Builder.class);
+              new java.lang.String[] { "Type", "Status", "LocalIP", "LocalPort", "RemoteIP", "RemotePort", "Uid", });
           return null;
         }
       };
@@ -1067,6 +1509,6 @@ public final class ConnectionInfo {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
+
   // @@protoc_insertion_point(outer_class_scope)
 }

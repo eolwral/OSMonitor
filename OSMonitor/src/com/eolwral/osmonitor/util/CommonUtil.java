@@ -17,10 +17,8 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -208,7 +206,7 @@ public class CommonUtil {
 		if (!settings.isRoot()) 
 			Runtime.getRuntime().exec(binary+" "+binary+".token");
 		else
-			Runtime.getRuntime().exec("su -c "+binary+" "+binary+".token");
+			Runtime.getRuntime().exec("su -c "+binary+" "+binary+".token;exit;");
 	} catch (Exception e) {
 		return false;
 	}

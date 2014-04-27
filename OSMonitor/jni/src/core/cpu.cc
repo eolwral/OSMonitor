@@ -106,6 +106,7 @@ namespace core {
     curCPUInfo.set_irqtime(idletime);
     curCPUInfo.set_softirqtime(softirqtime);
     curCPUInfo.set_offline(false);
+    curCPUInfo.set_ioutilization(0);
     curCPUInfo.set_cpuutilization(0);
     curCPUInfo.set_cputime(0);
 
@@ -161,8 +162,12 @@ namespace core {
 
     unsigned long totalDeltaTime = curCPUTime - prevCPUTime;
     unsigned long totalIdleTime = curCPUInfo.idletime() - prevCPUInfo.idletime();
+    unsigned long totalIoWaitTime = curCPUInfo.iowaittime() - prevCPUInfo.iowaittime();
 
     curCPUInfo.set_cputime(totalDeltaTime);
+
+    if(totalIoWaitTime != 0)
+      curCPUInfo.set_ioutilization((float) totalIoWaitTime*100/totalDeltaTime);
 
     if(totalIdleTime != 0)
       curCPUInfo.set_cpuutilization(100 - ((float) totalIdleTime*100/ totalDeltaTime));

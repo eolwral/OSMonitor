@@ -30,10 +30,10 @@ public class IpcService {
 	 * Singleton instance
 	 */
 	private static IpcService instance = null;
-	private Context ipcContext = null;
+	private Context ipcContext = null; 
 
 	/**
-	 * predefine socket name 
+	 * predefine socket name  
 	 */
 	private final static String socketName = "osmipcV1";
 

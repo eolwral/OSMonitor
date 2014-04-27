@@ -10,1240 +10,514 @@ public final class NetworkInfo {
   }
   public interface networkInfoOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required string name = 1;
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; interface name 
+     * </pre>
+     */
     boolean hasName();
-    String getName();
-    
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; interface name 
+     * </pre>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; interface name 
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
     // required string mac = 2;
+    /**
+     * <code>required string mac = 2;</code>
+     *
+     * <pre>
+     **&lt; MAC address 
+     * </pre>
+     */
     boolean hasMac();
-    String getMac();
-    
+    /**
+     * <code>required string mac = 2;</code>
+     *
+     * <pre>
+     **&lt; MAC address 
+     * </pre>
+     */
+    java.lang.String getMac();
+    /**
+     * <code>required string mac = 2;</code>
+     *
+     * <pre>
+     **&lt; MAC address 
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getMacBytes();
+
     // optional string ipv4Addr = 3;
+    /**
+     * <code>optional string ipv4Addr = 3;</code>
+     *
+     * <pre>
+     **&lt; IPv4 address 
+     * </pre>
+     */
     boolean hasIpv4Addr();
-    String getIpv4Addr();
-    
+    /**
+     * <code>optional string ipv4Addr = 3;</code>
+     *
+     * <pre>
+     **&lt; IPv4 address 
+     * </pre>
+     */
+    java.lang.String getIpv4Addr();
+    /**
+     * <code>optional string ipv4Addr = 3;</code>
+     *
+     * <pre>
+     **&lt; IPv4 address 
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getIpv4AddrBytes();
+
     // optional string netMaskv4 = 4;
+    /**
+     * <code>optional string netMaskv4 = 4;</code>
+     *
+     * <pre>
+     **&lt; IPv4 netmask 
+     * </pre>
+     */
     boolean hasNetMaskv4();
-    String getNetMaskv4();
-    
+    /**
+     * <code>optional string netMaskv4 = 4;</code>
+     *
+     * <pre>
+     **&lt; IPv4 netmask 
+     * </pre>
+     */
+    java.lang.String getNetMaskv4();
+    /**
+     * <code>optional string netMaskv4 = 4;</code>
+     *
+     * <pre>
+     **&lt; IPv4 netmask 
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getNetMaskv4Bytes();
+
     // optional string ipv6Addr = 5;
+    /**
+     * <code>optional string ipv6Addr = 5;</code>
+     *
+     * <pre>
+     **&lt; IPv6 address 
+     * </pre>
+     */
     boolean hasIpv6Addr();
-    String getIpv6Addr();
-    
+    /**
+     * <code>optional string ipv6Addr = 5;</code>
+     *
+     * <pre>
+     **&lt; IPv6 address 
+     * </pre>
+     */
+    java.lang.String getIpv6Addr();
+    /**
+     * <code>optional string ipv6Addr = 5;</code>
+     *
+     * <pre>
+     **&lt; IPv6 address 
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getIpv6AddrBytes();
+
     // optional uint32 netMaskv6 = 6;
+    /**
+     * <code>optional uint32 netMaskv6 = 6;</code>
+     *
+     * <pre>
+     **&lt; IPv6 netmask 
+     * </pre>
+     */
     boolean hasNetMaskv6();
+    /**
+     * <code>optional uint32 netMaskv6 = 6;</code>
+     *
+     * <pre>
+     **&lt; IPv6 netmask 
+     * </pre>
+     */
     int getNetMaskv6();
-    
+
     // required uint32 flags = 7;
+    /**
+     * <code>required uint32 flags = 7;</code>
+     *
+     * <pre>
+     **&lt; status flag 
+     * </pre>
+     */
     boolean hasFlags();
+    /**
+     * <code>required uint32 flags = 7;</code>
+     *
+     * <pre>
+     **&lt; status flag 
+     * </pre>
+     */
     int getFlags();
-    
+
     // required uint64 recvBytes = 8;
+    /**
+     * <code>required uint64 recvBytes = 8;</code>
+     *
+     * <pre>
+     **&lt; received bytes 
+     * </pre>
+     */
     boolean hasRecvBytes();
+    /**
+     * <code>required uint64 recvBytes = 8;</code>
+     *
+     * <pre>
+     **&lt; received bytes 
+     * </pre>
+     */
     long getRecvBytes();
-    
+
     // required uint64 recvPackages = 9;
+    /**
+     * <code>required uint64 recvPackages = 9;</code>
+     *
+     * <pre>
+     **&lt; received packages 
+     * </pre>
+     */
     boolean hasRecvPackages();
+    /**
+     * <code>required uint64 recvPackages = 9;</code>
+     *
+     * <pre>
+     **&lt; received packages 
+     * </pre>
+     */
     long getRecvPackages();
-    
+
     // required uint64 recvErrorBytes = 10;
+    /**
+     * <code>required uint64 recvErrorBytes = 10;</code>
+     *
+     * <pre>
+     **&lt; error bytes when receiving 
+     * </pre>
+     */
     boolean hasRecvErrorBytes();
+    /**
+     * <code>required uint64 recvErrorBytes = 10;</code>
+     *
+     * <pre>
+     **&lt; error bytes when receiving 
+     * </pre>
+     */
     long getRecvErrorBytes();
-    
+
     // required uint64 recvDropBytes = 11;
+    /**
+     * <code>required uint64 recvDropBytes = 11;</code>
+     *
+     * <pre>
+     **&lt; drop bytes when receiving  
+     * </pre>
+     */
     boolean hasRecvDropBytes();
+    /**
+     * <code>required uint64 recvDropBytes = 11;</code>
+     *
+     * <pre>
+     **&lt; drop bytes when receiving  
+     * </pre>
+     */
     long getRecvDropBytes();
-    
+
     // required uint64 recvFIFOBytes = 12;
+    /**
+     * <code>required uint64 recvFIFOBytes = 12;</code>
+     *
+     * <pre>
+     **&lt; FIFO bytes when receiving 
+     * </pre>
+     */
     boolean hasRecvFIFOBytes();
+    /**
+     * <code>required uint64 recvFIFOBytes = 12;</code>
+     *
+     * <pre>
+     **&lt; FIFO bytes when receiving 
+     * </pre>
+     */
     long getRecvFIFOBytes();
-    
+
     // required uint64 recvFrames = 13;
+    /**
+     * <code>required uint64 recvFrames = 13;</code>
+     *
+     * <pre>
+     **&lt; received frames 
+     * </pre>
+     */
     boolean hasRecvFrames();
+    /**
+     * <code>required uint64 recvFrames = 13;</code>
+     *
+     * <pre>
+     **&lt; received frames 
+     * </pre>
+     */
     long getRecvFrames();
-    
+
     // required uint64 recvCompressedBytes = 14;
+    /**
+     * <code>required uint64 recvCompressedBytes = 14;</code>
+     *
+     * <pre>
+     **&lt; received compressed bytes 
+     * </pre>
+     */
     boolean hasRecvCompressedBytes();
+    /**
+     * <code>required uint64 recvCompressedBytes = 14;</code>
+     *
+     * <pre>
+     **&lt; received compressed bytes 
+     * </pre>
+     */
     long getRecvCompressedBytes();
-    
+
     // required uint64 recvMultiCastBytes = 15;
+    /**
+     * <code>required uint64 recvMultiCastBytes = 15;</code>
+     *
+     * <pre>
+     **&lt; received multi-cast bytes 
+     * </pre>
+     */
     boolean hasRecvMultiCastBytes();
+    /**
+     * <code>required uint64 recvMultiCastBytes = 15;</code>
+     *
+     * <pre>
+     **&lt; received multi-cast bytes 
+     * </pre>
+     */
     long getRecvMultiCastBytes();
-    
+
     // required uint64 transBytes = 16;
+    /**
+     * <code>required uint64 transBytes = 16;</code>
+     *
+     * <pre>
+     **&lt; transmitted bytes 
+     * </pre>
+     */
     boolean hasTransBytes();
+    /**
+     * <code>required uint64 transBytes = 16;</code>
+     *
+     * <pre>
+     **&lt; transmitted bytes 
+     * </pre>
+     */
     long getTransBytes();
-    
+
     // required uint64 transPackages = 17;
+    /**
+     * <code>required uint64 transPackages = 17;</code>
+     *
+     * <pre>
+     **&lt; transmitted packages 
+     * </pre>
+     */
     boolean hasTransPackages();
+    /**
+     * <code>required uint64 transPackages = 17;</code>
+     *
+     * <pre>
+     **&lt; transmitted packages 
+     * </pre>
+     */
     long getTransPackages();
-    
+
     // required uint64 transErrorBytes = 18;
+    /**
+     * <code>required uint64 transErrorBytes = 18;</code>
+     *
+     * <pre>
+     **&lt; error bytes when transmitting 
+     * </pre>
+     */
     boolean hasTransErrorBytes();
+    /**
+     * <code>required uint64 transErrorBytes = 18;</code>
+     *
+     * <pre>
+     **&lt; error bytes when transmitting 
+     * </pre>
+     */
     long getTransErrorBytes();
-    
+
     // required uint64 transDropBytes = 19;
+    /**
+     * <code>required uint64 transDropBytes = 19;</code>
+     *
+     * <pre>
+     **&lt; dropped bytes when transmitting 
+     * </pre>
+     */
     boolean hasTransDropBytes();
+    /**
+     * <code>required uint64 transDropBytes = 19;</code>
+     *
+     * <pre>
+     **&lt; dropped bytes when transmitting 
+     * </pre>
+     */
     long getTransDropBytes();
-    
+
     // required uint64 transFIFOBytes = 20;
+    /**
+     * <code>required uint64 transFIFOBytes = 20;</code>
+     *
+     * <pre>
+     **&lt; FIFO bytes when transmitting 
+     * </pre>
+     */
     boolean hasTransFIFOBytes();
+    /**
+     * <code>required uint64 transFIFOBytes = 20;</code>
+     *
+     * <pre>
+     **&lt; FIFO bytes when transmitting 
+     * </pre>
+     */
     long getTransFIFOBytes();
-    
+
     // required uint64 transCompressedBytes = 21;
+    /**
+     * <code>required uint64 transCompressedBytes = 21;</code>
+     *
+     * <pre>
+     **&lt; transmitted compressed bytes 
+     * </pre>
+     */
     boolean hasTransCompressedBytes();
+    /**
+     * <code>required uint64 transCompressedBytes = 21;</code>
+     *
+     * <pre>
+     **&lt; transmitted compressed bytes 
+     * </pre>
+     */
     long getTransCompressedBytes();
-    
+
     // required uint32 collisionTimes = 22;
+    /**
+     * <code>required uint32 collisionTimes = 22;</code>
+     *
+     * <pre>
+     **&lt; collision times 
+     * </pre>
+     */
     boolean hasCollisionTimes();
+    /**
+     * <code>required uint32 collisionTimes = 22;</code>
+     *
+     * <pre>
+     **&lt; collision times 
+     * </pre>
+     */
     int getCollisionTimes();
-    
+
     // required uint32 carrierErrors = 23;
+    /**
+     * <code>required uint32 carrierErrors = 23;</code>
+     *
+     * <pre>
+     **&lt; carrier error times 
+     * </pre>
+     */
     boolean hasCarrierErrors();
+    /**
+     * <code>required uint32 carrierErrors = 23;</code>
+     *
+     * <pre>
+     **&lt; carrier error times 
+     * </pre>
+     */
     int getCarrierErrors();
   }
+  /**
+   * Protobuf type {@code com.eolwral.osmonitor.core.networkInfo}
+   */
   public static final class networkInfo extends
       com.google.protobuf.GeneratedMessage
       implements networkInfoOrBuilder {
     // Use networkInfo.newBuilder() to construct.
-    private networkInfo(Builder builder) {
+    private networkInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private networkInfo(boolean noInit) {}
-    
+    private networkInfo(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final networkInfo defaultInstance;
     public static networkInfo getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public networkInfo getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_fieldAccessorTable;
-    }
-    
-    private int bitField0_;
-    // required string name = 1;
-    public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          name_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // required string mac = 2;
-    public static final int MAC_FIELD_NUMBER = 2;
-    private java.lang.Object mac_;
-    public boolean hasMac() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    public String getMac() {
-      java.lang.Object ref = mac_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          mac_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getMacBytes() {
-      java.lang.Object ref = mac_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        mac_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // optional string ipv4Addr = 3;
-    public static final int IPV4ADDR_FIELD_NUMBER = 3;
-    private java.lang.Object ipv4Addr_;
-    public boolean hasIpv4Addr() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public String getIpv4Addr() {
-      java.lang.Object ref = ipv4Addr_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          ipv4Addr_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getIpv4AddrBytes() {
-      java.lang.Object ref = ipv4Addr_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        ipv4Addr_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // optional string netMaskv4 = 4;
-    public static final int NETMASKV4_FIELD_NUMBER = 4;
-    private java.lang.Object netMaskv4_;
-    public boolean hasNetMaskv4() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public String getNetMaskv4() {
-      java.lang.Object ref = netMaskv4_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          netMaskv4_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getNetMaskv4Bytes() {
-      java.lang.Object ref = netMaskv4_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        netMaskv4_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // optional string ipv6Addr = 5;
-    public static final int IPV6ADDR_FIELD_NUMBER = 5;
-    private java.lang.Object ipv6Addr_;
-    public boolean hasIpv6Addr() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    public String getIpv6Addr() {
-      java.lang.Object ref = ipv6Addr_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          ipv6Addr_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getIpv6AddrBytes() {
-      java.lang.Object ref = ipv6Addr_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        ipv6Addr_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // optional uint32 netMaskv6 = 6;
-    public static final int NETMASKV6_FIELD_NUMBER = 6;
-    private int netMaskv6_;
-    public boolean hasNetMaskv6() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
-    }
-    public int getNetMaskv6() {
-      return netMaskv6_;
-    }
-    
-    // required uint32 flags = 7;
-    public static final int FLAGS_FIELD_NUMBER = 7;
-    private int flags_;
-    public boolean hasFlags() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
-    }
-    public int getFlags() {
-      return flags_;
-    }
-    
-    // required uint64 recvBytes = 8;
-    public static final int RECVBYTES_FIELD_NUMBER = 8;
-    private long recvBytes_;
-    public boolean hasRecvBytes() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
-    }
-    public long getRecvBytes() {
-      return recvBytes_;
-    }
-    
-    // required uint64 recvPackages = 9;
-    public static final int RECVPACKAGES_FIELD_NUMBER = 9;
-    private long recvPackages_;
-    public boolean hasRecvPackages() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
-    }
-    public long getRecvPackages() {
-      return recvPackages_;
-    }
-    
-    // required uint64 recvErrorBytes = 10;
-    public static final int RECVERRORBYTES_FIELD_NUMBER = 10;
-    private long recvErrorBytes_;
-    public boolean hasRecvErrorBytes() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
-    }
-    public long getRecvErrorBytes() {
-      return recvErrorBytes_;
-    }
-    
-    // required uint64 recvDropBytes = 11;
-    public static final int RECVDROPBYTES_FIELD_NUMBER = 11;
-    private long recvDropBytes_;
-    public boolean hasRecvDropBytes() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
-    }
-    public long getRecvDropBytes() {
-      return recvDropBytes_;
-    }
-    
-    // required uint64 recvFIFOBytes = 12;
-    public static final int RECVFIFOBYTES_FIELD_NUMBER = 12;
-    private long recvFIFOBytes_;
-    public boolean hasRecvFIFOBytes() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
-    }
-    public long getRecvFIFOBytes() {
-      return recvFIFOBytes_;
-    }
-    
-    // required uint64 recvFrames = 13;
-    public static final int RECVFRAMES_FIELD_NUMBER = 13;
-    private long recvFrames_;
-    public boolean hasRecvFrames() {
-      return ((bitField0_ & 0x00001000) == 0x00001000);
-    }
-    public long getRecvFrames() {
-      return recvFrames_;
-    }
-    
-    // required uint64 recvCompressedBytes = 14;
-    public static final int RECVCOMPRESSEDBYTES_FIELD_NUMBER = 14;
-    private long recvCompressedBytes_;
-    public boolean hasRecvCompressedBytes() {
-      return ((bitField0_ & 0x00002000) == 0x00002000);
-    }
-    public long getRecvCompressedBytes() {
-      return recvCompressedBytes_;
-    }
-    
-    // required uint64 recvMultiCastBytes = 15;
-    public static final int RECVMULTICASTBYTES_FIELD_NUMBER = 15;
-    private long recvMultiCastBytes_;
-    public boolean hasRecvMultiCastBytes() {
-      return ((bitField0_ & 0x00004000) == 0x00004000);
-    }
-    public long getRecvMultiCastBytes() {
-      return recvMultiCastBytes_;
-    }
-    
-    // required uint64 transBytes = 16;
-    public static final int TRANSBYTES_FIELD_NUMBER = 16;
-    private long transBytes_;
-    public boolean hasTransBytes() {
-      return ((bitField0_ & 0x00008000) == 0x00008000);
-    }
-    public long getTransBytes() {
-      return transBytes_;
-    }
-    
-    // required uint64 transPackages = 17;
-    public static final int TRANSPACKAGES_FIELD_NUMBER = 17;
-    private long transPackages_;
-    public boolean hasTransPackages() {
-      return ((bitField0_ & 0x00010000) == 0x00010000);
-    }
-    public long getTransPackages() {
-      return transPackages_;
-    }
-    
-    // required uint64 transErrorBytes = 18;
-    public static final int TRANSERRORBYTES_FIELD_NUMBER = 18;
-    private long transErrorBytes_;
-    public boolean hasTransErrorBytes() {
-      return ((bitField0_ & 0x00020000) == 0x00020000);
-    }
-    public long getTransErrorBytes() {
-      return transErrorBytes_;
-    }
-    
-    // required uint64 transDropBytes = 19;
-    public static final int TRANSDROPBYTES_FIELD_NUMBER = 19;
-    private long transDropBytes_;
-    public boolean hasTransDropBytes() {
-      return ((bitField0_ & 0x00040000) == 0x00040000);
-    }
-    public long getTransDropBytes() {
-      return transDropBytes_;
-    }
-    
-    // required uint64 transFIFOBytes = 20;
-    public static final int TRANSFIFOBYTES_FIELD_NUMBER = 20;
-    private long transFIFOBytes_;
-    public boolean hasTransFIFOBytes() {
-      return ((bitField0_ & 0x00080000) == 0x00080000);
-    }
-    public long getTransFIFOBytes() {
-      return transFIFOBytes_;
-    }
-    
-    // required uint64 transCompressedBytes = 21;
-    public static final int TRANSCOMPRESSEDBYTES_FIELD_NUMBER = 21;
-    private long transCompressedBytes_;
-    public boolean hasTransCompressedBytes() {
-      return ((bitField0_ & 0x00100000) == 0x00100000);
-    }
-    public long getTransCompressedBytes() {
-      return transCompressedBytes_;
-    }
-    
-    // required uint32 collisionTimes = 22;
-    public static final int COLLISIONTIMES_FIELD_NUMBER = 22;
-    private int collisionTimes_;
-    public boolean hasCollisionTimes() {
-      return ((bitField0_ & 0x00200000) == 0x00200000);
-    }
-    public int getCollisionTimes() {
-      return collisionTimes_;
-    }
-    
-    // required uint32 carrierErrors = 23;
-    public static final int CARRIERERRORS_FIELD_NUMBER = 23;
-    private int carrierErrors_;
-    public boolean hasCarrierErrors() {
-      return ((bitField0_ & 0x00400000) == 0x00400000);
-    }
-    public int getCarrierErrors() {
-      return carrierErrors_;
-    }
-    
-    private void initFields() {
-      name_ = "";
-      mac_ = "";
-      ipv4Addr_ = "";
-      netMaskv4_ = "";
-      ipv6Addr_ = "";
-      netMaskv6_ = 0;
-      flags_ = 0;
-      recvBytes_ = 0L;
-      recvPackages_ = 0L;
-      recvErrorBytes_ = 0L;
-      recvDropBytes_ = 0L;
-      recvFIFOBytes_ = 0L;
-      recvFrames_ = 0L;
-      recvCompressedBytes_ = 0L;
-      recvMultiCastBytes_ = 0L;
-      transBytes_ = 0L;
-      transPackages_ = 0L;
-      transErrorBytes_ = 0L;
-      transDropBytes_ = 0L;
-      transFIFOBytes_ = 0L;
-      transCompressedBytes_ = 0L;
-      collisionTimes_ = 0;
-      carrierErrors_ = 0;
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMac()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasFlags()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRecvBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRecvPackages()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRecvErrorBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRecvDropBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRecvFIFOBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRecvFrames()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRecvCompressedBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasRecvMultiCastBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTransBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTransPackages()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTransErrorBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTransDropBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTransFIFOBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTransCompressedBytes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCollisionTimes()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCarrierErrors()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getMacBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getIpv4AddrBytes());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getNetMaskv4Bytes());
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(5, getIpv6AddrBytes());
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeUInt32(6, netMaskv6_);
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeUInt32(7, flags_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeUInt64(8, recvBytes_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeUInt64(9, recvPackages_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeUInt64(10, recvErrorBytes_);
-      }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeUInt64(11, recvDropBytes_);
-      }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeUInt64(12, recvFIFOBytes_);
-      }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        output.writeUInt64(13, recvFrames_);
-      }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        output.writeUInt64(14, recvCompressedBytes_);
-      }
-      if (((bitField0_ & 0x00004000) == 0x00004000)) {
-        output.writeUInt64(15, recvMultiCastBytes_);
-      }
-      if (((bitField0_ & 0x00008000) == 0x00008000)) {
-        output.writeUInt64(16, transBytes_);
-      }
-      if (((bitField0_ & 0x00010000) == 0x00010000)) {
-        output.writeUInt64(17, transPackages_);
-      }
-      if (((bitField0_ & 0x00020000) == 0x00020000)) {
-        output.writeUInt64(18, transErrorBytes_);
-      }
-      if (((bitField0_ & 0x00040000) == 0x00040000)) {
-        output.writeUInt64(19, transDropBytes_);
-      }
-      if (((bitField0_ & 0x00080000) == 0x00080000)) {
-        output.writeUInt64(20, transFIFOBytes_);
-      }
-      if (((bitField0_ & 0x00100000) == 0x00100000)) {
-        output.writeUInt64(21, transCompressedBytes_);
-      }
-      if (((bitField0_ & 0x00200000) == 0x00200000)) {
-        output.writeUInt32(22, collisionTimes_);
-      }
-      if (((bitField0_ & 0x00400000) == 0x00400000)) {
-        output.writeUInt32(23, carrierErrors_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getMacBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getIpv4AddrBytes());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getNetMaskv4Bytes());
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getIpv6AddrBytes());
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(6, netMaskv6_);
-      }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(7, flags_);
-      }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(8, recvBytes_);
-      }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(9, recvPackages_);
-      }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(10, recvErrorBytes_);
-      }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(11, recvDropBytes_);
-      }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(12, recvFIFOBytes_);
-      }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(13, recvFrames_);
-      }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(14, recvCompressedBytes_);
-      }
-      if (((bitField0_ & 0x00004000) == 0x00004000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(15, recvMultiCastBytes_);
-      }
-      if (((bitField0_ & 0x00008000) == 0x00008000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(16, transBytes_);
-      }
-      if (((bitField0_ & 0x00010000) == 0x00010000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(17, transPackages_);
-      }
-      if (((bitField0_ & 0x00020000) == 0x00020000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(18, transErrorBytes_);
-      }
-      if (((bitField0_ & 0x00040000) == 0x00040000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(19, transDropBytes_);
-      }
-      if (((bitField0_ & 0x00080000) == 0x00080000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(20, transFIFOBytes_);
-      }
-      if (((bitField0_ & 0x00100000) == 0x00100000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(21, transCompressedBytes_);
-      }
-      if (((bitField0_ & 0x00200000) == 0x00200000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(22, collisionTimes_);
-      }
-      if (((bitField0_ & 0x00400000) == 0x00400000)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(23, carrierErrors_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
     }
-    
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
+    private networkInfo(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.eolwral.osmonitor.core.NetworkInfo.networkInfo prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.NetworkInfo.networkInfoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_fieldAccessorTable;
-      }
-      
-      // Construct using com.eolwral.osmonitor.core.NetworkInfo.networkInfo.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        mac_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        ipv4Addr_ = "";
-        bitField0_ = (bitField0_ & ~0x00000004);
-        netMaskv4_ = "";
-        bitField0_ = (bitField0_ & ~0x00000008);
-        ipv6Addr_ = "";
-        bitField0_ = (bitField0_ & ~0x00000010);
-        netMaskv6_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000020);
-        flags_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000040);
-        recvBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000080);
-        recvPackages_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000100);
-        recvErrorBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000200);
-        recvDropBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000400);
-        recvFIFOBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000800);
-        recvFrames_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00001000);
-        recvCompressedBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00002000);
-        recvMultiCastBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00004000);
-        transBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00008000);
-        transPackages_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00010000);
-        transErrorBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00020000);
-        transDropBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00040000);
-        transFIFOBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00080000);
-        transCompressedBytes_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00100000);
-        collisionTimes_ = 0;
-        bitField0_ = (bitField0_ & ~0x00200000);
-        carrierErrors_ = 0;
-        bitField0_ = (bitField0_ & ~0x00400000);
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.eolwral.osmonitor.core.NetworkInfo.networkInfo.getDescriptor();
-      }
-      
-      public com.eolwral.osmonitor.core.NetworkInfo.networkInfo getDefaultInstanceForType() {
-        return com.eolwral.osmonitor.core.NetworkInfo.networkInfo.getDefaultInstance();
-      }
-      
-      public com.eolwral.osmonitor.core.NetworkInfo.networkInfo build() {
-        com.eolwral.osmonitor.core.NetworkInfo.networkInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private com.eolwral.osmonitor.core.NetworkInfo.networkInfo buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        com.eolwral.osmonitor.core.NetworkInfo.networkInfo result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public com.eolwral.osmonitor.core.NetworkInfo.networkInfo buildPartial() {
-        com.eolwral.osmonitor.core.NetworkInfo.networkInfo result = new com.eolwral.osmonitor.core.NetworkInfo.networkInfo(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.name_ = name_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.mac_ = mac_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.ipv4Addr_ = ipv4Addr_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.netMaskv4_ = netMaskv4_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.ipv6Addr_ = ipv6Addr_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-          to_bitField0_ |= 0x00000020;
-        }
-        result.netMaskv6_ = netMaskv6_;
-        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
-          to_bitField0_ |= 0x00000040;
-        }
-        result.flags_ = flags_;
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
-          to_bitField0_ |= 0x00000080;
-        }
-        result.recvBytes_ = recvBytes_;
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000100;
-        }
-        result.recvPackages_ = recvPackages_;
-        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
-          to_bitField0_ |= 0x00000200;
-        }
-        result.recvErrorBytes_ = recvErrorBytes_;
-        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
-          to_bitField0_ |= 0x00000400;
-        }
-        result.recvDropBytes_ = recvDropBytes_;
-        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
-          to_bitField0_ |= 0x00000800;
-        }
-        result.recvFIFOBytes_ = recvFIFOBytes_;
-        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
-          to_bitField0_ |= 0x00001000;
-        }
-        result.recvFrames_ = recvFrames_;
-        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
-          to_bitField0_ |= 0x00002000;
-        }
-        result.recvCompressedBytes_ = recvCompressedBytes_;
-        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
-          to_bitField0_ |= 0x00004000;
-        }
-        result.recvMultiCastBytes_ = recvMultiCastBytes_;
-        if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
-          to_bitField0_ |= 0x00008000;
-        }
-        result.transBytes_ = transBytes_;
-        if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
-          to_bitField0_ |= 0x00010000;
-        }
-        result.transPackages_ = transPackages_;
-        if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
-          to_bitField0_ |= 0x00020000;
-        }
-        result.transErrorBytes_ = transErrorBytes_;
-        if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
-          to_bitField0_ |= 0x00040000;
-        }
-        result.transDropBytes_ = transDropBytes_;
-        if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
-          to_bitField0_ |= 0x00080000;
-        }
-        result.transFIFOBytes_ = transFIFOBytes_;
-        if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
-          to_bitField0_ |= 0x00100000;
-        }
-        result.transCompressedBytes_ = transCompressedBytes_;
-        if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
-          to_bitField0_ |= 0x00200000;
-        }
-        result.collisionTimes_ = collisionTimes_;
-        if (((from_bitField0_ & 0x00400000) == 0x00400000)) {
-          to_bitField0_ |= 0x00400000;
-        }
-        result.carrierErrors_ = carrierErrors_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.eolwral.osmonitor.core.NetworkInfo.networkInfo) {
-          return mergeFrom((com.eolwral.osmonitor.core.NetworkInfo.networkInfo)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(com.eolwral.osmonitor.core.NetworkInfo.networkInfo other) {
-        if (other == com.eolwral.osmonitor.core.NetworkInfo.networkInfo.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          setName(other.getName());
-        }
-        if (other.hasMac()) {
-          setMac(other.getMac());
-        }
-        if (other.hasIpv4Addr()) {
-          setIpv4Addr(other.getIpv4Addr());
-        }
-        if (other.hasNetMaskv4()) {
-          setNetMaskv4(other.getNetMaskv4());
-        }
-        if (other.hasIpv6Addr()) {
-          setIpv6Addr(other.getIpv6Addr());
-        }
-        if (other.hasNetMaskv6()) {
-          setNetMaskv6(other.getNetMaskv6());
-        }
-        if (other.hasFlags()) {
-          setFlags(other.getFlags());
-        }
-        if (other.hasRecvBytes()) {
-          setRecvBytes(other.getRecvBytes());
-        }
-        if (other.hasRecvPackages()) {
-          setRecvPackages(other.getRecvPackages());
-        }
-        if (other.hasRecvErrorBytes()) {
-          setRecvErrorBytes(other.getRecvErrorBytes());
-        }
-        if (other.hasRecvDropBytes()) {
-          setRecvDropBytes(other.getRecvDropBytes());
-        }
-        if (other.hasRecvFIFOBytes()) {
-          setRecvFIFOBytes(other.getRecvFIFOBytes());
-        }
-        if (other.hasRecvFrames()) {
-          setRecvFrames(other.getRecvFrames());
-        }
-        if (other.hasRecvCompressedBytes()) {
-          setRecvCompressedBytes(other.getRecvCompressedBytes());
-        }
-        if (other.hasRecvMultiCastBytes()) {
-          setRecvMultiCastBytes(other.getRecvMultiCastBytes());
-        }
-        if (other.hasTransBytes()) {
-          setTransBytes(other.getTransBytes());
-        }
-        if (other.hasTransPackages()) {
-          setTransPackages(other.getTransPackages());
-        }
-        if (other.hasTransErrorBytes()) {
-          setTransErrorBytes(other.getTransErrorBytes());
-        }
-        if (other.hasTransDropBytes()) {
-          setTransDropBytes(other.getTransDropBytes());
-        }
-        if (other.hasTransFIFOBytes()) {
-          setTransFIFOBytes(other.getTransFIFOBytes());
-        }
-        if (other.hasTransCompressedBytes()) {
-          setTransCompressedBytes(other.getTransCompressedBytes());
-        }
-        if (other.hasCollisionTimes()) {
-          setCollisionTimes(other.getCollisionTimes());
-        }
-        if (other.hasCarrierErrors()) {
-          setCarrierErrors(other.getCarrierErrors());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        if (!hasName()) {
-          
-          return false;
-        }
-        if (!hasMac()) {
-          
-          return false;
-        }
-        if (!hasFlags()) {
-          
-          return false;
-        }
-        if (!hasRecvBytes()) {
-          
-          return false;
-        }
-        if (!hasRecvPackages()) {
-          
-          return false;
-        }
-        if (!hasRecvErrorBytes()) {
-          
-          return false;
-        }
-        if (!hasRecvDropBytes()) {
-          
-          return false;
-        }
-        if (!hasRecvFIFOBytes()) {
-          
-          return false;
-        }
-        if (!hasRecvFrames()) {
-          
-          return false;
-        }
-        if (!hasRecvCompressedBytes()) {
-          
-          return false;
-        }
-        if (!hasRecvMultiCastBytes()) {
-          
-          return false;
-        }
-        if (!hasTransBytes()) {
-          
-          return false;
-        }
-        if (!hasTransPackages()) {
-          
-          return false;
-        }
-        if (!hasTransErrorBytes()) {
-          
-          return false;
-        }
-        if (!hasTransDropBytes()) {
-          
-          return false;
-        }
-        if (!hasTransFIFOBytes()) {
-          
-          return false;
-        }
-        if (!hasTransCompressedBytes()) {
-          
-          return false;
-        }
-        if (!hasCollisionTimes()) {
-          
-          return false;
-        }
-        if (!hasCarrierErrors()) {
-          
-          return false;
-        }
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
+              done = true;
+              break;
             default: {
               if (!parseUnknownField(input, unknownFields,
                                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
               }
               break;
             }
@@ -1364,26 +638,1573 @@ public final class NetworkInfo {
             }
           }
         }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
       }
-      
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.eolwral.osmonitor.core.NetworkInfo.networkInfo.class, com.eolwral.osmonitor.core.NetworkInfo.networkInfo.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<networkInfo> PARSER =
+        new com.google.protobuf.AbstractParser<networkInfo>() {
+      public networkInfo parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new networkInfo(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<networkInfo> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required string name = 1;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; interface name 
+     * </pre>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; interface name 
+     * </pre>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 1;</code>
+     *
+     * <pre>
+     **&lt; interface name 
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // required string mac = 2;
+    public static final int MAC_FIELD_NUMBER = 2;
+    private java.lang.Object mac_;
+    /**
+     * <code>required string mac = 2;</code>
+     *
+     * <pre>
+     **&lt; MAC address 
+     * </pre>
+     */
+    public boolean hasMac() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string mac = 2;</code>
+     *
+     * <pre>
+     **&lt; MAC address 
+     * </pre>
+     */
+    public java.lang.String getMac() {
+      java.lang.Object ref = mac_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          mac_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string mac = 2;</code>
+     *
+     * <pre>
+     **&lt; MAC address 
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getMacBytes() {
+      java.lang.Object ref = mac_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        mac_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string ipv4Addr = 3;
+    public static final int IPV4ADDR_FIELD_NUMBER = 3;
+    private java.lang.Object ipv4Addr_;
+    /**
+     * <code>optional string ipv4Addr = 3;</code>
+     *
+     * <pre>
+     **&lt; IPv4 address 
+     * </pre>
+     */
+    public boolean hasIpv4Addr() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string ipv4Addr = 3;</code>
+     *
+     * <pre>
+     **&lt; IPv4 address 
+     * </pre>
+     */
+    public java.lang.String getIpv4Addr() {
+      java.lang.Object ref = ipv4Addr_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          ipv4Addr_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string ipv4Addr = 3;</code>
+     *
+     * <pre>
+     **&lt; IPv4 address 
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getIpv4AddrBytes() {
+      java.lang.Object ref = ipv4Addr_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ipv4Addr_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string netMaskv4 = 4;
+    public static final int NETMASKV4_FIELD_NUMBER = 4;
+    private java.lang.Object netMaskv4_;
+    /**
+     * <code>optional string netMaskv4 = 4;</code>
+     *
+     * <pre>
+     **&lt; IPv4 netmask 
+     * </pre>
+     */
+    public boolean hasNetMaskv4() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional string netMaskv4 = 4;</code>
+     *
+     * <pre>
+     **&lt; IPv4 netmask 
+     * </pre>
+     */
+    public java.lang.String getNetMaskv4() {
+      java.lang.Object ref = netMaskv4_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          netMaskv4_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string netMaskv4 = 4;</code>
+     *
+     * <pre>
+     **&lt; IPv4 netmask 
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getNetMaskv4Bytes() {
+      java.lang.Object ref = netMaskv4_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        netMaskv4_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string ipv6Addr = 5;
+    public static final int IPV6ADDR_FIELD_NUMBER = 5;
+    private java.lang.Object ipv6Addr_;
+    /**
+     * <code>optional string ipv6Addr = 5;</code>
+     *
+     * <pre>
+     **&lt; IPv6 address 
+     * </pre>
+     */
+    public boolean hasIpv6Addr() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional string ipv6Addr = 5;</code>
+     *
+     * <pre>
+     **&lt; IPv6 address 
+     * </pre>
+     */
+    public java.lang.String getIpv6Addr() {
+      java.lang.Object ref = ipv6Addr_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          ipv6Addr_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string ipv6Addr = 5;</code>
+     *
+     * <pre>
+     **&lt; IPv6 address 
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getIpv6AddrBytes() {
+      java.lang.Object ref = ipv6Addr_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ipv6Addr_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional uint32 netMaskv6 = 6;
+    public static final int NETMASKV6_FIELD_NUMBER = 6;
+    private int netMaskv6_;
+    /**
+     * <code>optional uint32 netMaskv6 = 6;</code>
+     *
+     * <pre>
+     **&lt; IPv6 netmask 
+     * </pre>
+     */
+    public boolean hasNetMaskv6() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional uint32 netMaskv6 = 6;</code>
+     *
+     * <pre>
+     **&lt; IPv6 netmask 
+     * </pre>
+     */
+    public int getNetMaskv6() {
+      return netMaskv6_;
+    }
+
+    // required uint32 flags = 7;
+    public static final int FLAGS_FIELD_NUMBER = 7;
+    private int flags_;
+    /**
+     * <code>required uint32 flags = 7;</code>
+     *
+     * <pre>
+     **&lt; status flag 
+     * </pre>
+     */
+    public boolean hasFlags() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>required uint32 flags = 7;</code>
+     *
+     * <pre>
+     **&lt; status flag 
+     * </pre>
+     */
+    public int getFlags() {
+      return flags_;
+    }
+
+    // required uint64 recvBytes = 8;
+    public static final int RECVBYTES_FIELD_NUMBER = 8;
+    private long recvBytes_;
+    /**
+     * <code>required uint64 recvBytes = 8;</code>
+     *
+     * <pre>
+     **&lt; received bytes 
+     * </pre>
+     */
+    public boolean hasRecvBytes() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>required uint64 recvBytes = 8;</code>
+     *
+     * <pre>
+     **&lt; received bytes 
+     * </pre>
+     */
+    public long getRecvBytes() {
+      return recvBytes_;
+    }
+
+    // required uint64 recvPackages = 9;
+    public static final int RECVPACKAGES_FIELD_NUMBER = 9;
+    private long recvPackages_;
+    /**
+     * <code>required uint64 recvPackages = 9;</code>
+     *
+     * <pre>
+     **&lt; received packages 
+     * </pre>
+     */
+    public boolean hasRecvPackages() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <code>required uint64 recvPackages = 9;</code>
+     *
+     * <pre>
+     **&lt; received packages 
+     * </pre>
+     */
+    public long getRecvPackages() {
+      return recvPackages_;
+    }
+
+    // required uint64 recvErrorBytes = 10;
+    public static final int RECVERRORBYTES_FIELD_NUMBER = 10;
+    private long recvErrorBytes_;
+    /**
+     * <code>required uint64 recvErrorBytes = 10;</code>
+     *
+     * <pre>
+     **&lt; error bytes when receiving 
+     * </pre>
+     */
+    public boolean hasRecvErrorBytes() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <code>required uint64 recvErrorBytes = 10;</code>
+     *
+     * <pre>
+     **&lt; error bytes when receiving 
+     * </pre>
+     */
+    public long getRecvErrorBytes() {
+      return recvErrorBytes_;
+    }
+
+    // required uint64 recvDropBytes = 11;
+    public static final int RECVDROPBYTES_FIELD_NUMBER = 11;
+    private long recvDropBytes_;
+    /**
+     * <code>required uint64 recvDropBytes = 11;</code>
+     *
+     * <pre>
+     **&lt; drop bytes when receiving  
+     * </pre>
+     */
+    public boolean hasRecvDropBytes() {
+      return ((bitField0_ & 0x00000400) == 0x00000400);
+    }
+    /**
+     * <code>required uint64 recvDropBytes = 11;</code>
+     *
+     * <pre>
+     **&lt; drop bytes when receiving  
+     * </pre>
+     */
+    public long getRecvDropBytes() {
+      return recvDropBytes_;
+    }
+
+    // required uint64 recvFIFOBytes = 12;
+    public static final int RECVFIFOBYTES_FIELD_NUMBER = 12;
+    private long recvFIFOBytes_;
+    /**
+     * <code>required uint64 recvFIFOBytes = 12;</code>
+     *
+     * <pre>
+     **&lt; FIFO bytes when receiving 
+     * </pre>
+     */
+    public boolean hasRecvFIFOBytes() {
+      return ((bitField0_ & 0x00000800) == 0x00000800);
+    }
+    /**
+     * <code>required uint64 recvFIFOBytes = 12;</code>
+     *
+     * <pre>
+     **&lt; FIFO bytes when receiving 
+     * </pre>
+     */
+    public long getRecvFIFOBytes() {
+      return recvFIFOBytes_;
+    }
+
+    // required uint64 recvFrames = 13;
+    public static final int RECVFRAMES_FIELD_NUMBER = 13;
+    private long recvFrames_;
+    /**
+     * <code>required uint64 recvFrames = 13;</code>
+     *
+     * <pre>
+     **&lt; received frames 
+     * </pre>
+     */
+    public boolean hasRecvFrames() {
+      return ((bitField0_ & 0x00001000) == 0x00001000);
+    }
+    /**
+     * <code>required uint64 recvFrames = 13;</code>
+     *
+     * <pre>
+     **&lt; received frames 
+     * </pre>
+     */
+    public long getRecvFrames() {
+      return recvFrames_;
+    }
+
+    // required uint64 recvCompressedBytes = 14;
+    public static final int RECVCOMPRESSEDBYTES_FIELD_NUMBER = 14;
+    private long recvCompressedBytes_;
+    /**
+     * <code>required uint64 recvCompressedBytes = 14;</code>
+     *
+     * <pre>
+     **&lt; received compressed bytes 
+     * </pre>
+     */
+    public boolean hasRecvCompressedBytes() {
+      return ((bitField0_ & 0x00002000) == 0x00002000);
+    }
+    /**
+     * <code>required uint64 recvCompressedBytes = 14;</code>
+     *
+     * <pre>
+     **&lt; received compressed bytes 
+     * </pre>
+     */
+    public long getRecvCompressedBytes() {
+      return recvCompressedBytes_;
+    }
+
+    // required uint64 recvMultiCastBytes = 15;
+    public static final int RECVMULTICASTBYTES_FIELD_NUMBER = 15;
+    private long recvMultiCastBytes_;
+    /**
+     * <code>required uint64 recvMultiCastBytes = 15;</code>
+     *
+     * <pre>
+     **&lt; received multi-cast bytes 
+     * </pre>
+     */
+    public boolean hasRecvMultiCastBytes() {
+      return ((bitField0_ & 0x00004000) == 0x00004000);
+    }
+    /**
+     * <code>required uint64 recvMultiCastBytes = 15;</code>
+     *
+     * <pre>
+     **&lt; received multi-cast bytes 
+     * </pre>
+     */
+    public long getRecvMultiCastBytes() {
+      return recvMultiCastBytes_;
+    }
+
+    // required uint64 transBytes = 16;
+    public static final int TRANSBYTES_FIELD_NUMBER = 16;
+    private long transBytes_;
+    /**
+     * <code>required uint64 transBytes = 16;</code>
+     *
+     * <pre>
+     **&lt; transmitted bytes 
+     * </pre>
+     */
+    public boolean hasTransBytes() {
+      return ((bitField0_ & 0x00008000) == 0x00008000);
+    }
+    /**
+     * <code>required uint64 transBytes = 16;</code>
+     *
+     * <pre>
+     **&lt; transmitted bytes 
+     * </pre>
+     */
+    public long getTransBytes() {
+      return transBytes_;
+    }
+
+    // required uint64 transPackages = 17;
+    public static final int TRANSPACKAGES_FIELD_NUMBER = 17;
+    private long transPackages_;
+    /**
+     * <code>required uint64 transPackages = 17;</code>
+     *
+     * <pre>
+     **&lt; transmitted packages 
+     * </pre>
+     */
+    public boolean hasTransPackages() {
+      return ((bitField0_ & 0x00010000) == 0x00010000);
+    }
+    /**
+     * <code>required uint64 transPackages = 17;</code>
+     *
+     * <pre>
+     **&lt; transmitted packages 
+     * </pre>
+     */
+    public long getTransPackages() {
+      return transPackages_;
+    }
+
+    // required uint64 transErrorBytes = 18;
+    public static final int TRANSERRORBYTES_FIELD_NUMBER = 18;
+    private long transErrorBytes_;
+    /**
+     * <code>required uint64 transErrorBytes = 18;</code>
+     *
+     * <pre>
+     **&lt; error bytes when transmitting 
+     * </pre>
+     */
+    public boolean hasTransErrorBytes() {
+      return ((bitField0_ & 0x00020000) == 0x00020000);
+    }
+    /**
+     * <code>required uint64 transErrorBytes = 18;</code>
+     *
+     * <pre>
+     **&lt; error bytes when transmitting 
+     * </pre>
+     */
+    public long getTransErrorBytes() {
+      return transErrorBytes_;
+    }
+
+    // required uint64 transDropBytes = 19;
+    public static final int TRANSDROPBYTES_FIELD_NUMBER = 19;
+    private long transDropBytes_;
+    /**
+     * <code>required uint64 transDropBytes = 19;</code>
+     *
+     * <pre>
+     **&lt; dropped bytes when transmitting 
+     * </pre>
+     */
+    public boolean hasTransDropBytes() {
+      return ((bitField0_ & 0x00040000) == 0x00040000);
+    }
+    /**
+     * <code>required uint64 transDropBytes = 19;</code>
+     *
+     * <pre>
+     **&lt; dropped bytes when transmitting 
+     * </pre>
+     */
+    public long getTransDropBytes() {
+      return transDropBytes_;
+    }
+
+    // required uint64 transFIFOBytes = 20;
+    public static final int TRANSFIFOBYTES_FIELD_NUMBER = 20;
+    private long transFIFOBytes_;
+    /**
+     * <code>required uint64 transFIFOBytes = 20;</code>
+     *
+     * <pre>
+     **&lt; FIFO bytes when transmitting 
+     * </pre>
+     */
+    public boolean hasTransFIFOBytes() {
+      return ((bitField0_ & 0x00080000) == 0x00080000);
+    }
+    /**
+     * <code>required uint64 transFIFOBytes = 20;</code>
+     *
+     * <pre>
+     **&lt; FIFO bytes when transmitting 
+     * </pre>
+     */
+    public long getTransFIFOBytes() {
+      return transFIFOBytes_;
+    }
+
+    // required uint64 transCompressedBytes = 21;
+    public static final int TRANSCOMPRESSEDBYTES_FIELD_NUMBER = 21;
+    private long transCompressedBytes_;
+    /**
+     * <code>required uint64 transCompressedBytes = 21;</code>
+     *
+     * <pre>
+     **&lt; transmitted compressed bytes 
+     * </pre>
+     */
+    public boolean hasTransCompressedBytes() {
+      return ((bitField0_ & 0x00100000) == 0x00100000);
+    }
+    /**
+     * <code>required uint64 transCompressedBytes = 21;</code>
+     *
+     * <pre>
+     **&lt; transmitted compressed bytes 
+     * </pre>
+     */
+    public long getTransCompressedBytes() {
+      return transCompressedBytes_;
+    }
+
+    // required uint32 collisionTimes = 22;
+    public static final int COLLISIONTIMES_FIELD_NUMBER = 22;
+    private int collisionTimes_;
+    /**
+     * <code>required uint32 collisionTimes = 22;</code>
+     *
+     * <pre>
+     **&lt; collision times 
+     * </pre>
+     */
+    public boolean hasCollisionTimes() {
+      return ((bitField0_ & 0x00200000) == 0x00200000);
+    }
+    /**
+     * <code>required uint32 collisionTimes = 22;</code>
+     *
+     * <pre>
+     **&lt; collision times 
+     * </pre>
+     */
+    public int getCollisionTimes() {
+      return collisionTimes_;
+    }
+
+    // required uint32 carrierErrors = 23;
+    public static final int CARRIERERRORS_FIELD_NUMBER = 23;
+    private int carrierErrors_;
+    /**
+     * <code>required uint32 carrierErrors = 23;</code>
+     *
+     * <pre>
+     **&lt; carrier error times 
+     * </pre>
+     */
+    public boolean hasCarrierErrors() {
+      return ((bitField0_ & 0x00400000) == 0x00400000);
+    }
+    /**
+     * <code>required uint32 carrierErrors = 23;</code>
+     *
+     * <pre>
+     **&lt; carrier error times 
+     * </pre>
+     */
+    public int getCarrierErrors() {
+      return carrierErrors_;
+    }
+
+    private void initFields() {
+      name_ = "";
+      mac_ = "";
+      ipv4Addr_ = "";
+      netMaskv4_ = "";
+      ipv6Addr_ = "";
+      netMaskv6_ = 0;
+      flags_ = 0;
+      recvBytes_ = 0L;
+      recvPackages_ = 0L;
+      recvErrorBytes_ = 0L;
+      recvDropBytes_ = 0L;
+      recvFIFOBytes_ = 0L;
+      recvFrames_ = 0L;
+      recvCompressedBytes_ = 0L;
+      recvMultiCastBytes_ = 0L;
+      transBytes_ = 0L;
+      transPackages_ = 0L;
+      transErrorBytes_ = 0L;
+      transDropBytes_ = 0L;
+      transFIFOBytes_ = 0L;
+      transCompressedBytes_ = 0L;
+      collisionTimes_ = 0;
+      carrierErrors_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMac()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasFlags()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRecvBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRecvPackages()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRecvErrorBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRecvDropBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRecvFIFOBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRecvFrames()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRecvCompressedBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRecvMultiCastBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTransBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTransPackages()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTransErrorBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTransDropBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTransFIFOBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasTransCompressedBytes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCollisionTimes()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCarrierErrors()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getMacBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getIpv4AddrBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getNetMaskv4Bytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, getIpv6AddrBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeUInt32(6, netMaskv6_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeUInt32(7, flags_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeUInt64(8, recvBytes_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeUInt64(9, recvPackages_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeUInt64(10, recvErrorBytes_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        output.writeUInt64(11, recvDropBytes_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeUInt64(12, recvFIFOBytes_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        output.writeUInt64(13, recvFrames_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        output.writeUInt64(14, recvCompressedBytes_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        output.writeUInt64(15, recvMultiCastBytes_);
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        output.writeUInt64(16, transBytes_);
+      }
+      if (((bitField0_ & 0x00010000) == 0x00010000)) {
+        output.writeUInt64(17, transPackages_);
+      }
+      if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        output.writeUInt64(18, transErrorBytes_);
+      }
+      if (((bitField0_ & 0x00040000) == 0x00040000)) {
+        output.writeUInt64(19, transDropBytes_);
+      }
+      if (((bitField0_ & 0x00080000) == 0x00080000)) {
+        output.writeUInt64(20, transFIFOBytes_);
+      }
+      if (((bitField0_ & 0x00100000) == 0x00100000)) {
+        output.writeUInt64(21, transCompressedBytes_);
+      }
+      if (((bitField0_ & 0x00200000) == 0x00200000)) {
+        output.writeUInt32(22, collisionTimes_);
+      }
+      if (((bitField0_ & 0x00400000) == 0x00400000)) {
+        output.writeUInt32(23, carrierErrors_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getMacBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getIpv4AddrBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, getNetMaskv4Bytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, getIpv6AddrBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(6, netMaskv6_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(7, flags_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(8, recvBytes_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(9, recvPackages_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(10, recvErrorBytes_);
+      }
+      if (((bitField0_ & 0x00000400) == 0x00000400)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(11, recvDropBytes_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(12, recvFIFOBytes_);
+      }
+      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(13, recvFrames_);
+      }
+      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(14, recvCompressedBytes_);
+      }
+      if (((bitField0_ & 0x00004000) == 0x00004000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(15, recvMultiCastBytes_);
+      }
+      if (((bitField0_ & 0x00008000) == 0x00008000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(16, transBytes_);
+      }
+      if (((bitField0_ & 0x00010000) == 0x00010000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(17, transPackages_);
+      }
+      if (((bitField0_ & 0x00020000) == 0x00020000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(18, transErrorBytes_);
+      }
+      if (((bitField0_ & 0x00040000) == 0x00040000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(19, transDropBytes_);
+      }
+      if (((bitField0_ & 0x00080000) == 0x00080000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(20, transFIFOBytes_);
+      }
+      if (((bitField0_ & 0x00100000) == 0x00100000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(21, transCompressedBytes_);
+      }
+      if (((bitField0_ & 0x00200000) == 0x00200000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(22, collisionTimes_);
+      }
+      if (((bitField0_ & 0x00400000) == 0x00400000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(23, carrierErrors_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static com.eolwral.osmonitor.core.NetworkInfo.networkInfo parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.eolwral.osmonitor.core.NetworkInfo.networkInfo prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code com.eolwral.osmonitor.core.networkInfo}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements com.eolwral.osmonitor.core.NetworkInfo.networkInfoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.eolwral.osmonitor.core.NetworkInfo.networkInfo.class, com.eolwral.osmonitor.core.NetworkInfo.networkInfo.Builder.class);
+      }
+
+      // Construct using com.eolwral.osmonitor.core.NetworkInfo.networkInfo.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        mac_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        ipv4Addr_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        netMaskv4_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        ipv6Addr_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
+        netMaskv6_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000020);
+        flags_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000040);
+        recvBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000080);
+        recvPackages_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        recvErrorBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000200);
+        recvDropBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        recvFIFOBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00000800);
+        recvFrames_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00001000);
+        recvCompressedBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00002000);
+        recvMultiCastBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00004000);
+        transBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00008000);
+        transPackages_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00010000);
+        transErrorBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00020000);
+        transDropBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00040000);
+        transFIFOBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00080000);
+        transCompressedBytes_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00100000);
+        collisionTimes_ = 0;
+        bitField0_ = (bitField0_ & ~0x00200000);
+        carrierErrors_ = 0;
+        bitField0_ = (bitField0_ & ~0x00400000);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor;
+      }
+
+      public com.eolwral.osmonitor.core.NetworkInfo.networkInfo getDefaultInstanceForType() {
+        return com.eolwral.osmonitor.core.NetworkInfo.networkInfo.getDefaultInstance();
+      }
+
+      public com.eolwral.osmonitor.core.NetworkInfo.networkInfo build() {
+        com.eolwral.osmonitor.core.NetworkInfo.networkInfo result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.eolwral.osmonitor.core.NetworkInfo.networkInfo buildPartial() {
+        com.eolwral.osmonitor.core.NetworkInfo.networkInfo result = new com.eolwral.osmonitor.core.NetworkInfo.networkInfo(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.mac_ = mac_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.ipv4Addr_ = ipv4Addr_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.netMaskv4_ = netMaskv4_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.ipv6Addr_ = ipv6Addr_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.netMaskv6_ = netMaskv6_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.flags_ = flags_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.recvBytes_ = recvBytes_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.recvPackages_ = recvPackages_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        result.recvErrorBytes_ = recvErrorBytes_;
+        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+          to_bitField0_ |= 0x00000400;
+        }
+        result.recvDropBytes_ = recvDropBytes_;
+        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
+          to_bitField0_ |= 0x00000800;
+        }
+        result.recvFIFOBytes_ = recvFIFOBytes_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00001000;
+        }
+        result.recvFrames_ = recvFrames_;
+        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
+          to_bitField0_ |= 0x00002000;
+        }
+        result.recvCompressedBytes_ = recvCompressedBytes_;
+        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
+          to_bitField0_ |= 0x00004000;
+        }
+        result.recvMultiCastBytes_ = recvMultiCastBytes_;
+        if (((from_bitField0_ & 0x00008000) == 0x00008000)) {
+          to_bitField0_ |= 0x00008000;
+        }
+        result.transBytes_ = transBytes_;
+        if (((from_bitField0_ & 0x00010000) == 0x00010000)) {
+          to_bitField0_ |= 0x00010000;
+        }
+        result.transPackages_ = transPackages_;
+        if (((from_bitField0_ & 0x00020000) == 0x00020000)) {
+          to_bitField0_ |= 0x00020000;
+        }
+        result.transErrorBytes_ = transErrorBytes_;
+        if (((from_bitField0_ & 0x00040000) == 0x00040000)) {
+          to_bitField0_ |= 0x00040000;
+        }
+        result.transDropBytes_ = transDropBytes_;
+        if (((from_bitField0_ & 0x00080000) == 0x00080000)) {
+          to_bitField0_ |= 0x00080000;
+        }
+        result.transFIFOBytes_ = transFIFOBytes_;
+        if (((from_bitField0_ & 0x00100000) == 0x00100000)) {
+          to_bitField0_ |= 0x00100000;
+        }
+        result.transCompressedBytes_ = transCompressedBytes_;
+        if (((from_bitField0_ & 0x00200000) == 0x00200000)) {
+          to_bitField0_ |= 0x00200000;
+        }
+        result.collisionTimes_ = collisionTimes_;
+        if (((from_bitField0_ & 0x00400000) == 0x00400000)) {
+          to_bitField0_ |= 0x00400000;
+        }
+        result.carrierErrors_ = carrierErrors_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.eolwral.osmonitor.core.NetworkInfo.networkInfo) {
+          return mergeFrom((com.eolwral.osmonitor.core.NetworkInfo.networkInfo)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.eolwral.osmonitor.core.NetworkInfo.networkInfo other) {
+        if (other == com.eolwral.osmonitor.core.NetworkInfo.networkInfo.getDefaultInstance()) return this;
+        if (other.hasName()) {
+          bitField0_ |= 0x00000001;
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasMac()) {
+          bitField0_ |= 0x00000002;
+          mac_ = other.mac_;
+          onChanged();
+        }
+        if (other.hasIpv4Addr()) {
+          bitField0_ |= 0x00000004;
+          ipv4Addr_ = other.ipv4Addr_;
+          onChanged();
+        }
+        if (other.hasNetMaskv4()) {
+          bitField0_ |= 0x00000008;
+          netMaskv4_ = other.netMaskv4_;
+          onChanged();
+        }
+        if (other.hasIpv6Addr()) {
+          bitField0_ |= 0x00000010;
+          ipv6Addr_ = other.ipv6Addr_;
+          onChanged();
+        }
+        if (other.hasNetMaskv6()) {
+          setNetMaskv6(other.getNetMaskv6());
+        }
+        if (other.hasFlags()) {
+          setFlags(other.getFlags());
+        }
+        if (other.hasRecvBytes()) {
+          setRecvBytes(other.getRecvBytes());
+        }
+        if (other.hasRecvPackages()) {
+          setRecvPackages(other.getRecvPackages());
+        }
+        if (other.hasRecvErrorBytes()) {
+          setRecvErrorBytes(other.getRecvErrorBytes());
+        }
+        if (other.hasRecvDropBytes()) {
+          setRecvDropBytes(other.getRecvDropBytes());
+        }
+        if (other.hasRecvFIFOBytes()) {
+          setRecvFIFOBytes(other.getRecvFIFOBytes());
+        }
+        if (other.hasRecvFrames()) {
+          setRecvFrames(other.getRecvFrames());
+        }
+        if (other.hasRecvCompressedBytes()) {
+          setRecvCompressedBytes(other.getRecvCompressedBytes());
+        }
+        if (other.hasRecvMultiCastBytes()) {
+          setRecvMultiCastBytes(other.getRecvMultiCastBytes());
+        }
+        if (other.hasTransBytes()) {
+          setTransBytes(other.getTransBytes());
+        }
+        if (other.hasTransPackages()) {
+          setTransPackages(other.getTransPackages());
+        }
+        if (other.hasTransErrorBytes()) {
+          setTransErrorBytes(other.getTransErrorBytes());
+        }
+        if (other.hasTransDropBytes()) {
+          setTransDropBytes(other.getTransDropBytes());
+        }
+        if (other.hasTransFIFOBytes()) {
+          setTransFIFOBytes(other.getTransFIFOBytes());
+        }
+        if (other.hasTransCompressedBytes()) {
+          setTransCompressedBytes(other.getTransCompressedBytes());
+        }
+        if (other.hasCollisionTimes()) {
+          setCollisionTimes(other.getCollisionTimes());
+        }
+        if (other.hasCarrierErrors()) {
+          setCarrierErrors(other.getCarrierErrors());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasMac()) {
+          
+          return false;
+        }
+        if (!hasFlags()) {
+          
+          return false;
+        }
+        if (!hasRecvBytes()) {
+          
+          return false;
+        }
+        if (!hasRecvPackages()) {
+          
+          return false;
+        }
+        if (!hasRecvErrorBytes()) {
+          
+          return false;
+        }
+        if (!hasRecvDropBytes()) {
+          
+          return false;
+        }
+        if (!hasRecvFIFOBytes()) {
+          
+          return false;
+        }
+        if (!hasRecvFrames()) {
+          
+          return false;
+        }
+        if (!hasRecvCompressedBytes()) {
+          
+          return false;
+        }
+        if (!hasRecvMultiCastBytes()) {
+          
+          return false;
+        }
+        if (!hasTransBytes()) {
+          
+          return false;
+        }
+        if (!hasTransPackages()) {
+          
+          return false;
+        }
+        if (!hasTransErrorBytes()) {
+          
+          return false;
+        }
+        if (!hasTransDropBytes()) {
+          
+          return false;
+        }
+        if (!hasTransFIFOBytes()) {
+          
+          return false;
+        }
+        if (!hasTransCompressedBytes()) {
+          
+          return false;
+        }
+        if (!hasCollisionTimes()) {
+          
+          return false;
+        }
+        if (!hasCarrierErrors()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.eolwral.osmonitor.core.NetworkInfo.networkInfo parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.eolwral.osmonitor.core.NetworkInfo.networkInfo) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
       private int bitField0_;
-      
+
       // required string name = 1;
       private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; interface name 
+       * </pre>
+       */
       public boolean hasName() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public String getName() {
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; interface name 
+       * </pre>
+       */
+      public java.lang.String getName() {
         java.lang.Object ref = name_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           name_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setName(String value) {
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; interface name 
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; interface name 
+       * </pre>
+       */
+      public Builder setName(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1392,34 +2213,96 @@ public final class NetworkInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; interface name 
+       * </pre>
+       */
       public Builder clearName() {
         bitField0_ = (bitField0_ & ~0x00000001);
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
-      void setName(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000001;
+      /**
+       * <code>required string name = 1;</code>
+       *
+       * <pre>
+       **&lt; interface name 
+       * </pre>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
         name_ = value;
         onChanged();
+        return this;
       }
-      
+
       // required string mac = 2;
       private java.lang.Object mac_ = "";
+      /**
+       * <code>required string mac = 2;</code>
+       *
+       * <pre>
+       **&lt; MAC address 
+       * </pre>
+       */
       public boolean hasMac() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      public String getMac() {
+      /**
+       * <code>required string mac = 2;</code>
+       *
+       * <pre>
+       **&lt; MAC address 
+       * </pre>
+       */
+      public java.lang.String getMac() {
         java.lang.Object ref = mac_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           mac_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setMac(String value) {
+      /**
+       * <code>required string mac = 2;</code>
+       *
+       * <pre>
+       **&lt; MAC address 
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getMacBytes() {
+        java.lang.Object ref = mac_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          mac_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string mac = 2;</code>
+       *
+       * <pre>
+       **&lt; MAC address 
+       * </pre>
+       */
+      public Builder setMac(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1428,34 +2311,96 @@ public final class NetworkInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>required string mac = 2;</code>
+       *
+       * <pre>
+       **&lt; MAC address 
+       * </pre>
+       */
       public Builder clearMac() {
         bitField0_ = (bitField0_ & ~0x00000002);
         mac_ = getDefaultInstance().getMac();
         onChanged();
         return this;
       }
-      void setMac(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000002;
+      /**
+       * <code>required string mac = 2;</code>
+       *
+       * <pre>
+       **&lt; MAC address 
+       * </pre>
+       */
+      public Builder setMacBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
         mac_ = value;
         onChanged();
+        return this;
       }
-      
+
       // optional string ipv4Addr = 3;
       private java.lang.Object ipv4Addr_ = "";
+      /**
+       * <code>optional string ipv4Addr = 3;</code>
+       *
+       * <pre>
+       **&lt; IPv4 address 
+       * </pre>
+       */
       public boolean hasIpv4Addr() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public String getIpv4Addr() {
+      /**
+       * <code>optional string ipv4Addr = 3;</code>
+       *
+       * <pre>
+       **&lt; IPv4 address 
+       * </pre>
+       */
+      public java.lang.String getIpv4Addr() {
         java.lang.Object ref = ipv4Addr_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           ipv4Addr_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setIpv4Addr(String value) {
+      /**
+       * <code>optional string ipv4Addr = 3;</code>
+       *
+       * <pre>
+       **&lt; IPv4 address 
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getIpv4AddrBytes() {
+        java.lang.Object ref = ipv4Addr_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ipv4Addr_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string ipv4Addr = 3;</code>
+       *
+       * <pre>
+       **&lt; IPv4 address 
+       * </pre>
+       */
+      public Builder setIpv4Addr(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1464,34 +2409,96 @@ public final class NetworkInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string ipv4Addr = 3;</code>
+       *
+       * <pre>
+       **&lt; IPv4 address 
+       * </pre>
+       */
       public Builder clearIpv4Addr() {
         bitField0_ = (bitField0_ & ~0x00000004);
         ipv4Addr_ = getDefaultInstance().getIpv4Addr();
         onChanged();
         return this;
       }
-      void setIpv4Addr(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000004;
+      /**
+       * <code>optional string ipv4Addr = 3;</code>
+       *
+       * <pre>
+       **&lt; IPv4 address 
+       * </pre>
+       */
+      public Builder setIpv4AddrBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
         ipv4Addr_ = value;
         onChanged();
+        return this;
       }
-      
+
       // optional string netMaskv4 = 4;
       private java.lang.Object netMaskv4_ = "";
+      /**
+       * <code>optional string netMaskv4 = 4;</code>
+       *
+       * <pre>
+       **&lt; IPv4 netmask 
+       * </pre>
+       */
       public boolean hasNetMaskv4() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public String getNetMaskv4() {
+      /**
+       * <code>optional string netMaskv4 = 4;</code>
+       *
+       * <pre>
+       **&lt; IPv4 netmask 
+       * </pre>
+       */
+      public java.lang.String getNetMaskv4() {
         java.lang.Object ref = netMaskv4_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           netMaskv4_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setNetMaskv4(String value) {
+      /**
+       * <code>optional string netMaskv4 = 4;</code>
+       *
+       * <pre>
+       **&lt; IPv4 netmask 
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getNetMaskv4Bytes() {
+        java.lang.Object ref = netMaskv4_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          netMaskv4_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string netMaskv4 = 4;</code>
+       *
+       * <pre>
+       **&lt; IPv4 netmask 
+       * </pre>
+       */
+      public Builder setNetMaskv4(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1500,34 +2507,96 @@ public final class NetworkInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string netMaskv4 = 4;</code>
+       *
+       * <pre>
+       **&lt; IPv4 netmask 
+       * </pre>
+       */
       public Builder clearNetMaskv4() {
         bitField0_ = (bitField0_ & ~0x00000008);
         netMaskv4_ = getDefaultInstance().getNetMaskv4();
         onChanged();
         return this;
       }
-      void setNetMaskv4(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000008;
+      /**
+       * <code>optional string netMaskv4 = 4;</code>
+       *
+       * <pre>
+       **&lt; IPv4 netmask 
+       * </pre>
+       */
+      public Builder setNetMaskv4Bytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
         netMaskv4_ = value;
         onChanged();
+        return this;
       }
-      
+
       // optional string ipv6Addr = 5;
       private java.lang.Object ipv6Addr_ = "";
+      /**
+       * <code>optional string ipv6Addr = 5;</code>
+       *
+       * <pre>
+       **&lt; IPv6 address 
+       * </pre>
+       */
       public boolean hasIpv6Addr() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
-      public String getIpv6Addr() {
+      /**
+       * <code>optional string ipv6Addr = 5;</code>
+       *
+       * <pre>
+       **&lt; IPv6 address 
+       * </pre>
+       */
+      public java.lang.String getIpv6Addr() {
         java.lang.Object ref = ipv6Addr_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           ipv6Addr_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setIpv6Addr(String value) {
+      /**
+       * <code>optional string ipv6Addr = 5;</code>
+       *
+       * <pre>
+       **&lt; IPv6 address 
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getIpv6AddrBytes() {
+        java.lang.Object ref = ipv6Addr_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ipv6Addr_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string ipv6Addr = 5;</code>
+       *
+       * <pre>
+       **&lt; IPv6 address 
+       * </pre>
+       */
+      public Builder setIpv6Addr(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1536,413 +2605,936 @@ public final class NetworkInfo {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string ipv6Addr = 5;</code>
+       *
+       * <pre>
+       **&lt; IPv6 address 
+       * </pre>
+       */
       public Builder clearIpv6Addr() {
         bitField0_ = (bitField0_ & ~0x00000010);
         ipv6Addr_ = getDefaultInstance().getIpv6Addr();
         onChanged();
         return this;
       }
-      void setIpv6Addr(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000010;
+      /**
+       * <code>optional string ipv6Addr = 5;</code>
+       *
+       * <pre>
+       **&lt; IPv6 address 
+       * </pre>
+       */
+      public Builder setIpv6AddrBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
         ipv6Addr_ = value;
         onChanged();
+        return this;
       }
-      
+
       // optional uint32 netMaskv6 = 6;
       private int netMaskv6_ ;
+      /**
+       * <code>optional uint32 netMaskv6 = 6;</code>
+       *
+       * <pre>
+       **&lt; IPv6 netmask 
+       * </pre>
+       */
       public boolean hasNetMaskv6() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
+      /**
+       * <code>optional uint32 netMaskv6 = 6;</code>
+       *
+       * <pre>
+       **&lt; IPv6 netmask 
+       * </pre>
+       */
       public int getNetMaskv6() {
         return netMaskv6_;
       }
+      /**
+       * <code>optional uint32 netMaskv6 = 6;</code>
+       *
+       * <pre>
+       **&lt; IPv6 netmask 
+       * </pre>
+       */
       public Builder setNetMaskv6(int value) {
         bitField0_ |= 0x00000020;
         netMaskv6_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>optional uint32 netMaskv6 = 6;</code>
+       *
+       * <pre>
+       **&lt; IPv6 netmask 
+       * </pre>
+       */
       public Builder clearNetMaskv6() {
         bitField0_ = (bitField0_ & ~0x00000020);
         netMaskv6_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint32 flags = 7;
       private int flags_ ;
+      /**
+       * <code>required uint32 flags = 7;</code>
+       *
+       * <pre>
+       **&lt; status flag 
+       * </pre>
+       */
       public boolean hasFlags() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
+      /**
+       * <code>required uint32 flags = 7;</code>
+       *
+       * <pre>
+       **&lt; status flag 
+       * </pre>
+       */
       public int getFlags() {
         return flags_;
       }
+      /**
+       * <code>required uint32 flags = 7;</code>
+       *
+       * <pre>
+       **&lt; status flag 
+       * </pre>
+       */
       public Builder setFlags(int value) {
         bitField0_ |= 0x00000040;
         flags_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 flags = 7;</code>
+       *
+       * <pre>
+       **&lt; status flag 
+       * </pre>
+       */
       public Builder clearFlags() {
         bitField0_ = (bitField0_ & ~0x00000040);
         flags_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint64 recvBytes = 8;
       private long recvBytes_ ;
+      /**
+       * <code>required uint64 recvBytes = 8;</code>
+       *
+       * <pre>
+       **&lt; received bytes 
+       * </pre>
+       */
       public boolean hasRecvBytes() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
       }
+      /**
+       * <code>required uint64 recvBytes = 8;</code>
+       *
+       * <pre>
+       **&lt; received bytes 
+       * </pre>
+       */
       public long getRecvBytes() {
         return recvBytes_;
       }
+      /**
+       * <code>required uint64 recvBytes = 8;</code>
+       *
+       * <pre>
+       **&lt; received bytes 
+       * </pre>
+       */
       public Builder setRecvBytes(long value) {
         bitField0_ |= 0x00000080;
         recvBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 recvBytes = 8;</code>
+       *
+       * <pre>
+       **&lt; received bytes 
+       * </pre>
+       */
       public Builder clearRecvBytes() {
         bitField0_ = (bitField0_ & ~0x00000080);
         recvBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 recvPackages = 9;
       private long recvPackages_ ;
+      /**
+       * <code>required uint64 recvPackages = 9;</code>
+       *
+       * <pre>
+       **&lt; received packages 
+       * </pre>
+       */
       public boolean hasRecvPackages() {
         return ((bitField0_ & 0x00000100) == 0x00000100);
       }
+      /**
+       * <code>required uint64 recvPackages = 9;</code>
+       *
+       * <pre>
+       **&lt; received packages 
+       * </pre>
+       */
       public long getRecvPackages() {
         return recvPackages_;
       }
+      /**
+       * <code>required uint64 recvPackages = 9;</code>
+       *
+       * <pre>
+       **&lt; received packages 
+       * </pre>
+       */
       public Builder setRecvPackages(long value) {
         bitField0_ |= 0x00000100;
         recvPackages_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 recvPackages = 9;</code>
+       *
+       * <pre>
+       **&lt; received packages 
+       * </pre>
+       */
       public Builder clearRecvPackages() {
         bitField0_ = (bitField0_ & ~0x00000100);
         recvPackages_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 recvErrorBytes = 10;
       private long recvErrorBytes_ ;
+      /**
+       * <code>required uint64 recvErrorBytes = 10;</code>
+       *
+       * <pre>
+       **&lt; error bytes when receiving 
+       * </pre>
+       */
       public boolean hasRecvErrorBytes() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
       }
+      /**
+       * <code>required uint64 recvErrorBytes = 10;</code>
+       *
+       * <pre>
+       **&lt; error bytes when receiving 
+       * </pre>
+       */
       public long getRecvErrorBytes() {
         return recvErrorBytes_;
       }
+      /**
+       * <code>required uint64 recvErrorBytes = 10;</code>
+       *
+       * <pre>
+       **&lt; error bytes when receiving 
+       * </pre>
+       */
       public Builder setRecvErrorBytes(long value) {
         bitField0_ |= 0x00000200;
         recvErrorBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 recvErrorBytes = 10;</code>
+       *
+       * <pre>
+       **&lt; error bytes when receiving 
+       * </pre>
+       */
       public Builder clearRecvErrorBytes() {
         bitField0_ = (bitField0_ & ~0x00000200);
         recvErrorBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 recvDropBytes = 11;
       private long recvDropBytes_ ;
+      /**
+       * <code>required uint64 recvDropBytes = 11;</code>
+       *
+       * <pre>
+       **&lt; drop bytes when receiving  
+       * </pre>
+       */
       public boolean hasRecvDropBytes() {
         return ((bitField0_ & 0x00000400) == 0x00000400);
       }
+      /**
+       * <code>required uint64 recvDropBytes = 11;</code>
+       *
+       * <pre>
+       **&lt; drop bytes when receiving  
+       * </pre>
+       */
       public long getRecvDropBytes() {
         return recvDropBytes_;
       }
+      /**
+       * <code>required uint64 recvDropBytes = 11;</code>
+       *
+       * <pre>
+       **&lt; drop bytes when receiving  
+       * </pre>
+       */
       public Builder setRecvDropBytes(long value) {
         bitField0_ |= 0x00000400;
         recvDropBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 recvDropBytes = 11;</code>
+       *
+       * <pre>
+       **&lt; drop bytes when receiving  
+       * </pre>
+       */
       public Builder clearRecvDropBytes() {
         bitField0_ = (bitField0_ & ~0x00000400);
         recvDropBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 recvFIFOBytes = 12;
       private long recvFIFOBytes_ ;
+      /**
+       * <code>required uint64 recvFIFOBytes = 12;</code>
+       *
+       * <pre>
+       **&lt; FIFO bytes when receiving 
+       * </pre>
+       */
       public boolean hasRecvFIFOBytes() {
         return ((bitField0_ & 0x00000800) == 0x00000800);
       }
+      /**
+       * <code>required uint64 recvFIFOBytes = 12;</code>
+       *
+       * <pre>
+       **&lt; FIFO bytes when receiving 
+       * </pre>
+       */
       public long getRecvFIFOBytes() {
         return recvFIFOBytes_;
       }
+      /**
+       * <code>required uint64 recvFIFOBytes = 12;</code>
+       *
+       * <pre>
+       **&lt; FIFO bytes when receiving 
+       * </pre>
+       */
       public Builder setRecvFIFOBytes(long value) {
         bitField0_ |= 0x00000800;
         recvFIFOBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 recvFIFOBytes = 12;</code>
+       *
+       * <pre>
+       **&lt; FIFO bytes when receiving 
+       * </pre>
+       */
       public Builder clearRecvFIFOBytes() {
         bitField0_ = (bitField0_ & ~0x00000800);
         recvFIFOBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 recvFrames = 13;
       private long recvFrames_ ;
+      /**
+       * <code>required uint64 recvFrames = 13;</code>
+       *
+       * <pre>
+       **&lt; received frames 
+       * </pre>
+       */
       public boolean hasRecvFrames() {
         return ((bitField0_ & 0x00001000) == 0x00001000);
       }
+      /**
+       * <code>required uint64 recvFrames = 13;</code>
+       *
+       * <pre>
+       **&lt; received frames 
+       * </pre>
+       */
       public long getRecvFrames() {
         return recvFrames_;
       }
+      /**
+       * <code>required uint64 recvFrames = 13;</code>
+       *
+       * <pre>
+       **&lt; received frames 
+       * </pre>
+       */
       public Builder setRecvFrames(long value) {
         bitField0_ |= 0x00001000;
         recvFrames_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 recvFrames = 13;</code>
+       *
+       * <pre>
+       **&lt; received frames 
+       * </pre>
+       */
       public Builder clearRecvFrames() {
         bitField0_ = (bitField0_ & ~0x00001000);
         recvFrames_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 recvCompressedBytes = 14;
       private long recvCompressedBytes_ ;
+      /**
+       * <code>required uint64 recvCompressedBytes = 14;</code>
+       *
+       * <pre>
+       **&lt; received compressed bytes 
+       * </pre>
+       */
       public boolean hasRecvCompressedBytes() {
         return ((bitField0_ & 0x00002000) == 0x00002000);
       }
+      /**
+       * <code>required uint64 recvCompressedBytes = 14;</code>
+       *
+       * <pre>
+       **&lt; received compressed bytes 
+       * </pre>
+       */
       public long getRecvCompressedBytes() {
         return recvCompressedBytes_;
       }
+      /**
+       * <code>required uint64 recvCompressedBytes = 14;</code>
+       *
+       * <pre>
+       **&lt; received compressed bytes 
+       * </pre>
+       */
       public Builder setRecvCompressedBytes(long value) {
         bitField0_ |= 0x00002000;
         recvCompressedBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 recvCompressedBytes = 14;</code>
+       *
+       * <pre>
+       **&lt; received compressed bytes 
+       * </pre>
+       */
       public Builder clearRecvCompressedBytes() {
         bitField0_ = (bitField0_ & ~0x00002000);
         recvCompressedBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 recvMultiCastBytes = 15;
       private long recvMultiCastBytes_ ;
+      /**
+       * <code>required uint64 recvMultiCastBytes = 15;</code>
+       *
+       * <pre>
+       **&lt; received multi-cast bytes 
+       * </pre>
+       */
       public boolean hasRecvMultiCastBytes() {
         return ((bitField0_ & 0x00004000) == 0x00004000);
       }
+      /**
+       * <code>required uint64 recvMultiCastBytes = 15;</code>
+       *
+       * <pre>
+       **&lt; received multi-cast bytes 
+       * </pre>
+       */
       public long getRecvMultiCastBytes() {
         return recvMultiCastBytes_;
       }
+      /**
+       * <code>required uint64 recvMultiCastBytes = 15;</code>
+       *
+       * <pre>
+       **&lt; received multi-cast bytes 
+       * </pre>
+       */
       public Builder setRecvMultiCastBytes(long value) {
         bitField0_ |= 0x00004000;
         recvMultiCastBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 recvMultiCastBytes = 15;</code>
+       *
+       * <pre>
+       **&lt; received multi-cast bytes 
+       * </pre>
+       */
       public Builder clearRecvMultiCastBytes() {
         bitField0_ = (bitField0_ & ~0x00004000);
         recvMultiCastBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 transBytes = 16;
       private long transBytes_ ;
+      /**
+       * <code>required uint64 transBytes = 16;</code>
+       *
+       * <pre>
+       **&lt; transmitted bytes 
+       * </pre>
+       */
       public boolean hasTransBytes() {
         return ((bitField0_ & 0x00008000) == 0x00008000);
       }
+      /**
+       * <code>required uint64 transBytes = 16;</code>
+       *
+       * <pre>
+       **&lt; transmitted bytes 
+       * </pre>
+       */
       public long getTransBytes() {
         return transBytes_;
       }
+      /**
+       * <code>required uint64 transBytes = 16;</code>
+       *
+       * <pre>
+       **&lt; transmitted bytes 
+       * </pre>
+       */
       public Builder setTransBytes(long value) {
         bitField0_ |= 0x00008000;
         transBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 transBytes = 16;</code>
+       *
+       * <pre>
+       **&lt; transmitted bytes 
+       * </pre>
+       */
       public Builder clearTransBytes() {
         bitField0_ = (bitField0_ & ~0x00008000);
         transBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 transPackages = 17;
       private long transPackages_ ;
+      /**
+       * <code>required uint64 transPackages = 17;</code>
+       *
+       * <pre>
+       **&lt; transmitted packages 
+       * </pre>
+       */
       public boolean hasTransPackages() {
         return ((bitField0_ & 0x00010000) == 0x00010000);
       }
+      /**
+       * <code>required uint64 transPackages = 17;</code>
+       *
+       * <pre>
+       **&lt; transmitted packages 
+       * </pre>
+       */
       public long getTransPackages() {
         return transPackages_;
       }
+      /**
+       * <code>required uint64 transPackages = 17;</code>
+       *
+       * <pre>
+       **&lt; transmitted packages 
+       * </pre>
+       */
       public Builder setTransPackages(long value) {
         bitField0_ |= 0x00010000;
         transPackages_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 transPackages = 17;</code>
+       *
+       * <pre>
+       **&lt; transmitted packages 
+       * </pre>
+       */
       public Builder clearTransPackages() {
         bitField0_ = (bitField0_ & ~0x00010000);
         transPackages_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 transErrorBytes = 18;
       private long transErrorBytes_ ;
+      /**
+       * <code>required uint64 transErrorBytes = 18;</code>
+       *
+       * <pre>
+       **&lt; error bytes when transmitting 
+       * </pre>
+       */
       public boolean hasTransErrorBytes() {
         return ((bitField0_ & 0x00020000) == 0x00020000);
       }
+      /**
+       * <code>required uint64 transErrorBytes = 18;</code>
+       *
+       * <pre>
+       **&lt; error bytes when transmitting 
+       * </pre>
+       */
       public long getTransErrorBytes() {
         return transErrorBytes_;
       }
+      /**
+       * <code>required uint64 transErrorBytes = 18;</code>
+       *
+       * <pre>
+       **&lt; error bytes when transmitting 
+       * </pre>
+       */
       public Builder setTransErrorBytes(long value) {
         bitField0_ |= 0x00020000;
         transErrorBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 transErrorBytes = 18;</code>
+       *
+       * <pre>
+       **&lt; error bytes when transmitting 
+       * </pre>
+       */
       public Builder clearTransErrorBytes() {
         bitField0_ = (bitField0_ & ~0x00020000);
         transErrorBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 transDropBytes = 19;
       private long transDropBytes_ ;
+      /**
+       * <code>required uint64 transDropBytes = 19;</code>
+       *
+       * <pre>
+       **&lt; dropped bytes when transmitting 
+       * </pre>
+       */
       public boolean hasTransDropBytes() {
         return ((bitField0_ & 0x00040000) == 0x00040000);
       }
+      /**
+       * <code>required uint64 transDropBytes = 19;</code>
+       *
+       * <pre>
+       **&lt; dropped bytes when transmitting 
+       * </pre>
+       */
       public long getTransDropBytes() {
         return transDropBytes_;
       }
+      /**
+       * <code>required uint64 transDropBytes = 19;</code>
+       *
+       * <pre>
+       **&lt; dropped bytes when transmitting 
+       * </pre>
+       */
       public Builder setTransDropBytes(long value) {
         bitField0_ |= 0x00040000;
         transDropBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 transDropBytes = 19;</code>
+       *
+       * <pre>
+       **&lt; dropped bytes when transmitting 
+       * </pre>
+       */
       public Builder clearTransDropBytes() {
         bitField0_ = (bitField0_ & ~0x00040000);
         transDropBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 transFIFOBytes = 20;
       private long transFIFOBytes_ ;
+      /**
+       * <code>required uint64 transFIFOBytes = 20;</code>
+       *
+       * <pre>
+       **&lt; FIFO bytes when transmitting 
+       * </pre>
+       */
       public boolean hasTransFIFOBytes() {
         return ((bitField0_ & 0x00080000) == 0x00080000);
       }
+      /**
+       * <code>required uint64 transFIFOBytes = 20;</code>
+       *
+       * <pre>
+       **&lt; FIFO bytes when transmitting 
+       * </pre>
+       */
       public long getTransFIFOBytes() {
         return transFIFOBytes_;
       }
+      /**
+       * <code>required uint64 transFIFOBytes = 20;</code>
+       *
+       * <pre>
+       **&lt; FIFO bytes when transmitting 
+       * </pre>
+       */
       public Builder setTransFIFOBytes(long value) {
         bitField0_ |= 0x00080000;
         transFIFOBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 transFIFOBytes = 20;</code>
+       *
+       * <pre>
+       **&lt; FIFO bytes when transmitting 
+       * </pre>
+       */
       public Builder clearTransFIFOBytes() {
         bitField0_ = (bitField0_ & ~0x00080000);
         transFIFOBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint64 transCompressedBytes = 21;
       private long transCompressedBytes_ ;
+      /**
+       * <code>required uint64 transCompressedBytes = 21;</code>
+       *
+       * <pre>
+       **&lt; transmitted compressed bytes 
+       * </pre>
+       */
       public boolean hasTransCompressedBytes() {
         return ((bitField0_ & 0x00100000) == 0x00100000);
       }
+      /**
+       * <code>required uint64 transCompressedBytes = 21;</code>
+       *
+       * <pre>
+       **&lt; transmitted compressed bytes 
+       * </pre>
+       */
       public long getTransCompressedBytes() {
         return transCompressedBytes_;
       }
+      /**
+       * <code>required uint64 transCompressedBytes = 21;</code>
+       *
+       * <pre>
+       **&lt; transmitted compressed bytes 
+       * </pre>
+       */
       public Builder setTransCompressedBytes(long value) {
         bitField0_ |= 0x00100000;
         transCompressedBytes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint64 transCompressedBytes = 21;</code>
+       *
+       * <pre>
+       **&lt; transmitted compressed bytes 
+       * </pre>
+       */
       public Builder clearTransCompressedBytes() {
         bitField0_ = (bitField0_ & ~0x00100000);
         transCompressedBytes_ = 0L;
         onChanged();
         return this;
       }
-      
+
       // required uint32 collisionTimes = 22;
       private int collisionTimes_ ;
+      /**
+       * <code>required uint32 collisionTimes = 22;</code>
+       *
+       * <pre>
+       **&lt; collision times 
+       * </pre>
+       */
       public boolean hasCollisionTimes() {
         return ((bitField0_ & 0x00200000) == 0x00200000);
       }
+      /**
+       * <code>required uint32 collisionTimes = 22;</code>
+       *
+       * <pre>
+       **&lt; collision times 
+       * </pre>
+       */
       public int getCollisionTimes() {
         return collisionTimes_;
       }
+      /**
+       * <code>required uint32 collisionTimes = 22;</code>
+       *
+       * <pre>
+       **&lt; collision times 
+       * </pre>
+       */
       public Builder setCollisionTimes(int value) {
         bitField0_ |= 0x00200000;
         collisionTimes_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 collisionTimes = 22;</code>
+       *
+       * <pre>
+       **&lt; collision times 
+       * </pre>
+       */
       public Builder clearCollisionTimes() {
         bitField0_ = (bitField0_ & ~0x00200000);
         collisionTimes_ = 0;
         onChanged();
         return this;
       }
-      
+
       // required uint32 carrierErrors = 23;
       private int carrierErrors_ ;
+      /**
+       * <code>required uint32 carrierErrors = 23;</code>
+       *
+       * <pre>
+       **&lt; carrier error times 
+       * </pre>
+       */
       public boolean hasCarrierErrors() {
         return ((bitField0_ & 0x00400000) == 0x00400000);
       }
+      /**
+       * <code>required uint32 carrierErrors = 23;</code>
+       *
+       * <pre>
+       **&lt; carrier error times 
+       * </pre>
+       */
       public int getCarrierErrors() {
         return carrierErrors_;
       }
+      /**
+       * <code>required uint32 carrierErrors = 23;</code>
+       *
+       * <pre>
+       **&lt; carrier error times 
+       * </pre>
+       */
       public Builder setCarrierErrors(int value) {
         bitField0_ |= 0x00400000;
         carrierErrors_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>required uint32 carrierErrors = 23;</code>
+       *
+       * <pre>
+       **&lt; carrier error times 
+       * </pre>
+       */
       public Builder clearCarrierErrors() {
         bitField0_ = (bitField0_ & ~0x00400000);
         carrierErrors_ = 0;
         onChanged();
         return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:com.eolwral.osmonitor.core.networkInfo)
     }
-    
+
     static {
       defaultInstance = new networkInfo(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.networkInfo)
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_eolwral_osmonitor_core_networkInfo_fieldAccessorTable;
-  
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -1976,9 +3568,7 @@ public final class NetworkInfo {
           internal_static_com_eolwral_osmonitor_core_networkInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor,
-              new java.lang.String[] { "Name", "Mac", "Ipv4Addr", "NetMaskv4", "Ipv6Addr", "NetMaskv6", "Flags", "RecvBytes", "RecvPackages", "RecvErrorBytes", "RecvDropBytes", "RecvFIFOBytes", "RecvFrames", "RecvCompressedBytes", "RecvMultiCastBytes", "TransBytes", "TransPackages", "TransErrorBytes", "TransDropBytes", "TransFIFOBytes", "TransCompressedBytes", "CollisionTimes", "CarrierErrors", },
-              com.eolwral.osmonitor.core.NetworkInfo.networkInfo.class,
-              com.eolwral.osmonitor.core.NetworkInfo.networkInfo.Builder.class);
+              new java.lang.String[] { "Name", "Mac", "Ipv4Addr", "NetMaskv4", "Ipv6Addr", "NetMaskv6", "Flags", "RecvBytes", "RecvPackages", "RecvErrorBytes", "RecvDropBytes", "RecvFIFOBytes", "RecvFrames", "RecvCompressedBytes", "RecvMultiCastBytes", "TransBytes", "TransPackages", "TransErrorBytes", "TransDropBytes", "TransFIFOBytes", "TransCompressedBytes", "CollisionTimes", "CarrierErrors", });
           return null;
         }
       };
@@ -1987,6 +3577,6 @@ public final class NetworkInfo {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
+
   // @@protoc_insertion_point(outer_class_scope)
 }

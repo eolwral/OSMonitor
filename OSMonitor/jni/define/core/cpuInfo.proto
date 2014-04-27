@@ -9,7 +9,8 @@ message cpuInfo {
   required uint64 irqTime = 6;      /**< servicing interrupts */
   required uint64 softIRQTime = 7;  /**< servicing softirqs */
   required float  cpuUtilization = 8; /**< CPU utilization */
-  required uint64 cpuTime = 9;      /**< CPU Time */
-  optional uint32 cpuNumber = 10;   /**< CPU Number */
-  optional bool offLine = 11;       /**< CPU Offline */
+  required float  IoUtilization = 9; /**< CPU utilization */
+  required uint64 cpuTime = 10;      /**< CPU Time */
+  optional uint32 cpuNumber = 11;   /**< CPU Number */
+  optional bool offLine = 12;       /**< CPU Offline */
 }

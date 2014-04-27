@@ -249,14 +249,23 @@ namespace ipc {
     return (waitNumber);
   }
 
-  void ipcserver::extractToken(char* loc)
+  void ipcserver::extractToken(char* fileName)
   {
-    // save token
-    token.assign(loc);
+    // load token from file
+    char tokenloc[BUFFERSIZE];
+    memset(tokenloc, 0, BUFFERSIZE);
+    FILE* tokenFile = fopen(fileName, "r");
+    if (tokenFile == NULL) return;
+    fread(tokenloc, sizeof(char), BUFFERSIZE, tokenFile);
+    fclose(tokenFile);
+    tokenloc[BUFFERSIZE-1] = '\0';
 
-    // erase token (for secure communication)
-    int size = strlen(loc);
-    memset(loc, 'x', size);
+    // save token
+    token.assign(tokenloc);
+
+    // erase token filename (for secure communication)
+    int size = strlen(fileName);
+    memset(fileName, 'x', size);
 
     return;
   }

@@ -3,6 +3,7 @@ package com.eolwral.osmonitor.util;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
@@ -111,44 +112,6 @@ public class CommonUtil {
 	  File dbFile=context.getDatabasePath(dbName);
 	  return dbFile.exists();
   }
-
-  /**
-   * get native library 
-   * @param context 
-   * @return native library path
-   */
-  @SuppressLint("SdCardPath") 
-  public static String getNativeLibrary(Context context) {
-
-	  ApplicationInfo info = context.getApplicationInfo();
-	  
-	  try {
-		  // use standard way
-		  String library = info.nativeLibraryDir + "/" + binaryName;
-		  File nativeFile = new File(library);
-		  if(nativeFile.exists()) return library;
-	  } catch (Exception e) {} 
-
-	  try {
-		  // check via dataDir
-		  String library = info.dataDir + "/lib/" + binaryName;
-		  File nativeFile = new File(library);
-		  if(nativeFile.exists()) return library;
-	  } catch (Exception e) {} 
-
-	  try {
-		  // force check 
-		  for (int num = 1; num < 5; num++) {
-			  // check via app-lib
-			  String library = "/data/app-lib/" + context.getPackageName() + "-" + num + "/" + binaryName;
-			  File nativeFile = new File(library);
-			  if(nativeFile.exists()) return library;
-		  }
-	  } catch (Exception e) {}
-
-	  // final fail-over
-	  return "/data/data/com.eolwral.osmonitor/lib/" + binaryName;
-  }
   
   /**
    * copy a binary from asset directory to working directory.
@@ -192,6 +155,23 @@ public class CommonUtil {
   }
   
   /**
+   * write a security token file 
+   * @param tokenFilePath path of the security token
+   * @param token security token
+   * @return true or false
+   */
+  private static boolean writeTokenFile(String tokenFilePath, String token) {
+	try {
+		FileWriter file  = new FileWriter(tokenFilePath);
+		file.write(token);
+		file.close();
+	} catch (IOException e) {
+		return false;
+	}
+	return true;
+  }
+  
+  /**
    * execute osmcore as a binary execute
    * @param context
    * @throws InterruptedException 
@@ -202,10 +182,14 @@ public class CommonUtil {
 		return false;
 	
 	String binary = context.getFilesDir().getAbsolutePath()+"/"+binaryName;
+	final Settings settings = Settings.getInstance(context);
+
 	// copy file 
 	if(!copyFile("osmcore", binary, context))
 		return false; 
 
+	// write token file
+	writeTokenFile(binary+".token", settings.getToken());
 
 	// lock file
 	File file = new File(binary+".lock");
@@ -220,31 +204,11 @@ public class CommonUtil {
 	
 	// execute osmcore
 	try {
-		final Settings settings = Settings.getInstance(context);
-		
-		Process process = null;
-		
+		Runtime.getRuntime().exec("chmod 755 " + binary);
 		if (!settings.isRoot()) 
-			process = Runtime.getRuntime().exec("sh");
+			Runtime.getRuntime().exec(binary+" "+binary+".token");
 		else
-			process = Runtime.getRuntime().exec("su");
-		
-		DataOutputStream os = new DataOutputStream(process.getOutputStream());
-
-		os.writeBytes("chmod 755 " + binary + "\n");
-
-		// !! CM11 will terminate orphan process with root permission
-		if (isCyanogenMod() && isKitKat() && settings.isRoot()) { 
-			os.writeBytes(binary + " " + settings.getToken().toString()+ ";exit\n");
-			Thread.sleep(500);
-			process.destroy();
-		}
-		else {
-			os.writeBytes(binary + " " + settings.getToken().toString()+ " &\n");
-			os.writeBytes("exit \n");
-			process.waitFor();
-		}
-
+			Runtime.getRuntime().exec("su -c "+binary+" "+binary+".token");
 	} catch (Exception e) {
 		return false;
 	}
@@ -256,28 +220,6 @@ public class CommonUtil {
 	} catch (Exception e) {}
        
 	return true;
-  }
-  
-  /**
-   * detect CyanogenMod
-   * @return true == CM, false == non-CM
-   */
-  public static boolean isCyanogenMod() {
-	  String version = System.getProperty("os.version");
-	  if (version.contains("cyanogenmod")) 
-	      return true;
-	  return false;
-  }
-  
-  /**
-   * detect KitKat
-   * @return true == KitKat, false == non-KitKat
-   */
-  public static boolean isKitKat() {
-	  final int KITKAT = 19;
-	  if (Build.VERSION.SDK_INT == KITKAT)
-		  return true;
-	  return false;
   }
   
   /**

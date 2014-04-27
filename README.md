@@ -63,6 +63,10 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.0.9.8**
+
+- Revert code to fix "No Data" issue
+
 **Version 3.0.9.5**
 
 - Fix "No Data" issue

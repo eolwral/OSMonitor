@@ -29,4 +29,7 @@ message networkInfo {
 
   required uint32 collisionTimes = 22;        /**< collision times */
   required uint32 carrierErrors = 23;         /**< carrier error times */  
+  
+  required uint64 transUsage = 24;         /**< transmitted usage */
+  required uint64 recvUsage = 25;         /**< received usage */
 }

@@ -37,7 +37,7 @@ void protobuf_AssignDesc_networkInfo_2eproto() {
       "networkInfo.proto");
   GOOGLE_CHECK(file != NULL);
   networkInfo_descriptor_ = file->message_type(0);
-  static const int networkInfo_offsets_[23] = {
+  static const int networkInfo_offsets_[25] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(networkInfo, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(networkInfo, mac_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(networkInfo, ipv4addr_),
@@ -61,6 +61,8 @@ void protobuf_AssignDesc_networkInfo_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(networkInfo, transcompressedbytes_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(networkInfo, collisiontimes_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(networkInfo, carriererrors_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(networkInfo, transusage_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(networkInfo, recvusage_),
   };
   networkInfo_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -104,7 +106,7 @@ void protobuf_AddDesc_networkInfo_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\021networkInfo.proto\022\032com.eolwral.osmonit"
-    "or.core\"\376\003\n\013networkInfo\022\014\n\004name\030\001 \002(\t\022\013\n"
+    "or.core\"\245\004\n\013networkInfo\022\014\n\004name\030\001 \002(\t\022\013\n"
     "\003mac\030\002 \002(\t\022\020\n\010ipv4Addr\030\003 \001(\t\022\021\n\tnetMaskv"
     "4\030\004 \001(\t\022\020\n\010ipv6Addr\030\005 \001(\t\022\021\n\tnetMaskv6\030\006"
     " \001(\r\022\r\n\005flags\030\007 \002(\r\022\021\n\trecvBytes\030\010 \002(\004\022\024"
@@ -116,7 +118,8 @@ void protobuf_AddDesc_networkInfo_2eproto() {
     "ages\030\021 \002(\004\022\027\n\017transErrorBytes\030\022 \002(\004\022\026\n\016t"
     "ransDropBytes\030\023 \002(\004\022\026\n\016transFIFOBytes\030\024 "
     "\002(\004\022\034\n\024transCompressedBytes\030\025 \002(\004\022\026\n\016col"
-    "lisionTimes\030\026 \002(\r\022\025\n\rcarrierErrors\030\027 \002(\r", 560);
+    "lisionTimes\030\026 \002(\r\022\025\n\rcarrierErrors\030\027 \002(\r"
+    "\022\022\n\ntransUsage\030\030 \002(\004\022\021\n\trecvUsage\030\031 \002(\004", 599);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "networkInfo.proto", &protobuf_RegisterTypes);
   networkInfo::default_instance_ = new networkInfo();
@@ -157,6 +160,8 @@ const int networkInfo::kTransFIFOBytesFieldNumber;
 const int networkInfo::kTransCompressedBytesFieldNumber;
 const int networkInfo::kCollisionTimesFieldNumber;
 const int networkInfo::kCarrierErrorsFieldNumber;
+const int networkInfo::kTransUsageFieldNumber;
+const int networkInfo::kRecvUsageFieldNumber;
 #endif  // !_MSC_VER
 
 networkInfo::networkInfo()
@@ -198,6 +203,8 @@ void networkInfo::SharedCtor() {
   transcompressedbytes_ = GOOGLE_ULONGLONG(0);
   collisiontimes_ = 0u;
   carriererrors_ = 0u;
+  transusage_ = GOOGLE_ULONGLONG(0);
+  recvusage_ = GOOGLE_ULONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -295,6 +302,10 @@ void networkInfo::Clear() {
     transcompressedbytes_ = GOOGLE_ULONGLONG(0);
     collisiontimes_ = 0u;
     carriererrors_ = 0u;
+    transusage_ = GOOGLE_ULONGLONG(0);
+  }
+  if (_has_bits_[24 / 32] & (0xffu << (24 % 32))) {
+    recvusage_ = GOOGLE_ULONGLONG(0);
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -674,6 +685,38 @@ bool networkInfo::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(192)) goto parse_transUsage;
+        break;
+      }
+
+      // required uint64 transUsage = 24;
+      case 24: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_transUsage:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &transusage_)));
+          set_has_transusage();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(200)) goto parse_recvUsage;
+        break;
+      }
+
+      // required uint64 recvUsage = 25;
+      case 25: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_recvUsage:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
+                 input, &recvusage_)));
+          set_has_recvusage();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -831,6 +874,16 @@ void networkInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(23, this->carriererrors(), output);
   }
 
+  // required uint64 transUsage = 24;
+  if (has_transusage()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(24, this->transusage(), output);
+  }
+
+  // required uint64 recvUsage = 25;
+  if (has_recvusage()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt64(25, this->recvusage(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -977,6 +1030,16 @@ void networkInfo::SerializeWithCachedSizes(
   // required uint32 carrierErrors = 23;
   if (has_carriererrors()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(23, this->carriererrors(), target);
+  }
+
+  // required uint64 transUsage = 24;
+  if (has_transusage()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(24, this->transusage(), target);
+  }
+
+  // required uint64 recvUsage = 25;
+  if (has_recvusage()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(25, this->recvusage(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1155,6 +1218,22 @@ int networkInfo::ByteSize() const {
           this->carriererrors());
     }
 
+    // required uint64 transUsage = 24;
+    if (has_transusage()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->transusage());
+    }
+
+  }
+  if (_has_bits_[24 / 32] & (0xffu << (24 % 32))) {
+    // required uint64 recvUsage = 25;
+    if (has_recvusage()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::UInt64Size(
+          this->recvusage());
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -1255,6 +1334,14 @@ void networkInfo::MergeFrom(const networkInfo& from) {
     if (from.has_carriererrors()) {
       set_carriererrors(from.carriererrors());
     }
+    if (from.has_transusage()) {
+      set_transusage(from.transusage());
+    }
+  }
+  if (from._has_bits_[24 / 32] & (0xffu << (24 % 32))) {
+    if (from.has_recvusage()) {
+      set_recvusage(from.recvusage());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1272,7 +1359,7 @@ void networkInfo::CopyFrom(const networkInfo& from) {
 }
 
 bool networkInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x007fffc3) != 0x007fffc3) return false;
+  if ((_has_bits_[0] & 0x01ffffc3) != 0x01ffffc3) return false;
 
   return true;
 }
@@ -1302,6 +1389,8 @@ void networkInfo::Swap(networkInfo* other) {
     std::swap(transcompressedbytes_, other->transcompressedbytes_);
     std::swap(collisiontimes_, other->collisiontimes_);
     std::swap(carriererrors_, other->carriererrors_);
+    std::swap(transusage_, other->transusage_);
+    std::swap(recvusage_, other->recvusage_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

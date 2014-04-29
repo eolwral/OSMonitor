@@ -21,7 +21,7 @@
 #include "networkInfo.pb.h"
 
 #define INT_IPV4_FILE "/proc/%d/net/dev"
-#define INT_IPV4_PATTERN " %[^:]:%lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %u %u %lu"
+#define INT_IPV4_PATTERN " %[^:]: %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %u %u %lu"
 
 #define INT_MAC_FILE "/sys/class/net/%s/address"
 #define INT_RX_FILE "sys/class/net/%s/statistics/rx_bytes"
@@ -43,7 +43,8 @@ namespace core {
   {
   private:
     const static int BufferSize = 256;          /**< internal buffer size */
-    std::vector<networkInfo*> _curNetworkList;  /**< internal network list */
+    std::vector<networkInfo*> _curNetworkList;  /**< current network list */
+    std::vector<networkInfo*> _prevNetworkList;  /**< previous network list */
 
     /**
      * get interface information
@@ -54,6 +55,11 @@ namespace core {
      * get IPv6 information
      */
     void getIPv6Information();
+
+    /**
+     * calculate Network IO information
+     */
+    void calculateNetworkIO();
 
     /**
      * get IPv4 information

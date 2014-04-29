@@ -469,6 +469,42 @@ public final class NetworkInfo {
      * </pre>
      */
     int getCarrierErrors();
+
+    // required uint64 transUsage = 24;
+    /**
+     * <code>required uint64 transUsage = 24;</code>
+     *
+     * <pre>
+     **&lt; transmitted usage 
+     * </pre>
+     */
+    boolean hasTransUsage();
+    /**
+     * <code>required uint64 transUsage = 24;</code>
+     *
+     * <pre>
+     **&lt; transmitted usage 
+     * </pre>
+     */
+    long getTransUsage();
+
+    // required uint64 recvUsage = 25;
+    /**
+     * <code>required uint64 recvUsage = 25;</code>
+     *
+     * <pre>
+     **&lt; received usage 
+     * </pre>
+     */
+    boolean hasRecvUsage();
+    /**
+     * <code>required uint64 recvUsage = 25;</code>
+     *
+     * <pre>
+     **&lt; received usage 
+     * </pre>
+     */
+    long getRecvUsage();
   }
   /**
    * Protobuf type {@code com.eolwral.osmonitor.core.networkInfo}
@@ -634,6 +670,16 @@ public final class NetworkInfo {
             case 184: {
               bitField0_ |= 0x00400000;
               carrierErrors_ = input.readUInt32();
+              break;
+            }
+            case 192: {
+              bitField0_ |= 0x00800000;
+              transUsage_ = input.readUInt64();
+              break;
+            }
+            case 200: {
+              bitField0_ |= 0x01000000;
+              recvUsage_ = input.readUInt64();
               break;
             }
           }
@@ -1383,6 +1429,54 @@ public final class NetworkInfo {
       return carrierErrors_;
     }
 
+    // required uint64 transUsage = 24;
+    public static final int TRANSUSAGE_FIELD_NUMBER = 24;
+    private long transUsage_;
+    /**
+     * <code>required uint64 transUsage = 24;</code>
+     *
+     * <pre>
+     **&lt; transmitted usage 
+     * </pre>
+     */
+    public boolean hasTransUsage() {
+      return ((bitField0_ & 0x00800000) == 0x00800000);
+    }
+    /**
+     * <code>required uint64 transUsage = 24;</code>
+     *
+     * <pre>
+     **&lt; transmitted usage 
+     * </pre>
+     */
+    public long getTransUsage() {
+      return transUsage_;
+    }
+
+    // required uint64 recvUsage = 25;
+    public static final int RECVUSAGE_FIELD_NUMBER = 25;
+    private long recvUsage_;
+    /**
+     * <code>required uint64 recvUsage = 25;</code>
+     *
+     * <pre>
+     **&lt; received usage 
+     * </pre>
+     */
+    public boolean hasRecvUsage() {
+      return ((bitField0_ & 0x01000000) == 0x01000000);
+    }
+    /**
+     * <code>required uint64 recvUsage = 25;</code>
+     *
+     * <pre>
+     **&lt; received usage 
+     * </pre>
+     */
+    public long getRecvUsage() {
+      return recvUsage_;
+    }
+
     private void initFields() {
       name_ = "";
       mac_ = "";
@@ -1407,6 +1501,8 @@ public final class NetworkInfo {
       transCompressedBytes_ = 0L;
       collisionTimes_ = 0;
       carrierErrors_ = 0;
+      transUsage_ = 0L;
+      recvUsage_ = 0L;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1489,6 +1585,14 @@ public final class NetworkInfo {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasTransUsage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRecvUsage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1564,6 +1668,12 @@ public final class NetworkInfo {
       }
       if (((bitField0_ & 0x00400000) == 0x00400000)) {
         output.writeUInt32(23, carrierErrors_);
+      }
+      if (((bitField0_ & 0x00800000) == 0x00800000)) {
+        output.writeUInt64(24, transUsage_);
+      }
+      if (((bitField0_ & 0x01000000) == 0x01000000)) {
+        output.writeUInt64(25, recvUsage_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1665,6 +1775,14 @@ public final class NetworkInfo {
       if (((bitField0_ & 0x00400000) == 0x00400000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(23, carrierErrors_);
+      }
+      if (((bitField0_ & 0x00800000) == 0x00800000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(24, transUsage_);
+      }
+      if (((bitField0_ & 0x01000000) == 0x01000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(25, recvUsage_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1828,6 +1946,10 @@ public final class NetworkInfo {
         bitField0_ = (bitField0_ & ~0x00200000);
         carrierErrors_ = 0;
         bitField0_ = (bitField0_ & ~0x00400000);
+        transUsage_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00800000);
+        recvUsage_ = 0L;
+        bitField0_ = (bitField0_ & ~0x01000000);
         return this;
       }
 
@@ -1948,6 +2070,14 @@ public final class NetworkInfo {
           to_bitField0_ |= 0x00400000;
         }
         result.carrierErrors_ = carrierErrors_;
+        if (((from_bitField0_ & 0x00800000) == 0x00800000)) {
+          to_bitField0_ |= 0x00800000;
+        }
+        result.transUsage_ = transUsage_;
+        if (((from_bitField0_ & 0x01000000) == 0x01000000)) {
+          to_bitField0_ |= 0x01000000;
+        }
+        result.recvUsage_ = recvUsage_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2043,6 +2173,12 @@ public final class NetworkInfo {
         if (other.hasCarrierErrors()) {
           setCarrierErrors(other.getCarrierErrors());
         }
+        if (other.hasTransUsage()) {
+          setTransUsage(other.getTransUsage());
+        }
+        if (other.hasRecvUsage()) {
+          setRecvUsage(other.getRecvUsage());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -2121,6 +2257,14 @@ public final class NetworkInfo {
           return false;
         }
         if (!hasCarrierErrors()) {
+          
+          return false;
+        }
+        if (!hasTransUsage()) {
+          
+          return false;
+        }
+        if (!hasRecvUsage()) {
           
           return false;
         }
@@ -3518,6 +3662,104 @@ public final class NetworkInfo {
         return this;
       }
 
+      // required uint64 transUsage = 24;
+      private long transUsage_ ;
+      /**
+       * <code>required uint64 transUsage = 24;</code>
+       *
+       * <pre>
+       **&lt; transmitted usage 
+       * </pre>
+       */
+      public boolean hasTransUsage() {
+        return ((bitField0_ & 0x00800000) == 0x00800000);
+      }
+      /**
+       * <code>required uint64 transUsage = 24;</code>
+       *
+       * <pre>
+       **&lt; transmitted usage 
+       * </pre>
+       */
+      public long getTransUsage() {
+        return transUsage_;
+      }
+      /**
+       * <code>required uint64 transUsage = 24;</code>
+       *
+       * <pre>
+       **&lt; transmitted usage 
+       * </pre>
+       */
+      public Builder setTransUsage(long value) {
+        bitField0_ |= 0x00800000;
+        transUsage_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 transUsage = 24;</code>
+       *
+       * <pre>
+       **&lt; transmitted usage 
+       * </pre>
+       */
+      public Builder clearTransUsage() {
+        bitField0_ = (bitField0_ & ~0x00800000);
+        transUsage_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      // required uint64 recvUsage = 25;
+      private long recvUsage_ ;
+      /**
+       * <code>required uint64 recvUsage = 25;</code>
+       *
+       * <pre>
+       **&lt; received usage 
+       * </pre>
+       */
+      public boolean hasRecvUsage() {
+        return ((bitField0_ & 0x01000000) == 0x01000000);
+      }
+      /**
+       * <code>required uint64 recvUsage = 25;</code>
+       *
+       * <pre>
+       **&lt; received usage 
+       * </pre>
+       */
+      public long getRecvUsage() {
+        return recvUsage_;
+      }
+      /**
+       * <code>required uint64 recvUsage = 25;</code>
+       *
+       * <pre>
+       **&lt; received usage 
+       * </pre>
+       */
+      public Builder setRecvUsage(long value) {
+        bitField0_ |= 0x01000000;
+        recvUsage_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required uint64 recvUsage = 25;</code>
+       *
+       * <pre>
+       **&lt; received usage 
+       * </pre>
+       */
+      public Builder clearRecvUsage() {
+        bitField0_ = (bitField0_ & ~0x01000000);
+        recvUsage_ = 0L;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:com.eolwral.osmonitor.core.networkInfo)
     }
 
@@ -3544,7 +3786,7 @@ public final class NetworkInfo {
   static {
     java.lang.String[] descriptorData = {
       "\n\021networkInfo.proto\022\032com.eolwral.osmonit" +
-      "or.core\"\376\003\n\013networkInfo\022\014\n\004name\030\001 \002(\t\022\013\n" +
+      "or.core\"\245\004\n\013networkInfo\022\014\n\004name\030\001 \002(\t\022\013\n" +
       "\003mac\030\002 \002(\t\022\020\n\010ipv4Addr\030\003 \001(\t\022\021\n\tnetMaskv" +
       "4\030\004 \001(\t\022\020\n\010ipv6Addr\030\005 \001(\t\022\021\n\tnetMaskv6\030\006" +
       " \001(\r\022\r\n\005flags\030\007 \002(\r\022\021\n\trecvBytes\030\010 \002(\004\022\024" +
@@ -3556,7 +3798,8 @@ public final class NetworkInfo {
       "ages\030\021 \002(\004\022\027\n\017transErrorBytes\030\022 \002(\004\022\026\n\016t" +
       "ransDropBytes\030\023 \002(\004\022\026\n\016transFIFOBytes\030\024 " +
       "\002(\004\022\034\n\024transCompressedBytes\030\025 \002(\004\022\026\n\016col" +
-      "lisionTimes\030\026 \002(\r\022\025\n\rcarrierErrors\030\027 \002(\r"
+      "lisionTimes\030\026 \002(\r\022\025\n\rcarrierErrors\030\027 \002(\r" +
+      "\022\022\n\ntransUsage\030\030 \002(\004\022\021\n\trecvUsage\030\031 \002(\004"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3568,7 +3811,7 @@ public final class NetworkInfo {
           internal_static_com_eolwral_osmonitor_core_networkInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor,
-              new java.lang.String[] { "Name", "Mac", "Ipv4Addr", "NetMaskv4", "Ipv6Addr", "NetMaskv6", "Flags", "RecvBytes", "RecvPackages", "RecvErrorBytes", "RecvDropBytes", "RecvFIFOBytes", "RecvFrames", "RecvCompressedBytes", "RecvMultiCastBytes", "TransBytes", "TransPackages", "TransErrorBytes", "TransDropBytes", "TransFIFOBytes", "TransCompressedBytes", "CollisionTimes", "CarrierErrors", });
+              new java.lang.String[] { "Name", "Mac", "Ipv4Addr", "NetMaskv4", "Ipv6Addr", "NetMaskv6", "Flags", "RecvBytes", "RecvPackages", "RecvErrorBytes", "RecvDropBytes", "RecvFIFOBytes", "RecvFrames", "RecvCompressedBytes", "RecvMultiCastBytes", "TransBytes", "TransPackages", "TransErrorBytes", "TransDropBytes", "TransFIFOBytes", "TransCompressedBytes", "CollisionTimes", "CarrierErrors", "TransUsage", "RecvUsage", });
           return null;
         }
       };

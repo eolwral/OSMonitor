@@ -280,6 +280,20 @@ class networkInfo : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 carriererrors() const;
   inline void set_carriererrors(::google::protobuf::uint32 value);
 
+  // required uint64 transUsage = 24;
+  inline bool has_transusage() const;
+  inline void clear_transusage();
+  static const int kTransUsageFieldNumber = 24;
+  inline ::google::protobuf::uint64 transusage() const;
+  inline void set_transusage(::google::protobuf::uint64 value);
+
+  // required uint64 recvUsage = 25;
+  inline bool has_recvusage() const;
+  inline void clear_recvusage();
+  static const int kRecvUsageFieldNumber = 25;
+  inline ::google::protobuf::uint64 recvusage() const;
+  inline void set_recvusage(::google::protobuf::uint64 value);
+
   // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.networkInfo)
  private:
   inline void set_has_name();
@@ -328,6 +342,10 @@ class networkInfo : public ::google::protobuf::Message {
   inline void clear_has_collisiontimes();
   inline void set_has_carriererrors();
   inline void clear_has_carriererrors();
+  inline void set_has_transusage();
+  inline void clear_has_transusage();
+  inline void set_has_recvusage();
+  inline void clear_has_recvusage();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -354,9 +372,11 @@ class networkInfo : public ::google::protobuf::Message {
   ::google::protobuf::uint64 transcompressedbytes_;
   ::google::protobuf::uint32 collisiontimes_;
   ::google::protobuf::uint32 carriererrors_;
+  ::google::protobuf::uint64 transusage_;
+  ::google::protobuf::uint64 recvusage_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(23 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(25 + 31) / 32];
 
   friend void  protobuf_AddDesc_networkInfo_2eproto();
   friend void protobuf_AssignDesc_networkInfo_2eproto();
@@ -1116,6 +1136,50 @@ inline ::google::protobuf::uint32 networkInfo::carriererrors() const {
 inline void networkInfo::set_carriererrors(::google::protobuf::uint32 value) {
   set_has_carriererrors();
   carriererrors_ = value;
+}
+
+// required uint64 transUsage = 24;
+inline bool networkInfo::has_transusage() const {
+  return (_has_bits_[0] & 0x00800000u) != 0;
+}
+inline void networkInfo::set_has_transusage() {
+  _has_bits_[0] |= 0x00800000u;
+}
+inline void networkInfo::clear_has_transusage() {
+  _has_bits_[0] &= ~0x00800000u;
+}
+inline void networkInfo::clear_transusage() {
+  transusage_ = GOOGLE_ULONGLONG(0);
+  clear_has_transusage();
+}
+inline ::google::protobuf::uint64 networkInfo::transusage() const {
+  return transusage_;
+}
+inline void networkInfo::set_transusage(::google::protobuf::uint64 value) {
+  set_has_transusage();
+  transusage_ = value;
+}
+
+// required uint64 recvUsage = 25;
+inline bool networkInfo::has_recvusage() const {
+  return (_has_bits_[0] & 0x01000000u) != 0;
+}
+inline void networkInfo::set_has_recvusage() {
+  _has_bits_[0] |= 0x01000000u;
+}
+inline void networkInfo::clear_has_recvusage() {
+  _has_bits_[0] &= ~0x01000000u;
+}
+inline void networkInfo::clear_recvusage() {
+  recvusage_ = GOOGLE_ULONGLONG(0);
+  clear_has_recvusage();
+}
+inline ::google::protobuf::uint64 networkInfo::recvusage() const {
+  return recvusage_;
+}
+inline void networkInfo::set_recvusage(::google::protobuf::uint64 value) {
+  set_has_recvusage();
+  recvusage_ = value;
 }
 
 

@@ -12,12 +12,17 @@ namespace core {
 
   network::~network()
   {
-    // clean up _lastCPUStatus
+    // clean up
     this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curNetworkList);
+    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_prevNetworkList);
   }
 
   void network::refresh()
   {
+    // move current to previous
+    this->moveDataSet((std::vector<google::protobuf::Message*>&) this->_curNetworkList,
+                   			  (std::vector<google::protobuf::Message*>&) this->_prevNetworkList);
+
     // clean up
     this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curNetworkList);
 
@@ -42,6 +47,30 @@ namespace core {
     // get IPv6 address (for performance, we do it once)
     this->getIPv6Information();
 
+    // calculate IO utilization
+    this->calculateNetworkIO();
+
+    return;
+  }
+
+  void network::calculateNetworkIO()
+  {
+    // check 2 lists is ready to calculate
+     if(this->_curNetworkList.size() == 0  || this->_prevNetworkList.size() == 0)
+       return;
+
+     // search for match PID and summary all CPUTime (Remove it for reducing CPU consume)
+     for(int curItem=0; curItem < this->_curNetworkList.size(); curItem++)
+     {
+	 for(int prevItem=0; prevItem < this->_prevNetworkList.size(); prevItem++)
+	 {
+	   if (strcmp(this->_prevNetworkList[prevItem]->name().c_str(), this->_curNetworkList[curItem]->name().c_str()) != 0)
+	     continue;
+
+	   this->_curNetworkList[curItem]->set_recvusage(this->_curNetworkList[curItem]->recvbytes() - this->_prevNetworkList[prevItem]->recvbytes() );
+	   this->_curNetworkList[curItem]->set_transusage(this->_curNetworkList[curItem]->transbytes() - this->_prevNetworkList[prevItem]->transbytes() );
+	 }
+     }
     return;
   }
 
@@ -103,7 +132,8 @@ namespace core {
                                &collisionTimes,
                                &carrierErrors,
                                &transCompressedBytes);
-      if(matchCounts == 16)
+
+      if(matchCounts >= 16)
       {
         curNetworkInfo->set_name(curName);
         curNetworkInfo->set_recvbytes(recvBytes);
@@ -122,6 +152,8 @@ namespace core {
         curNetworkInfo->set_collisiontimes(collisionTimes);
         curNetworkInfo->set_carriererrors(carrierErrors);
         curNetworkInfo->set_transcompressedbytes(transCompressedBytes);
+        curNetworkInfo->set_transusage(0);
+        curNetworkInfo->set_recvusage(0);
 
         this->_curNetworkList.push_back(curNetworkInfo);
       }
@@ -175,15 +207,15 @@ namespace core {
       memset(curName, 0, BufferSize);
 
       int matchCounts = sscanf(buffer, INT_IPV6_PATTERN,
-                               &curIPv6.in6_u.u6_addr8[0], &curIPv6.in6_u.u6_addr8[1],
-                               &curIPv6.in6_u.u6_addr8[2], &curIPv6.in6_u.u6_addr8[3],
-                               &curIPv6.in6_u.u6_addr8[4], &curIPv6.in6_u.u6_addr8[5],
-                               &curIPv6.in6_u.u6_addr8[6], &curIPv6.in6_u.u6_addr8[7],
-                               &curIPv6.in6_u.u6_addr8[8], &curIPv6.in6_u.u6_addr8[9],
-                               &curIPv6.in6_u.u6_addr8[10], &curIPv6.in6_u.u6_addr8[11],
-                               &curIPv6.in6_u.u6_addr8[12], &curIPv6.in6_u.u6_addr8[13],
-                               &curIPv6.in6_u.u6_addr8[14], &curIPv6.in6_u.u6_addr8[15],
-                               &curNetmaskV6, &curName );
+                               (unsigned int*) &curIPv6.in6_u.u6_addr8[0], (unsigned int*) &curIPv6.in6_u.u6_addr8[1],
+                               (unsigned int*) &curIPv6.in6_u.u6_addr8[2], (unsigned int*) &curIPv6.in6_u.u6_addr8[3],
+                               (unsigned int*) &curIPv6.in6_u.u6_addr8[4], (unsigned int*) &curIPv6.in6_u.u6_addr8[5],
+                               (unsigned int*) &curIPv6.in6_u.u6_addr8[6], (unsigned int*) &curIPv6.in6_u.u6_addr8[7],
+                               (unsigned int*) &curIPv6.in6_u.u6_addr8[8], (unsigned int*) &curIPv6.in6_u.u6_addr8[9],
+                               (unsigned int*) &curIPv6.in6_u.u6_addr8[10], (unsigned int*) &curIPv6.in6_u.u6_addr8[11],
+                               (unsigned int*) &curIPv6.in6_u.u6_addr8[12], (unsigned int*) &curIPv6.in6_u.u6_addr8[13],
+                               (unsigned int*) &curIPv6.in6_u.u6_addr8[14], (unsigned int*) &curIPv6.in6_u.u6_addr8[15],
+                               &curNetmaskV6, curName );
 
       if(matchCounts == 18)
       {

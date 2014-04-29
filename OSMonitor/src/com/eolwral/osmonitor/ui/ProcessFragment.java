@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Debug.MemoryInfo;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.MenuItemCompat.OnActionExpandListener;
@@ -50,7 +51,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
@@ -302,9 +302,8 @@ public class ProcessFragment extends ListFragment
     }
     
     private void onExitClick() {
-		getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
-		android.os.Process.killProcess(android.os.Process.myPid());
-		return ;
+    	LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent("Exit"));
+    	return ;
 	}
 
     private void onSettingClick() {

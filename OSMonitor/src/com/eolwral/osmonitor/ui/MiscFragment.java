@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +30,6 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
-import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.NetworkInfo.networkInfo;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
@@ -144,8 +144,7 @@ public class MiscFragment extends Fragment
 	}
 	
 	private void onExitClick() {
-		getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
-		android.os.Process.killProcess(android.os.Process.myPid());
+		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent("Exit"));
 		return ;
 	}
 	

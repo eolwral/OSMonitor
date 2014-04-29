@@ -2,6 +2,7 @@ package com.eolwral.osmonitor;
 
 import java.util.Locale;
 
+import com.eolwral.osmonitor.core.CpuInfo.cpuInfo;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -23,6 +24,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 public class OSMonitorService extends Service 
@@ -41,6 +43,7 @@ public class OSMonitorService extends Service
 	private int fontColor = 0;
 	private boolean isSetTop = false;
 	private float cpuUsage = 0;
+    //private float ioWaitUsage = 0;
 	private float [] topUsage = new float[3];
 	private String [] topProcess = new String[3];
 	
@@ -99,12 +102,10 @@ public class OSMonitorService extends Service
     
     @Override
     public void onDestroy() {
-    	super.onDestroy();
-    	
-    	if(isRegistered)
-    		endService();
-
     	endNotification();
+    	endService();
+    	android.os.Process.killProcess(android.os.Process.myPid());
+    	super.onDestroy();
     } 
 
     private void endNotification() {
@@ -180,13 +181,11 @@ public class OSMonitorService extends Service
     	}
     	
     	goSleep();
-
-    	ipcService.disconnect();
     }
 
     private void wakeUp() {
 		UpdateInterval = settings.getInterval();
-       	ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
+       	ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.CPU, ipcAction.OS };
 		ipcService.removeRequest(this);
     	ipcService.addRequest(newCommand, 0, this);
     	startBatteryMonitor();
@@ -236,7 +235,7 @@ public class OSMonitorService extends Service
 	public void onRecvData(ipcMessage result) {
 		
 		if(result == null) {
-			ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
+			ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.CPU, ipcAction.OS };
 			ipcService.addRequest(newCommand, UpdateInterval, this);
 			return;
 		}
@@ -258,7 +257,14 @@ public class OSMonitorService extends Service
 					osInfo info = osInfo.parseFrom(rawData.getPayload(0));
 					memoryFree = info.getFreeMemory()+info.getBufferedMemory()+info.getCachedMemory();
 					memoryTotal =  info.getTotalMemory();
+					continue; 
 				}
+				
+				if (rawData.getAction() ==  ipcAction.CPU) {
+					cpuInfo info = cpuInfo.parseFrom(rawData.getPayload(0));
+					//ioWaitUsage = info.getIoUtilization();
+					continue;
+				}  
 				
 				if (rawData.getAction() != ipcAction.PROCESS)
 					continue;
@@ -297,7 +303,7 @@ public class OSMonitorService extends Service
 		refreshNotification();
 		
 		// send command again
-		ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.OS };
+		ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.CPU, ipcAction.OS };
 		ipcService.addRequest(newCommand, UpdateInterval, this);
 	}
 
@@ -310,6 +316,8 @@ public class OSMonitorService extends Service
 			osNotification.contentView.setTextViewText(R.id.notification_bat, "BAT: "+battLevel+"% ("+temperature/10+"\u2103)" );
 		else 
 			osNotification.contentView.setTextViewText(R.id.notification_bat,  "BAT: "+battLevel+"% ("+((int)temperature/10*9/5+32)+"\u2109)");
+   	    
+   	    //osNotification.contentView.setTextViewText(R.id.notification_bat, "IO: "+CommonUtil.convertToUsage(ioWaitUsage)+"%");
 
 		osNotification.contentView.setTextViewText(R.id.notification_mem, "MEM: "+CommonUtil.convertToSize(memoryFree, true));
 
@@ -332,6 +340,7 @@ public class OSMonitorService extends Service
 		osNotification.contentView.setProgressBar(R.id.notification_cpu_bar, 100, (int) cpuUsage, false);
 		osNotification.contentView.setProgressBar(R.id.notification_mem_bar, (int) memoryTotal, (int) (memoryTotal - memoryFree), false);
 		osNotification.contentView.setProgressBar(R.id.notification_bat_bar, 100, (int) battLevel, false);
+		//osNotification.contentView.setProgressBar(R.id.notification_bat_bar, 100, (int) ioWaitUsage, false);
 		
 		osNotification.icon = iconColor;
 		if (cpuUsage < 20)

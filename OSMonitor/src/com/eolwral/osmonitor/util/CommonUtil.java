@@ -199,14 +199,15 @@ public class CommonUtil {
 	} catch (Exception e) {
 		return false;
 	}
-	
+	 
 	// execute osmcore
-	try {
-		Runtime.getRuntime().exec("chmod 755 " + binary);
+	try { 
+		Runtime.getRuntime().exec("chmod 755 " + binary).waitFor();
 		if (!settings.isRoot()) 
-			Runtime.getRuntime().exec(binary+" "+binary+".token");
+			Runtime.getRuntime().exec( new String [] { "sh", "-c", binary+" "+binary+".token &" }).waitFor();
 		else
-			Runtime.getRuntime().exec("su -c "+binary+" "+binary+".token;exit;");
+			Runtime.getRuntime().exec( new String [] { "su", "-c ", binary+" "+binary+".token &" }).waitFor();
+		
 	} catch (Exception e) {
 		return false;
 	}

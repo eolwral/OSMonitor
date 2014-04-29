@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.MenuItemCompat;
 import android.text.Editable;
@@ -47,7 +48,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo;
 import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo;
@@ -571,9 +571,8 @@ public class MessageFragment extends ListFragment
 	}	
 	
     private void onExitClick() {
-		getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
-		android.os.Process.killProcess(android.os.Process.myPid());
-		return;
+    	LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent("Exit"));
+    	return;
 	}
 	
 	private void onExportClick() {

@@ -3,7 +3,10 @@ package com.eolwral.osmonitor;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -18,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
@@ -89,8 +93,24 @@ public class OSMonitor extends ActionBarActivity  implements
 		if(( setting.isEnableCPUMeter() || setting.isAddShortCut()) && !CommonUtil.isServiceRunning(this))
 			startService(new Intent(this, OSMonitorService.class));
 		
+		// prepare exit 
+		LocalBroadcastManager.getInstance(this).registerReceiver(ExitReceiver, new IntentFilter("Exit"));
 	}
 	
+	private BroadcastReceiver ExitReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+	    	IpcService.getInstance().forceExit();
+			context.stopService(new Intent(context, OSMonitorService.class));
+			finish();
+		}
+	};
+	
+	@Override
+	protected void onDestroy() {
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(ExitReceiver);
+		super.onDestroy();
+	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

@@ -29,6 +29,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.SimpleArrayMap;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,7 +48,6 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
@@ -326,8 +326,7 @@ public class ConnectionFragment extends ListFragment
 	}
 	
 	private void onExitClick() {
-		getActivity().stopService(new Intent(getActivity(), OSMonitorService.class));
-		android.os.Process.killProcess(android.os.Process.myPid());
+		LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(new Intent("Exit"));
 		return ;
 	}
 	

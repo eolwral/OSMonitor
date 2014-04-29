@@ -144,7 +144,7 @@ public class IpcService {
 	public static IpcService getInstance() {
 	    return instance;
 	}
-
+	
 	/**
 	 * internal use only for creating object
 	 * 
@@ -511,7 +511,7 @@ public class IpcService {
 			// check connection's status
 			if (!checkStatus())
 			{ 
-				restartDaemon();
+				restartDaemon(); 
 				if(!connect())
 					return false;
 			}

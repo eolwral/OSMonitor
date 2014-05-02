@@ -3,6 +3,7 @@ package com.eolwral.osmonitor;
 import java.util.Locale;
 
 import com.eolwral.osmonitor.core.CpuInfo.cpuInfo;
+import com.eolwral.osmonitor.core.NetworkInfo.networkInfo;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -24,7 +25,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 public class OSMonitorService extends Service 
@@ -43,7 +43,7 @@ public class OSMonitorService extends Service
 	private int fontColor = 0;
 	private boolean isSetTop = false;
 	private float cpuUsage = 0;
-    //private float ioWaitUsage = 0;
+    private float ioWaitUsage = 0;
 	private float [] topUsage = new float[3];
 	private String [] topProcess = new String[3];
 	
@@ -56,9 +56,14 @@ public class OSMonitorService extends Service
 	private int battLevel = 0;  // percentage value or -1 for unknown
 	private int temperature = 0;
 
+	// network 
+	private long trafficOut = 0;
+	private long trafficIn = 0;
+	
 	//private  
 	private ProcessUtil infoHelper = null;
 	private Settings settings = null;
+	private int notificationType = 1;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -83,7 +88,7 @@ public class OSMonitorService extends Service
     		initService();
    		}
     }
-
+    
 	private void refreshSettings() {
 
     	switch(settings.getCPUMeterColor()) {
@@ -95,6 +100,7 @@ public class OSMonitorService extends Service
     		break;
     	}
     	
+    	notificationType = settings.getNotificationType();
     	fontColor = settings.getNotificationFontColor();
     	isSetTop = settings.isNotificationOnTop();
     	useCelsius = settings.isUseCelsius();
@@ -104,7 +110,8 @@ public class OSMonitorService extends Service
     public void onDestroy() {
     	endNotification();
     	endService();
-    	android.os.Process.killProcess(android.os.Process.myPid());
+    	if (!settings.getSessionValue().equals("Non-Exit"))
+    		android.os.Process.killProcess(android.os.Process.myPid());
     	super.onDestroy();
     } 
 
@@ -146,9 +153,7 @@ public class OSMonitorService extends Service
     		
     		if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) 
     			goSleep();
-    		
-    		
-    		if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) 
+    		else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) 
     			wakeUp();
     	}
     };
@@ -182,10 +187,29 @@ public class OSMonitorService extends Service
     	
     	goSleep();
     }
+    
+    private ipcAction [] getReceiveDataType() {
+    	ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.CPU, ipcAction.OS };
+    	switch (notificationType) {
+    	case 1:
+    		newCommand = new ipcAction [] { ipcAction.PROCESS, ipcAction.OS };
+    		break;
+    	case 2:
+    		newCommand = new ipcAction []  { ipcAction.PROCESS, ipcAction.CPU, ipcAction.OS };
+    		break;
+    	case 3:
+    		newCommand = new ipcAction [] { ipcAction.PROCESS, ipcAction.CPU };
+    		break;
+    	case 4: 
+    		newCommand = new ipcAction [] { ipcAction.PROCESS, ipcAction.NETWORK };
+    		break;
+    	}
+    	return newCommand;
+    }
 
     private void wakeUp() {
 		UpdateInterval = settings.getInterval();
-       	ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.CPU, ipcAction.OS };
+       	ipcAction newCommand[] = getReceiveDataType();
 		ipcService.removeRequest(this);
     	ipcService.addRequest(newCommand, 0, this);
     	startBatteryMonitor();
@@ -199,6 +223,9 @@ public class OSMonitorService extends Service
 	
     private void startBatteryMonitor()
     {
+    	if (notificationType != 1 && notificationType != 3)
+    		return;
+    	
     	if(!isRegisterBattery) {
     		IntentFilter battFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
     		registerReceiver(battReceiver, battFilter);
@@ -235,7 +262,7 @@ public class OSMonitorService extends Service
 	public void onRecvData(ipcMessage result) {
 		
 		if(result == null) {
-			ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.CPU, ipcAction.OS };
+			ipcAction newCommand[] = getReceiveDataType();
 			ipcService.addRequest(newCommand, UpdateInterval, this);
 			return;
 		}
@@ -262,35 +289,46 @@ public class OSMonitorService extends Service
 				
 				if (rawData.getAction() ==  ipcAction.CPU) {
 					cpuInfo info = cpuInfo.parseFrom(rawData.getPayload(0));
-					//ioWaitUsage = info.getIoUtilization();
+					ioWaitUsage = info.getIoUtilization();
 					continue;
 				}  
 				
-				if (rawData.getAction() != ipcAction.PROCESS)
-					continue;
+				if (rawData.getAction() == ipcAction.NETWORK) {
+					// process processInfo
+					trafficOut = 0;
+					trafficIn = 0;
+					for (int count = 0; count < rawData.getPayloadCount(); count++) {
+						networkInfo nwInfo = networkInfo.parseFrom(rawData.getPayload(count));
+						trafficOut += nwInfo.getTransUsage();
+						trafficIn += nwInfo.getRecvUsage();
+					}
+				}
 				
-				for (int count = 0; count < rawData.getPayloadCount(); count++) {
-					processInfo item = processInfo.parseFrom(rawData.getPayload(count));
-					cpuUsage += item.getCpuUsage();
-					for(int check = 0; check < 3; check++) {
-						if(topUsage[check] < item.getCpuUsage()) {
-							
-							for(int push = 2; push > check; push--) {
-								topUsage[push] = topUsage[push-1];
-								topProcess[push] = topProcess[push-1];
+				if (rawData.getAction() == ipcAction.PROCESS) {
+
+					for (int count = 0; count < rawData.getPayloadCount(); count++) {
+						processInfo item = processInfo.parseFrom(rawData.getPayload(count));
+						cpuUsage += item.getCpuUsage();
+						for (int check = 0; check < 3; check++) {
+							if (topUsage[check] < item.getCpuUsage()) {
+
+								for (int push = 2; push > check; push--) {
+									topUsage[push] = topUsage[push - 1];
+									topProcess[push] = topProcess[push - 1];
+								}
+
+								// check cached status
+								if (!infoHelper.checkPackageInformation(item.getName())) {
+									if (item.getName().toLowerCase(Locale.getDefault()).contains("osmcore"))
+										infoHelper.doCacheInfo(android.os.Process.myUid(), item.getOwner(), item.getName());
+									else
+										infoHelper.doCacheInfo(item.getUid(),item.getOwner(), item.getName());
+								}
+								
+								topUsage[check] = item.getCpuUsage();
+								topProcess[check] = infoHelper.getPackageName(item.getName());
+								break;
 							}
-							
-							// check cached status
-							if (!infoHelper.checkPackageInformation(item.getName())) {
-								if(item.getName().toLowerCase(Locale.getDefault()).contains("osmcore")) 
-									infoHelper.doCacheInfo(android.os.Process.myUid(), item.getOwner(), item.getName());
-								else
-									infoHelper.doCacheInfo(item.getUid(), item.getOwner(), item.getName());
-							}
-							
-							topUsage[check] = item.getCpuUsage();
-							topProcess[check] = infoHelper.getPackageName(item.getName());
-							break;
 						}
 					}
 				}
@@ -303,8 +341,17 @@ public class OSMonitorService extends Service
 		refreshNotification();
 		
 		// send command again
-		ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.CPU, ipcAction.OS };
+		ipcAction newCommand[] = getReceiveDataType();
 		ipcService.addRequest(newCommand, UpdateInterval, this);
+	}
+	
+	private String getBatteryInfo() {
+		String info = "";
+		if (useCelsius) 
+				info =  battLevel+"% ("+temperature/10+"\u2103)" ;
+			else 
+				info =  battLevel+"% ("+((int)temperature/10*9/5+32)+"\u2109)";
+		return info;
 	}
 
 	private void refreshNotification() {
@@ -312,16 +359,35 @@ public class OSMonitorService extends Service
 		Notification osNotification = nBuilder.build();
    	    osNotification.contentView = new RemoteViews(getPackageName(),  R.layout.ui_notification);
 
-		if (useCelsius) 
-			osNotification.contentView.setTextViewText(R.id.notification_bat, "BAT: "+battLevel+"% ("+temperature/10+"\u2103)" );
-		else 
-			osNotification.contentView.setTextViewText(R.id.notification_bat,  "BAT: "+battLevel+"% ("+((int)temperature/10*9/5+32)+"\u2109)");
-   	    
-   	    //osNotification.contentView.setTextViewText(R.id.notification_bat, "IO: "+CommonUtil.convertToUsage(ioWaitUsage)+"%");
-
-		osNotification.contentView.setTextViewText(R.id.notification_mem, "MEM: "+CommonUtil.convertToSize(memoryFree, true));
-
 		osNotification.contentView.setTextViewText(R.id.notification_cpu,"CPU: "+CommonUtil.convertToUsage(cpuUsage) + "%");
+		osNotification.contentView.setProgressBar(R.id.notification_cpu_bar, 100, (int) cpuUsage, false);
+
+   	    switch (notificationType) {
+   	    case 1:
+   	    	osNotification.contentView.setTextViewText(R.id.notification_1nd, "MEM: "+CommonUtil.convertToSize(memoryFree, true));
+   	    	osNotification.contentView.setTextViewText(R.id.notification_2nd, "BAT: "+getBatteryInfo());
+   			osNotification.contentView.setProgressBar(R.id.notification_1nd_bar, (int) memoryTotal, (int) (memoryTotal - memoryFree), false);
+   			osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, 100, (int) battLevel, false);
+   	    	break;
+   	    case 2:
+   	    	osNotification.contentView.setTextViewText(R.id.notification_1nd, "MEM: "+CommonUtil.convertToSize(memoryFree, true));
+   	    	osNotification.contentView.setTextViewText(R.id.notification_2nd, "IO: "+CommonUtil.convertToUsage(ioWaitUsage)+"%");
+   			osNotification.contentView.setProgressBar(R.id.notification_1nd_bar, (int) memoryTotal, (int) (memoryTotal - memoryFree), false);
+   			osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, 100, (int) ioWaitUsage, false);
+   	    	break;
+   	    case 3:
+   	    	osNotification.contentView.setTextViewText(R.id.notification_1nd, "BAT: "+getBatteryInfo());
+   	    	osNotification.contentView.setTextViewText(R.id.notification_2nd, "IO: "+CommonUtil.convertToUsage(ioWaitUsage)+"%");
+   	    	osNotification.contentView.setProgressBar(R.id.notification_1nd_bar, 100, (int) battLevel, false);
+   			osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, 100, (int) ioWaitUsage, false);
+   	    	break;
+   	    case 4:
+   	    	osNotification.contentView.setTextViewText(R.id.notification_1nd, "OUT: "+CommonUtil.convertToSize(trafficOut, true));
+   	    	osNotification.contentView.setTextViewText(R.id.notification_2nd, "IN: "+CommonUtil.convertToSize(trafficIn, true));
+   	    	osNotification.contentView.setProgressBar(R.id.notification_1nd_bar, (int) (trafficOut+trafficIn), (int) trafficOut, false);
+   			osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, (int) (trafficOut+trafficIn), (int) trafficIn, false);
+   	    	break;
+   	    }
 
 		osNotification.contentView.setTextViewText(R.id.notification_top1st,  CommonUtil.convertToUsage(topUsage[0]) + "% "  + topProcess[0] );
 		osNotification.contentView.setTextViewText(R.id.notification_top2nd,  CommonUtil.convertToUsage(topUsage[1]) + "% "  + topProcess[1]);
@@ -329,19 +395,14 @@ public class OSMonitorService extends Service
 		
 		// use custom color
 		if(fontColor != -1) {
-			osNotification.contentView.setTextColor(R.id.notification_bat, fontColor);
-			osNotification.contentView.setTextColor(R.id.notification_mem,  fontColor);
+			osNotification.contentView.setTextColor(R.id.notification_2nd, fontColor);
+			osNotification.contentView.setTextColor(R.id.notification_1nd,  fontColor);
 			osNotification.contentView.setTextColor(R.id.notification_cpu, fontColor);
 			osNotification.contentView.setTextColor(R.id.notification_top1st, fontColor);
 			osNotification.contentView.setTextColor(R.id.notification_top2nd, fontColor);
 			osNotification.contentView.setTextColor(R.id.notification_top3nd, fontColor);
 		}
 
-		osNotification.contentView.setProgressBar(R.id.notification_cpu_bar, 100, (int) cpuUsage, false);
-		osNotification.contentView.setProgressBar(R.id.notification_mem_bar, (int) memoryTotal, (int) (memoryTotal - memoryFree), false);
-		osNotification.contentView.setProgressBar(R.id.notification_bat_bar, 100, (int) battLevel, false);
-		//osNotification.contentView.setProgressBar(R.id.notification_bat_bar, 100, (int) ioWaitUsage, false);
-		
 		osNotification.icon = iconColor;
 		if (cpuUsage < 20)
 			osNotification.iconLevel = 1;

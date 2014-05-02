@@ -22,8 +22,8 @@
             android:minWidth="15dp" />
 
         <ProgressBar
-            android:id="@+id/notification_mem_bar"
-            style="@style/osmonitor_MemoryProgressBar"
+            android:id="@+id/notification_1nd_bar"
+            style="@style/osmonitor_1ndBar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
@@ -33,8 +33,8 @@
             android:minWidth="15dp" />
 
         <ProgressBar
-            android:id="@+id/notification_bat_bar"
-            style="@style/osmonitor_BatteryProgressBar"
+            android:id="@+id/notification_2nd_bar"
+            style="@style/osmonitor_2ndBar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
@@ -71,24 +71,22 @@
             android:text="CPU: ??%" />
 
         <TextView
-            android:id="@+id/notification_mem"
+            android:id="@+id/notification_1nd"
             style="@style/osmonitor_NotificationText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:singleLine="true"
-            android:text="MEM: ???MB" />
+            android:singleLine="true" />
 
         <TextView
-            android:id="@+id/notification_bat"
+            android:id="@+id/notification_2nd"
             style="@style/osmonitor_NotificationText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:singleLine="true"
-            android:text="BAT: ??% (???)" />
+            android:singleLine="true" />
         
     </LinearLayout>
 

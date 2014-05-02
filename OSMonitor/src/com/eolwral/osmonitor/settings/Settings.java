@@ -28,6 +28,7 @@ public class Settings {
 	public final static String PREFERENCE_COLOR = "id_preference_color";
 	public final static String PREFERENCE_NOTIFICATION_COLOR = "id_preference_notification_fontcolor";
 	public final static String PREFERENCE_NOTIFICATION_TOP = "id_preference_notification_top";
+	public final static String PREFERENCE_NOTIFICATION_CUSTOMIZE = "id_preference_notification_customize";
 	
 	public final static String PREFERENCE_LOGCAT_FORMAT = "id_preference_logcat_format";
 	public final static String PREFERENCE_LOGCAT_VERBOSE = "id_preference_logcat_verbose_color";
@@ -46,6 +47,8 @@ public class Settings {
 	public final static String PREFERENCE_DMESG_NOTICE = "id_preference_dmesg_notice_color";
 	public final static String PREFERENCE_DMESG_INFO = "id_preference_dmesg_info_color";
 	public final static String PREFERENCE_DMESG_DEBUG = "id_preference_dmesg_debug_color";
+	
+	public final static String SESSION_SECTION = "session_storage";
 	
 	/**
 	 * get an instance for settings 
@@ -342,5 +345,31 @@ public class Settings {
 	 */
 	public int getDmesgDebugColor() {
 		return helper.getInteger(PREFERENCE_DMESG_DEBUG,  0xff9933ff);
+	}
+	
+	/**
+	 * get customize type of notification
+	 * @return type
+	 */
+	public int getNotificationType() {
+		return helper.getInteger(PREFERENCE_NOTIFICATION_CUSTOMIZE,  1);
+	}
+	
+	/**
+	 * set session value 
+	 * @param value
+	 */
+	public void setSessionValue(String value) {
+		helper.setString(SESSION_SECTION, value);
+	}
+	
+	/**
+	 * get session value
+	 * @return value
+	 */
+	public String getSessionValue() {
+		String value = helper.getString(SESSION_SECTION, "");
+		helper.setString(SESSION_SECTION, "");
+		return value;
 	}
 }

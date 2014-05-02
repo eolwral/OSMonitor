@@ -180,6 +180,8 @@
 <string name="ui_preferences_root_detail">grant root permission to execute privilege command</string>
 <string name="ui_preferences_tempvalue">Show Celsius</string>
 <string name="ui_preferences_tempvalue_detail">toggle Celsius/Fahrenheit units</string>
+<string name="ui_preferences_notification_customize">Customize notification</string>
+<string name="ui_preferences_notification_customize_detail">choose information to show on notification widget </string>
 <string name="ui_preferences_map">Map Type</string>
 <string name="ui_preferences_map_detail">choose GoogleMap or OpenStreeMap</string>
 <string name="ui_preferences_setcpu">Set CPU on boot</string>

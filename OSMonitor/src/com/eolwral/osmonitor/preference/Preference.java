@@ -18,6 +18,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class Preference extends PreferenceActivity  {
 	
@@ -152,18 +153,15 @@ public class Preference extends PreferenceActivity  {
 		if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_COLOR) ||
 		   key.equals(Settings.PREFERENCE_ROOT) || key.equals(Settings.PREFERENCE_TEMPVALUE) ||
 		   key.equals(Settings.PREFERENCE_SHORTCUT) || key.equals(Settings.PREFERENCE_NOTIFICATION_COLOR) ||
-		   key.equals(Settings.PREFERENCE_NOTIFICATION_TOP)) {
+		   key.equals(Settings.PREFERENCE_NOTIFICATION_TOP) || key.equals(Settings.PREFERENCE_NOTIFICATION_CUSTOMIZE)) {
+
+			if(!key.equals(Settings.PREFERENCE_CPUUSAGE) && !key.equals(Settings.PREFERENCE_SHORTCUT)  ) {
+				helper.setString(Settings.SESSION_SECTION, "Non-Exit");
+			}
 			
 			// restart background daemon
 			getApplication().stopService(new Intent(getApplication(), OSMonitorService.class));
 
-			// check it before use
-			IpcService ipc = IpcService.getInstance();
-			if(ipc != null) {
-				ipc.forceExit();
-				ipc.disconnect();
-			}
-			
 			// restart notification 
 			if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
 			    helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {

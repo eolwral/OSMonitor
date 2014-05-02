@@ -84,6 +84,14 @@
             android:summary="@string/ui_preferences_autostart_detail"
             android:title="@string/ui_preferences_autostart" />
         
+        <ListPreference
+            android:persistent="false"
+            android:entryValues="@array/ui_preference_notification_customize_value" 
+            android:entries="@array/ui_preference_notification_customize_entry"
+            android:key="id_preference_notification_customize"
+            android:title="@string/ui_preferences_notification_customize" 
+            android:summary="@string/ui_preferences_notification_customize_detail"/>
+                
 </PreferenceCategory>
     
     <PreferenceCategory android:title="@string/ui_connection_tab" >

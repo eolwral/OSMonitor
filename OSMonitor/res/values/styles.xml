@@ -90,14 +90,14 @@
       <item name="android:maxHeight">10dip</item>
     </style>
     
-    <style name="osmonitor_MemoryProgressBar" parent="android:Widget.ProgressBar.Horizontal">
-      <item name="android:progressDrawable">@drawable/mem_progress_bar_horizontal</item>
+    <style name="osmonitor_1ndBar" parent="android:Widget.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/d1nd_progress_bar_horizontal</item>
       <item name="android:minHeight">5dip</item>
       <item name="android:maxHeight">10dip</item>
     </style>
     
-    <style name="osmonitor_BatteryProgressBar" parent="android:Widget.ProgressBar.Horizontal">
-      <item name="android:progressDrawable">@drawable/bat_progress_bar_horizontal</item>
+    <style name="osmonitor_2ndBar" parent="android:Widget.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/d2nd_progress_bar_horizontal</item>
       <item name="android:minHeight">5dip</item>
       <item name="android:maxHeight">10dip</item>
     </style>

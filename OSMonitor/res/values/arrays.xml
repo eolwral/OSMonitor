@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="ui_message_type">
-        <item>Main</item>
-        <item>System</item>
-        <item>Events</item>
-        <item>Dmesg</item>
-    </string-array>
+   <string-array name="ui_message_type">
+      <item>Main</item>
+      <item>System</item>
+      <item>Events</item>
+      <item>Dmesg</item>
+   </string-array>
     
-    <string-array name="ui_message_dmesg_level">
-		<item>Debug</item>
-		<item>Information</item>
-		<item>Notice</item>
-		<item>Warning</item>
-		<item>Alert</item>
-		<item>Emergency</item>
-		<item>Error</item>
-		<item>Critical</item>
+   <string-array name="ui_message_dmesg_level">
+		 <item>Debug</item>
+		 <item>Information</item>
+		 <item>Notice</item>
+		 <item>Warning</item>
+		 <item>Alert</item>
+		 <item>Emergency</item>
+		 <item>Error</item>
+		 <item>Critical</item>
 	</string-array>
 
 	<string-array name="ui_message_logcat_level">
@@ -56,8 +56,8 @@
 	</string-array>
 	
 	<string-array name="ui_preference_map_value">
-	    <item>GoogleMap</item>
-	    <item>OpenStreeMap</item>
+	   <item>GoogleMap</item>
+	   <item>OpenStreeMap</item>
 	</string-array>
 
 	<string-array name="ui_preference_interval_value" translatable="false">
@@ -128,7 +128,7 @@
 		<item>Time</item>
 		<item>Long</item>
 		<item>Raw</item>
-        <item>OS Monitor</item>		
+    <item>OS Monitor</item>		
 	</string-array>
 	
 	<string-array name="ui_preference_logcat_format_value" translatable="false">
@@ -139,7 +139,7 @@
 		<item>5</item>
 		<item>6</item>
 		<item>7</item>
-	    <item>8</item>
+	  <item>8</item>
 		<item>9</item>
 		<item>0</item>
 	</string-array>
@@ -154,4 +154,18 @@
 		<item>0</item>
 	</string-array>
 		
+	 <string-array name="ui_preference_notification_customize_entry">
+	  <item>Memory + Battery</item>
+    <item>Memory + DiskIO</item>
+	  <item>Battery + DiskIO</item>
+    <item>Network IO</item>
+  </string-array>
+
+  <string-array name="ui_preference_notification_customize_value" translatable="false">
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+   </string-array>
+  
 </resources>

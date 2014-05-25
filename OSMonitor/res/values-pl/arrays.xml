@@ -82,4 +82,11 @@
 		<item>OS Monitor</item>
 	</string-array>
 	
+    <string-array name="ui_preference_notification_customize_entry">
+	    <item>Pamięć + Bateria</item>
+        <item>Pamięć + Dysk IO</item>
+	    <item>Bateria + Dysk IO</item>
+        <item>Sieć IO</item>
+    </string-array>
+		
 </resources>

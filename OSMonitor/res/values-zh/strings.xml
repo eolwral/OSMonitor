@@ -181,6 +181,8 @@
 <string name="ui_preferences_root_detail">使用 root 權限執行指令和收集資料</string>
 <string name="ui_preferences_tempvalue">使用 華氏</string>
 <string name="ui_preferences_tempvalue_detail">切換 華氏/攝氏 顯示</string>
+<string name="ui_preferences_notification_customize">客制化通知區資訊</string>
+<string name="ui_preferences_notification_customize_detail">選擇通知區訊息種類</string>
 <string name="ui_preferences_map">地圖種類</string>
 <string name="ui_preferences_map_detail">GoogleMap 或  OpenStreeMap</string>
 <string name="ui_preferences_setcpu">開機時設定 CPU</string>

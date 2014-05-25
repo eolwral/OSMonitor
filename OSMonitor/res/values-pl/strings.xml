@@ -180,6 +180,8 @@
 <string name="ui_preferences_root_detail">Przyznanie uprawnień roota, aby wykonać polecenia uprzywilejowane</string>
 <string name="ui_preferences_tempvalue">Stopnie Celsjusza</string>
 <string name="ui_preferences_tempvalue_detail">Przełączanie stopni Celsjusza/Fahrenheita</string>
+<string name="ui_preferences_notification_customize">Dostosuj powiadomienia</string>
+<string name="ui_preferences_notification_customize_detail">wybrać informacje wyświetlane na widżecie powiadomień</string>
 <string name="ui_preferences_map">Typ mapy</string>
 <string name="ui_preferences_map_detail">Wybierz GoogleMap lub OpenStreeMap</string>
 <string name="ui_preferences_setcpu">Ustaw CPU na starcie</string>

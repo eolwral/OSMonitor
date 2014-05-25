@@ -81,5 +81,12 @@
 		<item>Raw</item>
 		<item>OS Monitor</item>
 	</string-array>
-	
+    
+    <string-array name="ui_preference_notification_customize_entry">
+	  <item>Memoria + Batteria</item>
+      <item>Memoria + Disco IO</item>
+  	  <item>Batteria + Disco IO</item>
+      <item>Rete IO</item>
+    </string-array>
+		
 </resources>

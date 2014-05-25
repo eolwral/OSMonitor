@@ -181,6 +181,8 @@
 <string name="ui_preferences_root_detail">קבלת הרשאות root עבור הרצת פעולות מיוחדות</string>
 <string name="ui_preferences_tempvalue">הצג סלציוס</string>
 <string name="ui_preferences_tempvalue_detail">בחר סלציוס/פרנהייט</string>
+<string name="ui_preferences_notification_customize">התאמה אישית של הודעות</string>
+<string name="ui_preferences_notification_customize_detail">לבחור מידע כדי להראות על יישומון הודעה</string>
 <string name="ui_preferences_map">סוג המפה</string>
 <string name="ui_preferences_map_detail">בחר GoogleMap או OpenStreeMap</string>
 <string name="ui_preferences_setcpu">קבע CPU באתחול</string>

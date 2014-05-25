@@ -139,7 +139,7 @@
 		<item>5</item>
 		<item>6</item>
 		<item>7</item>
-	  <item>8</item>
+	    <item>8</item>
 		<item>9</item>
 		<item>0</item>
 	</string-array>
@@ -154,18 +154,18 @@
 		<item>0</item>
 	</string-array>
 		
-	 <string-array name="ui_preference_notification_customize_entry">
+	<string-array name="ui_preference_notification_customize_entry">
 	  <item>Memory + Battery</item>
-    <item>Memory + DiskIO</item>
+      <item>Memory + DiskIO</item>
 	  <item>Battery + DiskIO</item>
-    <item>Network IO</item>
-  </string-array>
+      <item>Network IO</item>
+    </string-array>
 
-  <string-array name="ui_preference_notification_customize_value" translatable="false">
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-    <item>4</item>
-   </string-array>
+    <string-array name="ui_preference_notification_customize_value" translatable="false">
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+    </string-array>
   
 </resources>

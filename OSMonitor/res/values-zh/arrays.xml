@@ -77,4 +77,11 @@
 		<item>OS Monitor</item>
 	</string-array>
 
+	<string-array name="ui_preference_notification_customize_entry">
+	  <item>記憶體 + 電池</item>
+      <item>記憶體 + 磁碟 IO</item>
+	  <item>電池 + 磁碟 IO</item>
+      <item>網路 IO</item>
+    </string-array>
+		
 </resources>

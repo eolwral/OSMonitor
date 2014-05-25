@@ -76,5 +76,12 @@
 		<item>Raw</item>
 		<item>OS Monitor</item>
 	</string-array>
+	
+	<string-array name="ui_preference_notification_customize_entry">
+	    <item>内存 + 电池</item>
+        <item>内存 + 磁碟 IO</item> 
+   	    <item>电池 + 磁碟 IO</item>
+        <item>网路 IO</item>
+    </string-array>	
 
 </resources>

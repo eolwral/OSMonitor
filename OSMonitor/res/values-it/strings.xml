@@ -180,6 +180,8 @@
 <string name="ui_preferences_root_detail">Assegna permessi di root per eseguire comandi amministrativi</string>
 <string name="ui_preferences_tempvalue">Mostra gradi Celsius</string>
 <string name="ui_preferences_tempvalue_detail">Cambia tra gradi Celsius e Fahrenheit</string>
+<string name="ui_preferences_notification_customize">Personalizza notifica</string>
+<string name="ui_preferences_notification_customize_detail">scegliere le informazioni da visualizzare sul widget di notifica</string>
 <string name="ui_preferences_map">Tipo di mappa</string>
 <string name="ui_preferences_map_detail">scelta tra GoogleMap o OpenStreeMap</string>
 <string name="ui_preferences_setcpu">Imposta la CPU all\'avvio</string>

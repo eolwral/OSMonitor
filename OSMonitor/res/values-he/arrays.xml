@@ -43,10 +43,10 @@
     <item>הגדר עדיפות</item>
   </string-array>
  
-<string-array name="ui_message_menu_item">
+  <string-array name="ui_message_menu_item">
 	<item>מצא את התהליך</item>
 	<item>בחר רשומת יומן</item>
-</string-array>  
+  </string-array>  
   
   <string-array name="ui_preference_interval">
     <item>מהיר</item>
@@ -59,21 +59,28 @@
     <item>כחול</item>
   </string-array>
   
-  	<string-array name="ui_preference_logcat_format_entry">
-		<item>Brief</item>
-		<item>Process</item>
-		<item>Tag</item>
-		<item>Thread</item>
-		<item>Thread Time</item>
-		<item>Time</item>
-		<item>Long</item>
-		<item>Raw</item>
-        <item>OS Monitor</item>		
-	</string-array>
+  <string-array name="ui_preference_logcat_format_entry">
+    <item>Brief</item>
+	<item>Process</item>		
+	<item>Tag</item>
+	<item>Thread</item>
+	<item>Thread Time</item>
+	<item>Time</item>
+	<item>Long</item>
+	<item>Raw</item>
+	<item>OS Monitor</item>		
+  </string-array>
 	
-  	<string-array name="ui_preference_dmesg_format_entry">
-		<item>Raw</item>
-		<item>OS Monitor</item>
-	</string-array>
+  <string-array name="ui_preference_dmesg_format_entry">
+	<item>Raw</item>
+	<item>OS Monitor</item>
+  </string-array>
   
+  <string-array name="ui_preference_notification_customize_entry">
+	<item>Memory + Battery</item>
+    <item>Memory + DiskIO</item>
+	<item>Battery + DiskIO</item>
+    <item>Network IO</item>
+  </string-array>
+  	
 </resources>

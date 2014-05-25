@@ -19,12 +19,12 @@ namespace core {
 
   void network::refresh()
   {
+	// clean up
+	this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_prevNetworkList);
+
     // move current to previous
     this->moveDataSet((std::vector<google::protobuf::Message*>&) this->_curNetworkList,
                    			  (std::vector<google::protobuf::Message*>&) this->_prevNetworkList);
-
-    // clean up
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curNetworkList);
 
     // get base information
     this->getInterfaceStatistic();

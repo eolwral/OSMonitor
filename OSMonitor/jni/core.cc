@@ -19,7 +19,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
-// stl
+// STL
 #include <vector>
 
 // Android
@@ -390,6 +390,7 @@ void processCommandMsg()
           fprintf(processorFile, "%d", status);
           fclose(processorFile);
         }
+        continue;
     }
 
     // set CPU max frequency
@@ -408,6 +409,7 @@ void processCommandMsg()
           fprintf(processorFile, "%s", freq);
           fclose(processorFile);
         }
+        continue;
     }
 
     // set CPU min frequency
@@ -426,6 +428,7 @@ void processCommandMsg()
           fprintf(processorFile, "%s", freq);
           fclose(processorFile);
         }
+        continue;
     }
 
     // set CPU governor
@@ -444,6 +447,7 @@ void processCommandMsg()
           fprintf(processorFile, "%s", gov);
           fclose(processorFile);
         }
+        continue;
     }
 
 

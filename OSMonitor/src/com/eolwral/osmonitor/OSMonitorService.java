@@ -137,7 +137,7 @@ public class OSMonitorService extends Service
 		nBuilder.setSmallIcon(R.drawable.ic_launcher);
 		
 		if(isSetTop)
-			nBuilder.setPriority(1000);
+			nBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
 		
 		Notification osNotification = nBuilder.build();
 		nManager.notify(NOTIFYID, osNotification);

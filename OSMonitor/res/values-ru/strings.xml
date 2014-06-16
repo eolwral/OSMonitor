@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Application -->
+    <string name="ui_appname">OS Monitor</string>
+
+    <!-- Tab -->
+    <string name="ui_global_tab">Общее</string>
+    <string name="ui_process_tab">Процессы</string>
+    <string name="ui_network_tab">Сеть</string>
+    <string name="ui_connection_tab">Соединения</string>
+    <string name="ui_misc_tab">Разное</string>
+    <string name="ui_debug_tab">Журнал</string>
+    <string name="ui_notification_tab">Уведомления</string>
+    <string name="ui_shortcut_detail">Нажмите для открытия OS Monitor..</string>
+
+    <!-- Menu -->
+    <string name="ui_menu_setting">Настройки</string>
+    <string name="ui_menu_tools">Инструменты</string>
+    <string name="ui_menu_sort">Сортировка</string>
+    <string name="ui_menu_search">Посик</string>
+    <string name="ui_menu_stop">Стоп</string>
+    <string name="ui_menu_type">Тип</string>
+    <string name="ui_menu_help">Помощь</string>
+    <string name="ui_menu_logexport">Экспорт</string>
+    <string name="ui_menu_exit">Выход</string>
+
+    <!-- Process Tab Start -->
+
+    <!-- Header -->
+    <string name="ui_process_count">Процессов:</string>
+    <string name="ui_process_cpuusage">Загрузка ЦП:</string>
+
+    <!-- Footer -->
+    <string name="ui_process_memorytotal">Всего памяти:</string>
+    <string name="ui_process_memoryfree">Свободно:</string>
+
+    <!-- Process Detail -->
+    <string name="ui_process_sort_usage">% ЦП</string>
+    <string name="ui_process_sort_memory">Память</string>
+    <string name="ui_process_sort_pid">PID</string>
+    <string name="ui_process_sort_name">Имя</string>
+    <string name="ui_process_sort_cputime">Время ЦП</string>
+
+    <!-- Process Detail -->
+    <string name="ui_process_detail_process">Процесс</string>
+    <string name="ui_process_detail_memory">Память</string>
+    <string name="ui_process_detail_ppid">PPID</string>
+    <string name="ui_process_detail_thread">Thread</string>
+    <string name="ui_process_detail_stime">STime</string>
+    <string name="ui_process_detail_utime">UTime</string>
+    <string name="ui_process_detail_nice">Nice</string>
+    <string name="ui_process_detail_user">User</string>
+    <string name="ui_process_detail_status">Статус</string>
+    <string name="ui_process_detail_cputime">Время ЦП</string>
+    <string name="ui_process_detail_time">Запущен</string>
+
+    <!-- Process Status -->
+    <string name="ui_process_status_zombie">Зомби</string>
+    <string name="ui_process_status_sleep">Ожидает</string>
+    <string name="ui_process_status_running">Работает</string>
+    <string name="ui_process_status_waitio">Ожидает I/O</string>
+    <string name="ui_process_status_stop">Остановлен</string>
+    <string name="ui_process_status_unknown">Неизвестно</string>
+
+    <!-- Process Tab End -->
+
+
+    <!-- Connection Tab Start -->
+
+    <!-- Header -->
+    <string name="ui_connection_protocol">Протокол</string>
+    <string name="ui_connection_localremote">Локальный/Внешний IP</string>
+    <string name="ui_connection_status">Статус</string>
+
+    <!-- Connection Tab End -->
+
+    <!-- Network Tab Start -->
+
+    <!-- Header -->
+    <string name="ui_network_interface">Интерфейс</string>
+    <string name="ui_network_ip4">IPv4</string>
+    <string name="ui_network_ip6">IPv6</string>
+
+    <!-- Additional -->
+    <string name="ui_network_mac">MAC</string>
+    <string name="ui_network_rx">Rx</string>
+    <string name="ui_network_tx">Tx</string>
+    <string name="ui_network_status">Статус</string>
+
+    <!-- Status -->
+    <string name="ui_network_status_up">up</string>
+    <string name="ui_network_status_down">down</string>
+    <string name="ui_network_status_broadcast">broadcast</string>
+    <string name="ui_network_status_loopback">loopback</string>
+    <string name="ui_network_status_p2p">point-to-point</string>
+    <string name="ui_network_status_promisc">promisc</string>
+    <string name="ui_network_status_running">running</string>
+    <string name="ui_network_status_multicast">multicast</string>
+
+    <!-- Network Tab End -->
+
+    <!-- Misc Tab Start -->
+    <string name="ui_misc_more">Больше</string>
+
+    <!-- Memory -->
+    <string name="ui_memory_title">Память</string>
+    <string name="ui_swap_title">Swap</string>
+    <string name="ui_memory_total">Всего</string>
+    <string name="ui_memory_free">Свободно</string>
+    <string name="ui_memory_shared">Разделяемая</string>
+    <string name="ui_memory_buffered">В буфере</string>
+    <string name="ui_memory_cached">В кэше</string>
+
+    <!-- Uptime -->
+    <string name="ui_system_uptime">Время работы</string>
+
+    <!-- CPU -->
+    <string name="ui_processor_freq">Частота</string>
+    <string name="ui_processor_scal">Масштабирование</string>
+    <string name="ui_processor_cur">Текущая частота</string>
+    <string name="ui_processor_gov">Governor</string>
+    <string name="ui_processor_status">Статус</string>
+    <string name="ui_processor_core">Ядро</string>
+    <string name="ui_processor_freq_max_title">Макс. частота</string>
+    <string name="ui_processor_freq_min_title">Мин. частота</string>
+    <string name="ui_processor_enable">Включить</string>
+    <string name="ui_processor_enable_title">Включить ЦП</string>
+    <string name="ui_processor_enable_msg">Сбор информации..</string>
+    <string name="ui_processor_status_online">Включен</string>
+    <string name="ui_processor_status_offline">Выключен</string>
+
+    <!-- Battery -->
+    <string name="ui_battery">Батарея</string>
+    <string name="ui_battery_health">Состояние</string>
+    <string name="ui_battery_technology">Тип</string>
+    <string name="ui_battery_capacity">Емкость</string>
+    <string name="ui_battery_voltage">Вольтаж</string>
+    <string name="ui_battery_temperature">Температура</string>
+    <string name="ui_battery_acpower">от розетки</string>
+    <string name="ui_battery_usbpower">через USB</string>
+    <string name="ui_battery_status">Статус</string>
+    <string name="ui_battery_online">OnLine</string>
+    <string name="ui_battery_offline">OffLine</string>
+    <string name="ui_battery_status_unknown">Неизвестно</string>
+    <string name="ui_battery_status_charging">Заряжается</string>
+    <string name="ui_battery_status_discharging">Разряжается</string>
+    <string name="ui_battery_status_notcharging">Не заряжается</string>
+    <string name="ui_battery_status_full">Заряжена</string>
+    <string name="ui_battery_health_dead">Dead</string>
+    <string name="ui_battery_health_good">Good</string>
+    <string name="ui_battery_health_overheat">Перегрев</string>
+    <string name="ui_battery_health_overvoltage">Высок. вольтаж</string>
+    <string name="ui_battery_health_unknown">Неизвестно</string>
+    <string name="ui_battery_health_failure">Неизвестная ошибка</string>
+
+    <!-- Misc Tab End -->
+
+    <!-- Message Tab Start -->
+
+    <!-- Header -->
+    <string name="ui_message_count">Сообщения:</string>
+
+    <!-- Message Tab End -->
+
+    <!-- Preferences Start -->
+    <string name="ui_preferences_update">Частота обновления</string>
+    <string name="ui_preferences_update_detail">задержка между обновлениями данных</string>
+    <string name="ui_preferences_autostart">Автозапуск</string>
+    <string name="ui_preferences_autostart_detail">запускать индикатор ЦП или ярлык при загрузке</string>
+    <string name="ui_preferences_cpuusage">Показывать загрузку ЦП</string>
+    <string name="ui_preferences_cpuusage_detail">показывать анимированный индикатор ЦП в области уведомлений</string>
+    <string name="ui_preferences_notification">Добавить ярлык</string>
+    <string name="ui_preferences_notification_deatil">показывать ярлык в области уведомлений</string>
+    <string name="ui_preferences_color">Цвет индикатора ЦП</string>
+    <string name="ui_preferences_color_detail">синий или зеленый</string>
+    <string name="ui_preferences_expert">Экспертный режим</string>
+    <string name="ui_preferences_expert_detail">показавать системные процессы Linux</string>
+    <string name="ui_preferences_root">Включить root</string>
+    <string name="ui_preferences_root_detail">дать права root для выполнения системных команд</string>
+    <string name="ui_preferences_tempvalue">Показывать градусы Цельсия</string>
+    <string name="ui_preferences_tempvalue_detail">переключение Цельсий/Фаренгейт</string>
+    <string name="ui_preferences_notification_customize">Настроить уведомление</string>
+    <string name="ui_preferences_notification_customize_detail">выбрать информацию для вывода в уведомлении</string>
+    <string name="ui_preferences_map">Тип карты</string>
+    <string name="ui_preferences_map_detail">выбрать Google Maps или OpenStreeMap</string>
+    <string name="ui_preferences_setcpu">Выставлять ЦП при загрузке</string>
+    <string name="ui_preferences_setcpu_detail">применять настройки процессора при загрузке</string>
+    <string name="ui_preferences_setcpu_data">Установить частоты и governor</string>
+    <string name="ui_preferences_notificaiton_color">Цвет текста уведомления</string>
+    <string name="ui_preferences_notificaiton_color_detail">нажмите и выберите</string>
+    <string name="ui_preferences_notificaiton_top">Держать уведомление вверху</string>
+    <string name="ui_preferences_notificaiton_top_detail">повысить приоритет уведомления (Android 4.1.2 или выше)</string>
+    <string name="ui_preferences_logcat_format">Формат Logcat</string>
+    <string name="ui_preferences_logcat_format_detail">формат отображения лога Logcat</string>
+    <string name="ui_preferences_dmesg_format">Формат Dmesg</string>
+    <string name="ui_preferences_dmesg_format_detail">формат отображения лога Dmesg</string>
+    <string name="ui_preferences_logcat_message_color">Цвет сообщений Logcat</string>
+    <string name="ui_preferences_dmesg_message_color">Цвет сообщений Dmesg</string>
+    <string name="ui_preferences_message_color_detail">message color to use when displaying log entries.</string>
+    <string name="ui_preferences_message_emergency_color">Экстренные </string>
+    <string name="ui_preferences_message_alert_color">Тревога </string>
+    <string name="ui_preferences_message_critical_color">Критические </string>
+    <string name="ui_preferences_message_verbose_color">Подробные </string>
+    <string name="ui_preferences_message_warning_color">Предупреждение</string>
+    <string name="ui_preferences_message_notice_color">Уведомление</string>
+    <string name="ui_preferences_message_info_color">Информирование</string>
+    <string name="ui_preferences_message_debug_color">Отладка</string>
+    <string name="ui_preferences_message_error_color">Ошибка</string>
+    <string name="ui_preferences_message_fatal_color">Критическая ошибка</string>
+
+    <!-- Preferences End -->
+
+    <!-- Common Start -->
+    <string name="ui_text_okay">ОК</string>
+    <string name="ui_text_cancel">Отмена</string>
+    <string name="ui_text_default">Default</string>
+    <string name="ui_text_notfound">Не найдено!</string>
+
+    <string name="ui_text_filename">Имя файла</string>
+    <string name="ui_text_fileexist">Файл существует!</string>
+    <string name="ui_text_exportdone">Готово!</string>
+
+    <string name="ui_text_zero">0</string>
+    <string name="ui_text_refresh">Подождите..</string>
+    <string name="ui_text_kill">Killing %1$d processes..</string>
+    <!-- Common End -->
+
+</resources>

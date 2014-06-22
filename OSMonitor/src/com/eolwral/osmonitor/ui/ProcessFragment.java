@@ -63,6 +63,7 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ProcessFragment extends ListFragment 
                              implements	ipcClientListener {
@@ -562,79 +563,10 @@ public class ProcessFragment extends ListFragment
 			try {
 				ipcData rawData = result.getData(index);
 
-				// process osInfo
-				if (rawData.getAction() == ipcAction.OS) {
+				if (rawData.getAction() == ipcAction.OS) 
 					info = osInfo.parseFrom(rawData.getPayload(0));
-					continue;
-				}
-
-				// skip others
-				if (rawData.getAction() != ipcAction.PROCESS)
-					continue;
-
-				// summary all system processes
-				processInfo.Builder syspsInfo = processInfo.newBuilder();
-				
-				// fixed value
-				syspsInfo.setPid(0);
-				syspsInfo.setUid(0);
-				syspsInfo.setPpid(0);
-				syspsInfo.setName("System");
-				syspsInfo.setOwner("root");
-				syspsInfo.setPriorityLevel(0);
-				syspsInfo.setStatus(processInfo.processStatus.Running);
-
-				// summary value
-				syspsInfo.setCpuUsage(0);
-				syspsInfo.setRss(0);
-				syspsInfo.setVsz(0);
-				syspsInfo.setStartTime(0);
-				syspsInfo.setThreadCount(0);
-				syspsInfo.setUsedSystemTime(0);
-				syspsInfo.setUsedUserTime(0);
-				syspsInfo.setCpuTime(0);
-
-				// process processInfo
-				for (int count = 0; count < rawData.getPayloadCount(); count++) {
-					processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
-                    
-					boolean doMerge = false;
-					
-					if( psInfo.getUid() == 0 ||
-						psInfo.getName().contains("/system/") ||
-						psInfo.getName().contains("/sbin/") )
-						doMerge = true;
-
-					if(psInfo.getName().toLowerCase(Locale.getDefault()).contains("osmcore"))
-						doMerge = false;
-					
-					if(settings.isUseExpertMode())
-						doMerge = false;
-
-					// Don't merge data
-					if(doMerge == false)
-					{
-						data.add(psInfo);
-						continue;
-					}
-					
-					// Merge process information into a process
-					syspsInfo.setCpuUsage(syspsInfo.getCpuUsage()+psInfo.getCpuUsage());
-					syspsInfo.setRss(syspsInfo.getRss()+psInfo.getRss());
-					syspsInfo.setVsz(syspsInfo.getVsz()+psInfo.getVsz());
-					syspsInfo.setThreadCount(syspsInfo.getThreadCount()+psInfo.getThreadCount());
-					syspsInfo.setUsedSystemTime(syspsInfo.getUsedSystemTime()+psInfo.getUsedSystemTime());
-					syspsInfo.setUsedUserTime(syspsInfo.getUsedUserTime()+psInfo.getUsedUserTime());
-					syspsInfo.setCpuTime(syspsInfo.getCpuTime()+psInfo.getCpuTime());
-						
-					if(syspsInfo.getStartTime() < psInfo.getStartTime() ||
-					   syspsInfo.getStartTime() == 0)
-					syspsInfo.setStartTime(psInfo.getStartTime());
-					
-				}
-				
-				if(!settings.isUseExpertMode())
-					data.add(syspsInfo.build());
+				else if (rawData.getAction() == ipcAction.PROCESS) 
+					extractProcessInfo(rawData);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -672,8 +604,8 @@ public class ProcessFragment extends ListFragment
 		if (info != null) {
 			memoryTotal.setText(CommonUtil.convertToSize(info.getTotalMemory(), true));
 			memoryFree.setText(CommonUtil.convertToSize(info.getFreeMemory()+
-					                                                                                              info.getBufferedMemory()+
-				                                                                                                  info.getCachedMemory(), true));
+					                                    info.getBufferedMemory()+
+				                                        info.getCachedMemory(), true));
 		}
 
 		getActivity().runOnUiThread( new Runnable() {
@@ -803,6 +735,73 @@ public class ProcessFragment extends ListFragment
 		TextView detailStarttime;
 		TextView detailThread;
 		TextView detailNice;
+	}
+
+	private void extractProcessInfo(ipcData rawData)
+			throws InvalidProtocolBufferException {
+		// summary all system processes
+		processInfo.Builder syspsInfo = processInfo.newBuilder();
+		
+		// fixed value
+		syspsInfo.setPid(0);
+		syspsInfo.setUid(0);
+		syspsInfo.setPpid(0);
+		syspsInfo.setName("System");
+		syspsInfo.setOwner("root");
+		syspsInfo.setPriorityLevel(0);
+		syspsInfo.setStatus(processInfo.processStatus.Running);
+
+		// summary value
+		syspsInfo.setCpuUsage(0);
+		syspsInfo.setRss(0);
+		syspsInfo.setVsz(0);
+		syspsInfo.setStartTime(0);
+		syspsInfo.setThreadCount(0);
+		syspsInfo.setUsedSystemTime(0);
+		syspsInfo.setUsedUserTime(0);
+		syspsInfo.setCpuTime(0);
+
+		// process processInfo
+		for (int count = 0; count < rawData.getPayloadCount(); count++) {
+			processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
+		    
+			boolean doMerge = false;
+			
+			if( psInfo.getUid() == 0 ||
+				psInfo.getName().contains("/system/") ||
+				psInfo.getName().contains("/sbin/") )
+				doMerge = true;
+
+			if(psInfo.getName().toLowerCase(Locale.getDefault()).contains("osmcore"))
+				doMerge = false;
+			
+			if(settings.isUseExpertMode())
+				doMerge = false;
+
+			// Don't merge data
+			if(doMerge == false)
+			{
+				data.add(psInfo);
+				continue;
+			}
+			
+			// Merge process information into a process
+			syspsInfo.setCpuUsage(syspsInfo.getCpuUsage()+psInfo.getCpuUsage());
+			syspsInfo.setRss(syspsInfo.getRss()+psInfo.getRss());
+			syspsInfo.setVsz(syspsInfo.getVsz()+psInfo.getVsz());
+			syspsInfo.setThreadCount(syspsInfo.getThreadCount()+psInfo.getThreadCount());
+			syspsInfo.setUsedSystemTime(syspsInfo.getUsedSystemTime()+psInfo.getUsedSystemTime());
+			syspsInfo.setUsedUserTime(syspsInfo.getUsedUserTime()+psInfo.getUsedUserTime());
+			syspsInfo.setCpuTime(syspsInfo.getCpuTime()+psInfo.getCpuTime());
+				
+			if(syspsInfo.getStartTime() < psInfo.getStartTime() ||
+			   syspsInfo.getStartTime() == 0)
+			syspsInfo.setStartTime(psInfo.getStartTime());
+			
+		}
+		
+		if(!settings.isUseExpertMode())
+			data.add(syspsInfo.build());
 	}
 	
 	private  void setItemStatus(View v, boolean status) {

@@ -61,6 +61,7 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 
 public class MessageFragment extends ListFragment 
@@ -648,31 +649,11 @@ public class MessageFragment extends ListFragment
 
 				// prepare mapping table
 				if(rawData.getAction() == ipcAction.PROCESS)
-				{
-					for (int count = 0; count < rawData.getPayloadCount(); count++) {
-						processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
-						if (!infoHelper.checkPackageInformation(psInfo.getName())) {
-							infoHelper.doCacheInfo(psInfo.getUid(), psInfo.getOwner(), psInfo.getName());
-						}
-						map.put(psInfo.getPid(), psInfo);
-					}
-					continue;
-				}
-				
-				if(isLogcat(rawData.getAction())) {
-					for (int count = 0; count < rawData.getPayloadCount(); count++) {
-						logcatInfo lgInfo = logcatInfo.parseFrom(rawData.getPayload(count));
-						if (sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).size() > MAXLOGCAT)
-							sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).remove(0);
-						sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).add(lgInfo);
-					}
-				}
-				else  if (rawData.getAction() == ipcAction.DMESG){
-					for (int count = 0; count < rawData.getPayloadCount(); count++) {
-						dmesgInfo dgInfo = dmesgInfo.parseFrom(rawData.getPayload(count));
-						sourceDmesgData.add(dgInfo);
-					}
-				} 
+					extractProcessInfo(rawData);
+				else if(isLogcat(rawData.getAction())) 
+					extractLogcatInfo(rawData);
+				else if (rawData.getAction() == ipcAction.DMESG)
+					extractDmesgInfo(rawData);
 
 				logType = rawData.getAction();
 				
@@ -695,6 +676,35 @@ public class MessageFragment extends ListFragment
 			ipc.addRequest(newCommand, 0, this);
 		else
 			ipc.addRequest(newCommand, settings.getInterval(), this);
+	}
+
+	private void extractLogcatInfo(ipcData rawData)
+			throws InvalidProtocolBufferException {
+		for (int count = 0; count < rawData.getPayloadCount(); count++) {
+			logcatInfo lgInfo = logcatInfo.parseFrom(rawData.getPayload(count));
+			if (sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).size() > MAXLOGCAT)
+				sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).remove(0);
+			sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).add(lgInfo);
+		}
+	}
+
+	private void extractDmesgInfo(ipcData rawData)
+			throws InvalidProtocolBufferException {
+		for (int count = 0; count < rawData.getPayloadCount(); count++) {
+			dmesgInfo dgInfo = dmesgInfo.parseFrom(rawData.getPayload(count));
+			sourceDmesgData.add(dgInfo);
+		}
+	}
+
+	private void extractProcessInfo(ipcData rawData)
+			throws InvalidProtocolBufferException {
+		for (int count = 0; count < rawData.getPayloadCount(); count++) {
+			processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
+			if (!infoHelper.checkPackageInformation(psInfo.getName())) {
+				infoHelper.doCacheInfo(psInfo.getUid(), psInfo.getOwner(), psInfo.getName());
+			}
+			map.put(psInfo.getPid(), psInfo);
+		}
 	}
 	
 	private boolean isLogcat(ipcAction logType) {

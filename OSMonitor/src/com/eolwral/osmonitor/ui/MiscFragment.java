@@ -42,6 +42,7 @@ import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 public class MiscFragment extends Fragment 
                                 implements ipcClientListener {
@@ -627,25 +628,11 @@ public class MiscFragment extends Fragment
 
 				if(rawData.getAction() == ipcAction.OS)
 					osdata = osInfo.parseFrom(rawData.getPayload(0));
-							
-				if(rawData.getAction() == ipcAction.PROCESSOR) {
-					for (int count = 0; count < rawData.getPayloadCount(); count++) {
-						processorInfo prInfo = processorInfo.parseFrom(rawData.getPayload(count));
-						coredata.add(prInfo);
-					}
-				}
-				
-				if(rawData.getAction() == ipcAction.NETWORK) {
-					// process processInfo
-					for (int count = 0; count < rawData.getPayloadCount(); count++) {
-						networkInfo nwInfo = networkInfo.parseFrom(rawData.getPayload(count));
-						
-						/*if(nwInfo.getIpv4Addr().length() > 0 ||
-						   nwInfo.getIpv6Addr().length() > 0 ||
-						   nwInfo.getMac().length() > 0)*/
-					    nwdata.add(nwInfo);
-					}					
-				}
+				else if(rawData.getAction() == ipcAction.PROCESSOR) 
+					extractProcessorInfo(rawData);
+				else if(rawData.getAction() == ipcAction.NETWORK) 
+					extractNetworkInfo(rawData);					
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -658,6 +645,27 @@ public class MiscFragment extends Fragment
 		// send command again
 		ipcAction newCommand[] = { ipcAction.OS , ipcAction.PROCESSOR, ipcAction.NETWORK };
 		ipcService.addRequest(newCommand, settings.getInterval(), this);
+	}
+
+	private void extractNetworkInfo(ipcData rawData)
+			throws InvalidProtocolBufferException {
+		// process processInfo
+		for (int count = 0; count < rawData.getPayloadCount(); count++) {
+			networkInfo nwInfo = networkInfo.parseFrom(rawData.getPayload(count));
+			
+			/*if(nwInfo.getIpv4Addr().length() > 0 ||
+			   nwInfo.getIpv6Addr().length() > 0 ||
+			   nwInfo.getMac().length() > 0)*/
+		    nwdata.add(nwInfo);
+		}
+	}
+
+	private void extractProcessorInfo(ipcData rawData)
+			throws InvalidProtocolBufferException {
+		for (int count = 0; count < rawData.getPayloadCount(); count++) {
+			processorInfo prInfo = processorInfo.parseFrom(rawData.getPayload(count));
+			coredata.add(prInfo);
+		}
 	}
 
     private void startBatteryMonitor()

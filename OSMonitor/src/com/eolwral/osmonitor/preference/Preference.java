@@ -155,8 +155,13 @@ public class Preference extends PreferenceActivity  {
 		   key.equals(Settings.PREFERENCE_SHORTCUT) || key.equals(Settings.PREFERENCE_NOTIFICATION_COLOR) ||
 		   key.equals(Settings.PREFERENCE_NOTIFICATION_TOP) || key.equals(Settings.PREFERENCE_NOTIFICATION_CUSTOMIZE)) {
 
+			// prevent exit
+			if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
+				helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {
+				helper.setString(Settings.SESSION_SECTION, "Non-Exit");
+			}
+			
 			// restart background daemon
-			helper.setString(Settings.SESSION_SECTION, "Non-Exit");
 			getApplication().stopService(new Intent(getApplication(), OSMonitorService.class));
 
 			// restart notification 

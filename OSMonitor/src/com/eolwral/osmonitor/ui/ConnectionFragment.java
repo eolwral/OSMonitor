@@ -60,6 +60,7 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.HttpUtil;
+import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ConnectionFragment extends ListFragment 
                                 implements ipcClientListener {
@@ -388,36 +389,21 @@ public class ConnectionFragment extends ListFragment
 
 		// convert data
 		// TODO: reuse old objects
-		for (int index = 0; index < result.getDataCount(); index++) {
+		try {
+			for (int index = 0; index < result.getDataCount(); index++) {
 
-			try {
 				ipcData rawData = result.getData(index);
 
 				// prepare mapping table
 				if(rawData.getAction() == ipcAction.PROCESS)
-				{
-					for (int count = 0; count < rawData.getPayloadCount(); count++) {
-						processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
-						if (!infoHelper.checkPackageInformation(psInfo.getName())) {
-							infoHelper.doCacheInfo(psInfo.getUid(), psInfo.getOwner(), psInfo.getName());
-						}
-						map.put(psInfo.getUid(), psInfo.getName());
-					}
-				}
+					extractProfessInfo(rawData);
+				else if(rawData.getAction() == ipcAction.CONNECTION)
+					extractConnectionInfo(rawData);
 				
-				if(rawData.getAction() != ipcAction.CONNECTION)
-					continue;
-
-				// process processInfo
-				for (int count = 0; count < rawData.getPayloadCount(); count++) {
-					connectionInfo cnInfo = connectionInfo.parseFrom(rawData.getPayload(count));
-					data.add(cnInfo);
-				}
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		((ConnectionListAdapter) getListAdapter()).refresh();
@@ -425,6 +411,26 @@ public class ConnectionFragment extends ListFragment
 		// send command again
 		ipcAction newCommand[] = { ipcAction.CONNECTION, ipcAction.PROCESS };
 		ipcService.addRequest(newCommand, settings.getInterval(), this);
+	}
+
+	private void extractConnectionInfo(ipcData rawData)
+			throws InvalidProtocolBufferException {
+		// process processInfo
+		for (int count = 0; count < rawData.getPayloadCount(); count++) {
+			connectionInfo cnInfo = connectionInfo.parseFrom(rawData.getPayload(count));
+			data.add(cnInfo);
+		}
+	}
+
+	private void extractProfessInfo(ipcData rawData)
+			throws InvalidProtocolBufferException {
+		for (int count = 0; count < rawData.getPayloadCount(); count++) {
+			processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
+			if (!infoHelper.checkPackageInformation(psInfo.getName())) {
+				infoHelper.doCacheInfo(psInfo.getUid(), psInfo.getOwner(), psInfo.getName());
+			}
+			map.put(psInfo.getUid(), psInfo.getName());
+		}
 	}
 	
 	/**

@@ -4,6 +4,20 @@ import android.content.Context;
 
 public class Settings {
 
+	// notification type
+	public class NotificationType {
+		public final static int MEMORY_BATTERY = 1;
+		public final static int MEMORY_DISKIO  = 2;
+		public final static int BATTERY_DISKIO = 3; 
+		public final static int NETWORKIO = 4;
+	}
+	
+	// statusbar color
+	public class StatusBarColor {
+		public final static int GREEN = 1;
+		public final static int BLUE = 2;
+	}
+	
 	// singleton
 	private static Settings instance = null;
 	

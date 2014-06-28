@@ -648,9 +648,12 @@ public class MessageFragment extends ListFragment
 				ipcData rawData = result.getData(index);
 
 				// prepare mapping table
-				if(rawData.getAction() == ipcAction.PROCESS)
-					extractProcessInfo(rawData);
-				else if(isLogcat(rawData.getAction())) 
+				if(rawData.getAction() == ipcAction.PROCESS) {
+					extractProcessInfo(rawData); 
+					continue;
+				}
+				
+				if(isLogcat(rawData.getAction())) 
 					extractLogcatInfo(rawData);
 				else if (rawData.getAction() == ipcAction.DMESG)
 					extractDmesgInfo(rawData);

@@ -63,6 +63,15 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.1.0.0**
+
+- German Language Files - Benko111@XDA
+- Russian Language Files - equeim 
+- add Disk IO and Network IO on notification (optional)
+- Fix "Exit" function on KitKat
+- Run background service without /bin/sh (Thanks to Andi Depressivum)
+- Improve notification
+
 **Version 3.0.9.8**
 
 - Revert code to fix "No Data" issue

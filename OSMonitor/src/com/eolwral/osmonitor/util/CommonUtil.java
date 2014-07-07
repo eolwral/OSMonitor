@@ -206,7 +206,7 @@ public class CommonUtil {
 		if (!settings.isRoot()) 
 			Runtime.getRuntime().exec( new String [] { "sh", "-c", binary+" "+binary+".token &" }).waitFor();
 		else
-			Runtime.getRuntime().exec( new String [] { "su", "-c ", binary+" "+binary+".token &" }).waitFor();
+			Runtime.getRuntime().exec( new String [] { "su", "-c", binary+" "+binary+".token &" }).waitFor();
 		
 	} catch (Exception e) {
 		return false;

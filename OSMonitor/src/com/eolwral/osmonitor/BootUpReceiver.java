@@ -14,17 +14,17 @@ public class BootUpReceiver extends BroadcastReceiver{
  	@Override 
 	public void onReceive(Context context, Intent intent) {
 
- 		setting = Settings.getInstance(context);
- 		
-        if(setting.isEnableAutoStart() && ( setting.isEnableCPUMeter() || setting.isAddShortCut()))
-        	context.startService(new Intent(context, OSMonitorService.class));
-        
-        if(setting.isSetCPU() && setting.isRoot()) {
-        	IpcService.Initialize(context);
-        	prepareSetCPU(); // fix ANR when booting
-        }
+ 	  setting = Settings.getInstance(context);
 
-        return;
+ 	  if(setting.isEnableAutoStart() && ( setting.isEnableCPUMeter() || setting.isAddShortCut()))
+ 	    context.startService(new Intent(context, OSMonitorService.class));
+
+ 	  if(setting.isSetCPU() && setting.isRoot()) {
+ 	    IpcService.Initialize(context);
+ 	    prepareSetCPU(); // fix ANR when booting
+ 	  }
+
+ 	  return;
 	}
 
 	private void prepareSetCPU() {

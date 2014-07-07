@@ -49,11 +49,11 @@ public class CommonUtil {
    * @param context
    */
   public static void killProcess(int pid, Context context) {
-	  final Settings settings = Settings.getInstance(context);
-	  if (!settings.isRoot()) 
-		  android.os.Process.killProcess(pid);
-	  else
-		  IpcService.getInstance().killProcess(pid);
+    final Settings settings = Settings.getInstance(context);
+    if (!settings.isRoot()) 
+      android.os.Process.killProcess(pid);
+    else
+      IpcService.getInstance().killProcess(pid);
   }
 
 
@@ -86,8 +86,8 @@ public class CommonUtil {
    * @return true == yes, false == no
    */
   public static boolean isX86() {
-	    return (android.os.Build.CPU_ABI.toLowerCase().contains("x86"));	  
-	  }
+    return (android.os.Build.CPU_ABI.toLowerCase().contains("x86"));	  
+  }
   
   /**
    * check file status
@@ -96,8 +96,8 @@ public class CommonUtil {
    */
   @SuppressWarnings("unused")
   private static boolean fileExist(String localPath) {
-	  File targetFile = new File(localPath);
-	  return targetFile.exists();
+    File targetFile = new File(localPath);
+    return targetFile.exists();
   }
   
   /**
@@ -107,8 +107,8 @@ public class CommonUtil {
    * @return true == exist, false == not exist 
    */
   public static boolean doesDatabaseExist(Context context, String dbName) {
-	  File dbFile=context.getDatabasePath(dbName);
-	  return dbFile.exists();
+    File dbFile=context.getDatabasePath(dbName);
+    return dbFile.exists();
   }
   
   /**
@@ -159,14 +159,14 @@ public class CommonUtil {
    * @return true or false
    */
   private static boolean writeTokenFile(String tokenFilePath, String token) {
-	try {
-		FileWriter file  = new FileWriter(tokenFilePath);
-		file.write(token);
-		file.close();
-	} catch (IOException e) {
-		return false;
-	}
-	return true;
+    try {
+      FileWriter file  = new FileWriter(tokenFilePath, false);
+      file.write(token);
+      file.close();
+    } catch (IOException e) {
+      return false;
+    }
+    return true;
   }
   
   /**
@@ -176,49 +176,50 @@ public class CommonUtil {
    */
   public static boolean execCore(Context context) {
 
-	if(context == null)
-		return false;
-	
-	String binary = context.getFilesDir().getAbsolutePath()+"/"+binaryName;
-	final Settings settings = Settings.getInstance(context);
+    if(context == null)
+      return false;
 
-	// copy file 
-	if(!copyFile("osmcore", binary, context))
-		return false; 
+    String binary = context.getFilesDir().getAbsolutePath()+"/"+binaryName;
+    final Settings settings = Settings.getInstance(context);
 
-	// write token file
-	writeTokenFile(binary+".token", settings.getToken());
+    // copy file 
+    if(!copyFile("osmcore", binary, context))
+      return false; 
 
-	// lock file
-	File file = new File(binary+".lock");
-	FileChannel channel = null;
-	FileLock lock = null;
-	try {
-		channel = new RandomAccessFile(file, "rw").getChannel();
-		lock = channel.tryLock();
-	} catch (Exception e) {
-		return false;
-	}
-	 
-	// execute osmcore
-	try { 
-		Runtime.getRuntime().exec("chmod 755 " + binary).waitFor();
-		if (!settings.isRoot()) 
-			Runtime.getRuntime().exec( new String [] { "sh", "-c", binary+" "+binary+".token &" }).waitFor();
-		else
-			Runtime.getRuntime().exec( new String [] { "su", "-c", binary+" "+binary+".token &" }).waitFor();
-		
-	} catch (Exception e) {
-		return false;
-	}
-	
+    // write token file
+    if(!writeTokenFile(binary+".token", settings.getToken()))
+      return false;
+
+    // lock file
+    File file = new File(binary+".lock");
+    FileChannel channel = null;
+    FileLock lock = null;
+    try {
+      channel = new RandomAccessFile(file, "rw").getChannel();
+      lock = channel.tryLock();
+    } catch (Exception e) {
+      return false;
+    }
+
+    // execute osmcore
+    try { 
+      Runtime.getRuntime().exec(new String [] {"chmod", "755", binary}).waitFor();
+      if (!settings.isRoot()) 
+        Runtime.getRuntime().exec( new String [] { "sh", "-c", binary+" "+binary+".token &" }).waitFor();
+      else
+        Runtime.getRuntime().exec( new String [] { "su", "-c", binary+" "+binary+".token &" }).waitFor();
+
+    } catch (Exception e) {
+      return false;
+    }
+
     // release the lock
     try {
-		lock.release();
-	    channel.close();
-	} catch (Exception e) {}
-       
-	return true;
+      lock.release();
+      channel.close();
+    } catch (Exception e) {}
+
+    return true;
   }
   
   /**
@@ -226,20 +227,20 @@ public class CommonUtil {
    * @return true == rooted, false == non-rooted
    */
   public static boolean preCheckRoot() {
-	boolean flag = false; 
-	
-	try {
-		Process process = Runtime.getRuntime().exec("su");
-		DataOutputStream os = new DataOutputStream(process.getOutputStream());
-		os.writeBytes("exit \n");
-		process.waitFor();
-		
-		if(process.exitValue() == 0)
-			flag = true;
-		
-	} catch (Exception e) { }
-	
-	return flag;
+    boolean flag = false; 
+
+    try {
+      Process process = Runtime.getRuntime().exec("su");
+      DataOutputStream os = new DataOutputStream(process.getOutputStream());
+      os.writeBytes("exit \n");
+      process.waitFor();
+
+      if(process.exitValue() == 0)
+        flag = true;
+
+    } catch (Exception e) { }
+
+    return flag;
   }
   
   
@@ -254,10 +255,10 @@ public class CommonUtil {
   @SuppressLint("DefaultLocale")
   public static String convertToSize(long data, boolean si) {
     int unit = si ? 1000 : 1024;
-	if (data < unit) return data + " B";
-	int exp = (int) (Math.log(data) / Math.log(unit));
-	String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
-	return String.format("%.1f %sB", data / Math.pow(unit, exp), pre);
+    if (data < unit) return data + " B";
+    int exp = (int) (Math.log(data) / Math.log(unit));
+    String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+    return String.format("%.1f %sB", data / Math.pow(unit, exp), pre);
   }
   
   /**
@@ -267,7 +268,7 @@ public class CommonUtil {
    */
   @SuppressLint("DefaultLocale")
   public static String convertToUsage(float data) {
-	return String.format("%.1f", data); 	  
+    return String.format("%.1f", data); 	  
   }
   
   /**
@@ -276,10 +277,10 @@ public class CommonUtil {
    * @return int
    */
   public static int convertToInt(String value) {
-	try {
-		return Integer.parseInt(value);
-	} catch(Exception e) {}
-	return 0;
+    try {
+      return Integer.parseInt(value);
+    } catch(Exception e) {}
+    return 0;
   }
   
   /**
@@ -288,12 +289,12 @@ public class CommonUtil {
    * @return string []
    */
   public static String[] eraseNonIntegarString(String[] data) {
-	  ArrayList<String> checked = new ArrayList<String>();
-	  for (int index = 0; index < data.length; index++) {
-		  if (convertToInt(data[index]) != 0)
-			  checked.add(data[index]);
-	  }
-	  return checked.toArray(new String[checked.size()]);
+    ArrayList<String> checked = new ArrayList<String>();
+    for (int index = 0; index < data.length; index++) {
+      if (convertToInt(data[index]) != 0)
+        checked.add(data[index]);
+    }
+    return checked.toArray(new String[checked.size()]);
   }
   
   /**
@@ -316,9 +317,9 @@ public class CommonUtil {
    * @return running == ture, none == false
    */
   public static boolean isServiceRunning(Context context){
-	final ActivityManager actMgr = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-	final List<RunningServiceInfo> services = actMgr.getRunningServices(Integer.MAX_VALUE);
-	  
+    final ActivityManager actMgr = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+    final List<RunningServiceInfo> services = actMgr.getRunningServices(Integer.MAX_VALUE);
+
     for (RunningServiceInfo serviceInfo : services) {
       if (serviceInfo.service.getClassName().equals(OSMonitorService.class.getName()))
         return true;
@@ -334,7 +335,7 @@ public class CommonUtil {
    * without the alpha value
    */
   public static String convertToRGB(int color) {
-	String red = Integer.toHexString(Color.red(color));
+    String red = Integer.toHexString(Color.red(color));
     String green = Integer.toHexString(Color.green(color));
     String blue = Integer.toHexString(Color.blue(color));
 

@@ -366,7 +366,7 @@ public class Settings {
 	 * @return type
 	 */
 	public int getNotificationType() {
-		return helper.getInteger(PREFERENCE_NOTIFICATION_CUSTOMIZE,  1);
+		return helper.getInteger(PREFERENCE_NOTIFICATION_CUSTOMIZE, NotificationType.MEMORY_BATTERY);
 	}
 	
 	/**

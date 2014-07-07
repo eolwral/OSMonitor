@@ -23,6 +23,8 @@ if you would like to know that how it works, please check Wiki page!
 - Polish - Thanks to Jarek Mazur
 - Hebrew - Thanks to Zamarin Arthur
 - Italian - Thanks to Gabriele Zappi
+- German - Thanks to Benko111@XDA
+- Russian - Thanks to equeim
 - English
 - Chinese
 

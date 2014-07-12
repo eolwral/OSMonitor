@@ -14,7 +14,8 @@
         android:layout_alignParentLeft="true"
         android:padding="5dp"
         android:textStyle="bold"
-        android:text="@string/ui_process_count" />
+        android:text="@string/ui_process_count" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <TextView
         android:id="@+id/id_process_count"
@@ -25,7 +26,8 @@
         android:layout_toRightOf="@+id/tx_process_count"
         android:padding="5dp"
         android:textStyle="bold"
-        android:text="@string/ui_text_zero" />
+        android:text="@string/ui_text_zero" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <TextView
         android:id="@+id/id_process_cpuusage"
@@ -35,6 +37,7 @@
         android:layout_alignParentTop="true"
         android:padding="5dp"
         android:text="@string/ui_text_zero"
+        android:textColor="@color/ltgrey_osmonitor" 
         android:textStyle="bold" />
 
     <TextView
@@ -45,6 +48,7 @@
         android:layout_toLeftOf="@+id/id_process_cpuusage"
         android:padding="5dp"
         android:text="@string/ui_process_cpuusage"
+        android:textColor="@color/ltgrey_osmonitor" 
         android:textStyle="bold" />
     
     <ListView
@@ -68,7 +72,8 @@
         android:layout_alignParentLeft="true"
         android:padding="5dp"
         android:textStyle="bold"
-        android:text="@string/ui_process_memorytotal" />
+        android:text="@string/ui_process_memorytotal" 
+        android:textColor="@color/ltgrey_osmonitor" />
     
     <TextView
         android:id="@+id/id_process_memorytotal"
@@ -78,7 +83,8 @@
         android:layout_toRightOf="@+id/tx_process_memorytotal"
         android:padding="5dp"
         android:textStyle="bold"
-        android:text="@string/ui_text_zero" />
+        android:text="@string/ui_text_zero" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <TextView
         android:id="@+id/id_process_memoryfree"
@@ -88,7 +94,8 @@
         android:layout_alignParentRight="true"
         android:padding="5dp"
         android:text="@string/ui_text_zero"
-        android:textStyle="bold" />
+        android:textStyle="bold" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <TextView
         android:id="@+id/tx_process_memoryfree"
@@ -98,6 +105,7 @@
         android:layout_toLeftOf="@+id/id_process_memoryfree"
         android:padding="5dp"
         android:text="@string/ui_process_memoryfree"
-        android:textStyle="bold" />
+        android:textStyle="bold" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
 </RelativeLayout>

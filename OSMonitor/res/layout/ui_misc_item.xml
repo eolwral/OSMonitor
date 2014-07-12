@@ -16,7 +16,8 @@
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
         android:layout_weight="1"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <Button
         android:id="@+id/id_misc_button"

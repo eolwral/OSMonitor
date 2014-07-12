@@ -19,7 +19,8 @@
                 android:paddingRight="3dp"
                 android:background="@color/item_background"
                 android:text="@string/ui_process_detail_process"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/ltgrey_osmonitor"  />
 
             <TextView
                 android:id="@+id/id_process_detail_name"
@@ -29,7 +30,8 @@
                 android:paddingLeft="3dp"
                 android:layout_span="5"
                 android:singleLine="false"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
         </TableRow>
 
@@ -46,7 +48,8 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:text="@string/ui_process_detail_memory"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_memory"
@@ -55,7 +58,8 @@
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
                 android:layout_span="5"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
         </TableRow>
 
@@ -72,7 +76,8 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:text="@string/ui_process_detail_time"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_starttime"
@@ -81,7 +86,8 @@
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
                 android:layout_span="5"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
         </TableRow>
 
@@ -98,7 +104,8 @@
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
                 android:text="@string/ui_process_detail_cputime"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_cputime"
@@ -106,7 +113,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/tx_process_detail_stime"
@@ -117,7 +125,8 @@
                 android:paddingRight="3dp"
                 android:background="@color/item_background"
                 android:text="@string/ui_process_detail_stime"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_stime"
@@ -125,7 +134,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/tx_process_detail_utime"
@@ -136,7 +146,8 @@
                 android:paddingRight="3dp"
                 android:background="@color/item_background"
                 android:text="@string/ui_process_detail_utime"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_utime"
@@ -144,7 +155,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
         </TableRow>
 
@@ -160,7 +172,8 @@
                 android:background="@color/item_background"
                 android:paddingLeft="3dp"
                 android:text="@string/ui_process_detail_thread"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_thread"
@@ -168,7 +181,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/tx_process_detail_ppid"
@@ -178,7 +192,8 @@
                 android:background="@color/item_background"
                 android:paddingLeft="3dp"
                 android:text="@string/ui_process_detail_ppid"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_ppid"
@@ -186,7 +201,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/tx_process_detail_user"
@@ -197,7 +213,8 @@
                 android:maxLines="1"
                 android:paddingLeft="3dp"
                 android:text="@string/ui_process_detail_user"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_user"
@@ -205,7 +222,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
         </TableRow>
 
@@ -221,7 +239,8 @@
                 android:background="@color/item_background"
                 android:paddingLeft="3dp"
                 android:text="@string/ui_process_detail_status"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_status"
@@ -229,7 +248,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/tx_process_detail_nice"
@@ -239,7 +259,8 @@
                 android:background="@color/item_background"
                 android:paddingLeft="3dp"
                 android:text="@string/ui_process_detail_nice"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
             <TextView
                 android:id="@+id/id_process_detail_nice"
@@ -247,7 +268,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="1dp"
                 android:paddingLeft="3dp"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="@color/ltgrey_osmonitor" />
 
         </TableRow>
 </TableLayout>

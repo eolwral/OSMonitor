@@ -68,7 +68,8 @@
             android:layout_weight="1"
             android:gravity="left|center_vertical"
             android:singleLine="true"
-            android:text="CPU: ??%" />
+            android:text="CPU: ??%" 
+            android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
             android:id="@+id/notification_1nd"
@@ -77,7 +78,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:singleLine="true" />
+            android:singleLine="true" 
+            android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
             android:id="@+id/notification_2nd"
@@ -86,7 +88,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:singleLine="true" />
+            android:singleLine="true" 
+            android:textColor="@color/ltgrey_osmonitor" />
         
     </LinearLayout>
 
@@ -113,7 +116,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:singleLine="true" />
+            android:singleLine="true" 
+            android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
             android:id="@+id/notification_top2nd"
@@ -122,7 +126,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:singleLine="true" />
+            android:singleLine="true" 
+            android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
             android:id="@+id/notification_top3nd"
@@ -131,7 +136,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="left|center_vertical"
-            android:singleLine="true" />
+            android:singleLine="true" 
+            android:textColor="@color/ltgrey_osmonitor" />
 
     </LinearLayout>
 

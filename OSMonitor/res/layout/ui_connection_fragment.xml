@@ -16,7 +16,8 @@
         android:padding="5dp"        
         android:textStyle="bold"
         android:text="@string/ui_connection_protocol"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <TextView
         android:id="@+id/tx_connection_status"
@@ -27,7 +28,8 @@
         android:padding="5dp"        
         android:textStyle="bold"
         android:text="@string/ui_connection_status"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
     
     <ListView
         android:id="@android:id/list"
@@ -49,6 +51,7 @@
         android:padding="5dp"
         android:text="@string/ui_connection_localremote"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/ltgrey_osmonitor" 
         android:textStyle="bold" />
 
 </RelativeLayout>

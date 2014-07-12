@@ -16,7 +16,8 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="@string/ui_memory_total"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall" 
+            android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
             android:id="@+id/id_memory_total"
@@ -25,6 +26,7 @@
             android:paddingLeft="3dp"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/ltgrey_osmonitor" 
             android:layout_weight="1" />
         
     </LinearLayout>
@@ -41,7 +43,8 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="@string/ui_memory_free"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall" 
+            android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
             android:id="@+id/id_memory_free"
@@ -50,6 +53,7 @@
             android:paddingLeft="3dp"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/ltgrey_osmonitor" 
             android:layout_weight="1" />
         
     </LinearLayout>
@@ -66,7 +70,8 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="@string/ui_memory_cached"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall" 
+            android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
             android:id="@+id/id_memory_cached"
@@ -75,6 +80,7 @@
             android:paddingLeft="3dp"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/ltgrey_osmonitor" 
             android:layout_weight="1" />
         
     </LinearLayout>
@@ -91,7 +97,8 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="@string/ui_memory_buffered"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall" 
+            android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
             android:id="@+id/id_memory_buffered"
@@ -100,6 +107,7 @@
             android:paddingLeft="3dp"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/ltgrey_osmonitor" 
             android:layout_weight="1" />
     </LinearLayout>
 

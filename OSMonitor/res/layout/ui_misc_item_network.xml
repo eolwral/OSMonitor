@@ -24,7 +24,8 @@
                android:layout_weight="2"
                android:gravity="center"    	       
     		   android:text="@string/ui_network_interface"
-    		   android:textAppearance="?android:attr/textAppearanceSmall" />
+    		   android:textAppearance="?android:attr/textAppearanceSmall" 
+    		   android:textColor="@color/ltgrey_osmonitor" />
 	    
     	<TextView
     	       android:id="@+id/id_network_interface"
@@ -33,7 +34,8 @@
                android:layout_weight="1"
                android:gravity="left"    	       
     	       android:text=""
-    	       android:textAppearance="?android:attr/textAppearanceSmall" />
+    	       android:textAppearance="?android:attr/textAppearanceSmall" 
+    	       android:textColor="@color/ltgrey_osmonitor" />
     
    </LinearLayout>
     
@@ -49,7 +51,8 @@
                 android:layout_weight="2"
                 android:gravity="center"    	       
         		android:text="@string/ui_network_ip4"
-        		android:textAppearance="?android:attr/textAppearanceSmall" />
+        		android:textAppearance="?android:attr/textAppearanceSmall" 
+        		android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
     		    android:id="@+id/id_network_ip4"
@@ -58,7 +61,8 @@
                 android:layout_weight="1"
                 android:gravity="left"    	       
         		android:text=""
-        		android:textAppearance="?android:attr/textAppearanceSmall" />
+        		android:textAppearance="?android:attr/textAppearanceSmall" 
+        		android:textColor="@color/ltgrey_osmonitor" />
     
     </LinearLayout>
     
@@ -74,7 +78,8 @@
                 android:layout_weight="2"
                 android:gravity="center"    	          		
         		android:text="@string/ui_network_ip6"
-        		android:textAppearance="?android:attr/textAppearanceSmall" />
+        		android:textAppearance="?android:attr/textAppearanceSmall" 
+        		android:textColor="@color/ltgrey_osmonitor" />
 
         <TextView
     		    android:id="@+id/id_network_ip6"
@@ -83,7 +88,8 @@
                 android:layout_weight="1"
                 android:gravity="left"    	  		        
 		        android:text=""
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		        android:textAppearance="?android:attr/textAppearanceSmall" 
+		        android:textColor="@color/ltgrey_osmonitor" />
     
     </LinearLayout>
     
@@ -110,7 +116,8 @@
                 android:layout_weight="2"
                 android:gravity="center"    	  		        
 		        android:text="@string/ui_network_mac"
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		        android:textAppearance="?android:attr/textAppearanceSmall" 
+		        android:textColor="@color/ltgrey_osmonitor" />
 
     	<TextView
         		android:id="@+id/id_network_mac"
@@ -118,7 +125,8 @@
         		android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="left"    	  		        
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		        android:textAppearance="?android:attr/textAppearanceSmall" 
+		        android:textColor="@color/ltgrey_osmonitor" />
     	
    </LinearLayout>
 
@@ -135,7 +143,8 @@
                 android:layout_weight="2"
                 android:gravity="center"    	  		        
         		android:text="@string/ui_network_rx"
-        		android:textAppearance="?android:attr/textAppearanceSmall" />
+        		android:textAppearance="?android:attr/textAppearanceSmall" 
+        		android:textColor="@color/ltgrey_osmonitor" />
 
 	    <TextView
     		    android:id="@+id/id_network_rx"
@@ -144,7 +153,8 @@
                 android:layout_weight="1"
                 android:gravity="left"    	  		        
         		android:text=""
-        		android:textAppearance="?android:attr/textAppearanceSmall" />
+        		android:textAppearance="?android:attr/textAppearanceSmall" 
+        		android:textColor="@color/ltgrey_osmonitor" />
   	</LinearLayout>
 	    
     <LinearLayout
@@ -159,7 +169,8 @@
                 android:layout_weight="2"
 	            android:gravity="center"    	  		        
         		android:text="@string/ui_network_tx"
-        		android:textAppearance="?android:attr/textAppearanceSmall" />
+        		android:textAppearance="?android:attr/textAppearanceSmall" 
+        		android:textColor="@color/ltgrey_osmonitor" />
 
 	    <TextView
     		    android:id="@+id/id_network_tx"
@@ -168,7 +179,8 @@
                 android:layout_weight="1"
                 android:gravity="left"    	  		        
 		        android:text=""
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		        android:textAppearance="?android:attr/textAppearanceSmall" 
+		        android:textColor="@color/ltgrey_osmonitor" />
   	</LinearLayout>
 	    
    <LinearLayout
@@ -184,7 +196,8 @@
                 android:layout_weight="2"
                 android:gravity="center"    	  		        
 		        android:text="@string/ui_network_status"
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		        android:textAppearance="?android:attr/textAppearanceSmall" 
+		        android:textColor="@color/ltgrey_osmonitor" />
 
     	<TextView
         		android:id="@+id/id_network_status"
@@ -193,7 +206,8 @@
                 android:layout_weight="1"
                 android:gravity="left"    	  		        
 		        android:text=""
-		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		        android:textAppearance="?android:attr/textAppearanceSmall" 
+		        android:textColor="@color/ltgrey_osmonitor" />
   	</LinearLayout>
   	
   	</LinearLayout>

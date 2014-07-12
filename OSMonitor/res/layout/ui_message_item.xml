@@ -11,6 +11,7 @@
         android:layout_alignParentTop="true"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/ltgrey_osmonitor" 
         android:textStyle="bold"
         android:width="20dp" />
 
@@ -21,7 +22,8 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/id_message_level"
         android:paddingLeft="3dp"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <TextView
         android:id="@+id/id_message_tag"
@@ -30,6 +32,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/id_message_level"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/ltgrey_osmonitor" 
         android:textStyle="bold" />
        
     <TextView
@@ -38,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/id_message_tag"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
     
 </RelativeLayout>

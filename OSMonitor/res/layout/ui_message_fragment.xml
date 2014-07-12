@@ -16,6 +16,7 @@
         android:paddingLeft="3dp"
         android:text="@string/ui_message_count"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/ltgrey_osmonitor" 
         android:textStyle="bold" />
 
     <TextView
@@ -26,7 +27,8 @@
         android:layout_toRightOf="@+id/tx_message_count"
         android:paddingLeft="3dp"
         android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <Button
         android:id="@+id/id_message_exportbtn"

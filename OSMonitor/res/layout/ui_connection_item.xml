@@ -11,7 +11,8 @@
          android:layout_alignParentRight="true"
         android:padding="1dp"
         android:text="status"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
     
     <TextView
         android:id="@+id/id_connection_type"
@@ -22,7 +23,8 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="type"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
         
     <TextView
         android:id="@+id/id_connection_src"
@@ -32,7 +34,8 @@
         android:layout_toRightOf="@+id/id_connection_type"
         android:padding="1dp"
         android:text="src"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <TextView
         android:id="@+id/id_connection_dst"
@@ -42,7 +45,8 @@
         android:layout_toRightOf="@+id/id_connection_type"
         android:padding="1dp"
         android:text="dst"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
 
     <ImageView
         android:id="@+id/id_connection_icon"
@@ -60,7 +64,8 @@
         android:layout_below="@+id/id_connection_dst"
         android:padding="1dp"
         android:text="owner"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" 
+        android:textColor="@color/ltgrey_osmonitor" />
     
     
   </RelativeLayout>

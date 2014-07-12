@@ -18,167 +18,169 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.support.v4.content.LocalBroadcastManager;
 
 public class Preference extends PreferenceActivity  {
-	
-	private SettingsHelper helper = null;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		// reload settings
-		helper = new SettingsHelper(this);
 
-		// add layout
-		addPreferencesFromResource(R.xml.ui_preference_main);
-		
-		// initial preferences
-		initPreferences();
-	}
+  private SettingsHelper helper = null;
 
-	private void initPreferences() {
-		PreferenceScreen prefScreen = getPreferenceScreen();
-		if (prefScreen != null) 
-			preparePreferenceScreen(prefScreen);
-	}
-	
-	private void preparePreferenceScreen (PreferenceScreen prefScreen) {
-		int prefCategoryCount =  prefScreen.getPreferenceCount();
-		for(int checkCategoryItem = 0; checkCategoryItem < prefCategoryCount; checkCategoryItem++) {
-			// lookup all subitems
-			if ( prefScreen.getPreference(checkCategoryItem) instanceof PreferenceCategory)  {
-			    PreferenceCategory prefCategory =(PreferenceCategory) prefScreen.getPreference(checkCategoryItem);
-				if(prefCategory == null) continue;
-				preparePreferenceCategory(prefCategory);
-			}
-			else {
-				preparePreferenceItem(prefScreen.getPreference(checkCategoryItem));
-			}
-		}
-	}
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-	private void preparePreferenceCategory(PreferenceCategory prefCategory) {
-		// lookup all preferences
-		for(int checkItem = 0; checkItem < prefCategory.getPreferenceCount(); checkItem++) {
-			android.preference.Preference pref =  prefCategory.getPreference(checkItem);
-			if (pref == null) continue;
-			preparePreferenceItem(pref);
-		}
-		return;
-	}
+    // reload settings
+    helper = new SettingsHelper(this);
 
-	private void preparePreferenceItem(android.preference.Preference pref) {
-		// set value 
-		if(pref instanceof CheckBoxPreference) {
-			((CheckBoxPreference) pref).setChecked(helper.getBoolean(pref.getKey(), false));
-		}
-		else if (pref instanceof ListPreference) {
-			((ListPreference) pref).setValue(helper.getString(pref.getKey(), ""));
-		}
-		else if (pref instanceof ColorPickerPreference) {
-			int defaultColor =  helper.getInteger(pref.getKey(), 0x00000000);
-			if (defaultColor != 0x00000000) ((ColorPickerPreference) pref).setColor(defaultColor);
-		}
-		
-		// bind event
-		 if (pref instanceof PreferenceScreen) 
-			pref.setOnPreferenceClickListener( new preferencScreenChangeListener());
-		else
-			pref.setOnPreferenceChangeListener(new preferencChangeListener());
-	}
-	
-    private class preferencScreenChangeListener implements  OnPreferenceClickListener {
-		@Override
-		public boolean onPreferenceClick( android.preference.Preference prefSubScreen) {
-			PreferenceScreen prefScreen =(PreferenceScreen) prefSubScreen;
-			for(int checkItem = 0; checkItem < prefScreen.getPreferenceCount(); checkItem++) {
-				android.preference.Preference pref =  prefScreen.getPreference(checkItem);
-				if (pref == null) continue;
-				preparePreferenceItem(pref);
-			}
-			return false;
-		}
+    // add layout
+    addPreferencesFromResource(R.xml.ui_preference_main);
+
+    // initial preferences
+    initPreferences();
+  }
+
+  private void initPreferences() {
+    PreferenceScreen prefScreen = getPreferenceScreen();
+    if (prefScreen != null) 
+      preparePreferenceScreen(prefScreen);
+  }
+
+  private void preparePreferenceScreen (PreferenceScreen prefScreen) {
+    int prefCategoryCount =  prefScreen.getPreferenceCount();
+    for(int checkCategoryItem = 0; checkCategoryItem < prefCategoryCount; checkCategoryItem++) {
+      // lookup all subitems
+      if ( prefScreen.getPreference(checkCategoryItem) instanceof PreferenceCategory)  {
+        PreferenceCategory prefCategory =(PreferenceCategory) prefScreen.getPreference(checkCategoryItem);
+        if(prefCategory == null) continue;
+        preparePreferenceCategory(prefCategory);
+      }
+      else {
+        preparePreferenceItem(prefScreen.getPreference(checkCategoryItem));
+      }
     }
-	
-	private class preferencChangeListener implements  OnPreferenceChangeListener {
+  }
 
-		@Override
-		public boolean onPreferenceChange(
-			android.preference.Preference preference, Object newValue) {
+  private void preparePreferenceCategory(PreferenceCategory prefCategory) {
+    // lookup all preferences
+    for(int checkItem = 0; checkItem < prefCategory.getPreferenceCount(); checkItem++) {
+      android.preference.Preference pref =  prefCategory.getPreference(checkItem);
+      if (pref == null) continue;
+      preparePreferenceItem(pref);
+    }
+    return;
+  }
 
-			if (!onPrePreferenceCheck(preference.getKey()))
-				return false;
-			
-			if(preference instanceof CheckBoxPreference) {
-				helper.setBoolean(preference.getKey(),  (Boolean) newValue);
-			}
-			else if (preference instanceof ListPreference) {
-				helper.setString(preference.getKey(),  (String) newValue);
-			}
-			else if (preference instanceof ColorPickerPreference) {
-				helper.setInteger(preference.getKey(), (Integer) newValue);
-			}
-			else if (preference instanceof ProcessorPreference) {
-				helper.setString(preference.getKey(),  (String) newValue);
-			}
-			
-			// force read value from content provider
-			helper.clearCache();
-			
-			onPostPreferenceCheck(preference.getKey());
-			
-			return true;
-		}
-	  
-	}
-	
-	private boolean onPostPreferenceCheck(String key) {
-		if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_SHORTCUT)) {
+  private void preparePreferenceItem(android.preference.Preference pref) {
+    // set value 
+    if(pref instanceof CheckBoxPreference) {
+      ((CheckBoxPreference) pref).setChecked(helper.getBoolean(pref.getKey(), false));
+    }
+    else if (pref instanceof ListPreference) {
+      ((ListPreference) pref).setValue(helper.getString(pref.getKey(), ""));
+    }
+    else if (pref instanceof ColorPickerPreference) {
+      int defaultColor =  helper.getInteger(pref.getKey(), 0x00000000);
+      if (defaultColor != 0x00000000) ((ColorPickerPreference) pref).setColor(defaultColor);
+    }
 
-			CheckBoxPreference autoStart = 
-					(CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_AUTOSTART);
+    // bind event
+    if (pref instanceof PreferenceScreen) 
+      pref.setOnPreferenceClickListener( new preferencScreenChangeListener());
+    else
+      pref.setOnPreferenceChangeListener(new preferencChangeListener());
+  }
 
-			if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) || 
-				helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
-				autoStart.setEnabled(true);
-			}
-			else {
-				autoStart.setEnabled(false);
-			}
-				
-		}
-		
-		if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_COLOR) ||
-		   key.equals(Settings.PREFERENCE_ROOT) || key.equals(Settings.PREFERENCE_TEMPVALUE) ||
-		   key.equals(Settings.PREFERENCE_SHORTCUT) || key.equals(Settings.PREFERENCE_NOTIFICATION_COLOR) ||
-		   key.equals(Settings.PREFERENCE_NOTIFICATION_TOP) || key.equals(Settings.PREFERENCE_NOTIFICATION_CUSTOMIZE)) {
+  private class preferencScreenChangeListener implements  OnPreferenceClickListener {
+    @Override
+    public boolean onPreferenceClick( android.preference.Preference prefSubScreen) {
+      PreferenceScreen prefScreen =(PreferenceScreen) prefSubScreen;
+      for(int checkItem = 0; checkItem < prefScreen.getPreferenceCount(); checkItem++) {
+        android.preference.Preference pref =  prefScreen.getPreference(checkItem);
+        if (pref == null) continue;
+        preparePreferenceItem(pref);
+      }
+      return false;
+    }
+  }
 
-			// prevent exit
-			if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
-				helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {
-				helper.setString(Settings.SESSION_SECTION, "Non-Exit");
-			}
-			
-			// restart background daemon
-			getApplication().stopService(new Intent(getApplication(), OSMonitorService.class));
+  private class preferencChangeListener implements  OnPreferenceChangeListener {
 
-			// restart notification 
-			if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
-			    helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {
-				getApplication().startService(new Intent(getApplication(), OSMonitorService.class));
-			}
-		}	
-		return true;
-	}
-	  
-	public boolean onPrePreferenceCheck(String key) {
-		
-		if(key.equals(Settings.PREFERENCE_ROOT) && !helper.getBoolean(Settings.PREFERENCE_ROOT, false)) {
-			if(CommonUtil.preCheckRoot() == false ) 
-				return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean onPreferenceChange(
+        android.preference.Preference preference, Object newValue) {
+
+      if (!onPrePreferenceCheck(preference.getKey()))
+        return false;
+
+      if(preference instanceof CheckBoxPreference) {
+        helper.setBoolean(preference.getKey(),  (Boolean) newValue);
+      }
+      else if (preference instanceof ListPreference) {
+        helper.setString(preference.getKey(),  (String) newValue);
+      }
+      else if (preference instanceof ColorPickerPreference) {
+        helper.setInteger(preference.getKey(), (Integer) newValue);
+      }
+      else if (preference instanceof ProcessorPreference) {
+        helper.setString(preference.getKey(),  (String) newValue);
+      }
+
+      // force read value from content provider
+      helper.clearCache();
+
+      onPostPreferenceCheck(preference.getKey());
+
+      return true;
+    }
+
+  }
+
+  private boolean onPostPreferenceCheck(String key) {
+    if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_SHORTCUT)) {
+
+      CheckBoxPreference autoStart = 
+          (CheckBoxPreference) getPreferenceScreen().findPreference(Settings.PREFERENCE_AUTOSTART);
+
+      if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) || 
+          helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
+        autoStart.setEnabled(true);
+      }
+      else {
+        autoStart.setEnabled(false);
+      }
+
+    }
+
+    if(key.equals(Settings.PREFERENCE_CPUUSAGE) || key.equals(Settings.PREFERENCE_COLOR) ||
+        key.equals(Settings.PREFERENCE_ROOT) || key.equals(Settings.PREFERENCE_TEMPVALUE) ||
+        key.equals(Settings.PREFERENCE_SHORTCUT) || key.equals(Settings.PREFERENCE_NOTIFICATION_COLOR) ||
+        key.equals(Settings.PREFERENCE_NOTIFICATION_TOP) || key.equals(Settings.PREFERENCE_NOTIFICATION_CUSTOMIZE)) {
+      
+      
+      if(key.equals(Settings.PREFERENCE_ROOT))
+        IpcService.getInstance().forceExit();
+
+      // prevent exit
+      if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
+          helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {
+        helper.setString(Settings.SESSION_SECTION, "Non-Exit");
+      }
+
+      // restart background daemon
+      getApplication().stopService(new Intent(getApplication(), OSMonitorService.class));
+
+      // restart notification 
+      if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||
+          helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {
+        getApplication().startService(new Intent(getApplication(), OSMonitorService.class));
+      }
+    }	
+    return true;
+  }
+
+  public boolean onPrePreferenceCheck(String key) {
+    if(key.equals(Settings.PREFERENCE_ROOT) && !helper.getBoolean(Settings.PREFERENCE_ROOT, false)) {
+      if(CommonUtil.preCheckRoot() == false )
+        return false;
+    }
+    return true;
+  }
 }

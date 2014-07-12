@@ -84,17 +84,8 @@ endif
 
 LOCAL_CFLAGS := -DGOOGLE_PROTOBUF_NO_RTTI -D_GLIBCXX_PERMIT_BACKWARD_HASH 
 
-# reduce size
-#LOCAL_CPPFLAGS += -ffunction-sections -fdata-sections -fvisibility=hidden
-#LOCAL_CPPFLAGS += -ffunction-sections -fdata-sections -fvisibility=hidden
-#LOCAL_CFLAGS += -ffunction-sections -fdata-sections  
-#LOCAL_LDFLAGS += -Wl,--gc-sections
-
-#ifeq ($(TARGET_ARCH),mips)
-#  LOCAL_LDFLAGS += -Wl,--gc-sections
-#else
-#  LOCAL_LDFLAGS += -Wl,--gc-sections,--icf=safe
-#endif
+# compatiable with L
+LOCAL_LDFLAGS += -pie
 
 # compile executeable binary for test 
 include $(BUILD_EXECUTABLE)

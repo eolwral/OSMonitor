@@ -14,9 +14,9 @@ namespace ipc {
   {
     // Initialize
     this->serverFD = 0;
-    this->serverLen = 0;
     this->waitNumber = 0;
-    memset(&this->serverAddr, 0, sizeof(this->serverAddr));
+
+    bzero((char *)&this->serverAddr, sizeof(this->serverAddr));
 
     // initialize clean socket
     for ( int index = 0 ; index < 8 ; index++)
@@ -48,16 +48,12 @@ namespace ipc {
     return (hasClient);
   }
 
-  bool ipcserver::init(char* socketName)
+  bool ipcserver::init(int portNumber)
   {
     // check socket name to avoid overflow
-    if (strlen(socketName) > (int) sizeof(this->serverAddr.sun_path))
-      return (false);
-
-    this->serverAddr.sun_path[0] = '\0';
-    strcpy(this->serverAddr.sun_path+1, socketName);
-    this->serverAddr.sun_family = AF_LOCAL;
-    this->serverLen = 1 + strlen(socketName) + offsetof(struct sockaddr_un, sun_path);
+    this->serverAddr.sin_family = AF_INET;
+    this->serverAddr.sin_addr.s_addr = INADDR_ANY;//inet_addr("127.0.0.1");
+    this->serverAddr.sin_port = htons(portNumber);
 
     return (true);
   }
@@ -65,7 +61,7 @@ namespace ipc {
   bool ipcserver::bind()
   {
     // listen
-    this->serverFD = socket(AF_LOCAL, SOCK_STREAM, PF_UNIX);
+    this->serverFD = socket(AF_INET, SOCK_STREAM, 0);
     if(this->serverFD < 0)
       return (false);
 
@@ -77,7 +73,7 @@ namespace ipc {
       return (false);
     }
 
-    if(::bind(this->serverFD, (const sockaddr*) &this->serverAddr, this->serverLen) < 0)
+    if(::bind(this->serverFD, (const sockaddr*) &this->serverAddr, sizeof(this->serverAddr)) < 0)
     {
       ::close(this->serverFD);
       return (false);
@@ -94,8 +90,12 @@ namespace ipc {
 
   bool ipcserver::accept()
   {
+    // client address
+    struct sockaddr_in clientAddr;
+    int clientAddrLen = sizeof(clientAddr);;
+
     // accept new connection
-    int newSocket = ::accept(this->serverFD, NULL, NULL);
+    int newSocket = ::accept(this->serverFD, (struct sockaddr *) &clientAddr, &clientAddrLen);
     if (newSocket < 0)
       return (false);
 

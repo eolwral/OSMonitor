@@ -4,14 +4,16 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.concurrent.Semaphore;
 
 import android.content.Context;
-import android.net.LocalSocket;
-import android.net.LocalSocketAddress;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
@@ -35,7 +37,7 @@ public class IpcService {
 	/**
 	 * predefine socket name  
 	 */
-	private final static String socketName = "osmipcV1";
+	private final static int portNumber = 14071;
 
 	/**
 	 * predefine buffer size
@@ -44,14 +46,14 @@ public class IpcService {
 	private final static int recvBufferSize = 1048576; /* 1M */
 
 	/**
-	 * Unix socket
+	 * TCP socket
 	 */
-	private LocalSocket clientSocket = null;
+	private Socket clientSocket = null;
 
 	/**
-	 * Unix socket address
+	 * TCP socket address
 	 */
-	private LocalSocketAddress clientAddress = null;
+	private SocketAddress clientAddress = null;
 
 	/**
 	 * comparator for using time stamp
@@ -132,7 +134,7 @@ public class IpcService {
 	public static void Initialize(Context context) {
 		if (instance == null)
 		{
-			instance = new IpcService(socketName);
+			instance = new IpcService(portNumber);
 			instance.ipcContext = context;
 		}
 	}
@@ -150,8 +152,8 @@ public class IpcService {
 	 * 
 	 * @param serverName
 	 */
-	private IpcService(String serverName) {
-		clientAddress = new LocalSocketAddress(serverName, LocalSocketAddress.Namespace.ABSTRACT);
+	private IpcService(int portNumber) {
+		clientAddress = new InetSocketAddress("127.0.0.1", portNumber);
 		
 		// prepare a priority queue
 		QueuedComparator cmdComparator = new QueuedComparator();
@@ -163,8 +165,6 @@ public class IpcService {
 	 */
 	protected void finalize() {
 		try {
-			clientSocket.shutdownInput();
-			clientSocket.shutdownOutput();
 			clientSocket.close();
 			clientSocket = null;
 			clientAddress = null;
@@ -180,11 +180,13 @@ public class IpcService {
 		try {
 			final Settings settings = Settings.getInstance(ipcContext);
 
-			clientSocket = new LocalSocket();
+			clientSocket = new Socket();
 			clientSocket.connect(clientAddress);
 			clientSocket.setSendBufferSize(sendBufferSize);
 			clientSocket.setReceiveBufferSize(recvBufferSize);
 			
+			clientSocket.setKeepAlive(true);
+						
 			// Notice: the value is milliseconds
 			clientSocket.setSoTimeout(settings.getInterval()*1000);
 			
@@ -207,7 +209,7 @@ public class IpcService {
 	{
 		if(clientSocket == null)
 			return false;
-		
+				
 		return clientSocket.isConnected();
 	}
 	
@@ -234,7 +236,7 @@ public class IpcService {
 	 * send a force exit command
 	 */
 	public void forceExit() {
-		if(!checkStatus())
+		if(!checkStatus()) 
 			return;
 
 		ipcMessage.Builder exitCommand = ipcMessage.newBuilder();
@@ -245,7 +247,7 @@ public class IpcService {
 			OutputStream outData = clientSocket.getOutputStream();
 			exitCommand.build().writeTo(outData);			
 		} catch (IOException e) {}
-		
+				
 		return;
 	}
 	
@@ -449,7 +451,7 @@ public class IpcService {
 		try {
 			QueuedTask checkObj = new QueuedTask(null, 0, obj);
 			cmdQueueLock.acquire();
-            cmdQueue.remove(checkObj);
+      cmdQueue.remove(checkObj);
 			cmdQueueLock.release();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -462,7 +464,7 @@ public class IpcService {
 	public void removeAllRequest() {
 		try {
 			cmdQueueLock.acquire();
-            cmdQueue.clear();
+      cmdQueue.clear();
 			cmdQueueLock.release();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -473,14 +475,13 @@ public class IpcService {
 	 * disconnect with daemon
 	 */
 	public void disconnect() {
-		if(clientSocket == null)
-			return;
+		if(clientSocket == null) {
+		  return;
+		}
 
 		removeAllRequest();
 
 		try {
-			clientSocket.shutdownOutput();
-			clientSocket.shutdownInput();
 			clientSocket.close();
 			clientSocket = null;
 		} catch (Exception e) {}

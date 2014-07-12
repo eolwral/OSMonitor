@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -204,10 +205,25 @@ public class CommonUtil {
     // execute osmcore
     try { 
       Runtime.getRuntime().exec(new String [] {"chmod", "755", binary}).waitFor();
+
       if (!settings.isRoot()) 
         Runtime.getRuntime().exec( new String [] { "sh", "-c", binary+" "+binary+".token &" }).waitFor();
-      else
-        Runtime.getRuntime().exec( new String [] { "su", "-c", binary+" "+binary+".token &" }).waitFor();
+      else {
+        if (!Build.VERSION.RELEASE.equals("L")) {
+          Runtime.getRuntime().exec( new String [] { "su", "-c", binary+" "+binary+".token &" }).waitFor();
+        }
+        else {
+          Process process = Runtime.getRuntime().exec( new String [] { "su" });
+          DataOutputStream os = new DataOutputStream(process.getOutputStream());
+          os.writeBytes("cp "+binary+" "+binary+"_L \n");
+          os.writeBytes("chcon u:object_r:system_file:s0 "+binary+"_L \n");
+          os.writeBytes("su --context u:r:system_app:s0 -c \""+binary+"_L "+binary+".token & \" \n");
+          os.writeBytes("exit\n");
+          Thread.sleep(500);
+          process.destroy();
+        }
+      }
+
 
     } catch (Exception e) {
       return false;

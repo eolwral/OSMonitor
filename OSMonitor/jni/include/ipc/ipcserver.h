@@ -18,10 +18,12 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 
 #include "ipcMessage.pb.h"
 
-#define SOCKETNAME "osmipcV1"
+#define PORTNUMBER 14071
+
 #define SOCKETBUF 1024
 #define TRANSIZE 4096
 #define TOKENSIZE 256
@@ -42,8 +44,7 @@ namespace ipc {
 
   private:
     int serverFD;                       /**<< server file descriptor */
-    struct sockaddr_un serverAddr;      /**<< server socket address  */
-    socklen_t serverLen;                /**<< server socket length */
+    struct sockaddr_in serverAddr;      /**<< server socket address  */
 
     int waitNumber;                     /**<< which client is wait */
     int clientFD[8];                    /**<< client file descriptor */
@@ -76,10 +77,10 @@ namespace ipc {
 
     /**
      * initialize a Unix domain socket
-     * @param socketName socket name
+     * @param portNumber tcp port number
      * @return success or fail
      */
-    bool init(char* socketName);
+    bool init(int portNumber);
 
     /**
      * bind socket

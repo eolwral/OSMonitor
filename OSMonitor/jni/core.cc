@@ -68,7 +68,7 @@ static int bufferSize = 0;
 bool prepareIPC()
 {
   // initialize
-  if (!server.init(SOCKETNAME))
+  if (!server.init(PORTNUMBER))
   {
     __android_log_print(ANDROID_LOG_VERBOSE, APPNAME,"can't initialize socket!\n");
     return (false);
@@ -476,6 +476,7 @@ bool processCommand()
 
   // process EXIT message
   case ipc::ipcMessage::EXIT:
+    __android_log_print(ANDROID_LOG_VERBOSE, APPNAME,"force Exit\n");
     endLoop = true;
     return (false);
 

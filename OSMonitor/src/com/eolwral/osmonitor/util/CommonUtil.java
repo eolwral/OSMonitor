@@ -131,6 +131,9 @@ public class CommonUtil {
 			  assetPath += "_mips";
 		  else
 			  assetPath += "_arm"; 
+		  
+		  if (Build.VERSION.RELEASE.equals("L"))
+		    assetPath += "_l";
 
 		  InputStream binary = context.getAssets().open(assetPath);
 		  FileOutputStream execute = new FileOutputStream(localPath);

@@ -89,7 +89,7 @@
     <string name="ui_system_uptime">Laufzeit</string>
     <string name="ui_processor_freq">Frequenz</string>
     <string name="ui_processor_scal">Skalierung</string>
-    <string name="ui_processor_cur">Ampere</string>
+    <string name="ui_processor_cur">Frequenz</string>
     <string name="ui_processor_gov">Governor</string>
     <string name="ui_processor_status">Status</string>
     <string name="ui_processor_core">Kern</string>

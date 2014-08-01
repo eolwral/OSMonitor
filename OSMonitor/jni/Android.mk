@@ -147,7 +147,7 @@ LOCAL_SRC_FILES := \
                    src/core/processorInfo.pb.cc \
                    src/core/dmesg.cc \
                    src/core/dmesgInfo.pb.cc \
-                   src/core/logcat.cc \
+                   src/core/logcat_v3.cc \
                    src/core/logcatInfo.pb.cc \
                    src/ipc/ipcserver.cc \
                    src/ipc/ipcMessage.pb.cc \

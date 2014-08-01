@@ -3,71 +3,112 @@
  * @brief Logcat Class file
  */
 
-#include "logcat.h"
+#include "logcat_v3.h"
 
 namespace com {
 namespace eolwral {
 namespace osmonitor {
 namespace core {
 
+  void *logcat::handle = NULL;
+  volatile int logcat::use_count = 0;
+  logcat::android_logger_list_open logcat::android_logger_open = NULL;
+  logcat::android_logger_list_free logcat::android_logger_close = NULL;
+  logcat::android_logger_list_read logcat::android_logger_read = NULL;
+
   logcat::logcat(logcatLogger source)
   {
-    this->_logfd = 0;
     this->_sourceLogger = source;
+    this->_lastTime.tv_nsec = 0;
+    this->_lastTime.tv_sec = 0;
+    this->android_logger_open = NULL;
+    this->android_logger_close = NULL;
+    this->android_logger_read = NULL;
+    this->use_count++;
 
     if (eventTagMap == NULL)
       eventTagMap = android_openEventTagMap(EVENT_TAG_MAP_FILE);
+
+    if (!this->prepareLogFunction())
+    {
+      this->android_logger_open = NULL;
+      this->android_logger_close = NULL;
+      this->android_logger_read = NULL;
+    }
+  }
+
+  bool logcat::prepareLogFunction()
+  {
+    if (!this->handle) {
+      this->handle = dlopen("liblog.so", RTLD_LAZY);
+      if (!this->handle)
+        return false;
+    }
+
+    if (android_logger_open == NULL) {
+      this->android_logger_open = (android_logger_list_open) dlsym(this->handle, "android_logger_list_open");
+      if (!this->android_logger_open)
+        return false;
+    }
+
+    if (android_logger_close == NULL) {
+      this->android_logger_close = (android_logger_list_free) dlsym(this->handle, "android_logger_list_free");
+      if (!this->android_logger_close)
+        return false;
+    }
+
+    if (android_logger_read == NULL) {
+      this->android_logger_read = (android_logger_list_read) dlsym(this->handle, "android_logger_list_read");
+      if (!this->android_logger_read)
+        return false;
+    }
+
+    return true;
   }
 
   logcat::~logcat()
   {
-    // close logger device
-    if (this->_logfd != 0) {
-        this->closeLogDevice(this->_logfd);
-        this->_logfd = 0;
-    }
+    this->use_count--;
+    if (this->use_count == 0)
+      dlclose(this->handle);
 
-
-    // clean up
     this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
   }
 
 
-  void logcat::fetchLogcat(int logfd)
+  void logcat::fetchLogcat(struct logger_list* logger)
   {
-    unsigned char buffer[LOGGER_ENTRY_MAX_LEN + 1] __attribute__((aligned(4)));
-
-    struct logger_entry *entry = (struct logger_entry *) buffer;
-
-    int readSize = 0;
-
     while (true) {
 
-      // clean up memory
-      memset(buffer, 0, LOGGER_ENTRY_MAX_LEN + 1);
+      struct log_msg log_msg;
 
-      // read log from device
-      readSize = read(logfd, entry, LOGGER_ENTRY_MAX_LEN);
-      if (readSize < 0) {
-        if (errno == EINTR)
-          continue;
-        if (errno == EAGAIN)
-          break;
-      }
+      int ret = this->android_logger_read(logger, &log_msg);
 
-      // nothing need to process
-      if (readSize == 0)
+      // nothing need to process or occur error
+      if (ret <= 0)
         break;
 
+      // check time
+      if ((log_msg.entry.sec < this->_lastTime.tv_sec ) ||
+          (log_msg.entry.sec == this->_lastTime.tv_sec  && log_msg.entry.nsec <= this->_lastTime.tv_nsec ))
+        continue;
+
       // extract log
-      if( this->_sourceLogger == EVENTS)
-        this->extractBinaryLog(entry);
+      if (this->_sourceLogger == EVENTS)
+        this->extractBinaryLog(&log_msg);
       else
-        this->extractLog(entry);
+        this->extractLog(&log_msg);
+
+      // save time
+      this->_lastTime.tv_nsec = log_msg.entry.nsec;
+      this->_lastTime.tv_sec = log_msg.entry.sec;
+
     }
+
+    return;
   }
 
-  void logcat::extractBinaryLog(struct logger_entry *entry)
+  void logcat::extractBinaryLog(struct log_msg *entry)
   {
     unsigned int tagIndex = 0;
     const unsigned char* message = 0;
@@ -78,8 +119,8 @@ namespace core {
     /*
      * Pull the tag out.
      */
-    message = (const unsigned char*) entry->msg;
-    messageLen = entry->len;
+    message = (const unsigned char*) entry->entry_v3.msg;
+    messageLen = entry->entry_v3.len;
     if (messageLen < 4)
       return;
 
@@ -90,10 +131,10 @@ namespace core {
     messageLen -= 4;
 
     logcatInfo* curLogcatInfo = new logcatInfo();
-    curLogcatInfo->set_seconds(entry->sec);
-    curLogcatInfo->set_nanoseconds(entry->nsec);
-    curLogcatInfo->set_pid(entry->pid);
-    curLogcatInfo->set_tid(entry->tid);
+    curLogcatInfo->set_seconds(entry->entry_v3.sec);
+    curLogcatInfo->set_nanoseconds(entry->entry_v3.nsec);
+    curLogcatInfo->set_pid(entry->entry_v3.pid);
+    curLogcatInfo->set_tid(entry->entry_v3.tid);
     curLogcatInfo->set_priority(logcatInfo_logPriority_INFO);
 
     // map tagIndex to tag
@@ -301,15 +342,15 @@ namespace core {
   }
 
 
-  void logcat::extractLog(struct logger_entry *entry)
+  void logcat::extractLog(struct log_msg *entry)
   {
     char *offsetTag = 0;
     char *offsetMessage = 0;
 
     /* NOTE: driver guarantees we read exactly one full entry */
-    entry->msg[entry->len] = '\0';
-    offsetTag = entry->msg+1;
-    offsetMessage = entry->msg+(strlen(offsetTag)+2);
+    entry->entry.msg[entry->entry.len-1] = '\0';
+    offsetTag = entry->entry.msg+1;
+    offsetMessage = entry->entry.msg+(strlen(offsetTag)+2);
 
     // skip it if no data
     if(strlen(offsetMessage) == 0)
@@ -317,14 +358,14 @@ namespace core {
 
     // add logcat information into list
     logcatInfo* curLogcatInfo = new logcatInfo();
-    curLogcatInfo->set_seconds(entry->sec);
-    curLogcatInfo->set_nanoseconds(entry->nsec);
-    curLogcatInfo->set_pid(entry->pid);
-    curLogcatInfo->set_tid(entry->tid);
+    curLogcatInfo->set_seconds(entry->entry.sec);
+    curLogcatInfo->set_nanoseconds(entry->entry.nsec);
+    curLogcatInfo->set_pid(entry->entry.pid);
+    curLogcatInfo->set_tid(entry->entry.tid);
     curLogcatInfo->set_tag(offsetTag);
     curLogcatInfo->set_message(offsetMessage);
 
-    switch(entry->msg[0])
+    switch(entry->entry_v3.msg[0])
     {
     case ANDROID_LOG_DEFAULT:
       curLogcatInfo->set_priority(logcatInfo_logPriority_DEFAULT);
@@ -355,54 +396,33 @@ namespace core {
       break;
     }
 
-    if (_curLogcatList.size() >= MAXLOGSIZE)
-      _curLogcatList.erase(_curLogcatList.begin());
+    if (this->_curLogcatList.size() >= MAXLOGSIZE)
+      this->_curLogcatList.erase(this->_curLogcatList.begin());
     this->_curLogcatList.push_back(curLogcatInfo);
 
     return;
   }
 
-  int logcat::getLogDeivce()
+  struct logger_list* logcat::prepareLogDevice()
   {
-    // set data source
-     char *logDevice = 0;
-     switch (this->_sourceLogger)
-     {
-     case RADIO:
-       logDevice = strdup("/dev/"LOGGER_LOG_RADIO);
-       break;
-     case EVENTS:
-       logDevice = strdup("/dev/"LOGGER_LOG_EVENTS);
-       break;
-     case SYSTEM:
-       logDevice = strdup("/dev/"LOGGER_LOG_SYSTEM);
-       break;
-     case MAIN:
-       logDevice = strdup("/dev/"LOGGER_LOG_MAIN);
-       break;
-     }
 
-     // open logcat device
-     this->_logfd = open(logDevice, O_NONBLOCK);
-     if (this->_logfd < 0) {
-       this->_logfd = 0;
-     }
+    log_id_t logDeviceId = LOG_ID_MAIN;
+    if (this->_sourceLogger == EVENTS)
+      logDeviceId = LOG_ID_MAIN;
+    else if (this->_sourceLogger == RADIO)
+      logDeviceId = LOG_ID_RADIO;
+    else if (this->_sourceLogger == SYSTEM)
+      logDeviceId = LOG_ID_SYSTEM;
 
-     return (this->_logfd);
+    struct logger_list *logger = android_logger_open(logDeviceId, O_NONBLOCK | O_RDONLY, 0, 0);
+    return (logger);
   }
 
-  void logcat::closeLogDevice(int logfd)
+  void logcat::closeLogDevice(struct logger_list* logger)
   {
     // close logcat device
-    close(logfd);
-  }
-
-  bool logcat::checkLogDevice(int logfd)
-  {
-    struct stat fileStat;
-    if(fstat(logfd,&fileStat) < 0)
-      return (false);
-    return (true);
+    if (!logger)
+      this->android_logger_close(logger);
   }
 
   void logcat::refresh()
@@ -410,18 +430,17 @@ namespace core {
     // clean up
     this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
 
-    if (this->_logfd == 0)
-      this->_logfd = this->getLogDeivce();
+    // check library function
+    if (!this->android_logger_open  && !this->android_logger_close && !this->android_logger_read)
+      return;
 
-    if (!this->checkLogDevice(this->_logfd)) {
-      this->closeLogDevice(this->_logfd);
-      this->_logfd = this->getLogDeivce();
-    }
+    // prepare load log device
+    struct logger_list *logger = this->prepareLogDevice();
+    if (!logger)
+      return;
 
-    // reload all logcat
-    if (this->_logfd != 0)
-      this->fetchLogcat(this->_logfd);
-
+    this->fetchLogcat(logger);
+    this->closeLogDevice(logger);
   }
 
   const std::vector<google::protobuf::Message*>& logcat::getData()

@@ -37,7 +37,7 @@ public class IpcService {
 	/**
 	 * predefine socket name  
 	 */
-	private final static int portNumber = 14071;
+	private final static int portNumber = 14072;
 
 	/**
 	 * predefine buffer size

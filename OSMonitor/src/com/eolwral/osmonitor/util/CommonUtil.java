@@ -209,8 +209,9 @@ public class CommonUtil {
     try { 
       Runtime.getRuntime().exec(new String [] {"chmod", "755", binary}).waitFor();
 
-      if (!settings.isRoot()) 
+      if (!settings.isRoot()) {
         Runtime.getRuntime().exec( new String [] { "sh", "-c", binary+" "+binary+".token &" }).waitFor();
+      }
       else {
         if (!Build.VERSION.RELEASE.equals("L")) {
           Runtime.getRuntime().exec( new String [] { "su", "-c", binary+" "+binary+".token &" }).waitFor();

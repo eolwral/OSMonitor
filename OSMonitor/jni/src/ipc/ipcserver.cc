@@ -52,7 +52,7 @@ namespace ipc {
   {
     // check socket name to avoid overflow
     this->serverAddr.sin_family = AF_INET;
-    this->serverAddr.sin_addr.s_addr = INADDR_ANY;//inet_addr("127.0.0.1");
+    this->serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     this->serverAddr.sin_port = htons(portNumber);
 
     return (true);

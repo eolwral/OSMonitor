@@ -194,9 +194,20 @@ void initAdapter()
 
 bool prepareAdapter(ipc::ipcAction action)
 {
-  // check
+  // check and clean up when processing _R
   if (adapter[action] != NULL)
-    return (true);
+  {
+    switch (action)
+    {
+    case ipc::LOGCAT_MAIN_R:
+      delete adapter[action];
+      adapter[action] = NULL;
+      break;
+
+    default:
+      return (true);
+    }
+  }
 
   // prepare
   switch(action)
@@ -241,6 +252,11 @@ bool prepareAdapter(ipc::ipcAction action)
 
     case ipc::LOGCAT_MAIN:
       adapter[ipc::LOGCAT_MAIN] =
+                 (core::base *) new core::logcat(core::MAIN);
+      break;
+
+    case ipc::LOGCAT_MAIN_R:
+      adapter[ipc::LOGCAT_MAIN_R] =
                  (core::base *) new core::logcat(core::MAIN);
       break;
 

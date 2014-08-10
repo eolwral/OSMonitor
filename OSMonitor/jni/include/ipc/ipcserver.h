@@ -22,7 +22,7 @@
 
 #include "ipcMessage.pb.h"
 
-#define PORTNUMBER 14072
+#define PORTNUMBER 14073
 
 #define SOCKETBUF 1024
 #define TRANSIZE 4096

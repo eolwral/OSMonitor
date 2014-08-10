@@ -53,7 +53,7 @@ public class ProcessLogViewFragment extends DialogFragment
 	
 	// data  
 	private ArrayList<logcatInfo> viewLogcatData = new ArrayList<logcatInfo>();
-	private ipcAction logType = ipcAction.LOGCAT_MAIN; 
+	private ipcAction logType = ipcAction.LOGCAT_MAIN_R; 
 
 	private MessageListAdapter messageList = null;
 	private Settings settings = null;

@@ -102,13 +102,21 @@ public final class IpcMessage {
      */
     LOGCAT_MAIN(10, 11),
     /**
+     * <code>LOGCAT_CRASH = 12;</code>
+     *
+     * <pre>
+     **&lt; LogCat Crash 
+     * </pre>
+     */
+    LOGCAT_CRASH(11, 12),
+    /**
      * <code>SETPRIORITY = 20;</code>
      *
      * <pre>
      **&lt; Set Priority 
      * </pre>
      */
-    SETPRIORITY(11, 20),
+    SETPRIORITY(12, 20),
     /**
      * <code>KILLPROCESS = 21;</code>
      *
@@ -116,7 +124,7 @@ public final class IpcMessage {
      **&lt; Kill Processes 
      * </pre>
      */
-    KILLPROCESS(12, 21),
+    KILLPROCESS(13, 21),
     /**
      * <code>SETCPUSTATUS = 22;</code>
      *
@@ -124,7 +132,7 @@ public final class IpcMessage {
      **&lt; Set CPU online 
      * </pre>
      */
-    SETCPUSTATUS(13, 22),
+    SETCPUSTATUS(14, 22),
     /**
      * <code>SETCPUMAXFREQ = 23;</code>
      *
@@ -132,7 +140,7 @@ public final class IpcMessage {
      **&lt; Set CPU Frequency 
      * </pre>
      */
-    SETCPUMAXFREQ(14, 23),
+    SETCPUMAXFREQ(15, 23),
     /**
      * <code>SETCPUMINFREQ = 24;</code>
      *
@@ -140,7 +148,7 @@ public final class IpcMessage {
      **&lt; Set CPU Frequency 
      * </pre>
      */
-    SETCPUMINFREQ(15, 24),
+    SETCPUMINFREQ(16, 24),
     /**
      * <code>SETCPUGORV = 25;</code>
      *
@@ -148,7 +156,15 @@ public final class IpcMessage {
      **&lt; Set CPU Governor  
      * </pre>
      */
-    SETCPUGORV(16, 25),
+    SETCPUGORV(17, 25),
+    /**
+     * <code>LOGCAT_MAIN_R = 50;</code>
+     *
+     * <pre>
+     **&lt; LogCat Main for WatchLog 
+     * </pre>
+     */
+    LOGCAT_MAIN_R(18, 50),
     ;
 
     /**
@@ -240,6 +256,14 @@ public final class IpcMessage {
      */
     public static final int LOGCAT_MAIN_VALUE = 11;
     /**
+     * <code>LOGCAT_CRASH = 12;</code>
+     *
+     * <pre>
+     **&lt; LogCat Crash 
+     * </pre>
+     */
+    public static final int LOGCAT_CRASH_VALUE = 12;
+    /**
      * <code>SETPRIORITY = 20;</code>
      *
      * <pre>
@@ -287,6 +311,14 @@ public final class IpcMessage {
      * </pre>
      */
     public static final int SETCPUGORV_VALUE = 25;
+    /**
+     * <code>LOGCAT_MAIN_R = 50;</code>
+     *
+     * <pre>
+     **&lt; LogCat Main for WatchLog 
+     * </pre>
+     */
+    public static final int LOGCAT_MAIN_R_VALUE = 50;
 
 
     public final int getNumber() { return value; }
@@ -304,12 +336,14 @@ public final class IpcMessage {
         case 9: return LOGCAT_EVENT;
         case 10: return LOGCAT_SYSTEM;
         case 11: return LOGCAT_MAIN;
+        case 12: return LOGCAT_CRASH;
         case 20: return SETPRIORITY;
         case 21: return KILLPROCESS;
         case 22: return SETCPUSTATUS;
         case 23: return SETCPUMAXFREQ;
         case 24: return SETCPUMINFREQ;
         case 25: return SETCPUGORV;
+        case 50: return LOGCAT_MAIN_R;
         default: return null;
       }
     }
@@ -1870,13 +1904,14 @@ public final class IpcMessage {
       "ype:\006ACTION\0220\n\004data\030\002 \003(\0132\".com.eolwral." +
       "osmonitor.ipc.ipcData\"8\n\007ipcType\022\n\n\006ACTI" +
       "ON\020\000\022\n\n\006RESULT\020\001\022\013\n\007COMMAND\020\002\022\010\n\004EXIT\020\n*" +
-      "\222\002\n\tipcAction\022\006\n\002OS\020\001\022\007\n\003CPU\020\002\022\r\n\tPROCES" +
+      "\267\002\n\tipcAction\022\006\n\002OS\020\001\022\007\n\003CPU\020\002\022\r\n\tPROCES" +
       "SOR\020\003\022\013\n\007PROCESS\020\004\022\016\n\nCONNECTION\020\005\022\013\n\007NE",
       "TWORK\020\006\022\t\n\005DMESG\020\007\022\020\n\014LOGCAT_RADIO\020\010\022\020\n\014" +
       "LOGCAT_EVENT\020\t\022\021\n\rLOGCAT_SYSTEM\020\n\022\017\n\013LOG" +
-      "CAT_MAIN\020\013\022\017\n\013SETPRIORITY\020\024\022\017\n\013KILLPROCE" +
-      "SS\020\025\022\020\n\014SETCPUSTATUS\020\026\022\021\n\rSETCPUMAXFREQ\020" +
-      "\027\022\021\n\rSETCPUMINFREQ\020\030\022\016\n\nSETCPUGORV\020\031"
+      "CAT_MAIN\020\013\022\020\n\014LOGCAT_CRASH\020\014\022\017\n\013SETPRIOR" +
+      "ITY\020\024\022\017\n\013KILLPROCESS\020\025\022\020\n\014SETCPUSTATUS\020\026" +
+      "\022\021\n\rSETCPUMAXFREQ\020\027\022\021\n\rSETCPUMINFREQ\020\030\022\016" +
+      "\n\nSETCPUGORV\020\031\022\021\n\rLOGCAT_MAIN_R\0202"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

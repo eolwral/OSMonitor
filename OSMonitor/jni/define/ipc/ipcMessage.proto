@@ -12,12 +12,14 @@ enum ipcAction {
   LOGCAT_EVENT = 9;   /**< LogCat Event */
   LOGCAT_SYSTEM = 10; /**< LogCat System */
   LOGCAT_MAIN = 11;   /**< LogCat Main */    
+  LOGCAT_CRASH = 12;  /**< LogCat Crash */
   SETPRIORITY = 20;   /**< Set Priority */
   KILLPROCESS = 21;   /**< Kill Processes */
   SETCPUSTATUS = 22;  /**< Set CPU online */
   SETCPUMAXFREQ = 23; /**< Set CPU Frequency */
   SETCPUMINFREQ = 24; /**< Set CPU Frequency */
   SETCPUGORV = 25;    /**< Set CPU Governor  */
+  LOGCAT_MAIN_R = 50; /**< LogCat Main for WatchLog */
 }
 
 message ipcData {

@@ -73,16 +73,18 @@ enum ipcAction {
   LOGCAT_EVENT = 9,
   LOGCAT_SYSTEM = 10,
   LOGCAT_MAIN = 11,
+  LOGCAT_CRASH = 12,
   SETPRIORITY = 20,
   KILLPROCESS = 21,
   SETCPUSTATUS = 22,
   SETCPUMAXFREQ = 23,
   SETCPUMINFREQ = 24,
-  SETCPUGORV = 25
+  SETCPUGORV = 25,
+  LOGCAT_MAIN_R = 50
 };
 bool ipcAction_IsValid(int value);
 const ipcAction ipcAction_MIN = OS;
-const ipcAction ipcAction_MAX = SETCPUGORV;
+const ipcAction ipcAction_MAX = LOGCAT_MAIN_R;
 const int ipcAction_ARRAYSIZE = ipcAction_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ipcAction_descriptor();

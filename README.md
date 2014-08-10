@@ -65,6 +65,16 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.3.0.2**
+
+- fix logcat function on Android L Preview
+- fix "watch log" function (Thanks to Gerd)
+- support 3 new screen density (experiment) 
+
+**Version 3.1.0.1**
+
+- Fix no data issue  (Thanks to #359)
+
 **Version 3.1.0.0**
 
 - German Language Files - Benko111@XDA

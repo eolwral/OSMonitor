@@ -73,14 +73,23 @@ public class ProcessUtil extends Thread {
 			case DENSITY_MEDIUM:
 				singletone.iconSize = 28;
 				break;
+      case 213: // DENSITY_TV 
+        singletone.iconSize = 50;
+        break;
 			case DENSITY_HIGH:
 				singletone.iconSize = 60;
 				break;
+			case 400: // DENSITY_400
+	      singletone.iconSize = 80;
+			  break;
 			case DENSITY_XHIGH:
 				singletone.iconSize = 100;
 				break;
 			case DENSITY_XXHIGH:
 				singletone.iconSize = 200;
+				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            break;
+			case 640: // DENSITY_XXXHIGH
+			  singletone.iconSize = 250;
 				break;
 			}
 

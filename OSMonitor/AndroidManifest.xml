@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.eolwral.osmonitor"
       android:installLocation="auto" 
-      android:versionName="3.3.0.2" 
-      android:versionCode="66">
+      android:versionName="3.3.0.3" 
+      android:versionCode="67">
 
     <uses-sdk android:minSdkVersion="9"
               android:targetSdkVersion="17" />

@@ -86,6 +86,7 @@ namespace core {
     curProcessInfo.set_uid(0);
     curProcessInfo.set_ppid(0);
     curProcessInfo.set_owner("");
+    curProcessInfo.set_name("");
     curProcessInfo.set_usedusertime(0);
     curProcessInfo.set_usedsystemtime(0);
     curProcessInfo.set_threadcount(0);

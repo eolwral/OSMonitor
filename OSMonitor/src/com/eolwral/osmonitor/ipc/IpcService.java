@@ -10,6 +10,7 @@ import java.util.concurrent.Semaphore;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.NetworkOnMainThreadException;
 
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
@@ -166,12 +167,18 @@ public class IpcService {
 			
 			// send token
 			OutputStream outData = client.getOutputStream();
+			if (outData == null)
+			  throw new IOException();
+			
 			byte [] outToken = settings.getToken().getBytes();
 			outData.write(outToken);
 			 
 		} catch (IOException e) {
 			return false;
+		} catch (NetworkOnMainThreadException e) {
+		  return false;
 		}
+		
 		return true;
 	}
 	

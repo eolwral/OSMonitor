@@ -5,6 +5,8 @@
 
 #include "ipcserver.h"
 
+#include <sys/stat.h>
+
 namespace com {
 namespace eolwral {
 namespace osmonitor {
@@ -16,7 +18,10 @@ namespace ipc {
     this->serverFD = 0;
     this->waitNumber = 0;
 
-    bzero((char *)&this->serverAddr, sizeof(this->serverAddr));
+    this->uServerLen = 0;
+    memset(&this->uServerAddr, 0, sizeof(this->uServerAddr));
+
+    bzero((char *)&this->sServerAddr, sizeof(this->sServerAddr));
 
     // initialize clean socket
     for ( int index = 0 ; index < 8 ; index++)
@@ -50,10 +55,28 @@ namespace ipc {
 
   bool ipcserver::init(int portNumber)
   {
+    this->useTCPSocket = true;
+
+    this->sServerAddr.sin_family = AF_INET;
+    this->sServerAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    this->sServerAddr.sin_port = htons(portNumber);
+
+    return (true);
+  }
+
+
+  bool ipcserver::init(char* socketName)
+  {
+    this->useTCPSocket = false;
+
     // check socket name to avoid overflow
-    this->serverAddr.sin_family = AF_INET;
-    this->serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    this->serverAddr.sin_port = htons(portNumber);
+    if (strlen(socketName) > (int) sizeof(this->uServerAddr.sun_path))
+      return (false);
+
+    this->uServerAddr.sun_path[0] = '\0';
+    strcpy(this->uServerAddr.sun_path+1, socketName);
+    this->uServerAddr.sun_family = AF_UNIX;
+    this->uServerLen = 1 + strlen(socketName) + offsetof(struct sockaddr_un, sun_path);
 
     return (true);
   }
@@ -61,9 +84,14 @@ namespace ipc {
   bool ipcserver::bind()
   {
     // listen
-    this->serverFD = socket(AF_INET, SOCK_STREAM, 0);
-    if(this->serverFD < 0)
+    if (this->useTCPSocket == true)
+      this->serverFD = socket(AF_INET, SOCK_STREAM, 0);
+    else
+      this->serverFD = socket(AF_UNIX, SOCK_STREAM, 0);
+
+    if(this->serverFD < 0) {
       return (false);
+    }
 
     // set socket is reusable
     int option = true;
@@ -73,7 +101,13 @@ namespace ipc {
       return (false);
     }
 
-    if(::bind(this->serverFD, (const sockaddr*) &this->serverAddr, sizeof(this->serverAddr)) < 0)
+    int result = 0;
+    if (this->useTCPSocket == true)
+      result = ::bind(this->serverFD, (const sockaddr*) &this->sServerAddr, sizeof(this->sServerAddr));
+    else
+      result = ::bind(this->serverFD, (const sockaddr*) &this->uServerAddr, this->uServerLen);
+
+    if (result < 0)
     {
       ::close(this->serverFD);
       return (false);
@@ -90,12 +124,19 @@ namespace ipc {
 
   bool ipcserver::accept()
   {
-    // client address
-    struct sockaddr_in clientAddr;
-    int clientAddrLen = sizeof(clientAddr);;
 
     // accept new connection
-    int newSocket = ::accept(this->serverFD, (struct sockaddr *) &clientAddr, &clientAddrLen);
+    int newSocket = 0;
+    if (this->useTCPSocket == true) {
+      // client address
+      struct sockaddr_in clientAddr;
+      int clientAddrLen = sizeof(clientAddr);;
+      newSocket = ::accept(this->serverFD, (struct sockaddr *) &clientAddr, &clientAddrLen);
+    }
+    else {
+      newSocket = ::accept(this->serverFD, NULL, NULL);
+    }
+
     if (newSocket < 0)
       return (false);
 

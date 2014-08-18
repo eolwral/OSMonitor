@@ -68,7 +68,14 @@ static int bufferSize = 0;
 bool prepareIPC()
 {
   // initialize
-  if (!server.init(PORTNUMBER))
+  bool result = false;
+
+#ifdef ANDROD_L_BINARY
+  result = server.init(PORTNUMBER);
+#else
+  result = server.init(SOCKETNAME);
+#endif
+  if (!result)
   {
     __android_log_print(ANDROID_LOG_VERBOSE, APPNAME,"can't initialize socket!\n");
     return (false);

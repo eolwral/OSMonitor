@@ -22,7 +22,11 @@
 
 #include "ipcMessage.pb.h"
 
-#define PORTNUMBER 14073
+// Name
+#define SOCKETNAME "osmipcV3"
+
+// Android L
+#define PORTNUMBER 14075
 
 #define SOCKETBUF 1024
 #define TRANSIZE 4096
@@ -44,7 +48,15 @@ namespace ipc {
 
   private:
     int serverFD;                       /**<< server file descriptor */
-    struct sockaddr_in serverAddr;      /**<< server socket address  */
+
+    bool useTCPSocket;                  /**<< use TCP Port */
+
+    // unix domain socket
+    struct sockaddr_un uServerAddr;     /**<< server socket address  */
+    socklen_t uServerLen;               /**<< server socket length */
+
+    // TCP socket
+    struct sockaddr_in sServerAddr;     /**<< server socket address  */
 
     int waitNumber;                     /**<< which client is wait */
     int clientFD[8];                    /**<< client file descriptor */
@@ -76,11 +88,18 @@ namespace ipc {
     ~ipcserver();
 
     /**
-     * initialize a Unix domain socket
+     * initialize tcp socket
      * @param portNumber tcp port number
      * @return success or fail
      */
     bool init(int portNumber);
+
+    /**
+     * initialize unix domain socket
+     * @param socketName socket name
+     * @return success or fail
+     */
+    bool init(char* socketName);
 
     /**
      * bind socket

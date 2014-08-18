@@ -155,8 +155,9 @@ public class Preference extends PreferenceActivity  {
         key.equals(Settings.PREFERENCE_NOTIFICATION_TOP) || key.equals(Settings.PREFERENCE_NOTIFICATION_CUSTOMIZE)) {
       
       
-      if(key.equals(Settings.PREFERENCE_ROOT))
+      if(key.equals(Settings.PREFERENCE_ROOT)) {
         IpcService.getInstance().forceExit();
+      }
 
       // prevent exit
       if(helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false) ||

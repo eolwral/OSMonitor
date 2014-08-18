@@ -91,6 +91,14 @@ public class CommonUtil {
   }
   
   /**
+   * is Android L ?
+   * @return true == yes, false == no
+   */
+  public static boolean isL() {
+    return (Build.VERSION.RELEASE.equals("L"));    
+  }
+  
+  /**
    * check file status
    * @param file path
    * @return true == exist, false == not exist
@@ -132,7 +140,7 @@ public class CommonUtil {
 		  else
 			  assetPath += "_arm"; 
 		  
-		  if (Build.VERSION.RELEASE.equals("L"))
+		  if (isL())
 		    assetPath += "_l";
 
 		  InputStream binary = context.getAssets().open(assetPath);
@@ -213,7 +221,7 @@ public class CommonUtil {
         Runtime.getRuntime().exec( new String [] { "sh", "-c", binary+" "+binary+".token &" }).waitFor();
       }
       else {
-        if (!Build.VERSION.RELEASE.equals("L")) {
+        if (!isL()) {
           Runtime.getRuntime().exec( new String [] { "su", "-c", binary+" "+binary+".token &" }).waitFor();
         }
         else {

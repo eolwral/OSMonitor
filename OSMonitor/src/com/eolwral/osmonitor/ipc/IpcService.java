@@ -4,9 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.concurrent.Semaphore;
@@ -31,29 +28,13 @@ public class IpcService {
 	 * Singleton instance
 	 */
 	private static IpcService instance = null;
-	private Context ipcContext = null; 
-
+	 private Context ipcContext = null; 
+	
 	/**
-	 * predefine socket name  
+	 * Connection Object
 	 */
-	private final static int portNumber = 14073;
-
-	/**
-	 * predefine buffer size
-	 */
-	private final static int sendBufferSize = 131072; /* 128K */
-	private final static int recvBufferSize = 1048576; /* 1M */
-
-	/**
-	 * TCP socket
-	 */
-	private Socket clientSocket = null;
-
-	/**
-	 * TCP socket address
-	 */
-	private SocketAddress clientAddress = null;
-
+	private IpcConnectionBase client = null;
+	
 	/**
 	 * comparator for using time stamp
 	 */
@@ -133,7 +114,7 @@ public class IpcService {
 	public static void Initialize(Context context) {
 		if (instance == null)
 		{
-			instance = new IpcService(portNumber);
+		  instance = new IpcService(context);
 			instance.ipcContext = context;
 		}
 	}
@@ -143,30 +124,32 @@ public class IpcService {
 	 * @return IpcService
 	 */
 	public static IpcService getInstance() {
-	    return instance;
+	  return instance;
 	}
-	
+		
 	/**
 	 * internal use only for creating object
-	 * 
-	 * @param serverName
+	 * @param context Context
 	 */
-	private IpcService(int portNumber) {
-		clientAddress = new InetSocketAddress("127.0.0.1", portNumber);
-		
-		// prepare a priority queue
-		QueuedComparator cmdComparator = new QueuedComparator();
-		cmdQueue = new PriorityQueue<QueuedTask>(1, cmdComparator);
-	}
+	private IpcService(Context context) {	  
 
+    if (CommonUtil.isL()) 
+      client = new TCPConnection();
+    else 
+      client = new UnixConnection();
+
+	  // prepare a priority queue
+    QueuedComparator cmdComparator = new QueuedComparator();
+    cmdQueue = new PriorityQueue<QueuedTask>(1, cmdComparator);
+	}
+	 
 	/**
 	 * destructor for ipcClient
 	 */
 	protected void finalize() {
 		try {
-			clientSocket.close();
-			clientSocket = null;
-			clientAddress = null;
+		  if (client != null)
+		    client.close();
 		} catch (IOException e) { }
 	}
 
@@ -177,20 +160,12 @@ public class IpcService {
 	private boolean connect() {
 	
 		try {
-			final Settings settings = Settings.getInstance(ipcContext);
+			Settings settings = Settings.getInstance(ipcContext);			
 
-			clientSocket = new Socket();
-			clientSocket.connect(clientAddress);
-			clientSocket.setSendBufferSize(sendBufferSize);
-			clientSocket.setReceiveBufferSize(recvBufferSize);
-			
-			clientSocket.setKeepAlive(true);
-						
-			// Notice: the value is milliseconds
-			clientSocket.setSoTimeout(settings.getInterval()*1000);
+			client.connect(settings.getInterval()*1000);
 			
 			// send token
-			OutputStream outData = clientSocket.getOutputStream();
+			OutputStream outData = client.getOutputStream();
 			byte [] outToken = settings.getToken().getBytes();
 			outData.write(outToken);
 			 
@@ -206,10 +181,9 @@ public class IpcService {
 	 */
 	private boolean checkStatus()
 	{
-		if(clientSocket == null)
-			return false;
-				
-		return clientSocket.isConnected();
+	  if (client == null)
+	    return false;
+		return client.isConnected();
 	}
 	
 	/**
@@ -243,7 +217,7 @@ public class IpcService {
 		
 		// send
 		try {
-			OutputStream outData = clientSocket.getOutputStream();
+			OutputStream outData = client.getOutputStream();
 			exitCommand.build().writeTo(outData);			
 		} catch (IOException e) {}
 				
@@ -269,7 +243,7 @@ public class IpcService {
 		
 		// send
 		try {
-			OutputStream outData = clientSocket.getOutputStream();
+			OutputStream outData = client.getOutputStream();
 			setCommand.build().writeTo(outData);			
 		} catch (IOException e) {}
 		
@@ -295,7 +269,7 @@ public class IpcService {
 		
 		// send
 		try {
-			OutputStream outData = clientSocket.getOutputStream();
+			OutputStream outData = client.getOutputStream();
 			setCommand.build().writeTo(outData);			
 		} catch (IOException e) {}
 		
@@ -321,7 +295,7 @@ public class IpcService {
 		
 		// send
 		try {
-			OutputStream outData = clientSocket.getOutputStream();
+			OutputStream outData = client.getOutputStream();
 			setCommand.build().writeTo(outData);			
 		} catch (IOException e) {}
 		
@@ -347,7 +321,7 @@ public class IpcService {
 		
 		// send
 		try {
-			OutputStream outData = clientSocket.getOutputStream();
+			OutputStream outData = client.getOutputStream();
 			setCommand.build().writeTo(outData);			
 		} catch (IOException e) {}
 		
@@ -378,7 +352,7 @@ public class IpcService {
 		
 		// send
 		try {
-			OutputStream outData = clientSocket.getOutputStream();
+			OutputStream outData = client.getOutputStream();
 			setCommand.build().writeTo(outData);			
 		} catch (Exception e) {}
 		
@@ -403,7 +377,7 @@ public class IpcService {
 
 		// send
 		try {
-			OutputStream outData = clientSocket.getOutputStream();
+			OutputStream outData = client.getOutputStream();
 			setCommand.build().writeTo(outData);			
 		} catch (IOException e) {}
 		
@@ -474,15 +448,14 @@ public class IpcService {
 	 * disconnect with daemon
 	 */
 	public void disconnect() {
-		if(clientSocket == null) {
+		if(client == null) {
 		  return;
 		}
 
 		removeAllRequest();
 
 		try {
-			clientSocket.close();
-			clientSocket = null;
+		  client.close();
 		} catch (Exception e) {}
 		return;
 	}
@@ -504,8 +477,8 @@ public class IpcService {
 		/**
 		 * internal receive buffer
 		 */
-		private byte[] buffer = new byte[recvBufferSize];
-		private int curBufferSize = recvBufferSize;
+		private byte[] buffer = new byte[IpcConnectionBase.recvBufferSize];
+		private int curBufferSize = IpcConnectionBase.recvBufferSize;
 
 		private boolean prepareIpc() {
 			// check connection's status
@@ -619,11 +592,11 @@ public class IpcService {
 				// send message and wait result
 			
 				// send
-				outData = clientSocket.getOutputStream();
+				outData = client.getOutputStream();
 				ipcmsg.build().writeTo(outData);
  
 				// receive (blocking mode)
-				inData = clientSocket.getInputStream();
+				inData = client.getInputStream();
 
 				int totalSize = 0;
     
@@ -638,7 +611,7 @@ public class IpcService {
 				totalSize |= (int) (buffer[3] & 0xFF ) << 24;
 				
 				// check limit (10M)
-				if(totalSize > recvBufferSize*10)
+				if(totalSize > IpcConnectionBase.recvBufferSize*10)
 					throw new Exception("Excced memory limit");
 				 
 				// prepare enough buffer size

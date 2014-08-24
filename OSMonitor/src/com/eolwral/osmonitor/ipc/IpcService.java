@@ -10,7 +10,6 @@ import java.util.concurrent.Semaphore;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.NetworkOnMainThreadException;
 
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
@@ -29,7 +28,7 @@ public class IpcService {
 	 * Singleton instance
 	 */
 	private static IpcService instance = null;
-	 private Context ipcContext = null; 
+	private Context ipcContext = null; 
 	
 	/**
 	 * Connection Object
@@ -115,7 +114,7 @@ public class IpcService {
 	public static void Initialize(Context context) {
 		if (instance == null)
 		{
-		  instance = new IpcService(context);
+		  instance = new IpcService();
 			instance.ipcContext = context;
 		}
 	}
@@ -132,7 +131,7 @@ public class IpcService {
 	 * internal use only for creating object
 	 * @param context Context
 	 */
-	private IpcService(Context context) {	  
+	private IpcService() {	  
 
     if (CommonUtil.isL()) 
       client = new TCPConnection();
@@ -175,7 +174,7 @@ public class IpcService {
 			 
 		} catch (IOException e) {
 			return false;
-		} catch (NetworkOnMainThreadException e) {
+		} catch (Exception e) {
 		  return false;
 		}
 		

@@ -778,7 +778,7 @@ public class MessageFragment extends ListFragment
 				holder.level = ((TextView) sv.findViewById(R.id.id_message_level));
 				holder.tag = ((TextView) sv.findViewById(R.id.id_message_tag));
 				holder.msg = ((TextView) sv.findViewById(R.id.id_message_text));
-
+				        
 				sv.setTag(holder);
 			} else {
 				sv = (View) convertView;

@@ -147,7 +147,7 @@ public class MessageFragment extends ListFragment
 		setListAdapter(messageList);
 
 		// create array
-		for (int count = 0; count < 3; count++)
+		for (int count = 0; count < 4; count++)
 			sourceLogcatData.add(new ArrayList<logcatInfo>());
 	}
 
@@ -254,17 +254,17 @@ public class MessageFragment extends ListFragment
 		searchView.setText(filterString);
 		searchView.addTextChangedListener(new TextWatcher() {
  
-			@Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                // When user changed the Text
-            	messageList.getFilter().filter(cs);
-            }
- 
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
- 
-            @Override
-            public void afterTextChanged(Editable arg0) { }
+		  @Override
+		  public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+		    // When user changed the Text
+		    messageList.getFilter().filter(cs);
+		  }
+
+		  @Override
+		  public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
+
+		  @Override
+		  public void afterTextChanged(Editable arg0) { }
 		});
 
 		// refresh button
@@ -520,7 +520,7 @@ public class MessageFragment extends ListFragment
         	// refresh
         	selectedMode = false;
         	selectedData.clear();
-			ActivityCompat.invalidateOptionsMenu(getActivity());
+          ActivityCompat.invalidateOptionsMenu(getActivity());
         	messageList.notifyDataSetChanged();
         	
     	} catch (Exception e) {
@@ -1029,7 +1029,7 @@ public class MessageFragment extends ListFragment
 				holder.msg.setText( Html.fromHtml(highlightText( String.format("%s", item.getMessage().toString()), filterString, textColor)));
 				break;
 			case FORMAT_TIME:
-				holder.msg.setText(  Html.fromHtml(highlightText( String.format("%s.%03d %s/%-8s(%5d):  %s", DateFormat.format("MM-dd HH:mm:ss",calendar.getTime()),
+				holder.msg.setText( Html.fromHtml(highlightText( String.format("%s.%03d %s/%-8s(%5d):  %s", DateFormat.format("MM-dd HH:mm:ss",calendar.getTime()),
 						                                                        					item.getNanoSeconds()/1000000,  getLogcatTag(item.getPriority().getNumber()), 
 						                                                        						item.getTag(),  item.getPid(),item.getMessage().toString()), filterString, textColor)));
 				break;
@@ -1297,6 +1297,9 @@ public class MessageFragment extends ListFragment
 			type = ipcAction.LOGCAT_EVENT;
 			break;
 		case 3:
+		  type = ipcAction.LOGCAT_RADIO;
+		  break;
+		case 4:
 			type = ipcAction.DMESG;
 			break;
 		default:
@@ -1318,9 +1321,12 @@ public class MessageFragment extends ListFragment
 		case LOGCAT_EVENT:
 			loc = 2;
 			break;
-		case DMESG:
+		case LOGCAT_RADIO:
 			loc = 3;
 			break;
+    case DMESG:
+      loc = 4;
+      break;
 		default:
 			break;
 		}		

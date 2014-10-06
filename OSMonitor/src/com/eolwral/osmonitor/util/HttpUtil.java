@@ -18,8 +18,8 @@ import com.android.volley.toolbox.Volley;
 
 public class HttpUtil {
 
-	private  static final String TAG = "Volley";
-	
+  private  static final String TAG = "Volley";
+  
     private static HttpUtil mInstance = null;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
@@ -30,8 +30,8 @@ public class HttpUtil {
     }
     
     private class  ImageLruCache implements ImageCache {
-    	private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(3);
-    	
+      private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(3);
+      
         public void putBitmap(String url, Bitmap bitmap) {
             mCache.put(url, bitmap);
         }
@@ -42,34 +42,34 @@ public class HttpUtil {
     }
     
     public static HttpUtil getInstance(Context context){
-    	if(mInstance == null){
+      if(mInstance == null){
             mInstance = new HttpUtil(context);
         }
         return mInstance;
     }
  
     public void addRequest(StringRequest newRequest){
-    	
-    	if (newRequest == null)
-    		return;
-    	
-    	newRequest.setTag(TAG);
-    	mRequestQueue.add(newRequest);
+      
+      if (newRequest == null)
+        return;
+      
+      newRequest.setTag(TAG);
+      mRequestQueue.add(newRequest);
         return;
     }
 
     public void addRequest(JsonRequest<?> newRequest){
-    	
-    	if (newRequest == null)
-    		return;
-    	
-    	newRequest.setTag(TAG);
-    	mRequestQueue.add(newRequest);
+      
+      if (newRequest == null)
+        return;
+      
+      newRequest.setTag(TAG);
+      mRequestQueue.add(newRequest);
         return;
     }
     
     public void cancelRequest() {
-    	mRequestQueue.cancelAll(TAG);
+      mRequestQueue.cancelAll(TAG);
     }
  
     public ImageLoader getImageLoader(){

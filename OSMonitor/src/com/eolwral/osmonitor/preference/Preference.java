@@ -173,7 +173,7 @@ public class Preference extends PreferenceActivity  {
           helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)  ) {
         getApplication().startService(new Intent(getApplication(), OSMonitorService.class));
       }
-    }	
+    } 
     return true;
   }
 

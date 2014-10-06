@@ -39,9 +39,9 @@ public class CommonUtil {
    */
   public static void showHelp(Context context, String url)
   {
-  	Intent intent = new Intent(Intent.ACTION_VIEW);
-  	intent.setData(Uri.parse(url));
-  	context.startActivity(intent);
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setData(Uri.parse(url));
+    context.startActivity(intent);
   }
   
   /**
@@ -79,7 +79,7 @@ public class CommonUtil {
    * @return true == yes, false == no
    */
   public static boolean isMIPS() {
-    return (android.os.Build.CPU_ABI.toLowerCase().contains("mips"));	  
+    return (android.os.Build.CPU_ABI.toLowerCase().contains("mips"));   
   }
   
   /**
@@ -87,7 +87,7 @@ public class CommonUtil {
    * @return true == yes, false == no
    */
   public static boolean isX86() {
-    return (android.os.Build.CPU_ABI.toLowerCase().contains("x86"));	  
+    return (android.os.Build.CPU_ABI.toLowerCase().contains("x86"));    
   }
   
   /**
@@ -128,40 +128,40 @@ public class CommonUtil {
    * @return true == copied, false == text busy
    */
   private static boolean copyFile(String assetPath, String localPath, Context context) {
-	  try {
+    try {
 
-		  // detect architecture
-		  if (isARM()) 
-			  assetPath += "_arm";
-		  else if (isX86()) 
-			  assetPath += "_x86";  
-		  else if  (isMIPS())
-			  assetPath += "_mips";
-		  else
-			  assetPath += "_arm"; 
-		  
-		  if (isL())
-		    assetPath += "_l";
+      // detect architecture
+      if (isARM()) 
+        assetPath += "_arm";
+      else if (isX86()) 
+        assetPath += "_x86";  
+      else if  (isMIPS())
+        assetPath += "_mips";
+      else
+        assetPath += "_arm"; 
+      
+      if (isL())
+        assetPath += "_l";
 
-		  InputStream binary = context.getAssets().open(assetPath);
-		  FileOutputStream execute = new FileOutputStream(localPath);
+      InputStream binary = context.getAssets().open(assetPath);
+      FileOutputStream execute = new FileOutputStream(localPath);
 
-		  int read = 0;
-		  byte[] buffer = new byte[4096];
+      int read = 0;
+      byte[] buffer = new byte[4096];
 
-		  while ((read = binary.read(buffer)) > 0) 
-			  execute.write(buffer, 0, read);
+      while ((read = binary.read(buffer)) > 0) 
+        execute.write(buffer, 0, read);
 
-		  execute.close();
-		  binary.close();
+      execute.close();
+      binary.close();
 
-		  execute = null;
-		  binary = null;
+      execute = null;
+      binary = null;
 
-	  } catch (IOException e) {
-		  return false;
-	  }
-	  return true;
+    } catch (IOException e) {
+      return false;
+    }
+    return true;
   }
   
   /**
@@ -297,7 +297,7 @@ public class CommonUtil {
    */
   @SuppressLint("DefaultLocale")
   public static String convertToUsage(float data) {
-    return String.format("%.1f", data); 	  
+    return String.format("%.1f", data);     
   }
   
   /**
@@ -332,12 +332,12 @@ public class CommonUtil {
    * @return string []
    */
   public static String[] eraseEmptyString(String[] data) {
-	  ArrayList<String> checked = new ArrayList<String>();
-	  for (int index = 0; index < data.length; index++) {
-		  if(!data[index].trim().isEmpty())
-			  checked.add(data[index]);
-	  }
-	  return checked.toArray(new String[checked.size()]);
+    ArrayList<String> checked = new ArrayList<String>();
+    for (int index = 0; index < data.length; index++) {
+      if(!data[index].trim().isEmpty())
+        checked.add(data[index]);
+    }
+    return checked.toArray(new String[checked.size()]);
   }
   
   /**

@@ -26,267 +26,267 @@ import android.view.WindowManager;
  */
 public class ProcessUtil extends Thread {
 
-	private static ProcessUtil singletone = null;
-	private PackageManager packageMgr = null;
-	private Resources resourceMgr = null;
-	private ActivityManager activityMgr = null;
-	private Drawable commonIcon = null;
-	private boolean useDetail = true;
-	private int iconSize = 60; 
+  private static ProcessUtil singletone = null;
+  private PackageManager packageMgr = null;
+  private Resources resourceMgr = null;
+  private ActivityManager activityMgr = null;
+  private Drawable commonIcon = null;
+  private boolean useDetail = true;
+  private int iconSize = 60; 
 
-	private class CacheItem {
-		public String name;
-		public Drawable icon;
-	}
+  private class CacheItem {
+    public String name;
+    public Drawable icon;
+  }
 
-	// cache
-	private final HashMap<String, CacheItem> cacheStorage = new HashMap<String, CacheItem>();
+  // cache
+  private final HashMap<String, CacheItem> cacheStorage = new HashMap<String, CacheItem>();
 
-	// work queue for background thread
-	private final Semaphore queryQueueLock = new Semaphore(1, true);
-	private final LinkedList<QueueJob> queryQueue = new LinkedList<QueueJob>();
-	
-	// DPI
-	public static final int DENSITY_LOW = 120;
-	public static final int DENSITY_MEDIUM = 160;
-	public static final int DENSITY_HIGH = 240;
-	public static final int DENSITY_XHIGH = 320;
-	public static final int DENSITY_XXHIGH = 480;
+  // work queue for background thread
+  private final Semaphore queryQueueLock = new Semaphore(1, true);
+  private final LinkedList<QueueJob> queryQueue = new LinkedList<QueueJob>();
+  
+  // DPI
+  public static final int DENSITY_LOW = 120;
+  public static final int DENSITY_MEDIUM = 160;
+  public static final int DENSITY_HIGH = 240;
+  public static final int DENSITY_XHIGH = 320;
+  public static final int DENSITY_XXHIGH = 480;
 
-	public static ProcessUtil getInstance(Context context, boolean detail) {
+  public static ProcessUtil getInstance(Context context, boolean detail) {
 
-		if (singletone == null) {
-			singletone = new ProcessUtil();
+    if (singletone == null) {
+      singletone = new ProcessUtil();
 
-			singletone.packageMgr = context.getPackageManager();
-			singletone.resourceMgr = context.getResources();
-			singletone.activityMgr = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+      singletone.packageMgr = context.getPackageManager();
+      singletone.resourceMgr = context.getResources();
+      singletone.activityMgr = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
-			DisplayMetrics metrics = new DisplayMetrics();
-			WindowManager wmanager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-			wmanager.getDefaultDisplay().getMetrics(metrics);
+      DisplayMetrics metrics = new DisplayMetrics();
+      WindowManager wmanager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+      wmanager.getDefaultDisplay().getMetrics(metrics);
 
-			switch(metrics.densityDpi){
-			case DENSITY_LOW:
-				singletone.iconSize = 12;
-				break;
-			case DENSITY_MEDIUM:
-				singletone.iconSize = 28;
-				break;
+      switch(metrics.densityDpi){
+      case DENSITY_LOW:
+        singletone.iconSize = 12;
+        break;
+      case DENSITY_MEDIUM:
+        singletone.iconSize = 28;
+        break;
       case 213: // DENSITY_TV 
         singletone.iconSize = 50;
         break;
-			case DENSITY_HIGH:
-				singletone.iconSize = 60;
-				break;
-			case 400: // DENSITY_400
-	      singletone.iconSize = 80;
-			  break;
-			case DENSITY_XHIGH:
-				singletone.iconSize = 100;
-				break;
-			case DENSITY_XXHIGH:
-				singletone.iconSize = 200;
-				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            break;
-			case 640: // DENSITY_XXXHIGH
-			  singletone.iconSize = 250;
-				break;
-			}
+      case DENSITY_HIGH:
+        singletone.iconSize = 60;
+        break;
+      case 400: // DENSITY_400
+        singletone.iconSize = 80;
+        break;
+      case DENSITY_XHIGH:
+        singletone.iconSize = 100;
+        break;
+      case DENSITY_XXHIGH:
+        singletone.iconSize = 200;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    break;
+      case 640: // DENSITY_XXXHIGH
+        singletone.iconSize = 250;
+        break;
+      }
 
-			singletone.useDetail = detail;
-			if (singletone.useDetail == true)
-				singletone.commonIcon = resizeImage(singletone.resourceMgr.getDrawable(R.drawable.ic_process_system), singletone.iconSize);
-			
-			singletone.start();
-		}
+      singletone.useDetail = detail;
+      if (singletone.useDetail == true)
+        singletone.commonIcon = resizeImage(singletone.resourceMgr.getDrawable(R.drawable.ic_process_system), singletone.iconSize);
+      
+      singletone.start();
+    }
 
-		return singletone;
-	}
+    return singletone;
+  }
 
-	public void doCacheInfo(int uid, String owner, String process) {
-		// add a job into work queue
-		try {
-			queryQueueLock.acquire();
-		} catch (InterruptedException e) {
-			return;
-		}
+  public void doCacheInfo(int uid, String owner, String process) {
+    // add a job into work queue
+    try {
+      queryQueueLock.acquire();
+    } catch (InterruptedException e) {
+      return;
+    }
 
-		queryQueue.add(new QueueJob(uid, owner, process));
-		queryQueueLock.release();
+    queryQueue.add(new QueueJob(uid, owner, process));
+    queryQueueLock.release();
 
-		// create a skeleton object
-		CacheItem skeletonItem = new CacheItem();
-		skeletonItem.name = process;
-		skeletonItem.icon = commonIcon;
-		cacheStorage.put(process, skeletonItem);
+    // create a skeleton object
+    CacheItem skeletonItem = new CacheItem();
+    skeletonItem.name = process;
+    skeletonItem.icon = commonIcon;
+    cacheStorage.put(process, skeletonItem);
   
-		return;   
-	}
+    return;   
+  }
 
-	/**
-	 * a class for queued job 
-	 */
-	private class QueueJob {
-		public int uid; 
-		public String owner;
-		public String process;
+  /**
+   * a class for queued job 
+   */
+  private class QueueJob {
+    public int uid; 
+    public String owner;
+    public String process;
 
-		public QueueJob(int uid, String owner, String process) {
-			this.uid = uid;
-			this.owner = owner;
-			this.process = process;
-		}
-	}
+    public QueueJob(int uid, String owner, String process) {
+      this.uid = uid;
+      this.owner = owner;
+      this.process = process;
+    }
+  }
 
-	@Override
-	public void run() {
-		while (true) {
-			if (getCacheInfo())
-			continue; 
-			try {
-				sleep(500);
-			} catch (InterruptedException e) { }
-		}
-	}
+  @Override
+  public void run() {
+    while (true) {
+      if (getCacheInfo())
+      continue; 
+      try {
+        sleep(500);
+      } catch (InterruptedException e) { }
+    }
+  }
 
-	/**
-	 * get information for process
-	 * @return true == success, false == failed 
-	 */
-	public boolean getCacheInfo() {
+  /**
+   * get information for process
+   * @return true == success, false == failed 
+   */
+  public boolean getCacheInfo() {
 
-		if (queryQueue.isEmpty())
-			return false;
+    if (queryQueue.isEmpty())
+      return false;
 
-		try {
-			queryQueueLock.acquire();
-		} catch (InterruptedException e) {
-			return false;
-		}
+    try {
+      queryQueueLock.acquire();
+    } catch (InterruptedException e) {
+      return false;
+    }
 
-		QueueJob processJob = queryQueue.remove();
-		queryQueueLock.release();
+    QueueJob processJob = queryQueue.remove();
+    queryQueueLock.release();
 
-		PackageInfo curPackageInfo = null;
-		String curPackageName = null;
-		if (processJob.process.contains(":"))
-			curPackageName = processJob.process.substring(0,
-					processJob.process.indexOf(":"));
-		else 
-			curPackageName = processJob.process;
-		
+    PackageInfo curPackageInfo = null;
+    String curPackageName = null;
+    if (processJob.process.contains(":"))
+      curPackageName = processJob.process.substring(0,
+          processJob.process.indexOf(":"));
+    else 
+      curPackageName = processJob.process;
+    
 
-		// for system user
-		if (processJob.owner.contains("system")
-				&& processJob.process.contains("system")
-				&& !processJob.process.contains(".") 
-				&& !processJob.process.contains("osmcore"))
-			curPackageName = "android";
-		try {
-			curPackageInfo = packageMgr.getPackageInfo(curPackageName, 0);
-		} catch (NameNotFoundException e) {	}
+    // for system user
+    if (processJob.owner.contains("system")
+        && processJob.process.contains("system")
+        && !processJob.process.contains(".") 
+        && !processJob.process.contains("osmcore"))
+      curPackageName = "android";
+    try {
+      curPackageInfo = packageMgr.getPackageInfo(curPackageName, 0);
+    } catch (NameNotFoundException e) { }
 
-		if (curPackageInfo == null && processJob.uid > 0) {
-			String[] subPackageName = packageMgr
-					.getPackagesForUid(processJob.uid);
+    if (curPackageInfo == null && processJob.uid > 0) {
+      String[] subPackageName = packageMgr
+          .getPackagesForUid(processJob.uid);
 
-			if (subPackageName != null) {
-				for (int PackagePtr = 0; PackagePtr < subPackageName.length; PackagePtr++) {
-					if (subPackageName[PackagePtr] == null)
-						continue;
-					try {
-						curPackageInfo = packageMgr.getPackageInfo(subPackageName[PackagePtr], 0);
-						PackagePtr = subPackageName.length;
-					} catch (NameNotFoundException e) { }
-				}
-			}
-		}
+      if (subPackageName != null) {
+        for (int PackagePtr = 0; PackagePtr < subPackageName.length; PackagePtr++) {
+          if (subPackageName[PackagePtr] == null)
+            continue;
+          try {
+            curPackageInfo = packageMgr.getPackageInfo(subPackageName[PackagePtr], 0);
+            PackagePtr = subPackageName.length;
+          } catch (NameNotFoundException e) { }
+        }
+      }
+    }
 
-		CacheItem processItem = new CacheItem();
+    CacheItem processItem = new CacheItem();
 
-		if (curPackageInfo != null) {
-			processItem.name = curPackageInfo.applicationInfo.loadLabel(packageMgr).toString();
-			if(useDetail == true) 
-				processItem.icon = resizeImage(curPackageInfo.applicationInfo.loadIcon(packageMgr), iconSize);
-		} else {
-			processItem.name = curPackageName;
-			processItem.icon = commonIcon;
-		}
+    if (curPackageInfo != null) {
+      processItem.name = curPackageInfo.applicationInfo.loadLabel(packageMgr).toString();
+      if(useDetail == true) 
+        processItem.icon = resizeImage(curPackageInfo.applicationInfo.loadIcon(packageMgr), iconSize);
+    } else {
+      processItem.name = curPackageName;
+      processItem.icon = commonIcon;
+    }
 
-		cacheStorage.put(processJob.process, processItem);
+    cacheStorage.put(processJob.process, processItem);
 
-		return true;
-	}
+    return true;
+  }
 
-	/**
-	 * resize icon to the specific size
-	 * @param icon input image
-	 * @param size icon size
-	 * @return resized image 
-	 */
-	private static Drawable resizeImage(Drawable Icon, int iconSize) {
-		Bitmap BitmapOrg = Bitmap.createBitmap(iconSize, iconSize, Bitmap.Config.ARGB_8888);
-		Canvas BitmapCanvas = new Canvas(BitmapOrg);
-		Icon.setBounds(0, 0, iconSize, iconSize);
-		Icon.draw(BitmapCanvas);
-		BitmapCanvas = null;
-		return new BitmapDrawable(BitmapOrg);
-	}
+  /**
+   * resize icon to the specific size
+   * @param icon input image
+   * @param size icon size
+   * @return resized image 
+   */
+  private static Drawable resizeImage(Drawable Icon, int iconSize) {
+    Bitmap BitmapOrg = Bitmap.createBitmap(iconSize, iconSize, Bitmap.Config.ARGB_8888);
+    Canvas BitmapCanvas = new Canvas(BitmapOrg);
+    Icon.setBounds(0, 0, iconSize, iconSize);
+    Icon.draw(BitmapCanvas);
+    BitmapCanvas = null;
+    return new BitmapDrawable(BitmapOrg);
+  }
 
-	/**
-	 * get the name of process 
-	 * @param process the name of process
-	 * @return process name
-	 */
-	public String getPackageName(String process) {
-		CacheItem Process = cacheStorage.get(process);
-		if (Process != null)
-			return Process.name;
-		return null;
-	}
+  /**
+   * get the name of process 
+   * @param process the name of process
+   * @return process name
+   */
+  public String getPackageName(String process) {
+    CacheItem Process = cacheStorage.get(process);
+    if (Process != null)
+      return Process.name;
+    return null;
+  }
 
-	/**
-	 * get the icon of process
-	 * @param process the name of process
-	 * @return icon 
-	 */
-	public Drawable getPackageIcon(String process) {
-		CacheItem Process = cacheStorage.get(process);
-		if (Process != null)
-			return cacheStorage.get(process).icon;
-		return null;
-	}
+  /**
+   * get the icon of process
+   * @param process the name of process
+   * @return icon 
+   */
+  public Drawable getPackageIcon(String process) {
+    CacheItem Process = cacheStorage.get(process);
+    if (Process != null)
+      return cacheStorage.get(process).icon;
+    return null;
+  }
 
-	/**
-	 * get the default icon of process
-	 * @return icon 
-	 */
-	public Drawable getDefaultIcon() {
-		return commonIcon;
-	}
+  /**
+   * get the default icon of process
+   * @return icon 
+   */
+  public Drawable getDefaultIcon() {
+    return commonIcon;
+  }
 
-	/**
-	 * check process has been processed
-	 * @param process the name of process
-	 * @return true == cached, false == none
-	 */
-	public boolean checkPackageInformation(String process) {
-		CacheItem Process = cacheStorage.get(process);
-		if (Process == null)
-			return false;
-		return true;
-	}
-	
-	/**
-	 * get private memory
-	 * @param pid the process id of process
-	 * @return private memory value
-	 */
-	public MemoryInfo getMemoryInfo(int pid) {
-		int processPID[] = new int[1];
-		processPID[0] = pid;
-		MemoryInfo[] memInfo = activityMgr.getProcessMemoryInfo(processPID);
-		return memInfo[0];
-	}
+  /**
+   * check process has been processed
+   * @param process the name of process
+   * @return true == cached, false == none
+   */
+  public boolean checkPackageInformation(String process) {
+    CacheItem Process = cacheStorage.get(process);
+    if (Process == null)
+      return false;
+    return true;
+  }
+  
+  /**
+   * get private memory
+   * @param pid the process id of process
+   * @return private memory value
+   */
+  public MemoryInfo getMemoryInfo(int pid) {
+    int processPID[] = new int[1];
+    processPID[0] = pid;
+    MemoryInfo[] memInfo = activityMgr.getProcessMemoryInfo(processPID);
+    return memInfo[0];
+  }
 
 }

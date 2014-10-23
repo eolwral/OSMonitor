@@ -133,7 +133,7 @@ public class IpcService {
    */
   private IpcService() {    
 
-    if (CommonUtil.isL()) 
+    if (CommonUtil.isLollipop()) 
       client = new TCPConnection();
     else 
       client = new UnixConnection();

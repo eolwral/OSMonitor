@@ -91,11 +91,12 @@ public class CommonUtil {
   }
   
   /**
-   * is Android L ?
+   * is Android Lollipop ?
    * @return true == yes, false == no
    */
-  public static boolean isL() {
-    return (Build.VERSION.RELEASE.equals("L"));    
+  public static boolean isLollipop() {
+    return (Build.VERSION.RELEASE.equals("L") ||
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);    
   }
   
   /**
@@ -140,7 +141,7 @@ public class CommonUtil {
       else
         assetPath += "_arm"; 
       
-      if (isL())
+      if (isLollipop())
         assetPath += "_l";
 
       InputStream binary = context.getAssets().open(assetPath);
@@ -221,18 +222,27 @@ public class CommonUtil {
         Runtime.getRuntime().exec( new String [] { "sh", "-c", binary+" "+binary+".token &" }).waitFor();
       }
       else {
-        if (!isL()) {
+        if (!isLollipop()) {
           Runtime.getRuntime().exec( new String [] { "su", "-c", binary+" "+binary+".token &" }).waitFor();
         }
         else {
           Process process = Runtime.getRuntime().exec( new String [] { "su" });
           DataOutputStream os = new DataOutputStream(process.getOutputStream());
           os.writeBytes("cp "+binary+" "+binary+"_L \n");
-          os.writeBytes("chmod 777 "+binary+"_L \n");
+          os.writeBytes("chmod 755 "+binary+"_L \n");
           os.writeBytes("chcon u:object_r:system_file:s0 "+binary+"_L \n");
-          os.writeBytes("su --context u:r:system_app:s0 -c \""+binary+"_L "+binary+".token & \" \n");
-          os.writeBytes("exit\n");
-          Thread.sleep(500);
+          os.writeBytes("su --context u:r:system_app:s0 -c \""+binary+"_L "+binary+".token &\" \n");
+          os.writeBytes("exit\n\n");
+          os.flush();
+          Thread.sleep(1000);
+          process.destroy();
+
+          process = Runtime.getRuntime().exec( new String [] { "su" });
+          os = new DataOutputStream(process.getOutputStream());
+          os.writeBytes("rm "+binary+"_L \n");
+          os.writeBytes("exit\n\n");
+          os.flush();
+          process.wait(3500);
           process.destroy();
         }
       }

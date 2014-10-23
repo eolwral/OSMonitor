@@ -73,7 +73,8 @@ public class OSMonitor extends ActionBarActivity  implements
     
     // prepare action bar
     final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
+    actionBar.setDisplayShowTitleEnabled(false);
+    actionBar.setElevation(0);
         
     actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 

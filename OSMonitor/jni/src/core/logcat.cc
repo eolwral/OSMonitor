@@ -119,8 +119,10 @@ namespace core {
     if(this->processBinaryLog(&message, &messageLen, &charBuffer, &outBufferLen))
     {
       curLogcatInfo->set_message(outBuffer);
-      if (_curLogcatList.size() >= MAXLOGSIZE)
+      if (_curLogcatList.size() >= MAXLOGSIZE) {
+        delete *this->_curLogcatList.begin();
         _curLogcatList.erase(_curLogcatList.begin());
+      }
       _curLogcatList.push_back(curLogcatInfo);
     }
     else
@@ -355,8 +357,10 @@ namespace core {
       break;
     }
 
-    if (_curLogcatList.size() >= MAXLOGSIZE)
+    if (_curLogcatList.size() >= MAXLOGSIZE) {
+      delete *this->_curLogcatList.begin();
       _curLogcatList.erase(_curLogcatList.begin());
+    }
     this->_curLogcatList.push_back(curLogcatInfo);
 
     return;

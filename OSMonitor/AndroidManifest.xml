@@ -26,7 +26,7 @@
     <application android:label="@string/ui_appname" 
                  android:icon="@drawable/ic_launcher" 
                  android:theme="@style/Theme.Osmonitor" 
-                 android:allowBackup="true" android:largeHeap="true">
+                 android:allowBackup="true" android:largeHeap="true" android:allowClearUserData="true">
                  
     	<activity android:name="com.eolwral.osmonitor.OSMonitor" 
     	          android:configChanges="orientation" 

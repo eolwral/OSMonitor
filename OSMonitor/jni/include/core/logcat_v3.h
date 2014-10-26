@@ -109,13 +109,13 @@ namespace core {
      * extract log from logger_entry and insert into list
      * @param single log entry
      */
-    void extractLog(struct log_msg *entry);
+    bool extractLog(struct logger_entry *entry);
 
     /**
      * extract log from logger_entry and insert into list
      * @param single log entry
      */
-    void extractBinaryLog(struct log_msg *entry);
+    bool extractBinaryLog(struct log_msg *entry);
 
     /**
      * convert binary log into readable log

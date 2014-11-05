@@ -50,10 +50,13 @@ public class SettingsHelper {
     HashMap<String, String> data = new HashMap<String, String>();
 
     // query
-    Cursor cursor = contentResolver.query(
+    Cursor cursor = null;
+    try {
+      cursor = contentResolver.query(
         PreferenceContentProvider.CONTENT_URI, new String[] {
             PreferenceContentProvider.KEY,
             PreferenceContentProvider.VALUE }, null, null, null);
+    } catch(Exception e) {}
     if (cursor == null)
       return data;
 
@@ -71,11 +74,14 @@ public class SettingsHelper {
   private boolean isExistKey(String key) {
 
     // query
-    Cursor cursor = contentResolver.query(
+    Cursor cursor = null;
+    try {
+      cursor = contentResolver.query(
         PreferenceContentProvider.CONTENT_URI,
         new String[] { PreferenceContentProvider.KEY },
         PreferenceContentProvider.KEY + "=?", new String[] { key },
         null);
+    } catch (Exception e) {}
     if (cursor == null)
       return false;
 
@@ -130,12 +136,15 @@ public class SettingsHelper {
     }
     
     // query
-    Cursor cursor = contentResolver.query(
+    Cursor cursor = null;
+    try {
+      cursor = contentResolver.query(
         PreferenceContentProvider.CONTENT_URI, new String[] {
-            PreferenceContentProvider.KEY,
-            PreferenceContentProvider.VALUE },
+        PreferenceContentProvider.KEY,
+        PreferenceContentProvider.VALUE },
         PreferenceContentProvider.KEY + "=?", new String[] { key },
         null);
+    } catch(Exception e) {}
     if (cursor == null)
       return value;
 

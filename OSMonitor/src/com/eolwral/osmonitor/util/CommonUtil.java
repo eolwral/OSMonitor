@@ -15,6 +15,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -39,9 +40,11 @@ public class CommonUtil {
    */
   public static void showHelp(Context context, String url)
   {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setData(Uri.parse(url));
-    context.startActivity(intent);
+    try {
+      Intent intent = new Intent(Intent.ACTION_VIEW);
+      intent.setData(Uri.parse(url));
+      context.startActivity(intent);
+    } catch (ActivityNotFoundException e) {}
   }
   
   /**

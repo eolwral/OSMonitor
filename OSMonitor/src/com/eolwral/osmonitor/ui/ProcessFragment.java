@@ -671,17 +671,15 @@ public class ProcessFragment extends ListFragment
 
     @Override
     public int compare(processInfo lhs, processInfo rhs) {
-      Collator collator = Collator.getInstance();
-      
       String lhsName = infoHelper.getPackageName(lhs.getName());
       if (lhsName == null) lhsName = lhs.getName();
       
       String rhsName = infoHelper.getPackageName(rhs.getName());
       if (rhsName == null) rhsName = rhs.getName();
       
-      if (collator.compare(lhsName, rhsName) == -1)
+      if (rhsName.compareTo(lhsName) < 0)
         return -1;
-      else if (collator.compare(lhsName, rhsName) == 1)
+      else if (rhsName.compareTo(lhsName) > 0)
         return 1;
       return 0;
     }   

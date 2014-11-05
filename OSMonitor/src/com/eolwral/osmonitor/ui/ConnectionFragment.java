@@ -637,12 +637,15 @@ public class ConnectionFragment extends ListFragment
       // http://developer.android.com/training/basics/fragments/fragment-ui.html#Replace
       
       // pass information
-    ConnectionStaticMapFragment newMap = new ConnectionStaticMapFragment();
+      ConnectionStaticMapFragment newMap = new ConnectionStaticMapFragment();
       Bundle args = new Bundle();
       args.putFloat(ConnectionStaticMapFragment.LONGTIUDE, result.Longtiude);
       args.putFloat(ConnectionStaticMapFragment.LATITUDE, result.Latitude);
       args.putString(ConnectionStaticMapFragment.MESSAGE, result.Msg);
       newMap.setArguments(args);
+      
+      // if Activity isn't attached, just skip 
+      if (getActivity() == null) return;
       
       final FragmentManager fm = getActivity().getSupportFragmentManager();
       final FragmentTransaction transaction = fm.beginTransaction();

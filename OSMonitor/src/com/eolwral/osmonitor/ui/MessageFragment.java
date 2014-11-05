@@ -1205,7 +1205,9 @@ public class MessageFragment extends ListFragment
         if(results.values == null)
         {
           viewDmesgData = sourceDmesgData;
-          viewLogcatData = sourceLogcatData.get(convertTypeToLoc(selectedType));
+          // avoid to access before sourceLogcatData is ready
+          if (convertTypeToLoc(selectedType) < sourceLogcatData.size())
+            viewLogcatData = sourceLogcatData.get(convertTypeToLoc(selectedType));
         }
         else {
           

@@ -11,9 +11,9 @@ import android.net.LocalSocketAddress;
  * implement communicate mechanize between process with Unix socket
  */
 public class UnixConnection extends IpcConnectionBase {
-   
+
   /**
-   * predefine socket name  
+   * predefine socket name
    */
   private final static String socketName = "osmipcV3";
 
@@ -30,31 +30,32 @@ public class UnixConnection extends IpcConnectionBase {
   @Override
   public boolean connect(int timeOut) throws IOException {
 
-    clientAddress = new LocalSocketAddress(socketName, LocalSocketAddress.Namespace.ABSTRACT);
-    
+    clientAddress = new LocalSocketAddress(socketName,
+        LocalSocketAddress.Namespace.ABSTRACT);
+
     clientSocket = new LocalSocket();
     clientSocket.connect(clientAddress);
     clientSocket.setSendBufferSize(sendBufferSize);
     clientSocket.setReceiveBufferSize(recvBufferSize);
-                
+
     // Notice: the value is milliseconds
-    clientSocket.setSoTimeout(timeOut*1000);
+    clientSocket.setSoTimeout(timeOut * 1000);
 
     return true;
   }
 
   @Override
   public void close() throws IOException {
-    
+
     if (clientSocket == null)
       return;
-    
+
     clientSocket.shutdownInput();
     clientSocket.shutdownOutput();
     clientSocket.close();
     clientSocket = null;
     clientAddress = null;
-    
+
     return;
   }
 
@@ -78,5 +79,5 @@ public class UnixConnection extends IpcConnectionBase {
       return null;
     return clientSocket.getInputStream();
   }
-  
+
 }

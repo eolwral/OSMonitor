@@ -21,7 +21,8 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 /**
- * help to gather the information of process and cache data 
+ * help to gather the information of process and cache data
+ * 
  * @author eolwral
  */
 public class ProcessUtil extends Thread {
@@ -32,7 +33,7 @@ public class ProcessUtil extends Thread {
   private ActivityManager activityMgr = null;
   private Drawable commonIcon = null;
   private boolean useDetail = true;
-  private int iconSize = 60; 
+  private int iconSize = 60;
 
   private class CacheItem {
     public String name;
@@ -45,7 +46,7 @@ public class ProcessUtil extends Thread {
   // work queue for background thread
   private final Semaphore queryQueueLock = new Semaphore(1, true);
   private final LinkedList<QueueJob> queryQueue = new LinkedList<QueueJob>();
-  
+
   // DPI
   public static final int DENSITY_LOW = 120;
   public static final int DENSITY_MEDIUM = 160;
@@ -60,20 +61,22 @@ public class ProcessUtil extends Thread {
 
       singletone.packageMgr = context.getPackageManager();
       singletone.resourceMgr = context.getResources();
-      singletone.activityMgr = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+      singletone.activityMgr = (ActivityManager) context
+          .getSystemService(Context.ACTIVITY_SERVICE);
 
       DisplayMetrics metrics = new DisplayMetrics();
-      WindowManager wmanager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+      WindowManager wmanager = (WindowManager) context
+          .getSystemService(Context.WINDOW_SERVICE);
       wmanager.getDefaultDisplay().getMetrics(metrics);
 
-      switch(metrics.densityDpi){
+      switch (metrics.densityDpi) {
       case DENSITY_LOW:
         singletone.iconSize = 12;
         break;
       case DENSITY_MEDIUM:
         singletone.iconSize = 28;
         break;
-      case 213: // DENSITY_TV 
+      case 213: // DENSITY_TV
         singletone.iconSize = 50;
         break;
       case DENSITY_HIGH:
@@ -87,7 +90,7 @@ public class ProcessUtil extends Thread {
         break;
       case DENSITY_XXHIGH:
         singletone.iconSize = 200;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    break;
+        break;
       case 640: // DENSITY_XXXHIGH
         singletone.iconSize = 250;
         break;
@@ -95,8 +98,10 @@ public class ProcessUtil extends Thread {
 
       singletone.useDetail = detail;
       if (singletone.useDetail == true)
-        singletone.commonIcon = resizeImage(singletone.resourceMgr.getDrawable(R.drawable.ic_process_system), singletone.iconSize);
-      
+        singletone.commonIcon = resizeImage(
+            singletone.resourceMgr.getDrawable(R.drawable.ic_process_system),
+            singletone.iconSize);
+
       singletone.start();
     }
 
@@ -119,15 +124,15 @@ public class ProcessUtil extends Thread {
     skeletonItem.name = process;
     skeletonItem.icon = commonIcon;
     cacheStorage.put(process, skeletonItem);
-  
-    return;   
+
+    return;
   }
 
   /**
-   * a class for queued job 
+   * a class for queued job
    */
   private class QueueJob {
-    public int uid; 
+    public int uid;
     public String owner;
     public String process;
 
@@ -142,16 +147,18 @@ public class ProcessUtil extends Thread {
   public void run() {
     while (true) {
       if (getCacheInfo())
-      continue; 
+        continue;
       try {
         sleep(500);
-      } catch (InterruptedException e) { }
+      } catch (InterruptedException e) {
+      }
     }
   }
 
   /**
    * get information for process
-   * @return true == success, false == failed 
+   * 
+   * @return true == success, false == failed
    */
   public boolean getCacheInfo() {
 
@@ -172,32 +179,33 @@ public class ProcessUtil extends Thread {
     if (processJob.process.contains(":"))
       curPackageName = processJob.process.substring(0,
           processJob.process.indexOf(":"));
-    else 
+    else
       curPackageName = processJob.process;
-    
 
     // for system user
     if (processJob.owner.contains("system")
         && processJob.process.contains("system")
-        && !processJob.process.contains(".") 
+        && !processJob.process.contains(".")
         && !processJob.process.contains("osmcore"))
       curPackageName = "android";
     try {
       curPackageInfo = packageMgr.getPackageInfo(curPackageName, 0);
-    } catch (NameNotFoundException e) { }
+    } catch (NameNotFoundException e) {
+    }
 
     if (curPackageInfo == null && processJob.uid > 0) {
-      String[] subPackageName = packageMgr
-          .getPackagesForUid(processJob.uid);
+      String[] subPackageName = packageMgr.getPackagesForUid(processJob.uid);
 
       if (subPackageName != null) {
         for (int PackagePtr = 0; PackagePtr < subPackageName.length; PackagePtr++) {
           if (subPackageName[PackagePtr] == null)
             continue;
           try {
-            curPackageInfo = packageMgr.getPackageInfo(subPackageName[PackagePtr], 0);
+            curPackageInfo = packageMgr.getPackageInfo(
+                subPackageName[PackagePtr], 0);
             PackagePtr = subPackageName.length;
-          } catch (NameNotFoundException e) { }
+          } catch (NameNotFoundException e) {
+          }
         }
       }
     }
@@ -205,9 +213,11 @@ public class ProcessUtil extends Thread {
     CacheItem processItem = new CacheItem();
 
     if (curPackageInfo != null) {
-      processItem.name = curPackageInfo.applicationInfo.loadLabel(packageMgr).toString();
-      if(useDetail == true) 
-        processItem.icon = resizeImage(curPackageInfo.applicationInfo.loadIcon(packageMgr), iconSize);
+      processItem.name = curPackageInfo.applicationInfo.loadLabel(packageMgr)
+          .toString();
+      if (useDetail == true)
+        processItem.icon = resizeImage(
+            curPackageInfo.applicationInfo.loadIcon(packageMgr), iconSize);
     } else {
       processItem.name = curPackageName;
       processItem.icon = commonIcon;
@@ -220,12 +230,16 @@ public class ProcessUtil extends Thread {
 
   /**
    * resize icon to the specific size
-   * @param icon input image
-   * @param size icon size
-   * @return resized image 
+   * 
+   * @param icon
+   *          input image
+   * @param size
+   *          icon size
+   * @return resized image
    */
   private static Drawable resizeImage(Drawable Icon, int iconSize) {
-    Bitmap BitmapOrg = Bitmap.createBitmap(iconSize, iconSize, Bitmap.Config.ARGB_8888);
+    Bitmap BitmapOrg = Bitmap.createBitmap(iconSize, iconSize,
+        Bitmap.Config.ARGB_8888);
     Canvas BitmapCanvas = new Canvas(BitmapOrg);
     Icon.setBounds(0, 0, iconSize, iconSize);
     Icon.draw(BitmapCanvas);
@@ -234,8 +248,10 @@ public class ProcessUtil extends Thread {
   }
 
   /**
-   * get the name of process 
-   * @param process the name of process
+   * get the name of process
+   * 
+   * @param process
+   *          the name of process
    * @return process name
    */
   public String getPackageName(String process) {
@@ -247,8 +263,10 @@ public class ProcessUtil extends Thread {
 
   /**
    * get the icon of process
-   * @param process the name of process
-   * @return icon 
+   * 
+   * @param process
+   *          the name of process
+   * @return icon
    */
   public Drawable getPackageIcon(String process) {
     CacheItem Process = cacheStorage.get(process);
@@ -259,7 +277,8 @@ public class ProcessUtil extends Thread {
 
   /**
    * get the default icon of process
-   * @return icon 
+   * 
+   * @return icon
    */
   public Drawable getDefaultIcon() {
     return commonIcon;
@@ -267,7 +286,9 @@ public class ProcessUtil extends Thread {
 
   /**
    * check process has been processed
-   * @param process the name of process
+   * 
+   * @param process
+   *          the name of process
    * @return true == cached, false == none
    */
   public boolean checkPackageInformation(String process) {
@@ -276,10 +297,12 @@ public class ProcessUtil extends Thread {
       return false;
     return true;
   }
-  
+
   /**
    * get private memory
-   * @param pid the process id of process
+   * 
+   * @param pid
+   *          the process id of process
    * @return private memory value
    */
   public MemoryInfo getMemoryInfo(int pid) {

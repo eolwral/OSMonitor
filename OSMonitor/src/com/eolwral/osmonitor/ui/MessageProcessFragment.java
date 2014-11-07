@@ -16,14 +16,14 @@ import android.os.Debug.MemoryInfo;
 import android.widget.TextView;
 
 public class MessageProcessFragment extends Dialog {
-  
+
   private processInfo item = null;
-  
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.ui_process_item_detail);
-    
+
     preapreProcessDetail();
   }
 
@@ -34,11 +34,11 @@ public class MessageProcessFragment extends Dialog {
   public void setProcessData(processInfo item) {
     this.item = item;
   }
-  
+
   private void preapreProcessDetail() {
-    
+
     ProcessUtil infoHelper = ProcessUtil.getInstance(getContext(), true);
-    
+
     TextView detailName = ((TextView) findViewById(R.id.id_process_detail_name));
     TextView detailStatus = ((TextView) findViewById(R.id.id_process_detail_status));
     TextView detailStime = ((TextView) findViewById(R.id.id_process_detail_stime));
@@ -50,38 +50,39 @@ public class MessageProcessFragment extends Dialog {
     TextView detailStarttime = ((TextView) findViewById(R.id.id_process_detail_starttime));
     TextView detailThread = ((TextView) findViewById(R.id.id_process_detail_thread));
     TextView detailNice = ((TextView) findViewById(R.id.id_process_detail_nice));
-    
+
     detailName.setText(item.getName());
     detailStime.setText(String.format("%,d", item.getUsedSystemTime()));
     detailUtime.setText(String.format("%,d", item.getUsedUserTime()));
-    
-    detailCPUtime.setText(String.format("%02d:%02d", item.getCpuTime()/60, item.getCpuTime() % 60));
-    
+
+    detailCPUtime.setText(String.format("%02d:%02d", item.getCpuTime() / 60,
+        item.getCpuTime() % 60));
+
     detailThread.setText(String.format("%d", item.getThreadCount()));
     detailNice.setText(String.format("%d", item.getPriorityLevel()));
-    
+
     // get memory information
     MemoryInfo memInfo = infoHelper.getMemoryInfo(item.getPid());
-    String memoryData = CommonUtil.convertToSize((item.getRss()*1024), true)+" /  "+
-                                             CommonUtil.convertToSize(memInfo.getTotalPss()*1024, true)+" / " +
-                                             CommonUtil.convertToSize(memInfo.getTotalPrivateDirty()*1024, true) ;
+    String memoryData = CommonUtil.convertToSize((item.getRss() * 1024), true)
+        + " /  " + CommonUtil.convertToSize(memInfo.getTotalPss() * 1024, true)
+        + " / "
+        + CommonUtil.convertToSize(memInfo.getTotalPrivateDirty() * 1024, true);
 
-    detailMemory.setText(memoryData); 
-    
-    detailPPID.setText(""+item.getPpid());
-    
+    detailMemory.setText(memoryData);
+
+    detailPPID.setText("" + item.getPpid());
+
     // convert time format
     final Calendar calendar = Calendar.getInstance();
-    final DateFormat convertTool = DateFormat.getDateTimeInstance(DateFormat.LONG,
-                                           DateFormat.MEDIUM, Locale.getDefault());
-    calendar.setTimeInMillis(item.getStartTime()*1000);
+    final DateFormat convertTool = DateFormat.getDateTimeInstance(
+        DateFormat.LONG, DateFormat.MEDIUM, Locale.getDefault());
+    calendar.setTimeInMillis(item.getStartTime() * 1000);
     detailStarttime.setText(convertTool.format(calendar.getTime()));
-    
+
     detailUser.setText(item.getOwner());
-    
+
     // convert status
-    switch(item.getStatus().getNumber())
-    {
+    switch (item.getStatus().getNumber()) {
     case processInfo.processStatus.Unknown_VALUE:
       detailStatus.setText(R.string.ui_process_status_unknown);
       break;

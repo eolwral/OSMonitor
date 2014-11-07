@@ -8,7 +8,7 @@ import java.io.OutputStream;
  * implement communicate mechanize between process with Unix socket
  */
 abstract public class IpcConnectionBase {
-  
+
   /**
    * predefine buffer size
    */
@@ -16,10 +16,13 @@ abstract public class IpcConnectionBase {
   public final static int recvBufferSize = 1048576; /* 1M */
 
   abstract public boolean connect(int timeOut) throws IOException;
+
   abstract public void close() throws IOException;
+
   abstract public boolean isConnected();
-  
+
   abstract public OutputStream getOutputStream() throws IOException;
+
   abstract public InputStream getInputStream() throws IOException;
 
 }

@@ -11,9 +11,9 @@ import java.net.SocketAddress;
  * implement connection between process with TCP socket
  */
 public class TCPConnection extends IpcConnectionBase {
-   
+
   /**
-   * predefine TCP port number  
+   * predefine TCP port number
    */
   private final static int portNumber = 14075;
 
@@ -21,7 +21,7 @@ public class TCPConnection extends IpcConnectionBase {
    * TCP socket
    */
   private Socket clientSocket = null;
-  
+
   /**
    * TCP socket address
    */
@@ -29,32 +29,31 @@ public class TCPConnection extends IpcConnectionBase {
 
   @Override
   public boolean connect(int timeOut) throws IOException {
-    
+
     clientAddress = new InetSocketAddress("127.0.0.1", portNumber);
-    
+
     clientSocket = new Socket();
     clientSocket.connect(clientAddress);
     clientSocket.setSendBufferSize(sendBufferSize);
     clientSocket.setReceiveBufferSize(recvBufferSize);
     clientSocket.setKeepAlive(true);
-          
+
     // Notice: the value is milliseconds
-    clientSocket.setSoTimeout(timeOut*1000);
-    
+    clientSocket.setSoTimeout(timeOut * 1000);
+
     return false;
   }
 
-
   @Override
   public void close() throws IOException {
-    
+
     if (clientSocket == null)
       return;
-    
+
     clientSocket.close();
     clientSocket = null;
     clientAddress = null;
-    
+
     return;
   }
 

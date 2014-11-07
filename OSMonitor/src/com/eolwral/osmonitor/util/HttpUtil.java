@@ -18,62 +18,63 @@ import com.android.volley.toolbox.Volley;
 
 public class HttpUtil {
 
-  private  static final String TAG = "Volley";
-  
-    private static HttpUtil mInstance = null;
-    private RequestQueue mRequestQueue;
-    private ImageLoader mImageLoader;
-    
-    private HttpUtil(Context context){
-        mRequestQueue = Volley.newRequestQueue(context);
-        mImageLoader = new ImageLoader(this.mRequestQueue, new ImageLruCache());
-    }
-    
-    private class  ImageLruCache implements ImageCache {
-      private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(3);
-      
-        public void putBitmap(String url, Bitmap bitmap) {
-            mCache.put(url, bitmap);
-        }
-        
-        public Bitmap getBitmap(String url) {
-            return mCache.get(url);
-        }
-    }
-    
-    public static HttpUtil getInstance(Context context){
-      if(mInstance == null){
-            mInstance = new HttpUtil(context);
-        }
-        return mInstance;
-    }
- 
-    public void addRequest(StringRequest newRequest){
-      
-      if (newRequest == null)
-        return;
-      
-      newRequest.setTag(TAG);
-      mRequestQueue.add(newRequest);
-        return;
+  private static final String TAG = "Volley";
+
+  private static HttpUtil mInstance = null;
+  private RequestQueue mRequestQueue;
+  private ImageLoader mImageLoader;
+
+  private HttpUtil(Context context) {
+    mRequestQueue = Volley.newRequestQueue(context);
+    mImageLoader = new ImageLoader(this.mRequestQueue, new ImageLruCache());
+  }
+
+  private class ImageLruCache implements ImageCache {
+    private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(
+        3);
+
+    public void putBitmap(String url, Bitmap bitmap) {
+      mCache.put(url, bitmap);
     }
 
-    public void addRequest(JsonRequest<?> newRequest){
-      
-      if (newRequest == null)
-        return;
-      
-      newRequest.setTag(TAG);
-      mRequestQueue.add(newRequest);
-        return;
+    public Bitmap getBitmap(String url) {
+      return mCache.get(url);
     }
-    
-    public void cancelRequest() {
-      mRequestQueue.cancelAll(TAG);
+  }
+
+  public static HttpUtil getInstance(Context context) {
+    if (mInstance == null) {
+      mInstance = new HttpUtil(context);
     }
- 
-    public ImageLoader getImageLoader(){
-        return this.mImageLoader;
-    }
- 
+    return mInstance;
+  }
+
+  public void addRequest(StringRequest newRequest) {
+
+    if (newRequest == null)
+      return;
+
+    newRequest.setTag(TAG);
+    mRequestQueue.add(newRequest);
+    return;
+  }
+
+  public void addRequest(JsonRequest<?> newRequest) {
+
+    if (newRequest == null)
+      return;
+
+    newRequest.setTag(TAG);
+    mRequestQueue.add(newRequest);
+    return;
+  }
+
+  public void cancelRequest() {
+    mRequestQueue.cancelAll(TAG);
+  }
+
+  public ImageLoader getImageLoader() {
+    return this.mImageLoader;
+  }
+
 }

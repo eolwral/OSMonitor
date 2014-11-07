@@ -13,48 +13,50 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
-public class PreferenceContentProvider  extends ContentProvider {
-  private PreferenceDBHelper dbHelper =  null;  
+public class PreferenceContentProvider extends ContentProvider {
+  private PreferenceDBHelper dbHelper = null;
   private SQLiteDatabase database = null;
-  
-  public final static String TABLE="preference";  
-  public final static String KEY="id"; 
-  public final static String VALUE="value";
+
+  public final static String TABLE = "preference";
+  public final static String KEY = "id";
+  public final static String VALUE = "value";
   public static final String NOEXIST = "noExist";
-  
-  // base 
+
+  // base
   private static final String AUTHORITY = "com.eolwral.osmonitor.provider";
   private static final String SETTINGS_PATH = "settings";
 
   private static final int SETTINGS_METHOD = 10;
   private static final int MODE_MULTI_PROCESS = 4;
-  
+
   public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + SETTINGS_PATH);
-  
+
   // prepare UriMatcher
   private static final UriMatcher osmURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
   static {
     osmURIMatcher.addURI(AUTHORITY, SETTINGS_PATH, SETTINGS_METHOD);
   }
-  
+
   @Override
   public boolean onCreate() {
 
     // TODO: this code should be removed soon
     boolean initial = true;
-    if(!CommonUtil.doesDatabaseExist(getContext(), PreferenceDBHelper.SQLITEDB_NAME)) 
+    if (!CommonUtil.doesDatabaseExist(getContext(),
+        PreferenceDBHelper.SQLITEDB_NAME))
       initial = false;
-    
+
     initSQLiteDB();
 
-    if (!initial) mergeSettings();
-    
+    if (!initial)
+      mergeSettings();
+
     return false;
   }
-  
+
   private void mergeSettings() {
-    SharedPreferences preferenceMgr =  getContext().getSharedPreferences( getContext().getPackageName() + "_preferences",   
-                                                                               MODE_MULTI_PROCESS);
+    SharedPreferences preferenceMgr = getContext().getSharedPreferences(
+        getContext().getPackageName() + "_preferences", MODE_MULTI_PROCESS);
     // dump into SQLite
     Map<String, ?> oldData = preferenceMgr.getAll();
     for (Map.Entry<String, ?> entry : oldData.entrySet()) {
@@ -72,14 +74,16 @@ public class PreferenceContentProvider  extends ContentProvider {
   }
 
   @Override
-  public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-      
+  public Cursor query(Uri uri, String[] projection, String selection,
+      String[] selectionArgs, String sortOrder) {
+
     int uriType = osmURIMatcher.match(uri);
     Cursor cursor = null;
 
     switch (uriType) {
     case SETTINGS_METHOD:
-      cursor = database.query(TABLE, projection, selection, selectionArgs, null, null, sortOrder);
+      cursor = database.query(TABLE, projection, selection, selectionArgs,
+          null, null, sortOrder);
       break;
     default:
       throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -110,9 +114,9 @@ public class PreferenceContentProvider  extends ContentProvider {
 
     // notify
     getContext().getContentResolver().notifyChange(uri, null);
-    
-    if(recordId == -1)
-      return  Uri.parse(SETTINGS_PATH + "/" + NOEXIST);
+
+    if (recordId == -1)
+      return Uri.parse(SETTINGS_PATH + "/" + NOEXIST);
     return Uri.parse(SETTINGS_PATH + "/" + values.get(KEY));
   }
 
@@ -122,7 +126,8 @@ public class PreferenceContentProvider  extends ContentProvider {
   }
 
   @Override
-  public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+  public int update(Uri uri, ContentValues values, String selection,
+      String[] selectionArgs) {
     int uriType = osmURIMatcher.match(uri);
 
     int rowsUpdated = 0;
@@ -133,13 +138,11 @@ public class PreferenceContentProvider  extends ContentProvider {
     default:
       throw new IllegalArgumentException("Unknown URI: " + uri);
     }
-    
+
     // notify
     getContext().getContentResolver().notifyChange(uri, null);
-    
+
     return rowsUpdated;
-  } 
-  
-  
+  }
 
 }

@@ -16,16 +16,17 @@ import com.eolwral.osmonitor.provider.PreferenceContentProvider;
 public class SettingsHelper {
 
   private ContentResolver contentResolver = null;
-  private Map<String, Boolean> updateStatus  =  new HashMap<String, Boolean>();
-  private Map<String, String> cachedSettings = new HashMap<String, String>(); 
+  private Map<String, Boolean> updateStatus = new HashMap<String, Boolean>();
+  private Map<String, String> cachedSettings = new HashMap<String, String>();
 
   public SettingsHelper(Context context) {
     contentResolver = context.getContentResolver();
-    contentResolver.registerContentObserver(PreferenceContentProvider.CONTENT_URI,
-                                                true,  new contentObserver(new Handler()) );
+    contentResolver.registerContentObserver(
+        PreferenceContentProvider.CONTENT_URI, true, new contentObserver(
+            new Handler()));
   }
-  
-  private final class contentObserver extends ContentObserver{
+
+  private final class contentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange) {
@@ -35,16 +36,16 @@ public class SettingsHelper {
 
     public contentObserver(Handler handler) {
       super(handler);
-    }  
-    
+    }
+
   }
-  
+
   public void clearCache() {
-    // set status of all fetched values to false 
-    for(Map.Entry<String, Boolean> entry: updateStatus.entrySet())
+    // set status of all fetched values to false
+    for (Map.Entry<String, Boolean> entry : updateStatus.entrySet())
       entry.setValue(true);
   }
-  
+
   public HashMap<String, String> getAllData() {
 
     HashMap<String, String> data = new HashMap<String, String>();
@@ -52,11 +53,11 @@ public class SettingsHelper {
     // query
     Cursor cursor = null;
     try {
-      cursor = contentResolver.query(
-        PreferenceContentProvider.CONTENT_URI, new String[] {
-            PreferenceContentProvider.KEY,
-            PreferenceContentProvider.VALUE }, null, null, null);
-    } catch(Exception e) {}
+      cursor = contentResolver.query(PreferenceContentProvider.CONTENT_URI,
+          new String[] { PreferenceContentProvider.KEY,
+              PreferenceContentProvider.VALUE }, null, null, null);
+    } catch (Exception e) {
+    }
     if (cursor == null)
       return data;
 
@@ -76,12 +77,11 @@ public class SettingsHelper {
     // query
     Cursor cursor = null;
     try {
-      cursor = contentResolver.query(
-        PreferenceContentProvider.CONTENT_URI,
-        new String[] { PreferenceContentProvider.KEY },
-        PreferenceContentProvider.KEY + "=?", new String[] { key },
-        null);
-    } catch (Exception e) {}
+      cursor = contentResolver.query(PreferenceContentProvider.CONTENT_URI,
+          new String[] { PreferenceContentProvider.KEY },
+          PreferenceContentProvider.KEY + "=?", new String[] { key }, null);
+    } catch (Exception e) {
+    }
     if (cursor == null)
       return false;
 
@@ -103,11 +103,13 @@ public class SettingsHelper {
     data.put(PreferenceContentProvider.VALUE, value);
 
     // insert
-    Uri uri = contentResolver.insert(PreferenceContentProvider.CONTENT_URI, data);
+    Uri uri = contentResolver.insert(PreferenceContentProvider.CONTENT_URI,
+        data);
 
-      //  Fix: java.lang.NullPointerException
-    if (uri == null)  return false;
-    
+    // Fix: java.lang.NullPointerException
+    if (uri == null)
+      return false;
+
     if (uri.getLastPathSegment().equals(PreferenceContentProvider.NOEXIST))
       return false;
     return true;
@@ -129,22 +131,21 @@ public class SettingsHelper {
 
   private String getKey(String key) {
     String value = null;
-  
-    // check cached settings 
-    if (updateStatus.containsKey(key) && !updateStatus.get(key) ) {
+
+    // check cached settings
+    if (updateStatus.containsKey(key) && !updateStatus.get(key)) {
       return cachedSettings.get(key);
     }
-    
+
     // query
     Cursor cursor = null;
     try {
-      cursor = contentResolver.query(
-        PreferenceContentProvider.CONTENT_URI, new String[] {
-        PreferenceContentProvider.KEY,
-        PreferenceContentProvider.VALUE },
-        PreferenceContentProvider.KEY + "=?", new String[] { key },
-        null);
-    } catch(Exception e) {}
+      cursor = contentResolver.query(PreferenceContentProvider.CONTENT_URI,
+          new String[] { PreferenceContentProvider.KEY,
+              PreferenceContentProvider.VALUE }, PreferenceContentProvider.KEY
+              + "=?", new String[] { key }, null);
+    } catch (Exception e) {
+    }
     if (cursor == null)
       return value;
 
@@ -155,16 +156,17 @@ public class SettingsHelper {
 
     // get string
     cursor.moveToFirst();
-    value = cursor.getString(cursor.getColumnIndex(PreferenceContentProvider.VALUE));
+    value = cursor.getString(cursor
+        .getColumnIndex(PreferenceContentProvider.VALUE));
     cursor.close();
 
     // update status
     cachedSettings.put(key, value);
-    updateStatus.put(key,  false);
-    
+    updateStatus.put(key, false);
+
     return value;
   }
-  
+
   public boolean checkStatus(String key) {
     if (!updateStatus.containsKey(key))
       return false;
@@ -174,7 +176,7 @@ public class SettingsHelper {
   public String getString(String key, String defaultValue) {
     String value = "";
 
-    if (isExistKey(key)) 
+    if (isExistKey(key))
       value = getKey(key);
     else
       value = defaultValue;
@@ -200,7 +202,7 @@ public class SettingsHelper {
       value = Integer.parseInt(stringValue);
     } else
       value = defaultValue;
-    
+
     return value;
   }
 
@@ -217,7 +219,7 @@ public class SettingsHelper {
       value = Boolean.parseBoolean(stringValue);
     } else
       value = defaultValue;
-    
+
     return value;
   }
 

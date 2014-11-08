@@ -349,14 +349,17 @@ public class ConnectionFragment extends ListFragment implements
   @Override
   public void onListItemClick(ListView l, View v, int position, long id) {
 
-    // bypass 0.0.0.0
-    String QueryIP = data.get(position).getRemoteIP().replace("::ffff:", "");
-    if (QueryIP.equals("0.0.0.0"))
-      return;
+    // detect local IP address via InetAddress 
+    try {
+      InetAddress ia = InetAddress.getByName(data.get(position).getRemoteIP());
+      if (ia.isAnyLocalAddress() || ia.isSiteLocalAddress() || ia.isLoopbackAddress() )
+        return;
+    } catch (Exception e) { }
 
+    // execute WHOIS procedure 
+    String QueryIP = data.get(position).getRemoteIP().replace("::ffff:", "");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-      new PrepareQuery().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-          QueryIP);
+      new PrepareQuery().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, QueryIP);
     else
       new PrepareQuery().execute(QueryIP);
   };

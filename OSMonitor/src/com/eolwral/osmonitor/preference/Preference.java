@@ -163,6 +163,8 @@ public class Preference extends PreferenceActivity {
 
       if (key.equals(Settings.PREFERENCE_ROOT)) {
         IpcService.getInstance().forceExit();
+        IpcService.getInstance().createConnection(
+            helper.getBoolean(Settings.PREFERENCE_ROOT, true));
       }
 
       // prevent exit

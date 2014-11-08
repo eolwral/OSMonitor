@@ -1,6 +1,5 @@
 package com.eolwral.osmonitor.ui;
 
-import java.text.Collator;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

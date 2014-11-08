@@ -10,6 +10,7 @@ import java.util.concurrent.Semaphore;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
@@ -116,6 +117,7 @@ public class IpcService {
     {
       instance = new IpcService();
       instance.ipcContext = context;
+      instance.createConnection(Settings.getInstance(context).isRoot());
     }
   }
   
@@ -132,15 +134,29 @@ public class IpcService {
    * @param context Context
    */
   private IpcService() {    
-
-    if (CommonUtil.isLollipop()) 
-      client = new TCPConnection();
-    else 
-      client = new UnixConnection();
-
     // prepare a priority queue
     QueuedComparator cmdComparator = new QueuedComparator();
     cmdQueue = new PriorityQueue<QueuedTask>(1, cmdComparator);
+  }
+  
+  /**
+   * create a connection 
+   * @param boolean
+   *          TCP or unix socket
+   */
+  public void createConnection(boolean isTCP) {
+    //clean up connection
+    if (client != null) {
+      try {
+        client.close();
+      } catch (IOException e) { }
+    }
+
+    // create a tcp socket or unix socket
+    if (CommonUtil.isLollipop() && isTCP )  
+      client = new TCPConnection();
+    else 
+      client = new UnixConnection();
   }
    
   /**

@@ -74,7 +74,10 @@ bool prepareIPC()
   bool result = false;
 
 #ifdef ANDROD_L_BINARY
-  result = server.init(PORTNUMBER);
+  if (geteuid() == 0)
+    result = server.init(PORTNUMBER);
+  else
+    result = server.init(SOCKETNAME);
 #else
   result = server.init(SOCKETNAME);
 #endif

@@ -65,12 +65,12 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
-** Version 3.3.1.0 **
+**Version 3.3.1.0**
 
 - Support Android Lollipop
 - Use NDK r10c and support library v21 
 
-** Version 3.3.0.5 **
+**Version 3.3.0.5**
 
 - Fix force close on Android 2.3
 

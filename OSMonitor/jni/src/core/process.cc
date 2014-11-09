@@ -12,6 +12,11 @@ namespace eolwral {
 namespace osmonitor {
 namespace core {
 
+  process::process()
+  {
+    this->_bootTime = 0;
+  }
+
   process::~process()
   {
 

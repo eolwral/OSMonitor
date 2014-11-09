@@ -86,9 +86,6 @@ namespace core {
 
   void logcat::fetchLogcat(struct logger_list* logger)
   {
-    // Prevent strange crash when processing huge log on Lollipop
-    int Limit = 0;
-
     while (true) {
 
       struct log_msg log_msg;
@@ -110,16 +107,13 @@ namespace core {
           break;
       }
       else {
-        if (!this->extractLog(&log_msg.entry_v1))
+        if (!this->extractLogV3(&log_msg.entry_v1))
           break;
       }
 
       // save time
       this->_lastTime.tv_nsec = log_msg.entry.nsec;
       this->_lastTime.tv_sec = log_msg.entry.sec;
-
-      if (Limit > 100)
-        break;
     }
 
     return;
@@ -362,7 +356,7 @@ namespace core {
     return (isProcessLog);
   }
 
-  bool logcat::extractLog(struct logger_entry *entry)
+  bool logcat::extractLogV3(struct logger_entry *entry)
   {
 
     // copy following codes from liblog.c

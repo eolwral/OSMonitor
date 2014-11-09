@@ -386,11 +386,20 @@ namespace core {
        break;
      }
 
+     // return if no specific device
+     if (logDevice == 0) {
+       this->_logfd = 0;
+       return this->_logfd;
+     }
+
      // open logcat device
      this->_logfd = open(logDevice, O_NONBLOCK);
      if (this->_logfd < 0) {
        this->_logfd = 0;
      }
+
+     // clean up
+     free((void *) logDevice);
 
      return (this->_logfd);
   }

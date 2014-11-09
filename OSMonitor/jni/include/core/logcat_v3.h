@@ -109,7 +109,7 @@ namespace core {
      * extract log from logger_entry and insert into list
      * @param single log entry
      */
-    bool extractLog(struct logger_entry *entry);
+    bool extractLogV3(struct logger_entry *entry);
 
     /**
      * extract log from logger_entry and insert into list

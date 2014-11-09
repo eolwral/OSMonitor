@@ -173,7 +173,8 @@ namespace core {
     memset(curMACAddr, 0, BufferSize);
 
     snprintf(buffer, BufferSize, INT_MAC_FILE, curNetworkInfo->name().c_str());
-    if((curMAC = open(buffer, O_RDONLY)) > 0)
+    curMAC = open(buffer, O_RDONLY);
+    if(curMAC != -1)
     {
       read(curMAC, curMACAddr, 17);
       close(curMAC);
@@ -307,7 +308,8 @@ namespace core {
       memset(curTrafficData, 0, BufferSize);
 
       snprintf(buffer, BufferSize, INT_TX_FILE, curNetworkInfo->name().c_str());
-      if((curTraffic = open(buffer, O_RDONLY)) > 0)
+      curTraffic = open(buffer, O_RDONLY);
+      if( curTraffic != -1 )
       {
         read(curTraffic, curTrafficData, BufferSize);
         close(curTraffic);

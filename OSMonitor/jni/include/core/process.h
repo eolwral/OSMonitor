@@ -78,7 +78,12 @@ namespace core {
   public:
 
     /**
-     * destructor for Process
+     * constructor
+     */
+    process();
+
+    /**
+     * destructor
      */
     ~process();
 

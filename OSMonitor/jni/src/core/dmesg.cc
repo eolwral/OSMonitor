@@ -69,8 +69,8 @@ namespace core {
       procLineLen = procLineEnd - (buffer + offsetStart);
 
       // every line must less than BufferSize
-      if(procLineLen > BufferSize)
-        procLineLen = BufferSize;
+      if(procLineLen >= BufferSize)
+        procLineLen = BufferSize-1;
 
       // copy message into line buffer
       strncpy(procLine, buffer + offsetStart, procLineLen);

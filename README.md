@@ -65,47 +65,18 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+** Version 3.3.1.0 **
+
+- Support Android Lollipop
+- Use NDK r10c and support library v21 
+
+** Version 3.3.0.5 **
+
+- Fix force close on Android 2.3
+
 **Version 3.3.0.2**
 
 - fix logcat function on Android L Preview
 - fix "watch log" function (Thanks to Gerd)
 - support 3 new screen density (experiment) 
 
-**Version 3.1.0.1**
-
-- Fix no data issue  (Thanks to #359)
-
-**Version 3.1.0.0**
-
-- German Language Files - Benko111@XDA
-- Russian Language Files - equeim 
-- add Disk IO and Network IO on notification (optional)
-- Fix "Exit" function on KitKat
-- Run background service without /bin/sh (Thanks to Andi Depressivum)
-- Improve notification
-
-**Version 3.0.9.8**
-
-- Revert code to fix "No Data" issue
-
-**Version 3.0.9.5**
-
-- Fix "No Data" issue
-
-**Version 3.0.9.3**
-
-- Improve Whois function with own server
-
-**Version 3.0.9.2**
-
-- Fix incorrect swap value
-- Use a new way to execute the binary
-
-**Version 3.0.9.0**
-
-- Fix crash and ANR issues 
-- Improve Message function (Thanks to ARoiD)
-   1. Able to change Logcat/Dmesg format and color
-   2. Export selected log entries
-   3. Search process that sent logs    
-- Improve online manual

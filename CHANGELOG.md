@@ -1,5 +1,45 @@
 ### Change Log ###
 
+**Version 3.1.0.1**
+
+- Fix no data issue  (Thanks to #359)
+
+**Version 3.1.0.0**
+
+- German Language Files - Benko111@XDA
+- Russian Language Files - equeim 
+- add Disk IO and Network IO on notification (optional)
+- Fix "Exit" function on KitKat
+- Run background service without /bin/sh (Thanks to Andi Depressivum)
+- Improve notification
+
+**Version 3.0.9.8**
+
+- Revert code to fix "No Data" issue
+
+**Version 3.0.9.5**
+
+- Fix "No Data" issue
+
+**Version 3.0.9.3**
+
+- Improve Whois function with own server
+
+**Version 3.0.9.2**
+
+- Fix incorrect swap value
+- Use a new way to execute the binary
+
+**Version 3.0.9.0**
+
+- Fix crash and ANR issues 
+- Improve Message function (Thanks to ARoiD)
+   1. Able to change Logcat/Dmesg format and color
+   2. Export selected log entries
+   3. Search process that sent logs    
+- Improve online manual
+
+
 **Version 3.0.8.2**
 
 - Root privileges issues

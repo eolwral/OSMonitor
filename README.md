@@ -1,4 +1,5 @@
-OS Monitor for Android  [![Build Status](https://drone.io/github.com/eolwral/OSMonitor/status.png)](https://drone.io/github.com/eolwral/OSMonitor/latest) [![Coverity Scan Build Status](https://scan.coverity.com/projects/3432/badge.svg)](https://scan.coverity.com/projects/3432) =======
+OS Monitor for Android  [![Build Status](https://drone.io/github.com/eolwral/OSMonitor/status.png)](https://drone.io/github.com/eolwral/OSMonitor/latest) [![Coverity Scan Build Status](https://scan.coverity.com/projects/3432/badge.svg)](https://scan.coverity.com/projects/3432)
+=======
 
 #### How to become a Beta Tester
 1. [Join this community](https://plus.google.com/communities/104176911627256834500)

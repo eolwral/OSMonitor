@@ -105,6 +105,9 @@ public class OSMonitorService extends Service implements ipcClientListener {
     fontColor = settings.getNotificationFontColor();
     isSetTop = settings.isNotificationOnTop();
     useCelsius = settings.isUseCelsius();
+    
+    // recreate connection type when refreshing settings
+    ipcService.createConnection(Settings.getInstance(this).isRoot());
   }
 
   @Override
@@ -124,8 +127,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
   private void initializeNotification() {
 
     Intent notificationIntent = new Intent(this, OSMonitor.class);
-    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT
-        | Intent.FLAG_ACTIVITY_NEW_TASK);
+    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
     PendingIntent contentIntent = PendingIntent.getActivity(
         this.getBaseContext(), 0, notificationIntent, 0);
 
@@ -133,8 +135,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
 
     nBuilder = new NotificationCompat.Builder(this);
     nBuilder.setContentTitle(getResources().getText(R.string.ui_appname));
-    nBuilder
-        .setContentText(getResources().getText(R.string.ui_shortcut_detail));
+    nBuilder.setContentText(getResources().getText(R.string.ui_shortcut_detail));
     nBuilder.setOnlyAlertOnce(true);
     nBuilder.setOngoing(true);
     nBuilder.setContentIntent(contentIntent);

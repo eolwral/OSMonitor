@@ -696,9 +696,9 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
         rhsName = rhs.getName();
 
       if (rhsName.compareTo(lhsName) < 0)
-        return -1;
-      else if (rhsName.compareTo(lhsName) > 0)
         return 1;
+      else if (rhsName.compareTo(lhsName) > 0)
+        return -1;
       return 0;
     }
   }

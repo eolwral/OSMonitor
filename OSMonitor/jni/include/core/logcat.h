@@ -6,6 +6,8 @@
 #ifndef LOGCAT_H_
 #define LOGCAT_H_
 
+#define OFFSETOF(type, field)    ((unsigned long) &(((type *) 0)->field))
+
 #define HAVE_IOCTL
 
 #include <sys/types.h>

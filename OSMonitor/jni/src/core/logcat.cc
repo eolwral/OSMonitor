@@ -59,6 +59,10 @@ namespace core {
       if (readSize == 0)
         break;
 
+      // check size
+      if (readSize < entry->len - offsetof(struct logger_entry, msg))
+        break;
+
       // extract log
       if( this->_sourceLogger == EVENTS)
         this->extractBinaryLog(entry);

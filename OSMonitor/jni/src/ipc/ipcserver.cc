@@ -17,6 +17,7 @@ namespace ipc {
     // Initialize
     this->serverFD = 0;
     this->waitNumber = 0;
+    this->useTCPSocket = false;
 
     this->uServerLen = 0;
     memset(&this->uServerAddr, 0, sizeof(this->uServerAddr));
@@ -296,8 +297,13 @@ namespace ipc {
     char tokenloc[TOKENSIZE];
     memset(tokenloc, 0, TOKENSIZE);
     FILE* tokenFile = fopen(fileName, "r");
-    if (tokenFile == NULL) return;
-    fread(tokenloc, sizeof(char), TOKENSIZE, tokenFile);
+
+    if (tokenFile == NULL)
+      return;
+
+    if (fread(tokenloc, sizeof(char), TOKENSIZE, tokenFile) == 0)
+      tokenloc[0] = '\0';
+
     fclose(tokenFile);
     tokenloc[TOKENSIZE-1] = '\0';
 

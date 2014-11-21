@@ -180,6 +180,9 @@ namespace core {
       close(curMAC);
     }
 
+    // keep curMacAddr is null-terminate as possible
+    curMACAddr[17] = 0;
+
     if(strlen(curMACAddr) < 17)
       curMACAddr[0] = 0;
 
@@ -255,8 +258,7 @@ namespace core {
     memset(curIPv4, 0, INET_ADDRSTRLEN);
     memset(curNetMaskv4, 0, INET_ADDRSTRLEN);
     memset(&curIFREQ, 0, sizeof(struct ifreq));
-    strncpy(curIFREQ.ifr_name, curNetworkInfo->name().c_str(),
-                             strlen(curNetworkInfo->name().c_str()));
+    strncpy(curIFREQ.ifr_name, curNetworkInfo->name().c_str(), IFNAMSIZ);
 
     if((curSocket = socket(AF_INET, SOCK_DGRAM, 0)) >= 0)
     {
@@ -293,12 +295,11 @@ namespace core {
       memset(curTrafficData, 0, BufferSize);
 
       snprintf(buffer, BufferSize, INT_RX_FILE, curNetworkInfo->name().c_str());
-      if((curTraffic = open(buffer, O_RDONLY)) > 0)
+      if((curTraffic = open(buffer, O_RDONLY)) != -1)
       {
         read(curTraffic, curTrafficData, BufferSize);
         close(curTraffic);
       }
-
       curNetworkInfo->set_recvbytes(strtoul(curTrafficData, NULL, 0));
     }
 
@@ -308,13 +309,11 @@ namespace core {
       memset(curTrafficData, 0, BufferSize);
 
       snprintf(buffer, BufferSize, INT_TX_FILE, curNetworkInfo->name().c_str());
-      curTraffic = open(buffer, O_RDONLY);
-      if( curTraffic != -1 )
+      if( (curTraffic = open(buffer, O_RDONLY)) != -1 )
       {
         read(curTraffic, curTrafficData, BufferSize);
         close(curTraffic);
       }
-
       curNetworkInfo->set_transbytes(strtoul(curTrafficData, NULL, 0));
     }
   }

@@ -72,23 +72,18 @@ EventTagMap* android_openEventTagMap(const char* fileName)
 
     fd = open(fileName, O_RDONLY);
     if (fd < 0) {
-//        fprintf(stderr, "%s: unable to open map '%s': %s\n",
-//            OUT_TAG, fileName, strerror(errno));
         goto fail;
     }
 
     end = lseek(fd, 0L, SEEK_END);
     (void) lseek(fd, 0L, SEEK_SET);
     if (end < 0) {
-//        fprintf(stderr, "%s: unable to seek map '%s'\n", OUT_TAG, fileName);
         goto fail;
     }
 
     newTagMap->mapAddr = mmap(NULL, end, PROT_READ | PROT_WRITE, MAP_PRIVATE,
                                 fd, 0);
     if (newTagMap->mapAddr == MAP_FAILED) {
-//        fprintf(stderr, "%s: mmap(%s) failed: %s\n",
-//            OUT_TAG, fileName, strerror(errno));
         goto fail;
     }
     newTagMap->mapLen = end;
@@ -96,6 +91,8 @@ EventTagMap* android_openEventTagMap(const char* fileName)
     if (processFile(newTagMap) != 0)
         goto fail;
 
+    if (fd >= 0)
+      close(fd);
     return newTagMap;
 
 fail:
@@ -191,8 +188,6 @@ static int processFile(EventTagMap* map)
     if (map->numTags < 0)
         return -1;
 
-    //printf("+++ found %d tags\n", map->numTags);
-
     /* allocate storage for the tag index array */
     map->tagArray = calloc(1, sizeof(EventTag) * map->numTags);
     if (map->tagArray == NULL)
@@ -200,7 +195,6 @@ static int processFile(EventTagMap* map)
 
     /* parse the file, null-terminating tag strings */
     if (parseMapLines(map) != 0) {
-//        fprintf(stderr, "%s: file parse failed\n", OUT_TAG);
         return -1;
     }
 
@@ -269,7 +263,6 @@ static int parseMapLines(EventTagMap* map)
 
     /* insist on EOL at EOF; simplifies parsing and null-termination */
     if (*(endp-1) != '\n') {
-//        fprintf(stderr, "%s: map file missing EOL on last line\n", OUT_TAG);
         return -1;
     }
 
@@ -288,8 +281,6 @@ static int parseMapLines(EventTagMap* map)
             } else if (isCharDigit(*cp)) {
                 /* looks like a tag; scan it out */
                 if (tagNum >= map->numTags) {
-//                    fprintf(stderr,
-//                        "%s: more tags than expected (%d)\n", OUT_TAG, tagNum);
                     return -1;
                 }
                 if (scanTagLine(&cp, &map->tagArray[tagNum], lineNum) != 0)
@@ -300,9 +291,6 @@ static int parseMapLines(EventTagMap* map)
             } else if (isCharWhitespace(*cp)) {
                 /* looks like leading whitespace; keep scanning */
             } else {
-//                fprintf(stderr,
-//                    "%s: unexpected chars (0x%02x) in tag number on line %d\n",
-//                    OUT_TAG, *cp, lineNum);
                 return -1;
             }
         } else {
@@ -312,8 +300,6 @@ static int parseMapLines(EventTagMap* map)
     }
 
     if (tagNum != map->numTags) {
-//        fprintf(stderr, "%s: parsed %d tags, expected %d\n",
-//            OUT_TAG, tagNum, map->numTags);
         return -1;
     }
 
@@ -343,8 +329,6 @@ static int scanTagLine(char** pData, EventTag* tag, int lineNum)
 
     val = strtoul(startp, &endp, 10);
     assert(endp == cp);
-//    if (endp != cp)
-//        fprintf(stderr, "ARRRRGH\n");
 
     tag->tagIndex = val;
 
@@ -352,8 +336,6 @@ static int scanTagLine(char** pData, EventTag* tag, int lineNum)
         ;
 
     if (*cp == '\n') {
-//        fprintf(stderr,
-//            "%s: missing tag string on line %d\n", OUT_TAG, lineNum);
         return -1;
     }
 
@@ -375,14 +357,11 @@ static int scanTagLine(char** pData, EventTag* tag, int lineNum)
         while (*++cp != '\n') {
         }
     } else {
-//        fprintf(stderr,
-//            "%s: invalid tag chars on line %d\n", OUT_TAG, lineNum);
         return -1;
     }
 
     *pData = cp;
 
-    //printf("+++ Line %d: got %d '%s'\n", lineNum, tag->tagIndex, tag->tagStr);
     return 0;
 }
 
@@ -411,10 +390,6 @@ static int sortTags(EventTagMap* map)
 
     for (i = 1; i < map->numTags; i++) {
         if (map->tagArray[i].tagIndex == map->tagArray[i-1].tagIndex) {
-//            fprintf(stderr, "%s: duplicate tag entries (%d:%s and %d:%s)\n",
-//                OUT_TAG,
-//                map->tagArray[i].tagIndex, map->tagArray[i].tagStr,
-//                map->tagArray[i-1].tagIndex, map->tagArray[i-1].tagStr);
             return -1;
         }
     }

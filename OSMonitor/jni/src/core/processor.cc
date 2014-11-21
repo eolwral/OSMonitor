@@ -49,7 +49,7 @@ namespace core {
     /* interpret result */
     if (res == 1 && i == 0) /* single-core? */
       return (1);
-    if (res == 2 && i == 0) /* 2+ cores */
+    if (res == 2 && i == 0 && j < INT_MAX) /* 2+ cores */
       return (j+1);
 
     return (-1); /* failure */
@@ -255,9 +255,13 @@ namespace core {
       processorFile = fopen(buffer, "r");
       if (processorFile)
       {
-          fscanf(processorFile, "%d", &extractValue);
-          if(extractValue == 1)
-            curProcessor->set_offline(false);
+          if (fscanf(processorFile, "%d", &extractValue) == 1)
+          {
+            if(extractValue == 1)
+              curProcessor->set_offline(false);
+            else
+              curProcessor->set_offline(true);
+          }
           else
             curProcessor->set_offline(true);
           fclose(processorFile);

@@ -29,11 +29,10 @@ namespace core {
      long uptime = 0;
      FILE *uptimeFile = fopen(SYS_BOOT_TIME, "r");
 
-     if(!uptimeFile)
-       uptime = 0;
-     else
+     if(uptimeFile)
      {
-       fscanf(uptimeFile, "%lu.%*lu", &uptime);
+       if ( fscanf(uptimeFile, "%lu.%*lu", &uptime) != 1 )
+         uptime = 0;
        fclose(uptimeFile);
      }
 

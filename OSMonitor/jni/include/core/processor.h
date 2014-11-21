@@ -8,6 +8,7 @@
 
 #include "base.h"
 #include "processorInfo.pb.h"
+#include <limits.h>
 
 #define PROCESSOR_FREQ_MAX "/sys/devices/system/cpu/cpu%d/cpufreq/cpuinfo_max_freq"
 #define PROCESSOR_FREQ_MIN "/sys/devices/system/cpu/cpu%d/cpufreq/cpuinfo_min_freq"

@@ -33,11 +33,10 @@ namespace core {
     long uptime = 0;
     FILE *uptimeFile = fopen(SYS_BOOT_TIME, "r");
 
-    if(!uptimeFile)
-      uptime = 0;
-    else
+    if(uptimeFile)
     {
-      fscanf(uptimeFile, "%lu.%*lu", &uptime);
+      if ( fscanf(uptimeFile, "%lu.%*lu", &uptime) != 1 )
+        uptime = 0;
       fclose(uptimeFile);
     }
 
@@ -145,7 +144,9 @@ namespace core {
       unsigned long startTime = 0;
       unsigned long vsz = 0;
       unsigned long rss = 0;
-      fscanf(psFile, SYS_PROC_PATTERN,
+
+      // all value must available
+      if ( fscanf(psFile, SYS_PROC_PATTERN,
                      &curProcessStats,
                      &parentPid,
                      &usedUserTime,
@@ -153,7 +154,8 @@ namespace core {
                      &threadCount,
                      &startTime,
                      &vsz,
-                     &rss);
+                     &rss) != 8 )
+        return (false);
 
       curProcessInfo.set_ppid(parentPid);
       curProcessInfo.set_usedusertime(usedUserTime);

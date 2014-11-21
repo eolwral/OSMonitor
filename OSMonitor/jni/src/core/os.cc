@@ -97,14 +97,12 @@ namespace core {
     {
         value = 0;
 
-        fscanf(mif, "SwapTotal: %lu kB", &value);
-        if(value != 0) {
+        if(fscanf(mif, "SwapTotal: %lu kB", &value) == 1) {
           curOSInfo->set_totalswap(value*1024);
           continue;
         }
 
-        fscanf(mif, "SwapFree: %lu kB", &value);
-        if(value != 0) {
+        if(fscanf(mif, "SwapFree: %lu kB", &value) == 1) {
           curOSInfo->set_freeswap(value*1024);
           continue;
         }

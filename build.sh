@@ -4,7 +4,7 @@
 export ANDROID_HOME=${WORKSPACE}/android-sdk-linux 
 export NDK_HOME=${WORKSPACE}/android-ndk
 export COV_HOME=${WORKSPACE}/cov/bin
-export PATH=${NDK_HOME}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
+export PATH=${NDK_HOME}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${COV_HOME}:${PATH}
 
 # get Android SDK
 wget -q http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz

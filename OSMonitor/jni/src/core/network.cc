@@ -258,7 +258,7 @@ namespace core {
     memset(curIPv4, 0, INET_ADDRSTRLEN);
     memset(curNetMaskv4, 0, INET_ADDRSTRLEN);
     memset(&curIFREQ, 0, sizeof(struct ifreq));
-    strncpy(curIFREQ.ifr_name, curNetworkInfo->name().c_str(), IFNAMSIZ);
+    strncpy(curIFREQ.ifr_name, curNetworkInfo->name().c_str(), IFNAMSIZ-1);
 
     if((curSocket = socket(AF_INET, SOCK_DGRAM, 0)) >= 0)
     {

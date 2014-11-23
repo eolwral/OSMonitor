@@ -155,7 +155,10 @@ namespace core {
                      &startTime,
                      &vsz,
                      &rss) != 8 )
+      {
+        fclose(psFile);
         return (false);
+      }
 
       curProcessInfo.set_ppid(parentPid);
       curProcessInfo.set_usedusertime(usedUserTime);

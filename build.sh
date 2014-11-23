@@ -24,7 +24,7 @@ echo y | android update sdk --filter build-tools-21.1.1 --no-ui --force >> insta
 
 # get Coverity
 wget -q https://scan.coverity.com/download/linux-64 --post-data "token=$TOKEN&project=Android+OS+Monitor" -O coverity_tool.tgz
-tar zxf cov-analysis-linux64-7.5.0.tar.gz 
+tar zxf coverity_tool.tgz 
 mv cov-analysis-linux64-7.5.0 cov 
 cov-configure --comptype gcc --compiler arm-linux-androideabi-gcc --template
 

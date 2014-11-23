@@ -23,8 +23,8 @@ echo y | android update sdk --filter tools,platform-tools,android-21,extra-andro
 echo y | android update sdk --filter build-tools-21.1.1 --no-ui --force >> installation.log
 
 # get Coverity
-wget https://scan.coverity.com/download/linux-64 --post-data "token=$TOKEN&project=Android+OS+Monitor" -O coverity_tool.tgz
-tar zxf cov-analysis-linux64-7.5.0.tar.gz > 
+wget -q https://scan.coverity.com/download/linux-64 --post-data "token=$TOKEN&project=Android+OS+Monitor" -O coverity_tool.tgz
+tar zxf cov-analysis-linux64-7.5.0.tar.gz 
 mv cov-analysis-linux64-7.5.0 cov 
 cov-configure --comptype gcc --compiler arm-linux-androideabi-gcc --template
 

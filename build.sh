@@ -57,7 +57,7 @@ cov-build --dir cov-int ndk-build -j4
 tar czf project-coverity.tar.gz cov-int
 curl --form token=$TOKEN \
   --form email=$EMAIL \
-  --form file=project-coverity.tar.gz  \
+  --form file=@project-coverity.tar.gz  \
   --form version="Version" \
   --form description="Description" \
   https://scan.coverity.com/builds?project=Android+OS+Monitor

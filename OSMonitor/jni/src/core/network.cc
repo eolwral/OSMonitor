@@ -167,6 +167,7 @@ namespace core {
   {
     char buffer[BufferSize];
     char curMACAddr[BufferSize];
+    int curMACLen = 0;
     int curMAC = 0;
 
     memset(buffer, 0, BufferSize);
@@ -176,15 +177,15 @@ namespace core {
     curMAC = open(buffer, O_RDONLY);
     if(curMAC != -1)
     {
-      read(curMAC, curMACAddr, 17);
+      curMACLen = read(curMAC, curMACAddr, 17);
       close(curMAC);
     }
 
     // keep curMacAddr is null-terminate as possible
-    curMACAddr[17] = 0;
-
-    if(strlen(curMACAddr) < 17)
-      curMACAddr[0] = 0;
+    if (curMACLen >= 16)
+      curMACAddr[16] = 0;
+    else
+      curMACAddr[0] = '\x0';
 
     curNetworkInfo->set_mac(curMACAddr);
     return;
@@ -287,6 +288,7 @@ namespace core {
   {
     char buffer[BufferSize];
     char curTrafficData[BufferSize];
+    int curTafficDataLen = 0;
     int curTraffic = 0;
 
     if( curNetworkInfo->recvbytes() == 0)
@@ -297,10 +299,11 @@ namespace core {
       snprintf(buffer, BufferSize, INT_RX_FILE, curNetworkInfo->name().c_str());
       if((curTraffic = open(buffer, O_RDONLY)) != -1)
       {
-        read(curTraffic, curTrafficData, BufferSize);
+        curTafficDataLen = read(curTraffic, curTrafficData, BufferSize);
         close(curTraffic);
       }
-      curNetworkInfo->set_recvbytes(strtoul(curTrafficData, NULL, 0));
+      if (curTafficDataLen > 0)
+        curNetworkInfo->set_recvbytes(strtoul(curTrafficData, NULL, 0));
     }
 
     if( curNetworkInfo->transbytes() == 0)
@@ -311,10 +314,11 @@ namespace core {
       snprintf(buffer, BufferSize, INT_TX_FILE, curNetworkInfo->name().c_str());
       if( (curTraffic = open(buffer, O_RDONLY)) != -1 )
       {
-        read(curTraffic, curTrafficData, BufferSize);
+        curTafficDataLen = read(curTraffic, curTrafficData, BufferSize);
         close(curTraffic);
       }
-      curNetworkInfo->set_transbytes(strtoul(curTrafficData, NULL, 0));
+      if (curTafficDataLen > 0)
+        curNetworkInfo->set_transbytes(strtoul(curTrafficData, NULL, 0));
     }
   }
 

@@ -412,12 +412,14 @@ void processCommandMsg()
 
         char buffer[BufferSize];
         sprintf(buffer, PROCESSOR_STATUS, cpu);
-        chmod(buffer, mode);
-        FILE *processorFile = fopen(buffer, "w");
-        if (processorFile)
+        if (chmod(buffer, mode) == 0)
         {
-          fprintf(processorFile, "%d", status);
-          fclose(processorFile);
+          FILE *processorFile = fopen(buffer, "w");
+          if (processorFile)
+          {
+            fprintf(processorFile, "%d", status);
+            fclose(processorFile);
+          }
         }
         continue;
     }
@@ -431,12 +433,14 @@ void processCommandMsg()
 
         char buffer[BufferSize];
         sprintf(buffer, PROCESSOR_SCALING_MAX, cpu);
-        chmod(buffer, mode);
-        FILE *processorFile = fopen(buffer, "w");
-        if (processorFile)
+        if (chmod(buffer, mode) == 0)
         {
-          fprintf(processorFile, "%s", freq);
-          fclose(processorFile);
+          FILE *processorFile = fopen(buffer, "w");
+          if (processorFile)
+          {
+            fprintf(processorFile, "%s", freq);
+            fclose(processorFile);
+          }
         }
         continue;
     }
@@ -450,12 +454,14 @@ void processCommandMsg()
 
         char buffer[BufferSize];
         sprintf(buffer, PROCESSOR_SCALING_MIN, cpu);
-        chmod(buffer, mode);
-        FILE *processorFile = fopen(buffer, "w");
-        if (processorFile)
+        if ( chmod(buffer, mode) == 0)
         {
-          fprintf(processorFile, "%s", freq);
-          fclose(processorFile);
+          FILE *processorFile = fopen(buffer, "w");
+          if (processorFile)
+          {
+            fprintf(processorFile, "%s", freq);
+            fclose(processorFile);
+          }
         }
         continue;
     }
@@ -469,12 +475,14 @@ void processCommandMsg()
 
         char buffer[BufferSize];
         sprintf(buffer, PROCESSOR_SCALING_GOR, cpu);
-        chmod(buffer, mode);
-        FILE *processorFile = fopen(buffer, "w");
-        if (processorFile)
+        if ( chmod(buffer, mode) == 0 )
         {
-          fprintf(processorFile, "%s", gov);
-          fclose(processorFile);
+          FILE *processorFile = fopen(buffer, "w");
+          if (processorFile)
+          {
+            fprintf(processorFile, "%s", gov);
+            fclose(processorFile);
+          }
         }
         continue;
     }

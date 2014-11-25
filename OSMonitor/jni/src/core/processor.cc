@@ -202,8 +202,8 @@ namespace core {
       processorFile = fopen(buffer, "r");
       if (processorFile)
       {
-        fscanf(processorFile, "%d", &extractValue);
-        curProcessor->set_minscaling(extractValue);
+        if ( fscanf(processorFile, "%d", &extractValue) == 1)
+          curProcessor->set_minscaling(extractValue);
         fclose(processorFile);
         threshold++;
       }
@@ -215,10 +215,9 @@ namespace core {
       {
         char curScaling[BufferSize];
         memset(curScaling, 0, BufferSize);
-        fscanf(processorFile, "%64s", curScaling);
+        if ( fscanf(processorFile, "%64s", curScaling) == 1)
+          curProcessor->set_grovernors(curScaling);
         fclose(processorFile);
-
-        curProcessor->set_grovernors(curScaling);
         threshold++;
       }
 
@@ -231,7 +230,6 @@ namespace core {
         memset(availableFreq, 0, BufferSize);
         fgets(availableFreq, BufferSize, processorFile);
         fclose(processorFile);
-
         curProcessor->set_avaiablefrequeucy(availableFreq);
         threshold++;
       }
@@ -245,7 +243,6 @@ namespace core {
         memset(availableGor, 0, BufferSize);
         fgets(availableGor, BufferSize, processorFile);
         fclose(processorFile);
-
         curProcessor->set_avaiablegovernors(availableGor);
         threshold++;
       }

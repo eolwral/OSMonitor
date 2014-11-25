@@ -295,17 +295,20 @@ namespace ipc {
   {
     // load token from file
     char tokenloc[TOKENSIZE];
+    int tokenlen = 0;
     memset(tokenloc, 0, TOKENSIZE);
     FILE* tokenFile = fopen(fileName, "r");
 
     if (tokenFile == NULL)
       return;
 
-    if (fread(tokenloc, sizeof(char), TOKENSIZE, tokenFile) == 0)
-      tokenloc[0] = '\0';
-
+    tokenlen = fread(tokenloc, sizeof(char), TOKENSIZE, tokenFile);
     fclose(tokenFile);
-    tokenloc[TOKENSIZE-1] = '\0';
+
+    if (tokenlen >=  TOKENSIZE-1)
+      tokenloc[TOKENSIZE-1] = '\x0';
+    else
+      tokenloc[tokenlen] = '\x0';
 
     // save token
     token.assign(tokenloc);

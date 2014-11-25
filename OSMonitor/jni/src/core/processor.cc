@@ -157,8 +157,8 @@ namespace core {
       FILE *processorFile = fopen(buffer, "r");
       if (processorFile)
       {
-        fscanf(processorFile, "%d", &extractValue);
-        curProcessor->set_maxfrequency(extractValue);
+        if(fscanf(processorFile, "%d", &extractValue) == 1)
+          curProcessor->set_maxfrequency(extractValue);
         fclose(processorFile);
         threshold++;
       }
@@ -168,8 +168,8 @@ namespace core {
       processorFile = fopen(buffer, "r");
       if (processorFile)
       {
-        fscanf(processorFile, "%d", &extractValue);
-        curProcessor->set_minfrequency(extractValue);
+        if (fscanf(processorFile, "%d", &extractValue) == 1)
+          curProcessor->set_minfrequency(extractValue);
         fclose(processorFile);
         threshold++;
       }
@@ -179,8 +179,8 @@ namespace core {
       processorFile = fopen(buffer, "r");
       if (processorFile)
       {
-        fscanf(processorFile, "%d", &extractValue);
-        curProcessor->set_currentscaling(extractValue);
+        if (fscanf(processorFile, "%d", &extractValue) == 1)
+          curProcessor->set_currentscaling(extractValue);
         fclose(processorFile);
         threshold++;
       }
@@ -190,8 +190,8 @@ namespace core {
       processorFile = fopen(buffer, "r");
       if (processorFile)
       {
-        fscanf(processorFile, "%d", &extractValue);
-        curProcessor->set_maxscaling(extractValue);
+        if ( fscanf(processorFile, "%d", &extractValue) == 1)
+          curProcessor->set_maxscaling(extractValue);
         fclose(processorFile);
         threshold++;
       }
@@ -234,7 +234,7 @@ namespace core {
         threshold++;
       }
 
-      // available grovenors
+      // available gronvenors
       sprintf(buffer, PROCESSOR_AVAILABLE_GOR, curNumber);
       processorFile = fopen(buffer, "r");
       if (processorFile)

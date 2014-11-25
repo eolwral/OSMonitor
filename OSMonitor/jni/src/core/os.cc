@@ -70,37 +70,39 @@ namespace core {
        Cached:        1350032 kB */
 
     unsigned long value = 0;
-    fscanf(mif, "MemTotal: %lu kB", &value);
-    moveToNextLine(mif);
-    if(value != 0)
-      curOSInfo->set_totalmemory(value*1024);
+    if ( fscanf(mif, "MemTotal: %lu kB", &value) == 1 )
+    {
+      moveToNextLine(mif);
+      if(value != 0)
+        curOSInfo->set_totalmemory(value*1024);
+    }
 
-    value = 0;
-    fscanf(mif, "MemFree: %lu kB", &value);
-    moveToNextLine(mif);
-    if(value != 0)
-      curOSInfo->set_freememory(value*1024);
+    if ( fscanf(mif, "MemFree: %lu kB", &value) == 1 )
+    {
+      moveToNextLine(mif);
+      if(value != 0)
+        curOSInfo->set_freememory(value*1024);
+    }
 
-    value = 0;
-    fscanf(mif, "Buffers: %lu kB", &value);
-    moveToNextLine(mif);
-    if(value != 0)
-      curOSInfo->set_bufferedmemory(value*1024);
+    if ( fscanf(mif, "Buffers: %lu kB", &value) == 1 )
+    {
+      moveToNextLine(mif);
+      if(value != 0)
+        curOSInfo->set_bufferedmemory(value*1024);
+    }
 
-    value = 0;
-    fscanf(mif, "Cached: %lu kB", &value);
-    if(value != 0)
-      curOSInfo->set_cachedmemory(value*1024);
+    if ( fscanf(mif, "Cached: %lu kB", &value) == 1 )
+    {
+      if(value != 0)
+        curOSInfo->set_cachedmemory(value*1024);
+    }
 
     while (moveToNextLine(mif) == true)
     {
-        value = 0;
-
         if(fscanf(mif, "SwapTotal: %lu kB", &value) == 1) {
           curOSInfo->set_totalswap(value*1024);
           continue;
         }
-
         if(fscanf(mif, "SwapFree: %lu kB", &value) == 1) {
           curOSInfo->set_freeswap(value*1024);
           continue;

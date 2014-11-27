@@ -15,7 +15,7 @@ public class TCPConnection extends IpcConnectionBase {
   /**
    * predefine TCP port number
    */
-  private final static int portNumber = 14075;
+  private final static int portNumber = 15075;
 
   /**
    * TCP socket

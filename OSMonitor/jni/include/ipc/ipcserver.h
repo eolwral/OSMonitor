@@ -26,7 +26,7 @@
 #define SOCKETNAME "osmipcV3"
 
 // Android L
-#define PORTNUMBER 14075
+#define PORTNUMBER 15075
 
 #define SOCKETBUF 1024
 #define TRANSIZE 4096

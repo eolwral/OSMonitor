@@ -258,7 +258,7 @@ public class CommonUtil {
           os.writeBytes("cp " + binary + " " + binary + "_L \n");
           os.writeBytes("chmod 755 " + binary + "_L \n");
           os.writeBytes("chcon u:object_r:system_file:s0 " + binary + "_L \n");
-          os.writeBytes("su --context u:r:system_app:s0 -c \"" + binary + "_L "
+          os.writeBytes("su --context u:r:init:s0 -c \"" + binary + "_L "
               + binary + ".token &\" \n");
           os.writeBytes("exit\n\n");
           os.flush();

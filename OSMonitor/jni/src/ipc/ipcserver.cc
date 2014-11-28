@@ -91,6 +91,11 @@ namespace ipc {
       this->serverFD = socket(AF_UNIX, SOCK_STREAM, 0);
 
     if(this->serverFD < 0) {
+      if (this->useTCPSocket == true)
+        __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","useTCPSocket\n");
+      else
+        __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","useUnixSocket\n");
+      __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","Failed to open socket: %d\n", errno);
       return (false);
     }
 
@@ -98,6 +103,7 @@ namespace ipc {
     int option = true;
     if(::setsockopt(this->serverFD, SOL_SOCKET, SO_REUSEADDR, (char *)&option, sizeof(option)) < 0)
     {
+      __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","Failed to set socket failed: %d\n", errno);
       ::close(this->serverFD);
       return (false);
     }
@@ -110,12 +116,14 @@ namespace ipc {
 
     if (result < 0)
     {
+      __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","Failed to bind socket: %d\n", errno);
       ::close(this->serverFD);
       return (false);
     }
 
     if (listen(this->serverFD, 8) < 0)
     {
+      __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","Failed to listen: %d\n", errno);
       ::close(this->serverFD);
       return (false);
     }

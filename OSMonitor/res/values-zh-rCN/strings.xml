@@ -41,6 +41,7 @@
 <string name="ui_process_sort_pid">PID</string>
 <string name="ui_process_sort_name">名字</string>
 <string name="ui_process_sort_cputime">CPU时间</string>
+<string name="ui_process_sort_status">状态</string>
 
 <!-- Process Detail -->
 <string name="ui_process_detail_process">程序</string>

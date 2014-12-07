@@ -41,6 +41,7 @@
 <string name="ui_process_sort_pid">PID</string>
 <string name="ui_process_sort_name">שם</string>
 <string name="ui_process_sort_cputime">זמן שימוש ב-CPU</string>
+<string name="ui_process_sort_status">מצב</string>
 
 <!-- Process Detail -->
 <string name="ui_process_detail_process">תהליך</string>

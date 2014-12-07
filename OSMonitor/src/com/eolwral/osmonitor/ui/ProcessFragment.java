@@ -53,6 +53,7 @@ import android.widget.Toast;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.OsInfo.osInfo;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
+import com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
 import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
@@ -62,6 +63,7 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ProcessFragment extends ListFragment implements ipcClientListener {
@@ -100,7 +102,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
   // preference
   private enum SortType {
-    SortbyUsage, SortbyMemory, SortbyPid, SortbyName, SortbyCPUTime
+    SortbyUsage, SortbyMemory, SortbyPid, SortbyName, SortbyCPUTime, SortbyStatus
   }
 
   private SortType sortSetting = SortType.SortbyUsage;
@@ -426,6 +428,9 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       case SortbyCPUTime:
         sortGroup.check(R.id.id_process_sort_cputime);
         break;
+      case SortbyStatus:
+        sortGroup.check(R.id.id_process_sort_status);
+        break;
       }
 
       sortGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -452,6 +457,10 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
           case R.id.id_process_sort_cputime:
             sortSetting = SortType.SortbyCPUTime;
             settings.setSortType("CPUTime");
+            break;
+          case R.id.id_process_sort_status:
+            sortSetting = SortType.SortbyStatus;
+            settings.setSortType("Status");
             break;
           }
 
@@ -611,6 +620,9 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     case SortbyCPUTime:
       Collections.sort(data, new SortbyCPUTime());
       break;
+    case SortbyStatus:
+      Collections.sort(data, new SortbyStatus());
+      break;
     }
 
     processCount.setText("" + data.size());
@@ -713,6 +725,21 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       if (lhs.getCpuTime() > rhs.getCpuTime())
         return -1;
       else if (lhs.getCpuTime() < rhs.getCpuTime())
+        return 1;
+      return 0;
+    }
+  }
+
+  /**
+   * Comparator class for sort by Status
+   */
+  private class SortbyStatus implements Comparator<processInfo> {
+
+    @Override
+    public int compare(processInfo lhs, processInfo rhs) {
+      if (lhs.getStatus().getNumber() < rhs.getStatus().getNumber())
+        return -1;
+      else if (lhs.getStatus().getNumber() > rhs.getStatus().getNumber())
         return 1;
       return 0;
     }
@@ -999,6 +1026,8 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       else if (sortSetting == SortType.SortbyCPUTime)
         holder.cpuUsage.setText(String.format("%02d:%02d",
             item.getCpuTime() / 60, item.getCpuTime() % 60));
+      else if (sortSetting == SortType.SortbyStatus) 
+        holder.cpuUsage.setText(UserInterfaceUtil.getSatusString(getActivity(), item.getStatus()));
       else
         holder.cpuUsage.setText(CommonUtil.convertToUsage(item.getCpuUsage()));
 
@@ -1075,28 +1104,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
       holder.detailUser.setText(item.getOwner());
 
-      // convert status
-      switch (item.getStatus().getNumber()) {
-      case processInfo.processStatus.Unknown_VALUE:
-        holder.detailStatus.setText(R.string.ui_process_status_unknown);
-        break;
-      case processInfo.processStatus.Running_VALUE:
-        holder.detailStatus.setText(R.string.ui_process_status_running);
-        break;
-      case processInfo.processStatus.Sleep_VALUE:
-        holder.detailStatus.setText(R.string.ui_process_status_sleep);
-        break;
-      case processInfo.processStatus.Stopped_VALUE:
-        holder.detailStatus.setText(R.string.ui_process_status_stop);
-        break;
-      case processInfo.processStatus.Page_VALUE:
-      case processInfo.processStatus.Disk_VALUE:
-        holder.detailStatus.setText(R.string.ui_process_status_waitio);
-        break;
-      case processInfo.processStatus.Zombie_VALUE:
-        holder.detailStatus.setText(R.string.ui_process_status_zombie);
-        break;
-      }
+      holder.detailStatus.setText(UserInterfaceUtil.getSatusString(getActivity(), item.getStatus()));
     }
 
     public void refresh() {
@@ -1228,5 +1236,5 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     CommonUtil.showHelp(getActivity(),
         "http://eolwral.github.io/OSMonitor/maunal/index.html");
   }
-
+  
 }

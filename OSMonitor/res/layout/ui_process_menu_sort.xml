@@ -8,33 +8,39 @@
     android:orientation="vertical" >
 
     <RadioButton
-      		android:id="@+id/id_process_sort_usage"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:text="@string/ui_process_sort_usage" />
+       android:id="@+id/id_process_sort_usage"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/ui_process_sort_usage" />
 
     <RadioButton
-       		android:id="@+id/id_process_sort_memory"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:text="@string/ui_process_sort_memory" />
+       android:id="@+id/id_process_sort_memory"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/ui_process_sort_memory" />
 
     <RadioButton
-       		android:id="@+id/id_process_sort_pid"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:text="@string/ui_process_sort_pid" />
+       android:id="@+id/id_process_sort_pid"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/ui_process_sort_pid" />
     
     <RadioButton
-       		android:id="@+id/id_process_sort_name"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:text="@string/ui_process_sort_name" />
+       android:id="@+id/id_process_sort_name"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/ui_process_sort_name" />
 
     <RadioButton
-       		android:id="@+id/id_process_sort_cputime"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:text="@string/ui_process_sort_cputime" />
-    
+       android:id="@+id/id_process_sort_cputime"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/ui_process_sort_cputime" />
+
+    <RadioButton
+       android:id="@+id/id_process_sort_status"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="@string/ui_process_sort_status" />
+
 </RadioGroup>

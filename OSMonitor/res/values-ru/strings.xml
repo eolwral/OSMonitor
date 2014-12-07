@@ -41,7 +41,8 @@
     <string name="ui_process_sort_pid">PID</string>
     <string name="ui_process_sort_name">Имя</string>
     <string name="ui_process_sort_cputime">Время ЦП</string>
-
+    <string name="ui_process_sort_status">Статус</string>
+    
     <!-- Process Detail -->
     <string name="ui_process_detail_process">Процесс</string>
     <string name="ui_process_detail_memory">Память</string>

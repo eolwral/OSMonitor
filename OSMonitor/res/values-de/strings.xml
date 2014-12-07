@@ -43,6 +43,7 @@
     <string name="ui_process_sort_pid">PID</string>
     <string name="ui_process_sort_name">Name</string>
     <string name="ui_process_sort_cputime">Zeit</string>
+    <string name="ui_process_sort_status">Status</string>
     <string name="ui_process_detail_process">Prozess</string>
     <string name="ui_process_detail_memory">Speicher</string>
     <string name="ui_process_detail_ppid">PPID</string>

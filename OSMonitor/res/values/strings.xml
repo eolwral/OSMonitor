@@ -41,6 +41,7 @@
 <string name="ui_process_sort_pid">PID</string>
 <string name="ui_process_sort_name">Name</string>
 <string name="ui_process_sort_cputime">CPUTime</string>
+<string name="ui_process_sort_status">Status</string>
 
 <!-- Process Detail -->
 <string name="ui_process_detail_process">Process</string>

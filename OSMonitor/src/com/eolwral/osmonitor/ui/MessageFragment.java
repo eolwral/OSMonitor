@@ -61,6 +61,7 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class MessageFragment extends ListFragment implements ipcClientListener {
@@ -216,14 +217,14 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
     // sort extend menu
     MenuItem expendMenu = menu.findItem(R.id.ui_message_type);
     Spinner expendItem = (Spinner) MenuItemCompat.getActionView(expendMenu);
-    expendItem.setSelection(convertTypeToLoc(selectedType));
+    expendItem.setSelection(UserInterfaceUtil.convertTypeToLoc(selectedType));
 
     // source menu
     expendItem.setOnItemSelectedListener(new OnItemSelectedListener() {
       @Override
       public void onItemSelected(AdapterView<?> parent, View view,
           int position, long id) {
-        selectedType = convertLocToType(position);
+        selectedType = UserInterfaceUtil.convertLocToType(position);
 
         // fix font color on Android 2.3.x
         if (parent.getChildAt(0) != null)
@@ -699,9 +700,9 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
       throws InvalidProtocolBufferException {
     for (int count = 0; count < rawData.getPayloadCount(); count++) {
       logcatInfo lgInfo = logcatInfo.parseFrom(rawData.getPayload(count));
-      if (sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).size() > MAXLOGCAT)
-        sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).remove(0);
-      sourceLogcatData.get(convertTypeToLoc(rawData.getAction())).add(lgInfo);
+      if (sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(rawData.getAction())).size() > MAXLOGCAT)
+        sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(rawData.getAction())).remove(0);
+      sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(rawData.getAction())).add(lgInfo);
     }
   }
 
@@ -1207,11 +1208,11 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
         if (isLogcat(logType)) {
           ArrayList<logcatInfo> filteredItems = new ArrayList<logcatInfo>();
           for (int index = 0; index < sourceLogcatData.get(
-              convertTypeToLoc(logType)).size(); index++) {
-            logcatInfo item = sourceLogcatData.get(convertTypeToLoc(logType))
+              UserInterfaceUtil.convertTypeToLoc(logType)).size(); index++) {
+            logcatInfo item = sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(logType))
                 .get(index);
 
-            if (filterLogcatArray[convertLogcatType(item.getPriority()
+            if (filterLogcatArray[UserInterfaceUtil.convertLogcatType(item.getPriority()
                 .getNumber())] == false)
               continue;
 
@@ -1231,7 +1232,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
           for (int index = 0; index < sourceDmesgData.size(); index++) {
             dmesgInfo item = sourceDmesgData.get(index);
 
-            if (filterDmesgArray[convertDmesgType(item.getLevel().getNumber())] == false)
+            if (filterDmesgArray[UserInterfaceUtil.convertDmesgType(item.getLevel().getNumber())] == false)
               continue;
 
             if (filterString.length() != 0)
@@ -1262,9 +1263,9 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
         if (results.values == null) {
           viewDmesgData = sourceDmesgData;
           // avoid to access before sourceLogcatData is ready
-          if (convertTypeToLoc(selectedType) < sourceLogcatData.size())
+          if (UserInterfaceUtil.convertTypeToLoc(selectedType) < sourceLogcatData.size())
             viewLogcatData = sourceLogcatData
-                .get(convertTypeToLoc(selectedType));
+                .get(UserInterfaceUtil.convertTypeToLoc(selectedType));
         } else {
 
           if (isLogcat(logType))
@@ -1277,113 +1278,6 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
       }
 
     }
-  }
-
-  private int convertLogcatType(int type) {
-    int result = 0;
-
-    switch (type) {
-    case logcatInfo.logPriority.DEBUG_VALUE:
-      result = 0;
-      break;
-    case logcatInfo.logPriority.VERBOSE_VALUE:
-      result = 1;
-      break;
-    case logcatInfo.logPriority.INFO_VALUE:
-      result = 2;
-      break;
-    case logcatInfo.logPriority.WARN_VALUE:
-      result = 3;
-      break;
-    case logcatInfo.logPriority.ERROR_VALUE:
-      result = 4;
-      break;
-    case logcatInfo.logPriority.FATAL_VALUE:
-      result = 5;
-      break;
-    }
-    return result;
-  }
-
-  private int convertDmesgType(int type) {
-    int result = 0;
-
-    switch (type) {
-    case dmesgInfo.dmesgLevel.DEBUG_VALUE:
-      result = 0;
-      break;
-    case dmesgInfo.dmesgLevel.INFORMATION_VALUE:
-      result = 1;
-      break;
-    case dmesgInfo.dmesgLevel.NOTICE_VALUE:
-      result = 2;
-      break;
-    case dmesgInfo.dmesgLevel.WARNING_VALUE:
-      result = 3;
-      break;
-    case dmesgInfo.dmesgLevel.ALERT_VALUE:
-      result = 4;
-      break;
-    case dmesgInfo.dmesgLevel.EMERGENCY_VALUE:
-      result = 5;
-      break;
-    case dmesgInfo.dmesgLevel.ERROR_VALUE:
-      result = 6;
-      break;
-    case dmesgInfo.dmesgLevel.CRITICAL_VALUE:
-      result = 7;
-      break;
-    }
-    return result;
-  }
-
-  private ipcAction convertLocToType(int loc) {
-    ipcAction type = ipcAction.LOGCAT_MAIN;
-    switch (loc) {
-    case 0:
-      type = ipcAction.LOGCAT_MAIN;
-      break;
-    case 1:
-      type = ipcAction.LOGCAT_SYSTEM;
-      break;
-    case 2:
-      type = ipcAction.LOGCAT_EVENT;
-      break;
-    case 3:
-      type = ipcAction.LOGCAT_RADIO;
-      break;
-    case 4:
-      type = ipcAction.DMESG;
-      break;
-    default:
-      break;
-    }
-
-    return type;
-  }
-
-  private int convertTypeToLoc(ipcAction type) {
-    int loc = 0;
-    switch (type) {
-    case LOGCAT_MAIN:
-      loc = 0;
-      break;
-    case LOGCAT_SYSTEM:
-      loc = 1;
-      break;
-    case LOGCAT_EVENT:
-      loc = 2;
-      break;
-    case LOGCAT_RADIO:
-      loc = 3;
-      break;
-    case DMESG:
-      loc = 4;
-      break;
-    default:
-      break;
-    }
-    return loc;
   }
 
 }

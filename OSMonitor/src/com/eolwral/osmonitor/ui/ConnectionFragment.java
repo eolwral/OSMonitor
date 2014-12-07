@@ -60,6 +60,7 @@ import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.HttpUtil;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ConnectionFragment extends ListFragment implements
@@ -218,72 +219,16 @@ public class ConnectionFragment extends ListFragment implements
         connectionInfo item = data.get(index);
 
         // prepare main information
-        switch (item.getType().getNumber()) {
-        case connectionInfo.connectionType.TCPv4_VALUE:
-          logLine.append("TCP4");
-          break;
-        case connectionInfo.connectionType.TCPv6_VALUE:
-          logLine.append("TCP6");
-          break;
-        case connectionInfo.connectionType.UDPv4_VALUE:
-          logLine.append("UDP4");
-          break;
-        case connectionInfo.connectionType.UDPv6_VALUE:
-          logLine.append("UDP6");
-          break;
-        case connectionInfo.connectionType.RAWv4_VALUE:
-          logLine.append("RAW4");
-          break;
-        case connectionInfo.connectionType.RAWv6_VALUE:
-          logLine.append("RAW6");
-          break;
-        }
+        logLine.append(UserInterfaceUtil.getConnectionType(item.getType()));
         logLine.append(",");
 
-        logLine.append(convertFormat(item.getLocalIP(), item.getLocalPort()));
+        logLine.append(UserInterfaceUtil.convertToIPv4(item.getLocalIP(), item.getLocalPort()));
         logLine.append(",");
 
-        logLine.append(convertFormat(item.getRemoteIP(), item.getRemotePort()));
+        logLine.append(UserInterfaceUtil.convertToIPv4(item.getRemoteIP(), item.getRemotePort()));
         logLine.append(",");
 
-        switch (item.getStatus().getNumber()) {
-        case connectionInfo.connectionStatus.CLOSE_VALUE:
-          logLine.append("CLOSE");
-          break;
-        case connectionInfo.connectionStatus.CLOSE_WAIT_VALUE:
-          logLine.append("CLOSE_WAIT");
-          break;
-        case connectionInfo.connectionStatus.CLOSING_VALUE:
-          logLine.append("CLOSING");
-          break;
-        case connectionInfo.connectionStatus.ESTABLISHED_VALUE:
-          logLine.append("ESTABLISHED");
-          break;
-        case connectionInfo.connectionStatus.FIN_WAIT1_VALUE:
-          logLine.append("FIN_WAIT1");
-          break;
-        case connectionInfo.connectionStatus.FIN_WAIT2_VALUE:
-          logLine.append("FIN_WAIT2");
-          break;
-        case connectionInfo.connectionStatus.LAST_ACK_VALUE:
-          logLine.append("LAST_ACK");
-          break;
-        case connectionInfo.connectionStatus.LISTEN_VALUE:
-          logLine.append("LISTEN");
-          break;
-        case connectionInfo.connectionStatus.SYN_RECV_VALUE:
-          logLine.append("SYN_RECV");
-          break;
-        case connectionInfo.connectionStatus.SYN_SENT_VALUE:
-          logLine.append("SYN_SENT");
-          break;
-        case connectionInfo.connectionStatus.TIME_WAIT_VALUE:
-          logLine.append("TIME_WAIT");
-          break;
-        case connectionInfo.connectionStatus.UNKNOWN_VALUE:
-          logLine.append("UNKNOWN");
-          break;
-        }
+        logLine.append(UserInterfaceUtil.getConnectionStatus(item.getStatus()));
         logLine.append(",");
 
         if (item.getUid() == 0)
@@ -524,69 +469,10 @@ public class ConnectionFragment extends ListFragment implements
       }
 
       // prepare main information
-      switch (item.getType().getNumber()) {
-      case connectionInfo.connectionType.TCPv4_VALUE:
-        holder.type.setText("TCP4");
-        break;
-      case connectionInfo.connectionType.TCPv6_VALUE:
-        holder.type.setText("TCP6");
-        break;
-      case connectionInfo.connectionType.UDPv4_VALUE:
-        holder.type.setText("UDP4");
-        break;
-      case connectionInfo.connectionType.UDPv6_VALUE:
-        holder.type.setText("UDP6");
-        break;
-      case connectionInfo.connectionType.RAWv4_VALUE:
-        holder.type.setText("RAW4");
-        break;
-      case connectionInfo.connectionType.RAWv6_VALUE:
-        holder.type.setText("RAW6");
-        break;
-      }
-
-      holder.src.setText(convertFormat(item.getLocalIP(), item.getLocalPort()));
-      holder.dst
-          .setText(convertFormat(item.getRemoteIP(), item.getRemotePort()));
-
-      switch (item.getStatus().getNumber()) {
-      case connectionInfo.connectionStatus.CLOSE_VALUE:
-        holder.status.setText("CLOSE");
-        break;
-      case connectionInfo.connectionStatus.CLOSE_WAIT_VALUE:
-        holder.status.setText("CLOSE_WAIT");
-        break;
-      case connectionInfo.connectionStatus.CLOSING_VALUE:
-        holder.status.setText("CLOSING");
-        break;
-      case connectionInfo.connectionStatus.ESTABLISHED_VALUE:
-        holder.status.setText("ESTABLISHED");
-        break;
-      case connectionInfo.connectionStatus.FIN_WAIT1_VALUE:
-        holder.status.setText("FIN_WAIT1");
-        break;
-      case connectionInfo.connectionStatus.FIN_WAIT2_VALUE:
-        holder.status.setText("FIN_WAIT2");
-        break;
-      case connectionInfo.connectionStatus.LAST_ACK_VALUE:
-        holder.status.setText("LAST_ACK");
-        break;
-      case connectionInfo.connectionStatus.LISTEN_VALUE:
-        holder.status.setText("LISTEN");
-        break;
-      case connectionInfo.connectionStatus.SYN_RECV_VALUE:
-        holder.status.setText("SYN_RECV");
-        break;
-      case connectionInfo.connectionStatus.SYN_SENT_VALUE:
-        holder.status.setText("SYN_SENT");
-        break;
-      case connectionInfo.connectionStatus.TIME_WAIT_VALUE:
-        holder.status.setText("TIME_WAIT");
-        break;
-      case connectionInfo.connectionStatus.UNKNOWN_VALUE:
-        holder.status.setText("UNKNOWN");
-        break;
-      }
+      holder.type.setText(UserInterfaceUtil.getConnectionType(item.getType()));
+      holder.src.setText(UserInterfaceUtil.convertToIPv4(item.getLocalIP(), item.getLocalPort()));
+      holder.dst.setText(UserInterfaceUtil.convertToIPv4(item.getRemoteIP(), item.getRemotePort()));
+      holder.status.setText(UserInterfaceUtil.getConnectionStatus(item.getStatus()));
 
       if (item.getUid() == 0)
         holder.owner.setText("System");
@@ -621,17 +507,6 @@ public class ConnectionFragment extends ListFragment implements
         procDialog.setCancelable(true);
       }
     });
-  }
-
-  private String convertFormat(String ip, int port) {
-
-    // replace IPv6 to IPv4
-    ip = ip.replace("::ffff:", "");
-
-    if (port == 0)
-      return ip + ":*";
-    return ip + ":" + port;
-
   }
 
   private void closeLoading() {

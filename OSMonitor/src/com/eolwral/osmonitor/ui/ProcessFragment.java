@@ -1027,7 +1027,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
         holder.cpuUsage.setText(String.format("%02d:%02d",
             item.getCpuTime() / 60, item.getCpuTime() % 60));
       else if (sortSetting == SortType.SortbyStatus) 
-        holder.cpuUsage.setText(UserInterfaceUtil.getSatusString(getActivity(), item.getStatus()));
+        holder.cpuUsage.setText(UserInterfaceUtil.getSatusString(item.getStatus()));
       else
         holder.cpuUsage.setText(CommonUtil.convertToUsage(item.getCpuUsage()));
 
@@ -1104,7 +1104,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
       holder.detailUser.setText(item.getOwner());
 
-      holder.detailStatus.setText(UserInterfaceUtil.getSatusString(getActivity(), item.getStatus()));
+      holder.detailStatus.setText(UserInterfaceUtil.getSatusString(item.getStatus()));
     }
 
     public void refresh() {

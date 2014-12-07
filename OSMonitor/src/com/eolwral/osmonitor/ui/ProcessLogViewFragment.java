@@ -37,6 +37,7 @@ import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.settings.Settings;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ProcessLogViewFragment extends DialogFragment implements
@@ -368,44 +369,8 @@ public class ProcessLogViewFragment extends DialogFragment implements
 
       holder.level.setTextColor(Color.BLACK);
 
-      switch (item.getPriority().getNumber()) {
-      case logcatInfo.logPriority.SILENT_VALUE:
-      case logcatInfo.logPriority.UNKNOWN_VALUE:
-      case logcatInfo.logPriority.DEFAULT_VALUE:
-        holder.level.setBackgroundColor(Color.LTGRAY);
-        holder.level.setText("S");
-        break;
-
-      case logcatInfo.logPriority.VERBOSE_VALUE:
-        holder.level.setBackgroundColor(Color.WHITE);
-        holder.level.setText("V");
-        break;
-
-      case logcatInfo.logPriority.WARN_VALUE:
-        holder.level.setBackgroundColor(Color.YELLOW);
-        holder.level.setText("W");
-        break;
-
-      case logcatInfo.logPriority.INFO_VALUE:
-        holder.level.setBackgroundColor(Color.GREEN);
-        holder.level.setText("I");
-        break;
-
-      case logcatInfo.logPriority.FATAL_VALUE:
-        holder.level.setBackgroundColor(Color.RED);
-        holder.level.setText("F");
-        break;
-
-      case logcatInfo.logPriority.ERROR_VALUE:
-        holder.level.setBackgroundColor(Color.RED);
-        holder.level.setText("E");
-        break;
-
-      case logcatInfo.logPriority.DEBUG_VALUE:
-        holder.level.setBackgroundColor(Color.BLUE);
-        holder.level.setText("D");
-        break;
-      }
+      holder.level.setBackgroundColor(UserInterfaceUtil.getLogcatColor(item.getPriority()));
+      holder.level.setText(UserInterfaceUtil.getLogcatTag(item.getPriority()));
 
       // avoid to trigger errors when refreshing
       sv.setOnTouchListener(new OnTouchListener() {

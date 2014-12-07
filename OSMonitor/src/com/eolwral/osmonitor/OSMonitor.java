@@ -15,6 +15,7 @@ import com.eolwral.osmonitor.ui.MessageFragment;
 import com.eolwral.osmonitor.ui.MiscFragment;
 import com.eolwral.osmonitor.ui.ProcessFragment;
 import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.eolwral.osmonitor.settings.Settings;
 
 import android.support.v4.app.Fragment;
@@ -57,6 +58,7 @@ public class OSMonitor extends ActionBarActivity implements
     super.onCreate(savedInstanceState);
 
     IpcService.Initialize(this);
+    UserInterfaceUtil.Initialize(this);
 
     // load layout
     setContentView(R.layout.ui_main);

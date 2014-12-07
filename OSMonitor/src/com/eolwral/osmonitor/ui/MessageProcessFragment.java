@@ -8,6 +8,7 @@ import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
 import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -82,26 +83,6 @@ public class MessageProcessFragment extends Dialog {
     detailUser.setText(item.getOwner());
 
     // convert status
-    switch (item.getStatus().getNumber()) {
-    case processInfo.processStatus.Unknown_VALUE:
-      detailStatus.setText(R.string.ui_process_status_unknown);
-      break;
-    case processInfo.processStatus.Running_VALUE:
-      detailStatus.setText(R.string.ui_process_status_running);
-      break;
-    case processInfo.processStatus.Sleep_VALUE:
-      detailStatus.setText(R.string.ui_process_status_sleep);
-      break;
-    case processInfo.processStatus.Stopped_VALUE:
-      detailStatus.setText(R.string.ui_process_status_stop);
-      break;
-    case processInfo.processStatus.Page_VALUE:
-    case processInfo.processStatus.Disk_VALUE:
-      detailStatus.setText(R.string.ui_process_status_waitio);
-      break;
-    case processInfo.processStatus.Zombie_VALUE:
-      detailStatus.setText(R.string.ui_process_status_zombie);
-      break;
-    }
+    detailStatus.setText(UserInterfaceUtil.getSatusString(item.getStatus()));
   }
 }

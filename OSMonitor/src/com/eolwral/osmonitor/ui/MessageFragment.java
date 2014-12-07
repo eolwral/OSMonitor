@@ -440,35 +440,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
               calendar.getTime())
               + ",");
 
-          switch (viewLogcatData.get(index).getPriority().getNumber()) {
-          case logcatInfo.logPriority.SILENT_VALUE:
-            logLine.append("SILENT,");
-            break;
-          case logcatInfo.logPriority.UNKNOWN_VALUE:
-            logLine.append("UNKNOWN,");
-            break;
-          case logcatInfo.logPriority.DEFAULT_VALUE:
-            logLine.append("DEFAULT,");
-            break;
-          case logcatInfo.logPriority.VERBOSE_VALUE:
-            logLine.append("VERBOSE,");
-            break;
-          case logcatInfo.logPriority.WARN_VALUE:
-            logLine.append("WARNING,");
-            break;
-          case logcatInfo.logPriority.INFO_VALUE:
-            logLine.append("INFORMATION,");
-            break;
-          case logcatInfo.logPriority.FATAL_VALUE:
-            logLine.append("FATAL,");
-            break;
-          case logcatInfo.logPriority.ERROR_VALUE:
-            logLine.append("ERROR,");
-            break;
-          case logcatInfo.logPriority.DEBUG_VALUE:
-            logLine.append("DEBUG,");
-            break;
-          }
+          logLine.append(UserInterfaceUtil.getLogprority(viewLogcatData.get(index).getPriority()) + ",");
           logLine.append(viewLogcatData.get(index).getTag() + ",");
 
           if (viewLogcatData.get(index).getPid() == 0)
@@ -492,35 +464,8 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
                 + ",");
           }
 
-          switch (viewDmesgData.get(index).getLevel().getNumber()) {
-          case dmesgInfo.dmesgLevel.DEBUG_VALUE:
-            logLine.append("DEBUG,");
-            break;
-          case dmesgInfo.dmesgLevel.INFORMATION_VALUE:
-            logLine.append("INFORMATION,");
-            break;
-          case dmesgInfo.dmesgLevel.NOTICE_VALUE:
-            logLine.append("NOTICE,");
-            break;
-          case dmesgInfo.dmesgLevel.WARNING_VALUE:
-            logLine.append("WARNING,");
-            break;
-          case dmesgInfo.dmesgLevel.EMERGENCY_VALUE:
-            logLine.append("EMERGENCY,");
-            break;
-          case dmesgInfo.dmesgLevel.ERROR_VALUE:
-            logLine.append("ERROR,");
-            break;
-          case dmesgInfo.dmesgLevel.ALERT_VALUE:
-            logLine.append("ALERT,");
-            break;
-          case dmesgInfo.dmesgLevel.CRITICAL_VALUE:
-            logLine.append("CRITICAL,");
-            break;
-          }
-
-          logLine.append(viewDmesgData.get(index).getMessage().toString()
-              + "\n");
+          logLine.append(UserInterfaceUtil.getDmesgLevel(viewDmesgData.get(index).getLevel()) + ",");
+          logLine.append(viewDmesgData.get(index).getMessage().toString() + "\n");
         }
         logWriter.write(logLine.toString());
       }
@@ -603,8 +548,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
     exportDialog.setView(exportView);
 
     exportDialog.setTitle(exportRes.getText(R.string.ui_menu_logexport));
-    exportDialog.setNegativeButton(exportRes.getText(R.string.ui_text_cancel),
-        null);
+    exportDialog.setNegativeButton(exportRes.getText(R.string.ui_text_cancel),null);
 
     exportDialog.setPositiveButton(exportRes.getText(R.string.ui_text_okay),
         new DialogInterface.OnClickListener() {
@@ -1033,26 +977,25 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
       holder.time.setVisibility(View.GONE);
       holder.tag.setVisibility(View.GONE);
 
-      String textColor = CommonUtil.convertToRGB(getLogcatColor(item
-          .getPriority().getNumber()));
+      String textColor = CommonUtil.convertToRGB(UserInterfaceUtil.getLogcatColor(item.getPriority()));
 
       switch (printLogcatFMT) {
       case FORMAT_PROCESS:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
-            "%s(%5d)  %s (%s)", getLogcatTag(item.getPriority().getNumber()),
+            "%s(%5d)  %s (%s)", UserInterfaceUtil.getLogcatTag(item.getPriority()),
             item.getPid(), item.getMessage().toString(), item.getTag()),
             filterString, textColor)));
 
         break;
       case FORMAT_TAG:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
-            "%s/%-8s: %s", getLogcatTag(item.getPriority().getNumber()),
+            "%s/%-8s: %s", UserInterfaceUtil.getLogcatTag(item.getPriority()),
             item.getTag(), item.getMessage().toString()), filterString,
             textColor)));
         break;
       case FORMAT_THREAD:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
-            "%s(%5d:%5d) %s", getLogcatTag(item.getPriority().getNumber()),
+            "%s(%5d:%5d) %s", UserInterfaceUtil.getLogcatTag(item.getPriority()),
             item.getPid(), item.getTid(), item.getMessage().toString()),
             filterString, textColor)));
         break;
@@ -1065,7 +1008,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
             "%s.%03d %s/%-8s(%5d):  %s", DateFormat.format("MM-dd HH:mm:ss",
                 calendar.getTime()), item.getNanoSeconds() / 1000000,
-            getLogcatTag(item.getPriority().getNumber()), item.getTag(), item
+                UserInterfaceUtil.getLogcatTag(item.getPriority()), item.getTag(), item
                 .getPid(), item.getMessage().toString()), filterString,
             textColor)));
         break;
@@ -1073,8 +1016,8 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
             "%s.%03d %5d %5d %s %-8s: %s", DateFormat.format("MM-dd HH:mm:ss",
                 calendar.getTime()), item.getNanoSeconds() / 1000000, item
-                .getPid(), item.getTid(), getLogcatTag(item.getPriority()
-                .getNumber()), item.getTag(), item.getMessage().toString()),
+                .getPid(), item.getTid(), UserInterfaceUtil.getLogcatTag(item.getPriority()),
+                item.getTag(), item.getMessage().toString()),
             filterString, textColor)));
         break;
       case FORMAT_LONG:
@@ -1082,13 +1025,13 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
             "[ %s.%03d %5d:%5d %s/%-8s ]\n%s", DateFormat.format(
                 "MM-dd HH:mm:ss", calendar.getTime()),
             item.getNanoSeconds() / 1000000, item.getPid(), item.getTid(),
-            getLogcatTag(item.getPriority().getNumber()), item.getTag(), item
+            UserInterfaceUtil.getLogcatTag(item.getPriority()), item.getTag(), item
                 .getMessage().toString()), filterString, textColor)));
         break;
       case FORMAT_BRIEF:
       default:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
-            "%s/%-8s(%5d): %s", getLogcatTag(item.getPriority().getNumber()),
+            "%s/%-8s(%5d): %s", UserInterfaceUtil.getLogcatTag(item.getPriority()),
             item.getTag(), item.getPid(), item.getMessage().toString()),
             filterString, textColor)));
         break;
@@ -1112,53 +1055,9 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
       holder.msg.setText(Html.fromHtml(highlightText(item.getMessage()
           .toString(), filterString, "#FFCCCCCC")));
 
-      holder.level.setText(getLogcatTag(item.getPriority().getNumber()));
+      holder.level.setText(UserInterfaceUtil.getLogcatTag(item.getPriority()));
       holder.level.setTextColor(Color.BLACK);
-      holder.level.setBackgroundColor(getLogcatColor(item.getPriority()
-          .getNumber()));
-    }
-
-    private int getLogcatColor(int value) {
-      switch (value) {
-      case logcatInfo.logPriority.WARN_VALUE:
-        return settings.getLogcatWarningColor();
-      case logcatInfo.logPriority.INFO_VALUE:
-        return settings.getLogcatInfoColor();
-      case logcatInfo.logPriority.FATAL_VALUE:
-        return settings.getLogcatFatalColor();
-      case logcatInfo.logPriority.ERROR_VALUE:
-        return settings.getLogcatErrorColor();
-      case logcatInfo.logPriority.DEBUG_VALUE:
-        return settings.getLogcatDebugColor();
-      case logcatInfo.logPriority.SILENT_VALUE:
-      case logcatInfo.logPriority.UNKNOWN_VALUE:
-      case logcatInfo.logPriority.DEFAULT_VALUE:
-      case logcatInfo.logPriority.VERBOSE_VALUE:
-        return settings.getLogcatVerboseColor();
-      }
-      return settings.getLogcatVerboseColor();
-    }
-
-    private String getLogcatTag(int priority) {
-      switch (priority) {
-      case logcatInfo.logPriority.SILENT_VALUE:
-      case logcatInfo.logPriority.UNKNOWN_VALUE:
-      case logcatInfo.logPriority.DEFAULT_VALUE:
-        return "S";
-      case logcatInfo.logPriority.VERBOSE_VALUE:
-        return "V";
-      case logcatInfo.logPriority.WARN_VALUE:
-        return "W";
-      case logcatInfo.logPriority.INFO_VALUE:
-        return "I";
-      case logcatInfo.logPriority.FATAL_VALUE:
-        return "F";
-      case logcatInfo.logPriority.ERROR_VALUE:
-        return "E";
-      case logcatInfo.logPriority.DEBUG_VALUE:
-        return "D";
-      }
-      return "S";
+      holder.level.setBackgroundColor(UserInterfaceUtil.getLogcatColor(item.getPriority()));
     }
 
     private String highlightText(String Msg, String HLText, String Color) {

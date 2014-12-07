@@ -38,28 +38,20 @@ public class UserInterfaceUtil {
    * @return status (by char)
    */
   public static String getSatusString(processInfo.processStatus status) {
-    
-    String result = resource.getText(R.string.ui_process_status_unknown).toString();
-    
     switch (status.getNumber()) {
     case processInfo.processStatus.Running_VALUE:
-      result = resource.getText(R.string.ui_process_status_running).toString();
-      break;
+      return resource.getText(R.string.ui_process_status_running).toString();
     case processInfo.processStatus.Sleep_VALUE:
-      result = resource.getText(R.string.ui_process_status_sleep).toString();
-      break;
+      return resource.getText(R.string.ui_process_status_sleep).toString();
     case processInfo.processStatus.Stopped_VALUE:
-      result = resource.getText(R.string.ui_process_status_stop).toString();
-      break;
+      return resource.getText(R.string.ui_process_status_stop).toString();
     case processInfo.processStatus.Page_VALUE:
     case processInfo.processStatus.Disk_VALUE:
-      result = resource.getText(R.string.ui_process_status_waitio).toString();
-      break;
+      return resource.getText(R.string.ui_process_status_waitio).toString();
     case processInfo.processStatus.Zombie_VALUE:
-      result = resource.getText(R.string.ui_process_status_zombie).toString();
-      break;
+      return resource.getText(R.string.ui_process_status_zombie).toString();
     }
-    return result;
+    return resource.getText(R.string.ui_process_status_unknown).toString();
   }
   
   /**
@@ -68,29 +60,21 @@ public class UserInterfaceUtil {
    * @return integer 
    */
   public static int convertLogcatType(int type) {
-    int result = 0;
-
     switch (type) {
     case logcatInfo.logPriority.DEBUG_VALUE:
-      result = 0;
-      break;
+      return 0;
     case logcatInfo.logPriority.VERBOSE_VALUE:
-      result = 1;
-      break;
+      return 1;
     case logcatInfo.logPriority.INFO_VALUE:
-      result = 2;
-      break;
+      return 2;
     case logcatInfo.logPriority.WARN_VALUE:
-      result = 3;
-      break;
+      return 3;
     case logcatInfo.logPriority.ERROR_VALUE:
-      result = 4;
-      break;
+      return 4;
     case logcatInfo.logPriority.FATAL_VALUE:
-      result = 5;
-      break;
+      return 5;
     }
-    return result;
+    return 0;
   }
 
   /**
@@ -99,35 +83,25 @@ public class UserInterfaceUtil {
    * @return integer
    */
   public static int convertDmesgType(int type) {
-    int result = 0;
-
     switch (type) {
     case dmesgInfo.dmesgLevel.DEBUG_VALUE:
-      result = 0;
-      break;
+      return 0;
     case dmesgInfo.dmesgLevel.INFORMATION_VALUE:
-      result = 1;
-      break;
+      return 1;
     case dmesgInfo.dmesgLevel.NOTICE_VALUE:
-      result = 2;
-      break;
+      return 2;
     case dmesgInfo.dmesgLevel.WARNING_VALUE:
-      result = 3;
-      break;
+      return 3;
     case dmesgInfo.dmesgLevel.ALERT_VALUE:
-      result = 4;
-      break;
+      return 4;
     case dmesgInfo.dmesgLevel.EMERGENCY_VALUE:
-      result = 5;
-      break;
+      return 5;
     case dmesgInfo.dmesgLevel.ERROR_VALUE:
-      result = 6;
-      break;
+      return 6;
     case dmesgInfo.dmesgLevel.CRITICAL_VALUE:
-      result = 7;
-      break;
+      return 7;
     }
-    return result;
+    return 0;
   }
 
   /**
@@ -136,28 +110,20 @@ public class UserInterfaceUtil {
    * @return Logcat
    */
   public static ipcAction convertLocToType(int loc) {
-    ipcAction type = ipcAction.LOGCAT_MAIN;
     switch (loc) {
     case 0:
-      type = ipcAction.LOGCAT_MAIN;
-      break;
+      return ipcAction.LOGCAT_MAIN;
     case 1:
-      type = ipcAction.LOGCAT_SYSTEM;
-      break;
+      return ipcAction.LOGCAT_SYSTEM;
     case 2:
-      type = ipcAction.LOGCAT_EVENT;
-      break;
+      return ipcAction.LOGCAT_EVENT;
     case 3:
-      type = ipcAction.LOGCAT_RADIO;
-      break;
+      return ipcAction.LOGCAT_RADIO;
     case 4:
-      type = ipcAction.DMESG;
-      break;
-    default:
-      break;
+      return ipcAction.DMESG;
     }
 
-    return type;
+    return ipcAction.LOGCAT_MAIN;
   }
 
   /**
@@ -166,27 +132,19 @@ public class UserInterfaceUtil {
    * @return integer
    */
   public static int convertTypeToLoc(ipcAction type) {
-    int loc = 0;
     switch (type) {
     case LOGCAT_MAIN:
-      loc = 0;
-      break;
+      return 0;
     case LOGCAT_SYSTEM:
-      loc = 1;
-      break;
+      return 1;
     case LOGCAT_EVENT:
-      loc = 2;
-      break;
+      return 2;
     case LOGCAT_RADIO:
-      loc = 3;
-      break;
+      return 3;
     case DMESG:
-      loc = 4;
-      break;
-    default:
-      break;
+      return 4;
     }
-    return loc;
+    return 0;
   }
 
   /**
@@ -195,34 +153,25 @@ public class UserInterfaceUtil {
    * @return String
    */
   public static String getLogprority(logPriority priority) {
-    String result = "UNKNOWN";
     switch (priority.getNumber()) {
     case logcatInfo.logPriority.SILENT_VALUE:
-      result = "SILENT";
-      break;
+      return "SILENT";
     case logcatInfo.logPriority.DEFAULT_VALUE:
-      result = "DEFAULT";
-      break;
+      return "DEFAULT";
     case logcatInfo.logPriority.VERBOSE_VALUE:
-      result = "VERBOSE";
-      break;
+      return "VERBOSE";
     case logcatInfo.logPriority.WARN_VALUE:
-      result = "WARNING";
-      break;
+      return "WARNING";
     case logcatInfo.logPriority.INFO_VALUE:
-      result = "INFORMATION";
-      break;
+      return "INFORMATION";
     case logcatInfo.logPriority.FATAL_VALUE:
-      result = "FATAL";
-      break;
+      return "FATAL";
     case logcatInfo.logPriority.ERROR_VALUE:
-      result = "ERROR";
-      break;
+      return "ERROR";
     case logcatInfo.logPriority.DEBUG_VALUE:
-      result = "DEBUG";
-      break;
+      return "DEBUG";
     }
-    return result;
+    return "UNKNOWN";
   }
   
   /**
@@ -231,34 +180,25 @@ public class UserInterfaceUtil {
    * @return String
    */
   public static String getDmesgLevel(dmesgLevel level) {
-    String result = "UNKNOWN";
     switch (level.getNumber()) {
     case dmesgInfo.dmesgLevel.DEBUG_VALUE:
-      result = "DEBUG";
-      break;
+      return "DEBUG";
     case dmesgInfo.dmesgLevel.INFORMATION_VALUE:
-      result = "INFORMATION";
-      break;
+      return "INFORMATION";
     case dmesgInfo.dmesgLevel.NOTICE_VALUE:
-      result = "NOTICE";
-      break;
+      return "NOTICE";
     case dmesgInfo.dmesgLevel.WARNING_VALUE:
-      result = "WARNING";
-      break;
+      return "WARNING";
     case dmesgInfo.dmesgLevel.EMERGENCY_VALUE:
-      result = "EMERGENCY";
-      break;
+      return "EMERGENCY";
     case dmesgInfo.dmesgLevel.ERROR_VALUE:
-      result = "ERROR";
-      break;
+      return "ERROR";
     case dmesgInfo.dmesgLevel.ALERT_VALUE:
-      result = "ALERT";
-      break;
+      return "ALERT";
     case dmesgInfo.dmesgLevel.CRITICAL_VALUE:
-      result = "CRITICAL";
-      break;
+      return "CRITICAL";
     }
-    return result;
+    return "UNKNOWN";
   }
 
   /**

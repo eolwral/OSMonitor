@@ -13,8 +13,9 @@
 
 #define SYS_BOOT_TIME "/proc/uptime"
 
-#define KLOG_BUF_SHIFT  17      /* CONFIG_LOG_BUF_SHIFT from our kernel */
-#define KLOG_BUF_LEN    (1 << KLOG_BUF_SHIFT)
+#define KLOG_SIZE_BUFFER  10
+#define KLOG_BUF_SHIFT    17      /* CONFIG_LOG_BUF_SHIFT from our kernel */
+#define KLOG_BUF_LEN      (1 << KLOG_BUF_SHIFT)
 
 namespace com {
 namespace eolwral {

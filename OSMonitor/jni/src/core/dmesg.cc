@@ -50,15 +50,26 @@ namespace core {
     if (this->_bootTime == 0)
       this->getBootTime();
 
-    char buffer[KLOG_BUF_LEN+1];
+    char* buffer = 0;
     char procLine[BufferSize];
     char* procLineEnd = 0;
     unsigned int procLineLen = 0;
     unsigned int offsetStart = 0;
+    unsigned int bufferSize = 0;
 
-    int readSize = klogctl(KLOG_READ_ALL, buffer, KLOG_BUF_LEN);
-    if(readSize < 0)
+    bufferSize = klogctl(KLOG_SIZE_BUFFER, 0, 0);
+    if (bufferSize <= 0)
+      bufferSize = KLOG_BUF_LEN;
+
+    buffer = (char *) malloc(bufferSize + 1);
+    if (buffer == 0)
       return;
+
+    int readSize = klogctl(KLOG_READ_ALL, buffer, bufferSize);
+    if(readSize < 0) {
+      free(buffer);
+      return;
+    }
 
     // set C style end
     buffer[readSize] = 0;
@@ -136,7 +147,6 @@ namespace core {
       curDmesgInfo->set_message(message);
 
       // push log into list
-
       if (itemCounts == 3)
         this->_curDmesgList.push_back(curDmesgInfo);
       else
@@ -146,6 +156,10 @@ namespace core {
       if(offsetStart >= readSize)
         break;
     }
+
+    // release memory
+    if (buffer != 0)
+      free(buffer);
 
   }
 

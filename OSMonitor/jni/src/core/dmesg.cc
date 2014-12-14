@@ -51,11 +51,12 @@ namespace core {
       this->getBootTime();
 
     char* buffer = 0;
+    int bufferSize = 0;
+
     char procLine[BufferSize];
     char* procLineEnd = 0;
     unsigned int procLineLen = 0;
     unsigned int offsetStart = 0;
-    unsigned int bufferSize = 0;
 
     bufferSize = klogctl(KLOG_SIZE_BUFFER, 0, 0);
     if (bufferSize <= 0)

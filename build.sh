@@ -32,6 +32,9 @@ cov-configure --comptype gcc --compiler arm-linux-androideabi-gcc --template
 
 # Volley
 git clone https://android.googlesource.com/platform/frameworks/volley
+cd volley
+git checkout tags/android-5.0.0_r7
+cd ..
 android update lib-project --path ./volley --target android-21
 echo "android.library=true" >> ./volley/project.properties
 

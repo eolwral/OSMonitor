@@ -395,10 +395,10 @@ public final class IpcMessage {
     // @@protoc_insertion_point(enum_scope:com.eolwral.osmonitor.ipc.ipcAction)
   }
 
-  public interface ipcDataOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ipcDataOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.ipc.ipcData)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .com.eolwral.osmonitor.ipc.ipcAction action = 1;
     /**
      * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
      */
@@ -408,7 +408,6 @@ public final class IpcMessage {
      */
     com.eolwral.osmonitor.ipc.IpcMessage.ipcAction getAction();
 
-    // repeated bytes payload = 2;
     /**
      * <code>repeated bytes payload = 2;</code>
      */
@@ -426,8 +425,9 @@ public final class IpcMessage {
    * Protobuf type {@code com.eolwral.osmonitor.ipc.ipcData}
    */
   public static final class ipcData extends
-      com.google.protobuf.GeneratedMessage
-      implements ipcDataOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.ipc.ipcData)
+      ipcDataOrBuilder {
     // Use ipcData.newBuilder() to construct.
     private ipcData(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -535,7 +535,6 @@ public final class IpcMessage {
     }
 
     private int bitField0_;
-    // required .com.eolwral.osmonitor.ipc.ipcAction action = 1;
     public static final int ACTION_FIELD_NUMBER = 1;
     private com.eolwral.osmonitor.ipc.IpcMessage.ipcAction action_;
     /**
@@ -551,7 +550,6 @@ public final class IpcMessage {
       return action_;
     }
 
-    // repeated bytes payload = 2;
     public static final int PAYLOAD_FIELD_NUMBER = 2;
     private java.util.List<com.google.protobuf.ByteString> payload_;
     /**
@@ -581,7 +579,8 @@ public final class IpcMessage {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasAction()) {
         memoizedIsInitialized = 0;
@@ -704,8 +703,9 @@ public final class IpcMessage {
      * Protobuf type {@code com.eolwral.osmonitor.ipc.ipcData}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.ipc.ipcData)
+        com.eolwral.osmonitor.ipc.IpcMessage.ipcDataOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor;
@@ -839,7 +839,6 @@ public final class IpcMessage {
       }
       private int bitField0_;
 
-      // required .com.eolwral.osmonitor.ipc.ipcAction action = 1;
       private com.eolwral.osmonitor.ipc.IpcMessage.ipcAction action_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcAction.OS;
       /**
        * <code>required .com.eolwral.osmonitor.ipc.ipcAction action = 1;</code>
@@ -875,7 +874,6 @@ public final class IpcMessage {
         return this;
       }
 
-      // repeated bytes payload = 2;
       private java.util.List<com.google.protobuf.ByteString> payload_ = java.util.Collections.emptyList();
       private void ensurePayloadIsMutable() {
         if (!((bitField0_ & 0x00000002) == 0x00000002)) {
@@ -933,7 +931,8 @@ public final class IpcMessage {
       public Builder addAllPayload(
           java.lang.Iterable<? extends com.google.protobuf.ByteString> values) {
         ensurePayloadIsMutable();
-        super.addAll(values, payload_);
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, payload_);
         onChanged();
         return this;
       }
@@ -958,10 +957,10 @@ public final class IpcMessage {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.ipc.ipcData)
   }
 
-  public interface ipcMessageOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface ipcMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.ipc.ipcMessage)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];
     /**
      * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
      */
@@ -971,7 +970,6 @@ public final class IpcMessage {
      */
     com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType getType();
 
-    // repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;
     /**
      * <code>repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;</code>
      */
@@ -1000,8 +998,9 @@ public final class IpcMessage {
    * Protobuf type {@code com.eolwral.osmonitor.ipc.ipcMessage}
    */
   public static final class ipcMessage extends
-      com.google.protobuf.GeneratedMessage
-      implements ipcMessageOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.ipc.ipcMessage)
+      ipcMessageOrBuilder {
     // Use ipcMessage.newBuilder() to construct.
     private ipcMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -1241,7 +1240,6 @@ public final class IpcMessage {
     }
 
     private int bitField0_;
-    // required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];
     public static final int TYPE_FIELD_NUMBER = 1;
     private com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType type_;
     /**
@@ -1257,7 +1255,6 @@ public final class IpcMessage {
       return type_;
     }
 
-    // repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;
     public static final int DATA_FIELD_NUMBER = 2;
     private java.util.List<com.eolwral.osmonitor.ipc.IpcMessage.ipcData> data_;
     /**
@@ -1300,7 +1297,8 @@ public final class IpcMessage {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasType()) {
         memoizedIsInitialized = 0;
@@ -1424,8 +1422,9 @@ public final class IpcMessage {
      * Protobuf type {@code com.eolwral.osmonitor.ipc.ipcMessage}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.ipc.IpcMessage.ipcMessageOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.ipc.ipcMessage)
+        com.eolwral.osmonitor.ipc.IpcMessage.ipcMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.ipc.IpcMessage.internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor;
@@ -1590,7 +1589,6 @@ public final class IpcMessage {
       }
       private int bitField0_;
 
-      // required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];
       private com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType type_ = com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage.ipcType.ACTION;
       /**
        * <code>required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];</code>
@@ -1626,7 +1624,6 @@ public final class IpcMessage {
         return this;
       }
 
-      // repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;
       private java.util.List<com.eolwral.osmonitor.ipc.IpcMessage.ipcData> data_ =
         java.util.Collections.emptyList();
       private void ensureDataIsMutable() {
@@ -1768,7 +1765,8 @@ public final class IpcMessage {
           java.lang.Iterable<? extends com.eolwral.osmonitor.ipc.IpcMessage.ipcData> values) {
         if (dataBuilder_ == null) {
           ensureDataIsMutable();
-          super.addAll(values, data_);
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, data_);
           onChanged();
         } else {
           dataBuilder_.addAllMessages(values);
@@ -1877,12 +1875,12 @@ public final class IpcMessage {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.ipc.ipcMessage)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_eolwral_osmonitor_ipc_ipcData_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -1914,29 +1912,29 @@ public final class IpcMessage {
       "\n\nSETCPUGORV\020\031\022\021\n\rLOGCAT_MAIN_R\0202"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_com_eolwral_osmonitor_ipc_ipcData_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor,
-              new java.lang.String[] { "Action", "Payload", });
-          internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_com_eolwral_osmonitor_ipc_ipcMessage_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor,
-              new java.lang.String[] { "Type", "Data", });
-          return null;
-        }
-      };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
+    internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_com_eolwral_osmonitor_ipc_ipcData_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_ipc_ipcData_descriptor,
+        new java.lang.String[] { "Action", "Payload", });
+    internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_com_eolwral_osmonitor_ipc_ipcMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_ipc_ipcMessage_descriptor,
+        new java.lang.String[] { "Type", "Data", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

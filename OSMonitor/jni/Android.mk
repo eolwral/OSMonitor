@@ -40,7 +40,8 @@ LOCAL_PBC_FILES := \
                   src/google/protobuf/wire_format_lite.cc              \
                   src/google/protobuf/io/coded_stream.cc               \
                   src/google/protobuf/io/zero_copy_stream.cc           \
-                  src/google/protobuf/io/zero_copy_stream_impl_lite.cc                  
+                  src/google/protobuf/io/zero_copy_stream_impl_lite.cc \
+                  src/google/protobuf/io/strtod.cc
 
 LOCAL_SRC_FILES := \
                    core.cc \
@@ -128,7 +129,8 @@ LOCAL_PBC_FILES := \
                   src/google/protobuf/wire_format_lite.cc              \
                   src/google/protobuf/io/coded_stream.cc               \
                   src/google/protobuf/io/zero_copy_stream.cc           \
-                  src/google/protobuf/io/zero_copy_stream_impl_lite.cc                  
+                  src/google/protobuf/io/zero_copy_stream_impl_lite.cc \
+                  src/google/protobuf/io/strtod.cc
 
 LOCAL_SRC_FILES := \
                    core.cc \

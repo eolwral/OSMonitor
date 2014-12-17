@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -28,45 +28,50 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-// Author: kenton@google.com (Kenton Varda)
-//  Based on original Protocol Buffers design by
-//  Sanjay Ghemawat, Jeff Dean, and others.
-//
-// This file contains messages for testing message_set_wire_format.
+// Author: liujisi@google.com (Pherl Liu)
 
-package protobuf_unittest;
+#include <google/protobuf/compiler/java/java_generator_factory.h>
 
-option optimize_for = SPEED;
+#include <google/protobuf/compiler/java/java_context.h>
+#include <google/protobuf/compiler/java/java_enum_field.h>
+#include <google/protobuf/compiler/java/java_extension.h>
+#include <google/protobuf/compiler/java/java_field.h>
+#include <google/protobuf/compiler/java/java_helpers.h>
+#include <google/protobuf/compiler/java/java_message.h>
+#include <google/protobuf/compiler/java/java_service.h>
 
-// A message with message_set_wire_format.
-message TestMessageSet {
-  option message_set_wire_format = true;
-  extensions 4 to max;
+namespace google {
+namespace protobuf {
+namespace compiler {
+namespace java {
+
+GeneratorFactory::GeneratorFactory() {}
+GeneratorFactory::~GeneratorFactory() {}
+
+// ===================================================================
+
+ImmutableGeneratorFactory::ImmutableGeneratorFactory(
+    Context* context) : context_(context) {
+}
+ImmutableGeneratorFactory::~ImmutableGeneratorFactory() {}
+
+MessageGenerator* ImmutableGeneratorFactory::NewMessageGenerator(
+    const Descriptor* descriptor) const {
+  return new ImmutableMessageGenerator(descriptor, context_);
 }
 
-message TestMessageSetContainer {
-  optional TestMessageSet message_set = 1;
+ExtensionGenerator* ImmutableGeneratorFactory::NewExtensionGenerator(
+    const FieldDescriptor* descriptor) const {
+  return new ImmutableExtensionGenerator(descriptor, context_);
 }
 
-message TestMessageSetExtension1 {
-  extend TestMessageSet {
-    optional TestMessageSetExtension1 message_set_extension = 1545008;
-  }
-  optional int32 i = 15;
+ServiceGenerator* ImmutableGeneratorFactory::NewServiceGenerator(
+    const ServiceDescriptor* descriptor) const {
+  return new ImmutableServiceGenerator(descriptor, context_);
 }
 
-message TestMessageSetExtension2 {
-  extend TestMessageSet {
-    optional TestMessageSetExtension2 message_set_extension = 1547769;
-  }
-  optional string str = 25;
-}
 
-// MessageSet wire format is equivalent to this.
-message RawMessageSet {
-  repeated group Item = 1 {
-    required int32 type_id = 2;
-    required bytes message = 3;
-  }
-}
-
+}  // namespace java
+}  // namespace compiler
+}  // namespace protobuf
+}  // namespace google

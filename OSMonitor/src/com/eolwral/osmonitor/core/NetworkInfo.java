@@ -8,10 +8,10 @@ public final class NetworkInfo {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface networkInfoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface networkInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.core.networkInfo)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string name = 1;
     /**
      * <code>required string name = 1;</code>
      *
@@ -38,7 +38,6 @@ public final class NetworkInfo {
     com.google.protobuf.ByteString
         getNameBytes();
 
-    // required string mac = 2;
     /**
      * <code>required string mac = 2;</code>
      *
@@ -65,7 +64,6 @@ public final class NetworkInfo {
     com.google.protobuf.ByteString
         getMacBytes();
 
-    // optional string ipv4Addr = 3;
     /**
      * <code>optional string ipv4Addr = 3;</code>
      *
@@ -92,7 +90,6 @@ public final class NetworkInfo {
     com.google.protobuf.ByteString
         getIpv4AddrBytes();
 
-    // optional string netMaskv4 = 4;
     /**
      * <code>optional string netMaskv4 = 4;</code>
      *
@@ -119,7 +116,6 @@ public final class NetworkInfo {
     com.google.protobuf.ByteString
         getNetMaskv4Bytes();
 
-    // optional string ipv6Addr = 5;
     /**
      * <code>optional string ipv6Addr = 5;</code>
      *
@@ -146,7 +142,6 @@ public final class NetworkInfo {
     com.google.protobuf.ByteString
         getIpv6AddrBytes();
 
-    // optional uint32 netMaskv6 = 6;
     /**
      * <code>optional uint32 netMaskv6 = 6;</code>
      *
@@ -164,7 +159,6 @@ public final class NetworkInfo {
      */
     int getNetMaskv6();
 
-    // required uint32 flags = 7;
     /**
      * <code>required uint32 flags = 7;</code>
      *
@@ -182,7 +176,6 @@ public final class NetworkInfo {
      */
     int getFlags();
 
-    // required uint64 recvBytes = 8;
     /**
      * <code>required uint64 recvBytes = 8;</code>
      *
@@ -200,7 +193,6 @@ public final class NetworkInfo {
      */
     long getRecvBytes();
 
-    // required uint64 recvPackages = 9;
     /**
      * <code>required uint64 recvPackages = 9;</code>
      *
@@ -218,7 +210,6 @@ public final class NetworkInfo {
      */
     long getRecvPackages();
 
-    // required uint64 recvErrorBytes = 10;
     /**
      * <code>required uint64 recvErrorBytes = 10;</code>
      *
@@ -236,7 +227,6 @@ public final class NetworkInfo {
      */
     long getRecvErrorBytes();
 
-    // required uint64 recvDropBytes = 11;
     /**
      * <code>required uint64 recvDropBytes = 11;</code>
      *
@@ -254,7 +244,6 @@ public final class NetworkInfo {
      */
     long getRecvDropBytes();
 
-    // required uint64 recvFIFOBytes = 12;
     /**
      * <code>required uint64 recvFIFOBytes = 12;</code>
      *
@@ -272,7 +261,6 @@ public final class NetworkInfo {
      */
     long getRecvFIFOBytes();
 
-    // required uint64 recvFrames = 13;
     /**
      * <code>required uint64 recvFrames = 13;</code>
      *
@@ -290,7 +278,6 @@ public final class NetworkInfo {
      */
     long getRecvFrames();
 
-    // required uint64 recvCompressedBytes = 14;
     /**
      * <code>required uint64 recvCompressedBytes = 14;</code>
      *
@@ -308,7 +295,6 @@ public final class NetworkInfo {
      */
     long getRecvCompressedBytes();
 
-    // required uint64 recvMultiCastBytes = 15;
     /**
      * <code>required uint64 recvMultiCastBytes = 15;</code>
      *
@@ -326,7 +312,6 @@ public final class NetworkInfo {
      */
     long getRecvMultiCastBytes();
 
-    // required uint64 transBytes = 16;
     /**
      * <code>required uint64 transBytes = 16;</code>
      *
@@ -344,7 +329,6 @@ public final class NetworkInfo {
      */
     long getTransBytes();
 
-    // required uint64 transPackages = 17;
     /**
      * <code>required uint64 transPackages = 17;</code>
      *
@@ -362,7 +346,6 @@ public final class NetworkInfo {
      */
     long getTransPackages();
 
-    // required uint64 transErrorBytes = 18;
     /**
      * <code>required uint64 transErrorBytes = 18;</code>
      *
@@ -380,7 +363,6 @@ public final class NetworkInfo {
      */
     long getTransErrorBytes();
 
-    // required uint64 transDropBytes = 19;
     /**
      * <code>required uint64 transDropBytes = 19;</code>
      *
@@ -398,7 +380,6 @@ public final class NetworkInfo {
      */
     long getTransDropBytes();
 
-    // required uint64 transFIFOBytes = 20;
     /**
      * <code>required uint64 transFIFOBytes = 20;</code>
      *
@@ -416,7 +397,6 @@ public final class NetworkInfo {
      */
     long getTransFIFOBytes();
 
-    // required uint64 transCompressedBytes = 21;
     /**
      * <code>required uint64 transCompressedBytes = 21;</code>
      *
@@ -434,7 +414,6 @@ public final class NetworkInfo {
      */
     long getTransCompressedBytes();
 
-    // required uint32 collisionTimes = 22;
     /**
      * <code>required uint32 collisionTimes = 22;</code>
      *
@@ -452,7 +431,6 @@ public final class NetworkInfo {
      */
     int getCollisionTimes();
 
-    // required uint32 carrierErrors = 23;
     /**
      * <code>required uint32 carrierErrors = 23;</code>
      *
@@ -470,7 +448,6 @@ public final class NetworkInfo {
      */
     int getCarrierErrors();
 
-    // required uint64 transUsage = 24;
     /**
      * <code>required uint64 transUsage = 24;</code>
      *
@@ -488,7 +465,6 @@ public final class NetworkInfo {
      */
     long getTransUsage();
 
-    // required uint64 recvUsage = 25;
     /**
      * <code>required uint64 recvUsage = 25;</code>
      *
@@ -510,8 +486,9 @@ public final class NetworkInfo {
    * Protobuf type {@code com.eolwral.osmonitor.core.networkInfo}
    */
   public static final class networkInfo extends
-      com.google.protobuf.GeneratedMessage
-      implements networkInfoOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.core.networkInfo)
+      networkInfoOrBuilder {
     // Use networkInfo.newBuilder() to construct.
     private networkInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -558,28 +535,33 @@ public final class NetworkInfo {
               break;
             }
             case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              name_ = input.readBytes();
+              name_ = bs;
               break;
             }
             case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              mac_ = input.readBytes();
+              mac_ = bs;
               break;
             }
             case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              ipv4Addr_ = input.readBytes();
+              ipv4Addr_ = bs;
               break;
             }
             case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000008;
-              netMaskv4_ = input.readBytes();
+              netMaskv4_ = bs;
               break;
             }
             case 42: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000010;
-              ipv6Addr_ = input.readBytes();
+              ipv6Addr_ = bs;
               break;
             }
             case 48: {
@@ -722,7 +704,6 @@ public final class NetworkInfo {
     }
 
     private int bitField0_;
-    // required string name = 1;
     public static final int NAME_FIELD_NUMBER = 1;
     private java.lang.Object name_;
     /**
@@ -777,7 +758,6 @@ public final class NetworkInfo {
       }
     }
 
-    // required string mac = 2;
     public static final int MAC_FIELD_NUMBER = 2;
     private java.lang.Object mac_;
     /**
@@ -832,7 +812,6 @@ public final class NetworkInfo {
       }
     }
 
-    // optional string ipv4Addr = 3;
     public static final int IPV4ADDR_FIELD_NUMBER = 3;
     private java.lang.Object ipv4Addr_;
     /**
@@ -887,7 +866,6 @@ public final class NetworkInfo {
       }
     }
 
-    // optional string netMaskv4 = 4;
     public static final int NETMASKV4_FIELD_NUMBER = 4;
     private java.lang.Object netMaskv4_;
     /**
@@ -942,7 +920,6 @@ public final class NetworkInfo {
       }
     }
 
-    // optional string ipv6Addr = 5;
     public static final int IPV6ADDR_FIELD_NUMBER = 5;
     private java.lang.Object ipv6Addr_;
     /**
@@ -997,7 +974,6 @@ public final class NetworkInfo {
       }
     }
 
-    // optional uint32 netMaskv6 = 6;
     public static final int NETMASKV6_FIELD_NUMBER = 6;
     private int netMaskv6_;
     /**
@@ -1021,7 +997,6 @@ public final class NetworkInfo {
       return netMaskv6_;
     }
 
-    // required uint32 flags = 7;
     public static final int FLAGS_FIELD_NUMBER = 7;
     private int flags_;
     /**
@@ -1045,7 +1020,6 @@ public final class NetworkInfo {
       return flags_;
     }
 
-    // required uint64 recvBytes = 8;
     public static final int RECVBYTES_FIELD_NUMBER = 8;
     private long recvBytes_;
     /**
@@ -1069,7 +1043,6 @@ public final class NetworkInfo {
       return recvBytes_;
     }
 
-    // required uint64 recvPackages = 9;
     public static final int RECVPACKAGES_FIELD_NUMBER = 9;
     private long recvPackages_;
     /**
@@ -1093,7 +1066,6 @@ public final class NetworkInfo {
       return recvPackages_;
     }
 
-    // required uint64 recvErrorBytes = 10;
     public static final int RECVERRORBYTES_FIELD_NUMBER = 10;
     private long recvErrorBytes_;
     /**
@@ -1117,7 +1089,6 @@ public final class NetworkInfo {
       return recvErrorBytes_;
     }
 
-    // required uint64 recvDropBytes = 11;
     public static final int RECVDROPBYTES_FIELD_NUMBER = 11;
     private long recvDropBytes_;
     /**
@@ -1141,7 +1112,6 @@ public final class NetworkInfo {
       return recvDropBytes_;
     }
 
-    // required uint64 recvFIFOBytes = 12;
     public static final int RECVFIFOBYTES_FIELD_NUMBER = 12;
     private long recvFIFOBytes_;
     /**
@@ -1165,7 +1135,6 @@ public final class NetworkInfo {
       return recvFIFOBytes_;
     }
 
-    // required uint64 recvFrames = 13;
     public static final int RECVFRAMES_FIELD_NUMBER = 13;
     private long recvFrames_;
     /**
@@ -1189,7 +1158,6 @@ public final class NetworkInfo {
       return recvFrames_;
     }
 
-    // required uint64 recvCompressedBytes = 14;
     public static final int RECVCOMPRESSEDBYTES_FIELD_NUMBER = 14;
     private long recvCompressedBytes_;
     /**
@@ -1213,7 +1181,6 @@ public final class NetworkInfo {
       return recvCompressedBytes_;
     }
 
-    // required uint64 recvMultiCastBytes = 15;
     public static final int RECVMULTICASTBYTES_FIELD_NUMBER = 15;
     private long recvMultiCastBytes_;
     /**
@@ -1237,7 +1204,6 @@ public final class NetworkInfo {
       return recvMultiCastBytes_;
     }
 
-    // required uint64 transBytes = 16;
     public static final int TRANSBYTES_FIELD_NUMBER = 16;
     private long transBytes_;
     /**
@@ -1261,7 +1227,6 @@ public final class NetworkInfo {
       return transBytes_;
     }
 
-    // required uint64 transPackages = 17;
     public static final int TRANSPACKAGES_FIELD_NUMBER = 17;
     private long transPackages_;
     /**
@@ -1285,7 +1250,6 @@ public final class NetworkInfo {
       return transPackages_;
     }
 
-    // required uint64 transErrorBytes = 18;
     public static final int TRANSERRORBYTES_FIELD_NUMBER = 18;
     private long transErrorBytes_;
     /**
@@ -1309,7 +1273,6 @@ public final class NetworkInfo {
       return transErrorBytes_;
     }
 
-    // required uint64 transDropBytes = 19;
     public static final int TRANSDROPBYTES_FIELD_NUMBER = 19;
     private long transDropBytes_;
     /**
@@ -1333,7 +1296,6 @@ public final class NetworkInfo {
       return transDropBytes_;
     }
 
-    // required uint64 transFIFOBytes = 20;
     public static final int TRANSFIFOBYTES_FIELD_NUMBER = 20;
     private long transFIFOBytes_;
     /**
@@ -1357,7 +1319,6 @@ public final class NetworkInfo {
       return transFIFOBytes_;
     }
 
-    // required uint64 transCompressedBytes = 21;
     public static final int TRANSCOMPRESSEDBYTES_FIELD_NUMBER = 21;
     private long transCompressedBytes_;
     /**
@@ -1381,7 +1342,6 @@ public final class NetworkInfo {
       return transCompressedBytes_;
     }
 
-    // required uint32 collisionTimes = 22;
     public static final int COLLISIONTIMES_FIELD_NUMBER = 22;
     private int collisionTimes_;
     /**
@@ -1405,7 +1365,6 @@ public final class NetworkInfo {
       return collisionTimes_;
     }
 
-    // required uint32 carrierErrors = 23;
     public static final int CARRIERERRORS_FIELD_NUMBER = 23;
     private int carrierErrors_;
     /**
@@ -1429,7 +1388,6 @@ public final class NetworkInfo {
       return carrierErrors_;
     }
 
-    // required uint64 transUsage = 24;
     public static final int TRANSUSAGE_FIELD_NUMBER = 24;
     private long transUsage_;
     /**
@@ -1453,7 +1411,6 @@ public final class NetworkInfo {
       return transUsage_;
     }
 
-    // required uint64 recvUsage = 25;
     public static final int RECVUSAGE_FIELD_NUMBER = 25;
     private long recvUsage_;
     /**
@@ -1507,7 +1464,8 @@ public final class NetworkInfo {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasName()) {
         memoizedIsInitialized = 0;
@@ -1866,8 +1824,9 @@ public final class NetworkInfo {
      * Protobuf type {@code com.eolwral.osmonitor.core.networkInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.NetworkInfo.networkInfoOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.core.networkInfo)
+        com.eolwral.osmonitor.core.NetworkInfo.networkInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.core.NetworkInfo.internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor;
@@ -2290,7 +2249,6 @@ public final class NetworkInfo {
       }
       private int bitField0_;
 
-      // required string name = 1;
       private java.lang.Object name_ = "";
       /**
        * <code>required string name = 1;</code>
@@ -2312,9 +2270,12 @@ public final class NetworkInfo {
       public java.lang.String getName() {
         java.lang.Object ref = name_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          name_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -2388,7 +2349,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required string mac = 2;
       private java.lang.Object mac_ = "";
       /**
        * <code>required string mac = 2;</code>
@@ -2410,9 +2370,12 @@ public final class NetworkInfo {
       public java.lang.String getMac() {
         java.lang.Object ref = mac_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          mac_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            mac_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -2486,7 +2449,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // optional string ipv4Addr = 3;
       private java.lang.Object ipv4Addr_ = "";
       /**
        * <code>optional string ipv4Addr = 3;</code>
@@ -2508,9 +2470,12 @@ public final class NetworkInfo {
       public java.lang.String getIpv4Addr() {
         java.lang.Object ref = ipv4Addr_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          ipv4Addr_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            ipv4Addr_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -2584,7 +2549,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // optional string netMaskv4 = 4;
       private java.lang.Object netMaskv4_ = "";
       /**
        * <code>optional string netMaskv4 = 4;</code>
@@ -2606,9 +2570,12 @@ public final class NetworkInfo {
       public java.lang.String getNetMaskv4() {
         java.lang.Object ref = netMaskv4_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          netMaskv4_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            netMaskv4_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -2682,7 +2649,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // optional string ipv6Addr = 5;
       private java.lang.Object ipv6Addr_ = "";
       /**
        * <code>optional string ipv6Addr = 5;</code>
@@ -2704,9 +2670,12 @@ public final class NetworkInfo {
       public java.lang.String getIpv6Addr() {
         java.lang.Object ref = ipv6Addr_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          ipv6Addr_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            ipv6Addr_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -2780,7 +2749,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // optional uint32 netMaskv6 = 6;
       private int netMaskv6_ ;
       /**
        * <code>optional uint32 netMaskv6 = 6;</code>
@@ -2829,7 +2797,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint32 flags = 7;
       private int flags_ ;
       /**
        * <code>required uint32 flags = 7;</code>
@@ -2878,7 +2845,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 recvBytes = 8;
       private long recvBytes_ ;
       /**
        * <code>required uint64 recvBytes = 8;</code>
@@ -2927,7 +2893,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 recvPackages = 9;
       private long recvPackages_ ;
       /**
        * <code>required uint64 recvPackages = 9;</code>
@@ -2976,7 +2941,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 recvErrorBytes = 10;
       private long recvErrorBytes_ ;
       /**
        * <code>required uint64 recvErrorBytes = 10;</code>
@@ -3025,7 +2989,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 recvDropBytes = 11;
       private long recvDropBytes_ ;
       /**
        * <code>required uint64 recvDropBytes = 11;</code>
@@ -3074,7 +3037,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 recvFIFOBytes = 12;
       private long recvFIFOBytes_ ;
       /**
        * <code>required uint64 recvFIFOBytes = 12;</code>
@@ -3123,7 +3085,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 recvFrames = 13;
       private long recvFrames_ ;
       /**
        * <code>required uint64 recvFrames = 13;</code>
@@ -3172,7 +3133,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 recvCompressedBytes = 14;
       private long recvCompressedBytes_ ;
       /**
        * <code>required uint64 recvCompressedBytes = 14;</code>
@@ -3221,7 +3181,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 recvMultiCastBytes = 15;
       private long recvMultiCastBytes_ ;
       /**
        * <code>required uint64 recvMultiCastBytes = 15;</code>
@@ -3270,7 +3229,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 transBytes = 16;
       private long transBytes_ ;
       /**
        * <code>required uint64 transBytes = 16;</code>
@@ -3319,7 +3277,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 transPackages = 17;
       private long transPackages_ ;
       /**
        * <code>required uint64 transPackages = 17;</code>
@@ -3368,7 +3325,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 transErrorBytes = 18;
       private long transErrorBytes_ ;
       /**
        * <code>required uint64 transErrorBytes = 18;</code>
@@ -3417,7 +3373,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 transDropBytes = 19;
       private long transDropBytes_ ;
       /**
        * <code>required uint64 transDropBytes = 19;</code>
@@ -3466,7 +3421,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 transFIFOBytes = 20;
       private long transFIFOBytes_ ;
       /**
        * <code>required uint64 transFIFOBytes = 20;</code>
@@ -3515,7 +3469,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 transCompressedBytes = 21;
       private long transCompressedBytes_ ;
       /**
        * <code>required uint64 transCompressedBytes = 21;</code>
@@ -3564,7 +3517,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint32 collisionTimes = 22;
       private int collisionTimes_ ;
       /**
        * <code>required uint32 collisionTimes = 22;</code>
@@ -3613,7 +3565,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint32 carrierErrors = 23;
       private int carrierErrors_ ;
       /**
        * <code>required uint32 carrierErrors = 23;</code>
@@ -3662,7 +3613,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 transUsage = 24;
       private long transUsage_ ;
       /**
        * <code>required uint64 transUsage = 24;</code>
@@ -3711,7 +3661,6 @@ public final class NetworkInfo {
         return this;
       }
 
-      // required uint64 recvUsage = 25;
       private long recvUsage_ ;
       /**
        * <code>required uint64 recvUsage = 25;</code>
@@ -3771,7 +3720,7 @@ public final class NetworkInfo {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.networkInfo)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -3802,23 +3751,23 @@ public final class NetworkInfo {
       "\022\022\n\ntransUsage\030\030 \002(\004\022\021\n\trecvUsage\030\031 \002(\004"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_com_eolwral_osmonitor_core_networkInfo_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor,
-              new java.lang.String[] { "Name", "Mac", "Ipv4Addr", "NetMaskv4", "Ipv6Addr", "NetMaskv6", "Flags", "RecvBytes", "RecvPackages", "RecvErrorBytes", "RecvDropBytes", "RecvFIFOBytes", "RecvFrames", "RecvCompressedBytes", "RecvMultiCastBytes", "TransBytes", "TransPackages", "TransErrorBytes", "TransDropBytes", "TransFIFOBytes", "TransCompressedBytes", "CollisionTimes", "CarrierErrors", "TransUsage", "RecvUsage", });
-          return null;
-        }
-      };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
+    internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_com_eolwral_osmonitor_core_networkInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_core_networkInfo_descriptor,
+        new java.lang.String[] { "Name", "Mac", "Ipv4Addr", "NetMaskv4", "Ipv6Addr", "NetMaskv6", "Flags", "RecvBytes", "RecvPackages", "RecvErrorBytes", "RecvDropBytes", "RecvFIFOBytes", "RecvFrames", "RecvCompressedBytes", "RecvMultiCastBytes", "TransBytes", "TransPackages", "TransErrorBytes", "TransDropBytes", "TransFIFOBytes", "TransCompressedBytes", "CollisionTimes", "CarrierErrors", "TransUsage", "RecvUsage", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

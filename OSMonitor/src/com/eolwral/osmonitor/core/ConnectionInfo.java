@@ -8,10 +8,10 @@ public final class ConnectionInfo {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface connectionInfoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface connectionInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.core.connectionInfo)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
     /**
      * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
      */
@@ -21,7 +21,6 @@ public final class ConnectionInfo {
      */
     com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType getType();
 
-    // required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];
     /**
      * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
      */
@@ -31,7 +30,6 @@ public final class ConnectionInfo {
      */
     com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus getStatus();
 
-    // required string localIP = 3;
     /**
      * <code>required string localIP = 3;</code>
      */
@@ -46,7 +44,6 @@ public final class ConnectionInfo {
     com.google.protobuf.ByteString
         getLocalIPBytes();
 
-    // required uint32 localPort = 4;
     /**
      * <code>required uint32 localPort = 4;</code>
      */
@@ -56,7 +53,6 @@ public final class ConnectionInfo {
      */
     int getLocalPort();
 
-    // required string remoteIP = 5;
     /**
      * <code>required string remoteIP = 5;</code>
      */
@@ -71,7 +67,6 @@ public final class ConnectionInfo {
     com.google.protobuf.ByteString
         getRemoteIPBytes();
 
-    // required uint32 remotePort = 6;
     /**
      * <code>required uint32 remotePort = 6;</code>
      */
@@ -81,7 +76,6 @@ public final class ConnectionInfo {
      */
     int getRemotePort();
 
-    // required uint32 uid = 7;
     /**
      * <code>required uint32 uid = 7;</code>
      */
@@ -95,8 +89,9 @@ public final class ConnectionInfo {
    * Protobuf type {@code com.eolwral.osmonitor.core.connectionInfo}
    */
   public static final class connectionInfo extends
-      com.google.protobuf.GeneratedMessage
-      implements connectionInfoOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.core.connectionInfo)
+      connectionInfoOrBuilder {
     // Use connectionInfo.newBuilder() to construct.
     private connectionInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -165,8 +160,9 @@ public final class ConnectionInfo {
               break;
             }
             case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              localIP_ = input.readBytes();
+              localIP_ = bs;
               break;
             }
             case 32: {
@@ -175,8 +171,9 @@ public final class ConnectionInfo {
               break;
             }
             case 42: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000010;
-              remoteIP_ = input.readBytes();
+              remoteIP_ = bs;
               break;
             }
             case 48: {
@@ -575,7 +572,6 @@ public final class ConnectionInfo {
     }
 
     private int bitField0_;
-    // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
     public static final int TYPE_FIELD_NUMBER = 1;
     private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType type_;
     /**
@@ -591,7 +587,6 @@ public final class ConnectionInfo {
       return type_;
     }
 
-    // required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];
     public static final int STATUS_FIELD_NUMBER = 2;
     private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus status_;
     /**
@@ -607,7 +602,6 @@ public final class ConnectionInfo {
       return status_;
     }
 
-    // required string localIP = 3;
     public static final int LOCALIP_FIELD_NUMBER = 3;
     private java.lang.Object localIP_;
     /**
@@ -650,7 +644,6 @@ public final class ConnectionInfo {
       }
     }
 
-    // required uint32 localPort = 4;
     public static final int LOCALPORT_FIELD_NUMBER = 4;
     private int localPort_;
     /**
@@ -666,7 +659,6 @@ public final class ConnectionInfo {
       return localPort_;
     }
 
-    // required string remoteIP = 5;
     public static final int REMOTEIP_FIELD_NUMBER = 5;
     private java.lang.Object remoteIP_;
     /**
@@ -709,7 +701,6 @@ public final class ConnectionInfo {
       }
     }
 
-    // required uint32 remotePort = 6;
     public static final int REMOTEPORT_FIELD_NUMBER = 6;
     private int remotePort_;
     /**
@@ -725,7 +716,6 @@ public final class ConnectionInfo {
       return remotePort_;
     }
 
-    // required uint32 uid = 7;
     public static final int UID_FIELD_NUMBER = 7;
     private int uid_;
     /**
@@ -753,7 +743,8 @@ public final class ConnectionInfo {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasType()) {
         memoizedIsInitialized = 0;
@@ -930,8 +921,9 @@ public final class ConnectionInfo {
      * Protobuf type {@code com.eolwral.osmonitor.core.connectionInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.ConnectionInfo.connectionInfoOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.core.connectionInfo)
+        com.eolwral.osmonitor.core.ConnectionInfo.connectionInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.core.ConnectionInfo.internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor;
@@ -1130,7 +1122,6 @@ public final class ConnectionInfo {
       }
       private int bitField0_;
 
-      // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
       private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType type_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType.TCPv4;
       /**
        * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];</code>
@@ -1166,7 +1157,6 @@ public final class ConnectionInfo {
         return this;
       }
 
-      // required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];
       private com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus status_ = com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus.UNKNOWN;
       /**
        * <code>required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];</code>
@@ -1202,7 +1192,6 @@ public final class ConnectionInfo {
         return this;
       }
 
-      // required string localIP = 3;
       private java.lang.Object localIP_ = "";
       /**
        * <code>required string localIP = 3;</code>
@@ -1216,9 +1205,12 @@ public final class ConnectionInfo {
       public java.lang.String getLocalIP() {
         java.lang.Object ref = localIP_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          localIP_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            localIP_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1276,7 +1268,6 @@ public final class ConnectionInfo {
         return this;
       }
 
-      // required uint32 localPort = 4;
       private int localPort_ ;
       /**
        * <code>required uint32 localPort = 4;</code>
@@ -1309,7 +1300,6 @@ public final class ConnectionInfo {
         return this;
       }
 
-      // required string remoteIP = 5;
       private java.lang.Object remoteIP_ = "";
       /**
        * <code>required string remoteIP = 5;</code>
@@ -1323,9 +1313,12 @@ public final class ConnectionInfo {
       public java.lang.String getRemoteIP() {
         java.lang.Object ref = remoteIP_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          remoteIP_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            remoteIP_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1383,7 +1376,6 @@ public final class ConnectionInfo {
         return this;
       }
 
-      // required uint32 remotePort = 6;
       private int remotePort_ ;
       /**
        * <code>required uint32 remotePort = 6;</code>
@@ -1416,7 +1408,6 @@ public final class ConnectionInfo {
         return this;
       }
 
-      // required uint32 uid = 7;
       private int uid_ ;
       /**
        * <code>required uint32 uid = 7;</code>
@@ -1460,7 +1451,7 @@ public final class ConnectionInfo {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.connectionInfo)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -1491,23 +1482,23 @@ public final class ConnectionInfo {
       "\010LAST_ACK\020\t\022\n\n\006LISTEN\020\n\022\013\n\007CLOSING\020\013"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_com_eolwral_osmonitor_core_connectionInfo_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor,
-              new java.lang.String[] { "Type", "Status", "LocalIP", "LocalPort", "RemoteIP", "RemotePort", "Uid", });
-          return null;
-        }
-      };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
+    internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_com_eolwral_osmonitor_core_connectionInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_core_connectionInfo_descriptor,
+        new java.lang.String[] { "Type", "Status", "LocalIP", "LocalPort", "RemoteIP", "RemotePort", "Uid", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

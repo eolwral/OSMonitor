@@ -162,6 +162,7 @@ const int logcatInfo::kMessageFieldNumber;
 logcatInfo::logcatInfo()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:com.eolwral.osmonitor.core.logcatInfo)
 }
 
 void logcatInfo::InitAsDefaultInstance() {
@@ -171,29 +172,32 @@ logcatInfo::logcatInfo(const logcatInfo& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:com.eolwral.osmonitor.core.logcatInfo)
 }
 
 void logcatInfo::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   priority_ = 0;
   seconds_ = GOOGLE_ULONGLONG(0);
   nanoseconds_ = GOOGLE_ULONGLONG(0);
   pid_ = 0u;
   tid_ = 0u;
-  tag_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  message_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  tag_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  message_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 logcatInfo::~logcatInfo() {
+  // @@protoc_insertion_point(destructor:com.eolwral.osmonitor.core.logcatInfo)
   SharedDtor();
 }
 
 void logcatInfo::SharedDtor() {
-  if (tag_ != &::google::protobuf::internal::kEmptyString) {
+  if (tag_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete tag_;
   }
-  if (message_ != &::google::protobuf::internal::kEmptyString) {
+  if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete message_;
   }
   if (this != default_instance_) {
@@ -222,37 +226,51 @@ logcatInfo* logcatInfo::New() const {
 }
 
 void logcatInfo::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    priority_ = 0;
-    seconds_ = GOOGLE_ULONGLONG(0);
-    nanoseconds_ = GOOGLE_ULONGLONG(0);
-    pid_ = 0u;
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<logcatInfo*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 127) {
+    ZR_(seconds_, nanoseconds_);
     tid_ = 0u;
     if (has_tag()) {
-      if (tag_ != &::google::protobuf::internal::kEmptyString) {
+      if (tag_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         tag_->clear();
       }
     }
     if (has_message()) {
-      if (message_ != &::google::protobuf::internal::kEmptyString) {
+      if (message_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         message_->clear();
       }
     }
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
 bool logcatInfo::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:com.eolwral.osmonitor.core.logcatInfo)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .com.eolwral.osmonitor.core.logcatInfo.logPriority priority = 1 [default = UNKNOWN];
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -263,7 +281,7 @@ bool logcatInfo::MergePartialFromCodedStream(
             mutable_unknown_fields()->AddVarint(1, value);
           }
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(16)) goto parse_seconds;
         break;
@@ -271,15 +289,14 @@ bool logcatInfo::MergePartialFromCodedStream(
 
       // required uint64 seconds = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 16) {
          parse_seconds:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &seconds_)));
           set_has_seconds();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(24)) goto parse_nanoSeconds;
         break;
@@ -287,15 +304,14 @@ bool logcatInfo::MergePartialFromCodedStream(
 
       // required uint64 nanoSeconds = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 24) {
          parse_nanoSeconds:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &nanoseconds_)));
           set_has_nanoseconds();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(32)) goto parse_pid;
         break;
@@ -303,15 +319,14 @@ bool logcatInfo::MergePartialFromCodedStream(
 
       // required uint32 pid = 4;
       case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 32) {
          parse_pid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &pid_)));
           set_has_pid();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(40)) goto parse_tid;
         break;
@@ -319,15 +334,14 @@ bool logcatInfo::MergePartialFromCodedStream(
 
       // required uint32 tid = 5;
       case 5: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 40) {
          parse_tid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &tid_)));
           set_has_tid();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(50)) goto parse_tag;
         break;
@@ -335,16 +349,16 @@ bool logcatInfo::MergePartialFromCodedStream(
 
       // required string tag = 6;
       case 6: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 50) {
          parse_tag:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_tag()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->tag().data(), this->tag().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "tag");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(58)) goto parse_message;
         break;
@@ -352,26 +366,27 @@ bool logcatInfo::MergePartialFromCodedStream(
 
       // required string message = 7;
       case 7: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 58) {
          parse_message:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_message()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->message().data(), this->message().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "message");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -379,12 +394,18 @@ bool logcatInfo::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:com.eolwral.osmonitor.core.logcatInfo)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:com.eolwral.osmonitor.core.logcatInfo)
+  return false;
 #undef DO_
 }
 
 void logcatInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:com.eolwral.osmonitor.core.logcatInfo)
   // required .com.eolwral.osmonitor.core.logcatInfo.logPriority priority = 1 [default = UNKNOWN];
   if (has_priority()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
@@ -413,19 +434,21 @@ void logcatInfo::SerializeWithCachedSizes(
 
   // required string tag = 6;
   if (has_tag()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->tag().data(), this->tag().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "tag");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       6, this->tag(), output);
   }
 
   // required string message = 7;
   if (has_message()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "message");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->message(), output);
   }
 
@@ -433,10 +456,12 @@ void logcatInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:com.eolwral.osmonitor.core.logcatInfo)
 }
 
 ::google::protobuf::uint8* logcatInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:com.eolwral.osmonitor.core.logcatInfo)
   // required .com.eolwral.osmonitor.core.logcatInfo.logPriority priority = 1 [default = UNKNOWN];
   if (has_priority()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
@@ -465,9 +490,10 @@ void logcatInfo::SerializeWithCachedSizes(
 
   // required string tag = 6;
   if (has_tag()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->tag().data(), this->tag().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "tag");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         6, this->tag(), target);
@@ -475,9 +501,10 @@ void logcatInfo::SerializeWithCachedSizes(
 
   // required string message = 7;
   if (has_message()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "message");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->message(), target);
@@ -487,6 +514,7 @@ void logcatInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:com.eolwral.osmonitor.core.logcatInfo)
   return target;
 }
 

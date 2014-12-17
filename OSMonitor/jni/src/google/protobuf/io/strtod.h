@@ -1,6 +1,6 @@
 // Protocol Buffers - Google's data interchange format
 // Copyright 2008 Google Inc.  All rights reserved.
-// http://code.google.com/p/protobuf/
+// https://developers.google.com/protocol-buffers/
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -28,24 +28,23 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-// Author: kenton@google.com (Kenton Varda)
-//
-// This is like unittest_import.proto but with optimize_for = LITE_RUNTIME.
+// A locale-independent version of strtod(), used to parse floating
+// point default values in .proto files, where the decimal separator
+// is always a dot.
 
-package protobuf_unittest_import;
+#ifndef GOOGLE_PROTOBUF_IO_STRTOD_H__
+#define GOOGLE_PROTOBUF_IO_STRTOD_H__
 
-option optimize_for = LITE_RUNTIME;
+namespace google {
+namespace protobuf {
+namespace io {
 
-option java_package = "com.google.protobuf";
+// A locale-independent version of the standard strtod(), which always
+// uses a dot as the decimal separator.
+double NoLocaleStrtod(const char* str, char** endptr);
 
-import public "google/protobuf/unittest_import_public_lite.proto";
+}  // namespace io
+}  // namespace protobuf
 
-message ImportMessageLite {
-  optional int32 d = 1;
-}
-
-enum ImportEnumLite {
-  IMPORT_LITE_FOO = 7;
-  IMPORT_LITE_BAR = 8;
-  IMPORT_LITE_BAZ = 9;
-}
+}  // namespace google
+#endif  // GOOGLE_PROTOBUF_IO_STRTOD_H__

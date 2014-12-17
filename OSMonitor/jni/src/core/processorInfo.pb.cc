@@ -130,6 +130,7 @@ const int processorInfo::kAvaiableFrequeucyFieldNumber;
 processorInfo::processorInfo()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:com.eolwral.osmonitor.core.processorInfo)
 }
 
 void processorInfo::InitAsDefaultInstance() {
@@ -139,35 +140,38 @@ processorInfo::processorInfo(const processorInfo& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:com.eolwral.osmonitor.core.processorInfo)
 }
 
 void processorInfo::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   maxfrequency_ = 0;
   minfrequency_ = 0;
   maxscaling_ = 0;
   minscaling_ = 0;
   currentscaling_ = 0;
-  grovernors_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  grovernors_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   number_ = 0u;
   offline_ = false;
-  avaiablegovernors_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  avaiablefrequeucy_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  avaiablegovernors_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  avaiablefrequeucy_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 processorInfo::~processorInfo() {
+  // @@protoc_insertion_point(destructor:com.eolwral.osmonitor.core.processorInfo)
   SharedDtor();
 }
 
 void processorInfo::SharedDtor() {
-  if (grovernors_ != &::google::protobuf::internal::kEmptyString) {
+  if (grovernors_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete grovernors_;
   }
-  if (avaiablegovernors_ != &::google::protobuf::internal::kEmptyString) {
+  if (avaiablegovernors_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete avaiablegovernors_;
   }
-  if (avaiablefrequeucy_ != &::google::protobuf::internal::kEmptyString) {
+  if (avaiablefrequeucy_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete avaiablefrequeucy_;
   }
   if (this != default_instance_) {
@@ -196,52 +200,65 @@ processorInfo* processorInfo::New() const {
 }
 
 void processorInfo::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    maxfrequency_ = 0;
-    minfrequency_ = 0;
-    maxscaling_ = 0;
-    minscaling_ = 0;
-    currentscaling_ = 0;
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<processorInfo*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 255) {
+    ZR_(maxfrequency_, minscaling_);
+    ZR_(currentscaling_, number_);
     if (has_grovernors()) {
-      if (grovernors_ != &::google::protobuf::internal::kEmptyString) {
+      if (grovernors_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         grovernors_->clear();
       }
     }
-    number_ = 0u;
     offline_ = false;
   }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+  if (_has_bits_[8 / 32] & 768) {
     if (has_avaiablegovernors()) {
-      if (avaiablegovernors_ != &::google::protobuf::internal::kEmptyString) {
+      if (avaiablegovernors_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         avaiablegovernors_->clear();
       }
     }
     if (has_avaiablefrequeucy()) {
-      if (avaiablefrequeucy_ != &::google::protobuf::internal::kEmptyString) {
+      if (avaiablefrequeucy_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         avaiablefrequeucy_->clear();
       }
     }
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
 bool processorInfo::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:com.eolwral.osmonitor.core.processorInfo)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required sint32 maxFrequency = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &maxfrequency_)));
           set_has_maxfrequency();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(16)) goto parse_minFrequency;
         break;
@@ -249,15 +266,14 @@ bool processorInfo::MergePartialFromCodedStream(
 
       // required sint32 minFrequency = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 16) {
          parse_minFrequency:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &minfrequency_)));
           set_has_minfrequency();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(24)) goto parse_maxScaling;
         break;
@@ -265,15 +281,14 @@ bool processorInfo::MergePartialFromCodedStream(
 
       // required sint32 maxScaling = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 24) {
          parse_maxScaling:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &maxscaling_)));
           set_has_maxscaling();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(32)) goto parse_minScaling;
         break;
@@ -281,15 +296,14 @@ bool processorInfo::MergePartialFromCodedStream(
 
       // required sint32 minScaling = 4;
       case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 32) {
          parse_minScaling:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &minscaling_)));
           set_has_minscaling();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(40)) goto parse_currentScaling;
         break;
@@ -297,15 +311,14 @@ bool processorInfo::MergePartialFromCodedStream(
 
       // required sint32 currentScaling = 5;
       case 5: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 40) {
          parse_currentScaling:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_SINT32>(
                  input, &currentscaling_)));
           set_has_currentscaling();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(50)) goto parse_grovernors;
         break;
@@ -313,16 +326,16 @@ bool processorInfo::MergePartialFromCodedStream(
 
       // required string grovernors = 6;
       case 6: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 50) {
          parse_grovernors:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_grovernors()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->grovernors().data(), this->grovernors().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "grovernors");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(56)) goto parse_number;
         break;
@@ -330,15 +343,14 @@ bool processorInfo::MergePartialFromCodedStream(
 
       // required uint32 number = 7;
       case 7: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 56) {
          parse_number:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &number_)));
           set_has_number();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(64)) goto parse_offLine;
         break;
@@ -346,15 +358,14 @@ bool processorInfo::MergePartialFromCodedStream(
 
       // required bool offLine = 8;
       case 8: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 64) {
          parse_offLine:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &offline_)));
           set_has_offline();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(74)) goto parse_avaiableGovernors;
         break;
@@ -362,16 +373,16 @@ bool processorInfo::MergePartialFromCodedStream(
 
       // required string avaiableGovernors = 9;
       case 9: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 74) {
          parse_avaiableGovernors:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_avaiablegovernors()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->avaiablegovernors().data(), this->avaiablegovernors().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "avaiablegovernors");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(82)) goto parse_avaiableFrequeucy;
         break;
@@ -379,26 +390,27 @@ bool processorInfo::MergePartialFromCodedStream(
 
       // required string avaiableFrequeucy = 10;
       case 10: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 82) {
          parse_avaiableFrequeucy:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_avaiablefrequeucy()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->avaiablefrequeucy().data(), this->avaiablefrequeucy().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "avaiablefrequeucy");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -406,12 +418,18 @@ bool processorInfo::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:com.eolwral.osmonitor.core.processorInfo)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:com.eolwral.osmonitor.core.processorInfo)
+  return false;
 #undef DO_
 }
 
 void processorInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:com.eolwral.osmonitor.core.processorInfo)
   // required sint32 maxFrequency = 1;
   if (has_maxfrequency()) {
     ::google::protobuf::internal::WireFormatLite::WriteSInt32(1, this->maxfrequency(), output);
@@ -439,10 +457,11 @@ void processorInfo::SerializeWithCachedSizes(
 
   // required string grovernors = 6;
   if (has_grovernors()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->grovernors().data(), this->grovernors().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "grovernors");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       6, this->grovernors(), output);
   }
 
@@ -458,19 +477,21 @@ void processorInfo::SerializeWithCachedSizes(
 
   // required string avaiableGovernors = 9;
   if (has_avaiablegovernors()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->avaiablegovernors().data(), this->avaiablegovernors().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "avaiablegovernors");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       9, this->avaiablegovernors(), output);
   }
 
   // required string avaiableFrequeucy = 10;
   if (has_avaiablefrequeucy()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->avaiablefrequeucy().data(), this->avaiablefrequeucy().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "avaiablefrequeucy");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       10, this->avaiablefrequeucy(), output);
   }
 
@@ -478,10 +499,12 @@ void processorInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:com.eolwral.osmonitor.core.processorInfo)
 }
 
 ::google::protobuf::uint8* processorInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:com.eolwral.osmonitor.core.processorInfo)
   // required sint32 maxFrequency = 1;
   if (has_maxfrequency()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteSInt32ToArray(1, this->maxfrequency(), target);
@@ -509,9 +532,10 @@ void processorInfo::SerializeWithCachedSizes(
 
   // required string grovernors = 6;
   if (has_grovernors()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->grovernors().data(), this->grovernors().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "grovernors");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         6, this->grovernors(), target);
@@ -529,9 +553,10 @@ void processorInfo::SerializeWithCachedSizes(
 
   // required string avaiableGovernors = 9;
   if (has_avaiablegovernors()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->avaiablegovernors().data(), this->avaiablegovernors().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "avaiablegovernors");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         9, this->avaiablegovernors(), target);
@@ -539,9 +564,10 @@ void processorInfo::SerializeWithCachedSizes(
 
   // required string avaiableFrequeucy = 10;
   if (has_avaiablefrequeucy()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->avaiablefrequeucy().data(), this->avaiablefrequeucy().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "avaiablefrequeucy");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         10, this->avaiablefrequeucy(), target);
@@ -551,6 +577,7 @@ void processorInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:com.eolwral.osmonitor.core.processorInfo)
   return target;
 }
 

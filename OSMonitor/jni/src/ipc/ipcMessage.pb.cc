@@ -182,6 +182,7 @@ const int ipcData::kPayloadFieldNumber;
 ipcData::ipcData()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:com.eolwral.osmonitor.ipc.ipcData)
 }
 
 void ipcData::InitAsDefaultInstance() {
@@ -191,15 +192,18 @@ ipcData::ipcData(const ipcData& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:com.eolwral.osmonitor.ipc.ipcData)
 }
 
 void ipcData::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   action_ = 1;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 ipcData::~ipcData() {
+  // @@protoc_insertion_point(destructor:com.eolwral.osmonitor.ipc.ipcData)
   SharedDtor();
 }
 
@@ -230,9 +234,7 @@ ipcData* ipcData::New() const {
 }
 
 void ipcData::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    action_ = 1;
-  }
+  action_ = 1;
   payload_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -240,14 +242,17 @@ void ipcData::Clear() {
 
 bool ipcData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:com.eolwral.osmonitor.ipc.ipcData)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .com.eolwral.osmonitor.ipc.ipcAction action = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -258,7 +263,7 @@ bool ipcData::MergePartialFromCodedStream(
             mutable_unknown_fields()->AddVarint(1, value);
           }
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(18)) goto parse_payload;
         break;
@@ -266,24 +271,24 @@ bool ipcData::MergePartialFromCodedStream(
 
       // repeated bytes payload = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 18) {
          parse_payload:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->add_payload()));
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(18)) goto parse_payload;
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -291,12 +296,18 @@ bool ipcData::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:com.eolwral.osmonitor.ipc.ipcData)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:com.eolwral.osmonitor.ipc.ipcData)
+  return false;
 #undef DO_
 }
 
 void ipcData::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:com.eolwral.osmonitor.ipc.ipcData)
   // required .com.eolwral.osmonitor.ipc.ipcAction action = 1;
   if (has_action()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
@@ -313,10 +324,12 @@ void ipcData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:com.eolwral.osmonitor.ipc.ipcData)
 }
 
 ::google::protobuf::uint8* ipcData::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:com.eolwral.osmonitor.ipc.ipcData)
   // required .com.eolwral.osmonitor.ipc.ipcAction action = 1;
   if (has_action()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
@@ -333,6 +346,7 @@ void ipcData::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:com.eolwral.osmonitor.ipc.ipcData)
   return target;
 }
 
@@ -460,6 +474,7 @@ const int ipcMessage::kDataFieldNumber;
 ipcMessage::ipcMessage()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:com.eolwral.osmonitor.ipc.ipcMessage)
 }
 
 void ipcMessage::InitAsDefaultInstance() {
@@ -469,6 +484,7 @@ ipcMessage::ipcMessage(const ipcMessage& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:com.eolwral.osmonitor.ipc.ipcMessage)
 }
 
 void ipcMessage::SharedCtor() {
@@ -478,6 +494,7 @@ void ipcMessage::SharedCtor() {
 }
 
 ipcMessage::~ipcMessage() {
+  // @@protoc_insertion_point(destructor:com.eolwral.osmonitor.ipc.ipcMessage)
   SharedDtor();
 }
 
@@ -508,9 +525,7 @@ ipcMessage* ipcMessage::New() const {
 }
 
 void ipcMessage::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    type_ = 0;
-  }
+  type_ = 0;
   data_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -518,14 +533,17 @@ void ipcMessage::Clear() {
 
 bool ipcMessage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:com.eolwral.osmonitor.ipc.ipcMessage)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -536,7 +554,7 @@ bool ipcMessage::MergePartialFromCodedStream(
             mutable_unknown_fields()->AddVarint(1, value);
           }
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(18)) goto parse_data;
         break;
@@ -544,24 +562,24 @@ bool ipcMessage::MergePartialFromCodedStream(
 
       // repeated .com.eolwral.osmonitor.ipc.ipcData data = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 18) {
          parse_data:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                 input, add_data()));
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(18)) goto parse_data;
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -569,12 +587,18 @@ bool ipcMessage::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:com.eolwral.osmonitor.ipc.ipcMessage)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:com.eolwral.osmonitor.ipc.ipcMessage)
+  return false;
 #undef DO_
 }
 
 void ipcMessage::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:com.eolwral.osmonitor.ipc.ipcMessage)
   // required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];
   if (has_type()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
@@ -591,10 +615,12 @@ void ipcMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:com.eolwral.osmonitor.ipc.ipcMessage)
 }
 
 ::google::protobuf::uint8* ipcMessage::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:com.eolwral.osmonitor.ipc.ipcMessage)
   // required .com.eolwral.osmonitor.ipc.ipcMessage.ipcType type = 1 [default = ACTION];
   if (has_type()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
@@ -612,6 +638,7 @@ void ipcMessage::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:com.eolwral.osmonitor.ipc.ipcMessage)
   return target;
 }
 
@@ -683,9 +710,7 @@ void ipcMessage::CopyFrom(const ipcMessage& from) {
 bool ipcMessage::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  for (int i = 0; i < data_size(); i++) {
-    if (!this->data(i).IsInitialized()) return false;
-  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->data())) return false;
   return true;
 }
 

@@ -134,6 +134,7 @@ const int cpuInfo::kOffLineFieldNumber;
 cpuInfo::cpuInfo()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:com.eolwral.osmonitor.core.cpuInfo)
 }
 
 void cpuInfo::InitAsDefaultInstance() {
@@ -143,6 +144,7 @@ cpuInfo::cpuInfo(const cpuInfo& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:com.eolwral.osmonitor.core.cpuInfo)
 }
 
 void cpuInfo::SharedCtor() {
@@ -163,6 +165,7 @@ void cpuInfo::SharedCtor() {
 }
 
 cpuInfo::~cpuInfo() {
+  // @@protoc_insertion_point(destructor:com.eolwral.osmonitor.core.cpuInfo)
   SharedDtor();
 }
 
@@ -193,42 +196,47 @@ cpuInfo* cpuInfo::New() const {
 }
 
 void cpuInfo::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    usertime_ = GOOGLE_ULONGLONG(0);
-    nicetime_ = GOOGLE_ULONGLONG(0);
-    systemtime_ = GOOGLE_ULONGLONG(0);
-    idletime_ = GOOGLE_ULONGLONG(0);
-    iowaittime_ = GOOGLE_ULONGLONG(0);
-    irqtime_ = GOOGLE_ULONGLONG(0);
-    softirqtime_ = GOOGLE_ULONGLONG(0);
-    cpuutilization_ = 0;
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<cpuInfo*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 255) {
+    ZR_(usertime_, cpuutilization_);
   }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    ioutilization_ = 0;
-    cputime_ = GOOGLE_ULONGLONG(0);
-    cpunumber_ = 0u;
-    offline_ = false;
-  }
+  ZR_(ioutilization_, offline_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
 bool cpuInfo::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:com.eolwral.osmonitor.core.cpuInfo)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required uint64 userTime = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &usertime_)));
           set_has_usertime();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(16)) goto parse_niceTime;
         break;
@@ -236,15 +244,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // required uint64 niceTime = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 16) {
          parse_niceTime:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &nicetime_)));
           set_has_nicetime();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(24)) goto parse_systemTime;
         break;
@@ -252,15 +259,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // required uint64 systemTime = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 24) {
          parse_systemTime:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &systemtime_)));
           set_has_systemtime();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(32)) goto parse_idleTime;
         break;
@@ -268,15 +274,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // required uint64 idleTime = 4;
       case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 32) {
          parse_idleTime:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &idletime_)));
           set_has_idletime();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(40)) goto parse_ioWaitTime;
         break;
@@ -284,15 +289,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // required uint64 ioWaitTime = 5;
       case 5: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 40) {
          parse_ioWaitTime:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &iowaittime_)));
           set_has_iowaittime();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(48)) goto parse_irqTime;
         break;
@@ -300,15 +304,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // required uint64 irqTime = 6;
       case 6: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 48) {
          parse_irqTime:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &irqtime_)));
           set_has_irqtime();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(56)) goto parse_softIRQTime;
         break;
@@ -316,15 +319,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // required uint64 softIRQTime = 7;
       case 7: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 56) {
          parse_softIRQTime:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &softirqtime_)));
           set_has_softirqtime();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(69)) goto parse_cpuUtilization;
         break;
@@ -332,15 +334,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // required float cpuUtilization = 8;
       case 8: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 69) {
          parse_cpuUtilization:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &cpuutilization_)));
           set_has_cpuutilization();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(77)) goto parse_IoUtilization;
         break;
@@ -348,15 +349,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // required float IoUtilization = 9;
       case 9: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+        if (tag == 77) {
          parse_IoUtilization:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &ioutilization_)));
           set_has_ioutilization();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(80)) goto parse_cpuTime;
         break;
@@ -364,15 +364,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // required uint64 cpuTime = 10;
       case 10: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 80) {
          parse_cpuTime:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &cputime_)));
           set_has_cputime();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(88)) goto parse_cpuNumber;
         break;
@@ -380,15 +379,14 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // optional uint32 cpuNumber = 11;
       case 11: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 88) {
          parse_cpuNumber:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &cpunumber_)));
           set_has_cpunumber();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(96)) goto parse_offLine;
         break;
@@ -396,25 +394,25 @@ bool cpuInfo::MergePartialFromCodedStream(
 
       // optional bool offLine = 12;
       case 12: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 96) {
          parse_offLine:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
                  input, &offline_)));
           set_has_offline();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -422,12 +420,18 @@ bool cpuInfo::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:com.eolwral.osmonitor.core.cpuInfo)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:com.eolwral.osmonitor.core.cpuInfo)
+  return false;
 #undef DO_
 }
 
 void cpuInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:com.eolwral.osmonitor.core.cpuInfo)
   // required uint64 userTime = 1;
   if (has_usertime()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt64(1, this->usertime(), output);
@@ -492,10 +496,12 @@ void cpuInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:com.eolwral.osmonitor.core.cpuInfo)
 }
 
 ::google::protobuf::uint8* cpuInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:com.eolwral.osmonitor.core.cpuInfo)
   // required uint64 userTime = 1;
   if (has_usertime()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt64ToArray(1, this->usertime(), target);
@@ -560,6 +566,7 @@ void cpuInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:com.eolwral.osmonitor.core.cpuInfo)
   return target;
 }
 

@@ -205,6 +205,7 @@ const int connectionInfo::kUidFieldNumber;
 connectionInfo::connectionInfo()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:com.eolwral.osmonitor.core.connectionInfo)
 }
 
 void connectionInfo::InitAsDefaultInstance() {
@@ -214,29 +215,32 @@ connectionInfo::connectionInfo(const connectionInfo& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:com.eolwral.osmonitor.core.connectionInfo)
 }
 
 void connectionInfo::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   type_ = 0;
   status_ = 0;
-  localip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  localip_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   localport_ = 0u;
-  remoteip_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  remoteip_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   remoteport_ = 0u;
   uid_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 connectionInfo::~connectionInfo() {
+  // @@protoc_insertion_point(destructor:com.eolwral.osmonitor.core.connectionInfo)
   SharedDtor();
 }
 
 void connectionInfo::SharedDtor() {
-  if (localip_ != &::google::protobuf::internal::kEmptyString) {
+  if (localip_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete localip_;
   }
-  if (remoteip_ != &::google::protobuf::internal::kEmptyString) {
+  if (remoteip_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete remoteip_;
   }
   if (this != default_instance_) {
@@ -265,37 +269,51 @@ connectionInfo* connectionInfo::New() const {
 }
 
 void connectionInfo::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    type_ = 0;
-    status_ = 0;
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<connectionInfo*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 127) {
+    ZR_(type_, status_);
+    ZR_(localport_, uid_);
     if (has_localip()) {
-      if (localip_ != &::google::protobuf::internal::kEmptyString) {
+      if (localip_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         localip_->clear();
       }
     }
-    localport_ = 0u;
     if (has_remoteip()) {
-      if (remoteip_ != &::google::protobuf::internal::kEmptyString) {
+      if (remoteip_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         remoteip_->clear();
       }
     }
-    remoteport_ = 0u;
-    uid_ = 0u;
   }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
 bool connectionInfo::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:com.eolwral.osmonitor.core.connectionInfo)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -306,7 +324,7 @@ bool connectionInfo::MergePartialFromCodedStream(
             mutable_unknown_fields()->AddVarint(1, value);
           }
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(16)) goto parse_Status;
         break;
@@ -314,8 +332,7 @@ bool connectionInfo::MergePartialFromCodedStream(
 
       // required .com.eolwral.osmonitor.core.connectionInfo.connectionStatus Status = 2 [default = UNKNOWN];
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 16) {
          parse_Status:
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
@@ -327,7 +344,7 @@ bool connectionInfo::MergePartialFromCodedStream(
             mutable_unknown_fields()->AddVarint(2, value);
           }
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(26)) goto parse_localIP;
         break;
@@ -335,16 +352,16 @@ bool connectionInfo::MergePartialFromCodedStream(
 
       // required string localIP = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 26) {
          parse_localIP:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_localip()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->localip().data(), this->localip().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "localip");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(32)) goto parse_localPort;
         break;
@@ -352,15 +369,14 @@ bool connectionInfo::MergePartialFromCodedStream(
 
       // required uint32 localPort = 4;
       case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 32) {
          parse_localPort:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &localport_)));
           set_has_localport();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(42)) goto parse_remoteIP;
         break;
@@ -368,16 +384,16 @@ bool connectionInfo::MergePartialFromCodedStream(
 
       // required string remoteIP = 5;
       case 5: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 42) {
          parse_remoteIP:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_remoteip()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->remoteip().data(), this->remoteip().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "remoteip");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(48)) goto parse_remotePort;
         break;
@@ -385,15 +401,14 @@ bool connectionInfo::MergePartialFromCodedStream(
 
       // required uint32 remotePort = 6;
       case 6: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 48) {
          parse_remotePort:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &remoteport_)));
           set_has_remoteport();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(56)) goto parse_uid;
         break;
@@ -401,25 +416,25 @@ bool connectionInfo::MergePartialFromCodedStream(
 
       // required uint32 uid = 7;
       case 7: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 56) {
          parse_uid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &uid_)));
           set_has_uid();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -427,12 +442,18 @@ bool connectionInfo::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:com.eolwral.osmonitor.core.connectionInfo)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:com.eolwral.osmonitor.core.connectionInfo)
+  return false;
 #undef DO_
 }
 
 void connectionInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:com.eolwral.osmonitor.core.connectionInfo)
   // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
   if (has_type()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
@@ -447,10 +468,11 @@ void connectionInfo::SerializeWithCachedSizes(
 
   // required string localIP = 3;
   if (has_localip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->localip().data(), this->localip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "localip");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->localip(), output);
   }
 
@@ -461,10 +483,11 @@ void connectionInfo::SerializeWithCachedSizes(
 
   // required string remoteIP = 5;
   if (has_remoteip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->remoteip().data(), this->remoteip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "remoteip");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       5, this->remoteip(), output);
   }
 
@@ -482,10 +505,12 @@ void connectionInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:com.eolwral.osmonitor.core.connectionInfo)
 }
 
 ::google::protobuf::uint8* connectionInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:com.eolwral.osmonitor.core.connectionInfo)
   // required .com.eolwral.osmonitor.core.connectionInfo.connectionType Type = 1 [default = TCPv4];
   if (has_type()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
@@ -500,9 +525,10 @@ void connectionInfo::SerializeWithCachedSizes(
 
   // required string localIP = 3;
   if (has_localip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->localip().data(), this->localip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "localip");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->localip(), target);
@@ -515,9 +541,10 @@ void connectionInfo::SerializeWithCachedSizes(
 
   // required string remoteIP = 5;
   if (has_remoteip()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->remoteip().data(), this->remoteip().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "remoteip");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         5, this->remoteip(), target);
@@ -537,6 +564,7 @@ void connectionInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:com.eolwral.osmonitor.core.connectionInfo)
   return target;
 }
 

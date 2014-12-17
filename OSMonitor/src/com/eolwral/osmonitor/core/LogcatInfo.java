@@ -8,10 +8,10 @@ public final class LogcatInfo {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface logcatInfoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface logcatInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.core.logcatInfo)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .com.eolwral.osmonitor.core.logcatInfo.logPriority priority = 1 [default = UNKNOWN];
     /**
      * <code>required .com.eolwral.osmonitor.core.logcatInfo.logPriority priority = 1 [default = UNKNOWN];</code>
      */
@@ -21,7 +21,6 @@ public final class LogcatInfo {
      */
     com.eolwral.osmonitor.core.LogcatInfo.logcatInfo.logPriority getPriority();
 
-    // required uint64 seconds = 2;
     /**
      * <code>required uint64 seconds = 2;</code>
      *
@@ -39,7 +38,6 @@ public final class LogcatInfo {
      */
     long getSeconds();
 
-    // required uint64 nanoSeconds = 3;
     /**
      * <code>required uint64 nanoSeconds = 3;</code>
      *
@@ -57,7 +55,6 @@ public final class LogcatInfo {
      */
     long getNanoSeconds();
 
-    // required uint32 pid = 4;
     /**
      * <code>required uint32 pid = 4;</code>
      *
@@ -75,7 +72,6 @@ public final class LogcatInfo {
      */
     int getPid();
 
-    // required uint32 tid = 5;
     /**
      * <code>required uint32 tid = 5;</code>
      *
@@ -93,7 +89,6 @@ public final class LogcatInfo {
      */
     int getTid();
 
-    // required string tag = 6;
     /**
      * <code>required string tag = 6;</code>
      *
@@ -120,7 +115,6 @@ public final class LogcatInfo {
     com.google.protobuf.ByteString
         getTagBytes();
 
-    // required string message = 7;
     /**
      * <code>required string message = 7;</code>
      *
@@ -151,8 +145,9 @@ public final class LogcatInfo {
    * Protobuf type {@code com.eolwral.osmonitor.core.logcatInfo}
    */
   public static final class logcatInfo extends
-      com.google.protobuf.GeneratedMessage
-      implements logcatInfoOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.core.logcatInfo)
+      logcatInfoOrBuilder {
     // Use logcatInfo.newBuilder() to construct.
     private logcatInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -230,13 +225,15 @@ public final class LogcatInfo {
               break;
             }
             case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000020;
-              tag_ = input.readBytes();
+              tag_ = bs;
               break;
             }
             case 58: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000040;
-              message_ = input.readBytes();
+              message_ = bs;
               break;
             }
           }
@@ -424,7 +421,6 @@ public final class LogcatInfo {
     }
 
     private int bitField0_;
-    // required .com.eolwral.osmonitor.core.logcatInfo.logPriority priority = 1 [default = UNKNOWN];
     public static final int PRIORITY_FIELD_NUMBER = 1;
     private com.eolwral.osmonitor.core.LogcatInfo.logcatInfo.logPriority priority_;
     /**
@@ -440,7 +436,6 @@ public final class LogcatInfo {
       return priority_;
     }
 
-    // required uint64 seconds = 2;
     public static final int SECONDS_FIELD_NUMBER = 2;
     private long seconds_;
     /**
@@ -464,7 +459,6 @@ public final class LogcatInfo {
       return seconds_;
     }
 
-    // required uint64 nanoSeconds = 3;
     public static final int NANOSECONDS_FIELD_NUMBER = 3;
     private long nanoSeconds_;
     /**
@@ -488,7 +482,6 @@ public final class LogcatInfo {
       return nanoSeconds_;
     }
 
-    // required uint32 pid = 4;
     public static final int PID_FIELD_NUMBER = 4;
     private int pid_;
     /**
@@ -512,7 +505,6 @@ public final class LogcatInfo {
       return pid_;
     }
 
-    // required uint32 tid = 5;
     public static final int TID_FIELD_NUMBER = 5;
     private int tid_;
     /**
@@ -536,7 +528,6 @@ public final class LogcatInfo {
       return tid_;
     }
 
-    // required string tag = 6;
     public static final int TAG_FIELD_NUMBER = 6;
     private java.lang.Object tag_;
     /**
@@ -591,7 +582,6 @@ public final class LogcatInfo {
       }
     }
 
-    // required string message = 7;
     public static final int MESSAGE_FIELD_NUMBER = 7;
     private java.lang.Object message_;
     /**
@@ -658,7 +648,8 @@ public final class LogcatInfo {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasPriority()) {
         memoizedIsInitialized = 0;
@@ -835,8 +826,9 @@ public final class LogcatInfo {
      * Protobuf type {@code com.eolwral.osmonitor.core.logcatInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.LogcatInfo.logcatInfoOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.core.logcatInfo)
+        com.eolwral.osmonitor.core.LogcatInfo.logcatInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.core.LogcatInfo.internal_static_com_eolwral_osmonitor_core_logcatInfo_descriptor;
@@ -1035,7 +1027,6 @@ public final class LogcatInfo {
       }
       private int bitField0_;
 
-      // required .com.eolwral.osmonitor.core.logcatInfo.logPriority priority = 1 [default = UNKNOWN];
       private com.eolwral.osmonitor.core.LogcatInfo.logcatInfo.logPriority priority_ = com.eolwral.osmonitor.core.LogcatInfo.logcatInfo.logPriority.UNKNOWN;
       /**
        * <code>required .com.eolwral.osmonitor.core.logcatInfo.logPriority priority = 1 [default = UNKNOWN];</code>
@@ -1071,7 +1062,6 @@ public final class LogcatInfo {
         return this;
       }
 
-      // required uint64 seconds = 2;
       private long seconds_ ;
       /**
        * <code>required uint64 seconds = 2;</code>
@@ -1120,7 +1110,6 @@ public final class LogcatInfo {
         return this;
       }
 
-      // required uint64 nanoSeconds = 3;
       private long nanoSeconds_ ;
       /**
        * <code>required uint64 nanoSeconds = 3;</code>
@@ -1169,7 +1158,6 @@ public final class LogcatInfo {
         return this;
       }
 
-      // required uint32 pid = 4;
       private int pid_ ;
       /**
        * <code>required uint32 pid = 4;</code>
@@ -1218,7 +1206,6 @@ public final class LogcatInfo {
         return this;
       }
 
-      // required uint32 tid = 5;
       private int tid_ ;
       /**
        * <code>required uint32 tid = 5;</code>
@@ -1267,7 +1254,6 @@ public final class LogcatInfo {
         return this;
       }
 
-      // required string tag = 6;
       private java.lang.Object tag_ = "";
       /**
        * <code>required string tag = 6;</code>
@@ -1289,9 +1275,12 @@ public final class LogcatInfo {
       public java.lang.String getTag() {
         java.lang.Object ref = tag_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          tag_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            tag_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1365,7 +1354,6 @@ public final class LogcatInfo {
         return this;
       }
 
-      // required string message = 7;
       private java.lang.Object message_ = "";
       /**
        * <code>required string message = 7;</code>
@@ -1387,9 +1375,12 @@ public final class LogcatInfo {
       public java.lang.String getMessage() {
         java.lang.Object ref = message_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          message_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            message_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1474,7 +1465,7 @@ public final class LogcatInfo {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.logcatInfo)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_logcatInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -1499,23 +1490,23 @@ public final class LogcatInfo {
       "\t\n\005ERROR\020\006\022\t\n\005FATAL\020\007\022\n\n\006SILENT\020\010"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_com_eolwral_osmonitor_core_logcatInfo_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_com_eolwral_osmonitor_core_logcatInfo_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_core_logcatInfo_descriptor,
-              new java.lang.String[] { "Priority", "Seconds", "NanoSeconds", "Pid", "Tid", "Tag", "Message", });
-          return null;
-        }
-      };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
+    internal_static_com_eolwral_osmonitor_core_logcatInfo_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_com_eolwral_osmonitor_core_logcatInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_core_logcatInfo_descriptor,
+        new java.lang.String[] { "Priority", "Seconds", "NanoSeconds", "Pid", "Tid", "Tag", "Message", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

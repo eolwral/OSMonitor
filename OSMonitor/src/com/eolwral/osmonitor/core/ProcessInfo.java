@@ -8,10 +8,10 @@ public final class ProcessInfo {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface processInfoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface processInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.core.processInfo)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required string name = 1;
     /**
      * <code>required string name = 1;</code>
      *
@@ -38,7 +38,6 @@ public final class ProcessInfo {
     com.google.protobuf.ByteString
         getNameBytes();
 
-    // required string owner = 2;
     /**
      * <code>required string owner = 2;</code>
      *
@@ -65,7 +64,6 @@ public final class ProcessInfo {
     com.google.protobuf.ByteString
         getOwnerBytes();
 
-    // required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];
     /**
      * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
      *
@@ -83,7 +81,6 @@ public final class ProcessInfo {
      */
     com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus getStatus();
 
-    // required uint32 uid = 4;
     /**
      * <code>required uint32 uid = 4;</code>
      *
@@ -101,7 +98,6 @@ public final class ProcessInfo {
      */
     int getUid();
 
-    // required uint32 pid = 5;
     /**
      * <code>required uint32 pid = 5;</code>
      *
@@ -119,7 +115,6 @@ public final class ProcessInfo {
      */
     int getPid();
 
-    // required uint32 ppid = 6;
     /**
      * <code>required uint32 ppid = 6;</code>
      *
@@ -137,7 +132,6 @@ public final class ProcessInfo {
      */
     int getPpid();
 
-    // required uint64 rss = 7;
     /**
      * <code>required uint64 rss = 7;</code>
      *
@@ -155,7 +149,6 @@ public final class ProcessInfo {
      */
     long getRss();
 
-    // required uint64 vsz = 8;
     /**
      * <code>required uint64 vsz = 8;</code>
      *
@@ -173,7 +166,6 @@ public final class ProcessInfo {
      */
     long getVsz();
 
-    // required float cpuUsage = 9;
     /**
      * <code>required float cpuUsage = 9;</code>
      *
@@ -191,7 +183,6 @@ public final class ProcessInfo {
      */
     float getCpuUsage();
 
-    // required uint32 threadCount = 10;
     /**
      * <code>required uint32 threadCount = 10;</code>
      *
@@ -209,7 +200,6 @@ public final class ProcessInfo {
      */
     int getThreadCount();
 
-    // required uint32 priorityLevel = 11;
     /**
      * <code>required uint32 priorityLevel = 11;</code>
      *
@@ -227,7 +217,6 @@ public final class ProcessInfo {
      */
     int getPriorityLevel();
 
-    // required uint64 usedUserTime = 12;
     /**
      * <code>required uint64 usedUserTime = 12;</code>
      *
@@ -245,7 +234,6 @@ public final class ProcessInfo {
      */
     long getUsedUserTime();
 
-    // required uint64 usedSystemTime = 13;
     /**
      * <code>required uint64 usedSystemTime = 13;</code>
      *
@@ -263,7 +251,6 @@ public final class ProcessInfo {
      */
     long getUsedSystemTime();
 
-    // required uint64 startTime = 14;
     /**
      * <code>required uint64 startTime = 14;</code>
      *
@@ -281,7 +268,6 @@ public final class ProcessInfo {
      */
     long getStartTime();
 
-    // required uint64 cpuTime = 15;
     /**
      * <code>required uint64 cpuTime = 15;</code>
      *
@@ -303,8 +289,9 @@ public final class ProcessInfo {
    * Protobuf type {@code com.eolwral.osmonitor.core.processInfo}
    */
   public static final class processInfo extends
-      com.google.protobuf.GeneratedMessage
-      implements processInfoOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.core.processInfo)
+      processInfoOrBuilder {
     // Use processInfo.newBuilder() to construct.
     private processInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -351,13 +338,15 @@ public final class ProcessInfo {
               break;
             }
             case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              name_ = input.readBytes();
+              name_ = bs;
               break;
             }
             case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              owner_ = input.readBytes();
+              owner_ = bs;
               break;
             }
             case 24: {
@@ -654,7 +643,6 @@ public final class ProcessInfo {
     }
 
     private int bitField0_;
-    // required string name = 1;
     public static final int NAME_FIELD_NUMBER = 1;
     private java.lang.Object name_;
     /**
@@ -709,7 +697,6 @@ public final class ProcessInfo {
       }
     }
 
-    // required string owner = 2;
     public static final int OWNER_FIELD_NUMBER = 2;
     private java.lang.Object owner_;
     /**
@@ -764,7 +751,6 @@ public final class ProcessInfo {
       }
     }
 
-    // required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];
     public static final int STATUS_FIELD_NUMBER = 3;
     private com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus status_;
     /**
@@ -788,7 +774,6 @@ public final class ProcessInfo {
       return status_;
     }
 
-    // required uint32 uid = 4;
     public static final int UID_FIELD_NUMBER = 4;
     private int uid_;
     /**
@@ -812,7 +797,6 @@ public final class ProcessInfo {
       return uid_;
     }
 
-    // required uint32 pid = 5;
     public static final int PID_FIELD_NUMBER = 5;
     private int pid_;
     /**
@@ -836,7 +820,6 @@ public final class ProcessInfo {
       return pid_;
     }
 
-    // required uint32 ppid = 6;
     public static final int PPID_FIELD_NUMBER = 6;
     private int ppid_;
     /**
@@ -860,7 +843,6 @@ public final class ProcessInfo {
       return ppid_;
     }
 
-    // required uint64 rss = 7;
     public static final int RSS_FIELD_NUMBER = 7;
     private long rss_;
     /**
@@ -884,7 +866,6 @@ public final class ProcessInfo {
       return rss_;
     }
 
-    // required uint64 vsz = 8;
     public static final int VSZ_FIELD_NUMBER = 8;
     private long vsz_;
     /**
@@ -908,7 +889,6 @@ public final class ProcessInfo {
       return vsz_;
     }
 
-    // required float cpuUsage = 9;
     public static final int CPUUSAGE_FIELD_NUMBER = 9;
     private float cpuUsage_;
     /**
@@ -932,7 +912,6 @@ public final class ProcessInfo {
       return cpuUsage_;
     }
 
-    // required uint32 threadCount = 10;
     public static final int THREADCOUNT_FIELD_NUMBER = 10;
     private int threadCount_;
     /**
@@ -956,7 +935,6 @@ public final class ProcessInfo {
       return threadCount_;
     }
 
-    // required uint32 priorityLevel = 11;
     public static final int PRIORITYLEVEL_FIELD_NUMBER = 11;
     private int priorityLevel_;
     /**
@@ -980,7 +958,6 @@ public final class ProcessInfo {
       return priorityLevel_;
     }
 
-    // required uint64 usedUserTime = 12;
     public static final int USEDUSERTIME_FIELD_NUMBER = 12;
     private long usedUserTime_;
     /**
@@ -1004,7 +981,6 @@ public final class ProcessInfo {
       return usedUserTime_;
     }
 
-    // required uint64 usedSystemTime = 13;
     public static final int USEDSYSTEMTIME_FIELD_NUMBER = 13;
     private long usedSystemTime_;
     /**
@@ -1028,7 +1004,6 @@ public final class ProcessInfo {
       return usedSystemTime_;
     }
 
-    // required uint64 startTime = 14;
     public static final int STARTTIME_FIELD_NUMBER = 14;
     private long startTime_;
     /**
@@ -1052,7 +1027,6 @@ public final class ProcessInfo {
       return startTime_;
     }
 
-    // required uint64 cpuTime = 15;
     public static final int CPUTIME_FIELD_NUMBER = 15;
     private long cpuTime_;
     /**
@@ -1096,7 +1070,8 @@ public final class ProcessInfo {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasName()) {
         memoizedIsInitialized = 0;
@@ -1361,8 +1336,9 @@ public final class ProcessInfo {
      * Protobuf type {@code com.eolwral.osmonitor.core.processInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.ProcessInfo.processInfoOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.core.processInfo)
+        com.eolwral.osmonitor.core.ProcessInfo.processInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.core.ProcessInfo.internal_static_com_eolwral_osmonitor_core_processInfo_descriptor;
@@ -1665,7 +1641,6 @@ public final class ProcessInfo {
       }
       private int bitField0_;
 
-      // required string name = 1;
       private java.lang.Object name_ = "";
       /**
        * <code>required string name = 1;</code>
@@ -1687,9 +1662,12 @@ public final class ProcessInfo {
       public java.lang.String getName() {
         java.lang.Object ref = name_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          name_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1763,7 +1741,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required string owner = 2;
       private java.lang.Object owner_ = "";
       /**
        * <code>required string owner = 2;</code>
@@ -1785,9 +1762,12 @@ public final class ProcessInfo {
       public java.lang.String getOwner() {
         java.lang.Object ref = owner_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          owner_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            owner_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1861,7 +1841,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];
       private com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus status_ = com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus.Unknown;
       /**
        * <code>required .com.eolwral.osmonitor.core.processInfo.processStatus Status = 3 [default = Unknown];</code>
@@ -1913,7 +1892,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint32 uid = 4;
       private int uid_ ;
       /**
        * <code>required uint32 uid = 4;</code>
@@ -1962,7 +1940,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint32 pid = 5;
       private int pid_ ;
       /**
        * <code>required uint32 pid = 5;</code>
@@ -2011,7 +1988,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint32 ppid = 6;
       private int ppid_ ;
       /**
        * <code>required uint32 ppid = 6;</code>
@@ -2060,7 +2036,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint64 rss = 7;
       private long rss_ ;
       /**
        * <code>required uint64 rss = 7;</code>
@@ -2109,7 +2084,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint64 vsz = 8;
       private long vsz_ ;
       /**
        * <code>required uint64 vsz = 8;</code>
@@ -2158,7 +2132,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required float cpuUsage = 9;
       private float cpuUsage_ ;
       /**
        * <code>required float cpuUsage = 9;</code>
@@ -2207,7 +2180,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint32 threadCount = 10;
       private int threadCount_ ;
       /**
        * <code>required uint32 threadCount = 10;</code>
@@ -2256,7 +2228,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint32 priorityLevel = 11;
       private int priorityLevel_ ;
       /**
        * <code>required uint32 priorityLevel = 11;</code>
@@ -2305,7 +2276,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint64 usedUserTime = 12;
       private long usedUserTime_ ;
       /**
        * <code>required uint64 usedUserTime = 12;</code>
@@ -2354,7 +2324,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint64 usedSystemTime = 13;
       private long usedSystemTime_ ;
       /**
        * <code>required uint64 usedSystemTime = 13;</code>
@@ -2403,7 +2372,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint64 startTime = 14;
       private long startTime_ ;
       /**
        * <code>required uint64 startTime = 14;</code>
@@ -2452,7 +2420,6 @@ public final class ProcessInfo {
         return this;
       }
 
-      // required uint64 cpuTime = 15;
       private long cpuTime_ ;
       /**
        * <code>required uint64 cpuTime = 15;</code>
@@ -2512,7 +2479,7 @@ public final class ProcessInfo {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.processInfo)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_processInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -2541,23 +2508,23 @@ public final class ProcessInfo {
       "\006"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_com_eolwral_osmonitor_core_processInfo_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_com_eolwral_osmonitor_core_processInfo_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_core_processInfo_descriptor,
-              new java.lang.String[] { "Name", "Owner", "Status", "Uid", "Pid", "Ppid", "Rss", "Vsz", "CpuUsage", "ThreadCount", "PriorityLevel", "UsedUserTime", "UsedSystemTime", "StartTime", "CpuTime", });
-          return null;
-        }
-      };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
+    internal_static_com_eolwral_osmonitor_core_processInfo_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_com_eolwral_osmonitor_core_processInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_core_processInfo_descriptor,
+        new java.lang.String[] { "Name", "Owner", "Status", "Uid", "Pid", "Ppid", "Rss", "Vsz", "CpuUsage", "ThreadCount", "PriorityLevel", "UsedUserTime", "UsedSystemTime", "StartTime", "CpuTime", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

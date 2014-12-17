@@ -8,10 +8,10 @@ public final class DmesgInfo {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface dmesgInfoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface dmesgInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.core.dmesgInfo)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required .com.eolwral.osmonitor.core.dmesgInfo.dmesgLevel level = 1 [default = INFORMATION];
     /**
      * <code>required .com.eolwral.osmonitor.core.dmesgInfo.dmesgLevel level = 1 [default = INFORMATION];</code>
      *
@@ -29,7 +29,6 @@ public final class DmesgInfo {
      */
     com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo.dmesgLevel getLevel();
 
-    // required uint64 seconds = 2;
     /**
      * <code>required uint64 seconds = 2;</code>
      *
@@ -47,7 +46,6 @@ public final class DmesgInfo {
      */
     long getSeconds();
 
-    // required string message = 3;
     /**
      * <code>required string message = 3;</code>
      *
@@ -78,8 +76,9 @@ public final class DmesgInfo {
    * Protobuf type {@code com.eolwral.osmonitor.core.dmesgInfo}
    */
   public static final class dmesgInfo extends
-      com.google.protobuf.GeneratedMessage
-      implements dmesgInfoOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.core.dmesgInfo)
+      dmesgInfoOrBuilder {
     // Use dmesgInfo.newBuilder() to construct.
     private dmesgInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -142,8 +141,9 @@ public final class DmesgInfo {
               break;
             }
             case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              message_ = input.readBytes();
+              message_ = bs;
               break;
             }
           }
@@ -386,7 +386,6 @@ public final class DmesgInfo {
     }
 
     private int bitField0_;
-    // required .com.eolwral.osmonitor.core.dmesgInfo.dmesgLevel level = 1 [default = INFORMATION];
     public static final int LEVEL_FIELD_NUMBER = 1;
     private com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo.dmesgLevel level_;
     /**
@@ -410,7 +409,6 @@ public final class DmesgInfo {
       return level_;
     }
 
-    // required uint64 seconds = 2;
     public static final int SECONDS_FIELD_NUMBER = 2;
     private long seconds_;
     /**
@@ -434,7 +432,6 @@ public final class DmesgInfo {
       return seconds_;
     }
 
-    // required string message = 3;
     public static final int MESSAGE_FIELD_NUMBER = 3;
     private java.lang.Object message_;
     /**
@@ -497,7 +494,8 @@ public final class DmesgInfo {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasLevel()) {
         memoizedIsInitialized = 0;
@@ -630,8 +628,9 @@ public final class DmesgInfo {
      * Protobuf type {@code com.eolwral.osmonitor.core.dmesgInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.DmesgInfo.dmesgInfoOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.core.dmesgInfo)
+        com.eolwral.osmonitor.core.DmesgInfo.dmesgInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.core.DmesgInfo.internal_static_com_eolwral_osmonitor_core_dmesgInfo_descriptor;
@@ -776,7 +775,6 @@ public final class DmesgInfo {
       }
       private int bitField0_;
 
-      // required .com.eolwral.osmonitor.core.dmesgInfo.dmesgLevel level = 1 [default = INFORMATION];
       private com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo.dmesgLevel level_ = com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo.dmesgLevel.INFORMATION;
       /**
        * <code>required .com.eolwral.osmonitor.core.dmesgInfo.dmesgLevel level = 1 [default = INFORMATION];</code>
@@ -828,7 +826,6 @@ public final class DmesgInfo {
         return this;
       }
 
-      // required uint64 seconds = 2;
       private long seconds_ ;
       /**
        * <code>required uint64 seconds = 2;</code>
@@ -877,7 +874,6 @@ public final class DmesgInfo {
         return this;
       }
 
-      // required string message = 3;
       private java.lang.Object message_ = "";
       /**
        * <code>required string message = 3;</code>
@@ -899,9 +895,12 @@ public final class DmesgInfo {
       public java.lang.String getMessage() {
         java.lang.Object ref = message_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          message_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            message_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -986,7 +985,7 @@ public final class DmesgInfo {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.dmesgInfo)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_dmesgInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -1010,23 +1009,23 @@ public final class DmesgInfo {
       "\n\005DEBUG\020\007"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_com_eolwral_osmonitor_core_dmesgInfo_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_com_eolwral_osmonitor_core_dmesgInfo_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_core_dmesgInfo_descriptor,
-              new java.lang.String[] { "Level", "Seconds", "Message", });
-          return null;
-        }
-      };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
+    internal_static_com_eolwral_osmonitor_core_dmesgInfo_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_com_eolwral_osmonitor_core_dmesgInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_core_dmesgInfo_descriptor,
+        new java.lang.String[] { "Level", "Seconds", "Message", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -167,6 +167,7 @@ const int networkInfo::kRecvUsageFieldNumber;
 networkInfo::networkInfo()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:com.eolwral.osmonitor.core.networkInfo)
 }
 
 void networkInfo::InitAsDefaultInstance() {
@@ -176,15 +177,17 @@ networkInfo::networkInfo(const networkInfo& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:com.eolwral.osmonitor.core.networkInfo)
 }
 
 void networkInfo::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  mac_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ipv4addr_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  netmaskv4_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  ipv6addr_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  mac_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ipv4addr_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  netmaskv4_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ipv6addr_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   netmaskv6_ = 0u;
   flags_ = 0u;
   recvbytes_ = GOOGLE_ULONGLONG(0);
@@ -209,23 +212,24 @@ void networkInfo::SharedCtor() {
 }
 
 networkInfo::~networkInfo() {
+  // @@protoc_insertion_point(destructor:com.eolwral.osmonitor.core.networkInfo)
   SharedDtor();
 }
 
 void networkInfo::SharedDtor() {
-  if (name_ != &::google::protobuf::internal::kEmptyString) {
+  if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete name_;
   }
-  if (mac_ != &::google::protobuf::internal::kEmptyString) {
+  if (mac_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete mac_;
   }
-  if (ipv4addr_ != &::google::protobuf::internal::kEmptyString) {
+  if (ipv4addr_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete ipv4addr_;
   }
-  if (netmaskv4_ != &::google::protobuf::internal::kEmptyString) {
+  if (netmaskv4_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete netmaskv4_;
   }
-  if (ipv6addr_ != &::google::protobuf::internal::kEmptyString) {
+  if (ipv6addr_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete ipv6addr_;
   }
   if (this != default_instance_) {
@@ -254,80 +258,80 @@ networkInfo* networkInfo::New() const {
 }
 
 void networkInfo::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<networkInfo*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 255) {
+    ZR_(netmaskv6_, recvbytes_);
     if (has_name()) {
-      if (name_ != &::google::protobuf::internal::kEmptyString) {
+      if (name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         name_->clear();
       }
     }
     if (has_mac()) {
-      if (mac_ != &::google::protobuf::internal::kEmptyString) {
+      if (mac_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         mac_->clear();
       }
     }
     if (has_ipv4addr()) {
-      if (ipv4addr_ != &::google::protobuf::internal::kEmptyString) {
+      if (ipv4addr_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         ipv4addr_->clear();
       }
     }
     if (has_netmaskv4()) {
-      if (netmaskv4_ != &::google::protobuf::internal::kEmptyString) {
+      if (netmaskv4_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         netmaskv4_->clear();
       }
     }
     if (has_ipv6addr()) {
-      if (ipv6addr_ != &::google::protobuf::internal::kEmptyString) {
+      if (ipv6addr_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         ipv6addr_->clear();
       }
     }
-    netmaskv6_ = 0u;
-    flags_ = 0u;
-    recvbytes_ = GOOGLE_ULONGLONG(0);
   }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    recvpackages_ = GOOGLE_ULONGLONG(0);
-    recverrorbytes_ = GOOGLE_ULONGLONG(0);
-    recvdropbytes_ = GOOGLE_ULONGLONG(0);
-    recvfifobytes_ = GOOGLE_ULONGLONG(0);
-    recvframes_ = GOOGLE_ULONGLONG(0);
-    recvcompressedbytes_ = GOOGLE_ULONGLONG(0);
-    recvmulticastbytes_ = GOOGLE_ULONGLONG(0);
-    transbytes_ = GOOGLE_ULONGLONG(0);
+  if (_has_bits_[8 / 32] & 65280) {
+    ZR_(recvpackages_, transbytes_);
   }
-  if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-    transpackages_ = GOOGLE_ULONGLONG(0);
-    transerrorbytes_ = GOOGLE_ULONGLONG(0);
-    transdropbytes_ = GOOGLE_ULONGLONG(0);
-    transfifobytes_ = GOOGLE_ULONGLONG(0);
-    transcompressedbytes_ = GOOGLE_ULONGLONG(0);
-    collisiontimes_ = 0u;
-    carriererrors_ = 0u;
-    transusage_ = GOOGLE_ULONGLONG(0);
+  if (_has_bits_[16 / 32] & 16711680) {
+    ZR_(transpackages_, transusage_);
   }
-  if (_has_bits_[24 / 32] & (0xffu << (24 % 32))) {
-    recvusage_ = GOOGLE_ULONGLONG(0);
-  }
+  recvusage_ = GOOGLE_ULONGLONG(0);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
 
 bool networkInfo::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:com.eolwral.osmonitor.core.networkInfo)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required string name = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->name().data(), this->name().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "name");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(18)) goto parse_mac;
         break;
@@ -335,16 +339,16 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required string mac = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 18) {
          parse_mac:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_mac()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->mac().data(), this->mac().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "mac");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(26)) goto parse_ipv4Addr;
         break;
@@ -352,16 +356,16 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // optional string ipv4Addr = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 26) {
          parse_ipv4Addr:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_ipv4addr()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->ipv4addr().data(), this->ipv4addr().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "ipv4addr");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(34)) goto parse_netMaskv4;
         break;
@@ -369,16 +373,16 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // optional string netMaskv4 = 4;
       case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 34) {
          parse_netMaskv4:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_netmaskv4()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->netmaskv4().data(), this->netmaskv4().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "netmaskv4");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(42)) goto parse_ipv6Addr;
         break;
@@ -386,16 +390,16 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // optional string ipv6Addr = 5;
       case 5: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 42) {
          parse_ipv6Addr:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_ipv6addr()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->ipv6addr().data(), this->ipv6addr().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "ipv6addr");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(48)) goto parse_netMaskv6;
         break;
@@ -403,15 +407,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // optional uint32 netMaskv6 = 6;
       case 6: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 48) {
          parse_netMaskv6:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &netmaskv6_)));
           set_has_netmaskv6();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(56)) goto parse_flags;
         break;
@@ -419,15 +422,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint32 flags = 7;
       case 7: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 56) {
          parse_flags:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &flags_)));
           set_has_flags();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(64)) goto parse_recvBytes;
         break;
@@ -435,15 +437,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 recvBytes = 8;
       case 8: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 64) {
          parse_recvBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &recvbytes_)));
           set_has_recvbytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(72)) goto parse_recvPackages;
         break;
@@ -451,15 +452,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 recvPackages = 9;
       case 9: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 72) {
          parse_recvPackages:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &recvpackages_)));
           set_has_recvpackages();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(80)) goto parse_recvErrorBytes;
         break;
@@ -467,15 +467,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 recvErrorBytes = 10;
       case 10: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 80) {
          parse_recvErrorBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &recverrorbytes_)));
           set_has_recverrorbytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(88)) goto parse_recvDropBytes;
         break;
@@ -483,15 +482,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 recvDropBytes = 11;
       case 11: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 88) {
          parse_recvDropBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &recvdropbytes_)));
           set_has_recvdropbytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(96)) goto parse_recvFIFOBytes;
         break;
@@ -499,15 +497,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 recvFIFOBytes = 12;
       case 12: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 96) {
          parse_recvFIFOBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &recvfifobytes_)));
           set_has_recvfifobytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(104)) goto parse_recvFrames;
         break;
@@ -515,15 +512,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 recvFrames = 13;
       case 13: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 104) {
          parse_recvFrames:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &recvframes_)));
           set_has_recvframes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(112)) goto parse_recvCompressedBytes;
         break;
@@ -531,15 +527,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 recvCompressedBytes = 14;
       case 14: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 112) {
          parse_recvCompressedBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &recvcompressedbytes_)));
           set_has_recvcompressedbytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(120)) goto parse_recvMultiCastBytes;
         break;
@@ -547,15 +542,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 recvMultiCastBytes = 15;
       case 15: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 120) {
          parse_recvMultiCastBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &recvmulticastbytes_)));
           set_has_recvmulticastbytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(128)) goto parse_transBytes;
         break;
@@ -563,15 +557,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 transBytes = 16;
       case 16: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 128) {
          parse_transBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &transbytes_)));
           set_has_transbytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(136)) goto parse_transPackages;
         break;
@@ -579,15 +572,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 transPackages = 17;
       case 17: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 136) {
          parse_transPackages:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &transpackages_)));
           set_has_transpackages();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(144)) goto parse_transErrorBytes;
         break;
@@ -595,15 +587,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 transErrorBytes = 18;
       case 18: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 144) {
          parse_transErrorBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &transerrorbytes_)));
           set_has_transerrorbytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(152)) goto parse_transDropBytes;
         break;
@@ -611,15 +602,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 transDropBytes = 19;
       case 19: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 152) {
          parse_transDropBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &transdropbytes_)));
           set_has_transdropbytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(160)) goto parse_transFIFOBytes;
         break;
@@ -627,15 +617,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 transFIFOBytes = 20;
       case 20: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 160) {
          parse_transFIFOBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &transfifobytes_)));
           set_has_transfifobytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(168)) goto parse_transCompressedBytes;
         break;
@@ -643,15 +632,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 transCompressedBytes = 21;
       case 21: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 168) {
          parse_transCompressedBytes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &transcompressedbytes_)));
           set_has_transcompressedbytes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(176)) goto parse_collisionTimes;
         break;
@@ -659,15 +647,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint32 collisionTimes = 22;
       case 22: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 176) {
          parse_collisionTimes:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &collisiontimes_)));
           set_has_collisiontimes();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(184)) goto parse_carrierErrors;
         break;
@@ -675,15 +662,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint32 carrierErrors = 23;
       case 23: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 184) {
          parse_carrierErrors:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &carriererrors_)));
           set_has_carriererrors();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(192)) goto parse_transUsage;
         break;
@@ -691,15 +677,14 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 transUsage = 24;
       case 24: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 192) {
          parse_transUsage:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &transusage_)));
           set_has_transusage();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(200)) goto parse_recvUsage;
         break;
@@ -707,25 +692,25 @@ bool networkInfo::MergePartialFromCodedStream(
 
       // required uint64 recvUsage = 25;
       case 25: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 200) {
          parse_recvUsage:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::uint64, ::google::protobuf::internal::WireFormatLite::TYPE_UINT64>(
                  input, &recvusage_)));
           set_has_recvusage();
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -733,54 +718,65 @@ bool networkInfo::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:com.eolwral.osmonitor.core.networkInfo)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:com.eolwral.osmonitor.core.networkInfo)
+  return false;
 #undef DO_
 }
 
 void networkInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:com.eolwral.osmonitor.core.networkInfo)
   // required string name = 1;
   if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->name(), output);
   }
 
   // required string mac = 2;
   if (has_mac()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->mac().data(), this->mac().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "mac");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->mac(), output);
   }
 
   // optional string ipv4Addr = 3;
   if (has_ipv4addr()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->ipv4addr().data(), this->ipv4addr().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ipv4addr");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->ipv4addr(), output);
   }
 
   // optional string netMaskv4 = 4;
   if (has_netmaskv4()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->netmaskv4().data(), this->netmaskv4().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "netmaskv4");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->netmaskv4(), output);
   }
 
   // optional string ipv6Addr = 5;
   if (has_ipv6addr()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->ipv6addr().data(), this->ipv6addr().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ipv6addr");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       5, this->ipv6addr(), output);
   }
 
@@ -888,15 +884,18 @@ void networkInfo::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:com.eolwral.osmonitor.core.networkInfo)
 }
 
 ::google::protobuf::uint8* networkInfo::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:com.eolwral.osmonitor.core.networkInfo)
   // required string name = 1;
   if (has_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->name().data(), this->name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "name");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->name(), target);
@@ -904,9 +903,10 @@ void networkInfo::SerializeWithCachedSizes(
 
   // required string mac = 2;
   if (has_mac()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->mac().data(), this->mac().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "mac");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->mac(), target);
@@ -914,9 +914,10 @@ void networkInfo::SerializeWithCachedSizes(
 
   // optional string ipv4Addr = 3;
   if (has_ipv4addr()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->ipv4addr().data(), this->ipv4addr().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ipv4addr");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->ipv4addr(), target);
@@ -924,9 +925,10 @@ void networkInfo::SerializeWithCachedSizes(
 
   // optional string netMaskv4 = 4;
   if (has_netmaskv4()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->netmaskv4().data(), this->netmaskv4().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "netmaskv4");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->netmaskv4(), target);
@@ -934,9 +936,10 @@ void networkInfo::SerializeWithCachedSizes(
 
   // optional string ipv6Addr = 5;
   if (has_ipv6addr()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->ipv6addr().data(), this->ipv6addr().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "ipv6addr");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         5, this->ipv6addr(), target);
@@ -1046,6 +1049,7 @@ void networkInfo::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:com.eolwral.osmonitor.core.networkInfo)
   return target;
 }
 

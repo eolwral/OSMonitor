@@ -8,10 +8,10 @@ public final class CpuInfo {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface cpuInfoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface cpuInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.core.cpuInfo)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required uint64 userTime = 1;
     /**
      * <code>required uint64 userTime = 1;</code>
      *
@@ -29,7 +29,6 @@ public final class CpuInfo {
      */
     long getUserTime();
 
-    // required uint64 niceTime = 2;
     /**
      * <code>required uint64 niceTime = 2;</code>
      *
@@ -47,7 +46,6 @@ public final class CpuInfo {
      */
     long getNiceTime();
 
-    // required uint64 systemTime = 3;
     /**
      * <code>required uint64 systemTime = 3;</code>
      *
@@ -65,7 +63,6 @@ public final class CpuInfo {
      */
     long getSystemTime();
 
-    // required uint64 idleTime = 4;
     /**
      * <code>required uint64 idleTime = 4;</code>
      *
@@ -83,7 +80,6 @@ public final class CpuInfo {
      */
     long getIdleTime();
 
-    // required uint64 ioWaitTime = 5;
     /**
      * <code>required uint64 ioWaitTime = 5;</code>
      *
@@ -101,7 +97,6 @@ public final class CpuInfo {
      */
     long getIoWaitTime();
 
-    // required uint64 irqTime = 6;
     /**
      * <code>required uint64 irqTime = 6;</code>
      *
@@ -119,7 +114,6 @@ public final class CpuInfo {
      */
     long getIrqTime();
 
-    // required uint64 softIRQTime = 7;
     /**
      * <code>required uint64 softIRQTime = 7;</code>
      *
@@ -137,7 +131,6 @@ public final class CpuInfo {
      */
     long getSoftIRQTime();
 
-    // required float cpuUtilization = 8;
     /**
      * <code>required float cpuUtilization = 8;</code>
      *
@@ -155,7 +148,6 @@ public final class CpuInfo {
      */
     float getCpuUtilization();
 
-    // required float IoUtilization = 9;
     /**
      * <code>required float IoUtilization = 9;</code>
      *
@@ -173,7 +165,6 @@ public final class CpuInfo {
      */
     float getIoUtilization();
 
-    // required uint64 cpuTime = 10;
     /**
      * <code>required uint64 cpuTime = 10;</code>
      *
@@ -191,7 +182,6 @@ public final class CpuInfo {
      */
     long getCpuTime();
 
-    // optional uint32 cpuNumber = 11;
     /**
      * <code>optional uint32 cpuNumber = 11;</code>
      *
@@ -209,7 +199,6 @@ public final class CpuInfo {
      */
     int getCpuNumber();
 
-    // optional bool offLine = 12;
     /**
      * <code>optional bool offLine = 12;</code>
      *
@@ -231,8 +220,9 @@ public final class CpuInfo {
    * Protobuf type {@code com.eolwral.osmonitor.core.cpuInfo}
    */
   public static final class cpuInfo extends
-      com.google.protobuf.GeneratedMessage
-      implements cpuInfoOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.core.cpuInfo)
+      cpuInfoOrBuilder {
     // Use cpuInfo.newBuilder() to construct.
     private cpuInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -378,7 +368,6 @@ public final class CpuInfo {
     }
 
     private int bitField0_;
-    // required uint64 userTime = 1;
     public static final int USERTIME_FIELD_NUMBER = 1;
     private long userTime_;
     /**
@@ -402,7 +391,6 @@ public final class CpuInfo {
       return userTime_;
     }
 
-    // required uint64 niceTime = 2;
     public static final int NICETIME_FIELD_NUMBER = 2;
     private long niceTime_;
     /**
@@ -426,7 +414,6 @@ public final class CpuInfo {
       return niceTime_;
     }
 
-    // required uint64 systemTime = 3;
     public static final int SYSTEMTIME_FIELD_NUMBER = 3;
     private long systemTime_;
     /**
@@ -450,7 +437,6 @@ public final class CpuInfo {
       return systemTime_;
     }
 
-    // required uint64 idleTime = 4;
     public static final int IDLETIME_FIELD_NUMBER = 4;
     private long idleTime_;
     /**
@@ -474,7 +460,6 @@ public final class CpuInfo {
       return idleTime_;
     }
 
-    // required uint64 ioWaitTime = 5;
     public static final int IOWAITTIME_FIELD_NUMBER = 5;
     private long ioWaitTime_;
     /**
@@ -498,7 +483,6 @@ public final class CpuInfo {
       return ioWaitTime_;
     }
 
-    // required uint64 irqTime = 6;
     public static final int IRQTIME_FIELD_NUMBER = 6;
     private long irqTime_;
     /**
@@ -522,7 +506,6 @@ public final class CpuInfo {
       return irqTime_;
     }
 
-    // required uint64 softIRQTime = 7;
     public static final int SOFTIRQTIME_FIELD_NUMBER = 7;
     private long softIRQTime_;
     /**
@@ -546,7 +529,6 @@ public final class CpuInfo {
       return softIRQTime_;
     }
 
-    // required float cpuUtilization = 8;
     public static final int CPUUTILIZATION_FIELD_NUMBER = 8;
     private float cpuUtilization_;
     /**
@@ -570,7 +552,6 @@ public final class CpuInfo {
       return cpuUtilization_;
     }
 
-    // required float IoUtilization = 9;
     public static final int IOUTILIZATION_FIELD_NUMBER = 9;
     private float ioUtilization_;
     /**
@@ -594,7 +575,6 @@ public final class CpuInfo {
       return ioUtilization_;
     }
 
-    // required uint64 cpuTime = 10;
     public static final int CPUTIME_FIELD_NUMBER = 10;
     private long cpuTime_;
     /**
@@ -618,7 +598,6 @@ public final class CpuInfo {
       return cpuTime_;
     }
 
-    // optional uint32 cpuNumber = 11;
     public static final int CPUNUMBER_FIELD_NUMBER = 11;
     private int cpuNumber_;
     /**
@@ -642,7 +621,6 @@ public final class CpuInfo {
       return cpuNumber_;
     }
 
-    // optional bool offLine = 12;
     public static final int OFFLINE_FIELD_NUMBER = 12;
     private boolean offLine_;
     /**
@@ -683,7 +661,8 @@ public final class CpuInfo {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasUserTime()) {
         memoizedIsInitialized = 0;
@@ -907,8 +886,9 @@ public final class CpuInfo {
      * Protobuf type {@code com.eolwral.osmonitor.core.cpuInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.CpuInfo.cpuInfoOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.core.cpuInfo)
+        com.eolwral.osmonitor.core.CpuInfo.cpuInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.core.CpuInfo.internal_static_com_eolwral_osmonitor_core_cpuInfo_descriptor;
@@ -1160,7 +1140,6 @@ public final class CpuInfo {
       }
       private int bitField0_;
 
-      // required uint64 userTime = 1;
       private long userTime_ ;
       /**
        * <code>required uint64 userTime = 1;</code>
@@ -1209,7 +1188,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // required uint64 niceTime = 2;
       private long niceTime_ ;
       /**
        * <code>required uint64 niceTime = 2;</code>
@@ -1258,7 +1236,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // required uint64 systemTime = 3;
       private long systemTime_ ;
       /**
        * <code>required uint64 systemTime = 3;</code>
@@ -1307,7 +1284,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // required uint64 idleTime = 4;
       private long idleTime_ ;
       /**
        * <code>required uint64 idleTime = 4;</code>
@@ -1356,7 +1332,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // required uint64 ioWaitTime = 5;
       private long ioWaitTime_ ;
       /**
        * <code>required uint64 ioWaitTime = 5;</code>
@@ -1405,7 +1380,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // required uint64 irqTime = 6;
       private long irqTime_ ;
       /**
        * <code>required uint64 irqTime = 6;</code>
@@ -1454,7 +1428,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // required uint64 softIRQTime = 7;
       private long softIRQTime_ ;
       /**
        * <code>required uint64 softIRQTime = 7;</code>
@@ -1503,7 +1476,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // required float cpuUtilization = 8;
       private float cpuUtilization_ ;
       /**
        * <code>required float cpuUtilization = 8;</code>
@@ -1552,7 +1524,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // required float IoUtilization = 9;
       private float ioUtilization_ ;
       /**
        * <code>required float IoUtilization = 9;</code>
@@ -1601,7 +1572,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // required uint64 cpuTime = 10;
       private long cpuTime_ ;
       /**
        * <code>required uint64 cpuTime = 10;</code>
@@ -1650,7 +1620,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // optional uint32 cpuNumber = 11;
       private int cpuNumber_ ;
       /**
        * <code>optional uint32 cpuNumber = 11;</code>
@@ -1699,7 +1668,6 @@ public final class CpuInfo {
         return this;
       }
 
-      // optional bool offLine = 12;
       private boolean offLine_ ;
       /**
        * <code>optional bool offLine = 12;</code>
@@ -1759,7 +1727,7 @@ public final class CpuInfo {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.cpuInfo)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_cpuInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -1783,23 +1751,23 @@ public final class CpuInfo {
       "e\030\014 \001(\010"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_com_eolwral_osmonitor_core_cpuInfo_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_com_eolwral_osmonitor_core_cpuInfo_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_core_cpuInfo_descriptor,
-              new java.lang.String[] { "UserTime", "NiceTime", "SystemTime", "IdleTime", "IoWaitTime", "IrqTime", "SoftIRQTime", "CpuUtilization", "IoUtilization", "CpuTime", "CpuNumber", "OffLine", });
-          return null;
-        }
-      };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
+    internal_static_com_eolwral_osmonitor_core_cpuInfo_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_com_eolwral_osmonitor_core_cpuInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_core_cpuInfo_descriptor,
+        new java.lang.String[] { "UserTime", "NiceTime", "SystemTime", "IdleTime", "IoWaitTime", "IrqTime", "SoftIRQTime", "CpuUtilization", "IoUtilization", "CpuTime", "CpuNumber", "OffLine", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

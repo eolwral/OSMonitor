@@ -8,10 +8,10 @@ public final class OsInfo {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface osInfoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface osInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.core.osInfo)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required uint64 uptime = 1;
     /**
      * <code>required uint64 uptime = 1;</code>
      *
@@ -29,7 +29,6 @@ public final class OsInfo {
      */
     long getUptime();
 
-    // required uint64 totalMemory = 2;
     /**
      * <code>required uint64 totalMemory = 2;</code>
      *
@@ -47,7 +46,6 @@ public final class OsInfo {
      */
     long getTotalMemory();
 
-    // required uint64 freeMemory = 3;
     /**
      * <code>required uint64 freeMemory = 3;</code>
      *
@@ -65,7 +63,6 @@ public final class OsInfo {
      */
     long getFreeMemory();
 
-    // required uint64 sharedMemory = 4;
     /**
      * <code>required uint64 sharedMemory = 4;</code>
      *
@@ -83,7 +80,6 @@ public final class OsInfo {
      */
     long getSharedMemory();
 
-    // required uint64 bufferedMemory = 5;
     /**
      * <code>required uint64 bufferedMemory = 5;</code>
      *
@@ -101,7 +97,6 @@ public final class OsInfo {
      */
     long getBufferedMemory();
 
-    // required uint64 cachedMemory = 6;
     /**
      * <code>required uint64 cachedMemory = 6;</code>
      *
@@ -119,7 +114,6 @@ public final class OsInfo {
      */
     long getCachedMemory();
 
-    // required uint64 totalSwap = 7;
     /**
      * <code>required uint64 totalSwap = 7;</code>
      *
@@ -137,7 +131,6 @@ public final class OsInfo {
      */
     long getTotalSwap();
 
-    // required uint64 freeSwap = 8;
     /**
      * <code>required uint64 freeSwap = 8;</code>
      *
@@ -159,8 +152,9 @@ public final class OsInfo {
    * Protobuf type {@code com.eolwral.osmonitor.core.osInfo}
    */
   public static final class osInfo extends
-      com.google.protobuf.GeneratedMessage
-      implements osInfoOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.core.osInfo)
+      osInfoOrBuilder {
     // Use osInfo.newBuilder() to construct.
     private osInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -286,7 +280,6 @@ public final class OsInfo {
     }
 
     private int bitField0_;
-    // required uint64 uptime = 1;
     public static final int UPTIME_FIELD_NUMBER = 1;
     private long uptime_;
     /**
@@ -310,7 +303,6 @@ public final class OsInfo {
       return uptime_;
     }
 
-    // required uint64 totalMemory = 2;
     public static final int TOTALMEMORY_FIELD_NUMBER = 2;
     private long totalMemory_;
     /**
@@ -334,7 +326,6 @@ public final class OsInfo {
       return totalMemory_;
     }
 
-    // required uint64 freeMemory = 3;
     public static final int FREEMEMORY_FIELD_NUMBER = 3;
     private long freeMemory_;
     /**
@@ -358,7 +349,6 @@ public final class OsInfo {
       return freeMemory_;
     }
 
-    // required uint64 sharedMemory = 4;
     public static final int SHAREDMEMORY_FIELD_NUMBER = 4;
     private long sharedMemory_;
     /**
@@ -382,7 +372,6 @@ public final class OsInfo {
       return sharedMemory_;
     }
 
-    // required uint64 bufferedMemory = 5;
     public static final int BUFFEREDMEMORY_FIELD_NUMBER = 5;
     private long bufferedMemory_;
     /**
@@ -406,7 +395,6 @@ public final class OsInfo {
       return bufferedMemory_;
     }
 
-    // required uint64 cachedMemory = 6;
     public static final int CACHEDMEMORY_FIELD_NUMBER = 6;
     private long cachedMemory_;
     /**
@@ -430,7 +418,6 @@ public final class OsInfo {
       return cachedMemory_;
     }
 
-    // required uint64 totalSwap = 7;
     public static final int TOTALSWAP_FIELD_NUMBER = 7;
     private long totalSwap_;
     /**
@@ -454,7 +441,6 @@ public final class OsInfo {
       return totalSwap_;
     }
 
-    // required uint64 freeSwap = 8;
     public static final int FREESWAP_FIELD_NUMBER = 8;
     private long freeSwap_;
     /**
@@ -491,7 +477,8 @@ public final class OsInfo {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasUptime()) {
         memoizedIsInitialized = 0;
@@ -679,8 +666,9 @@ public final class OsInfo {
      * Protobuf type {@code com.eolwral.osmonitor.core.osInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.OsInfo.osInfoOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.core.osInfo)
+        com.eolwral.osmonitor.core.OsInfo.osInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.core.OsInfo.internal_static_com_eolwral_osmonitor_core_osInfo_descriptor;
@@ -888,7 +876,6 @@ public final class OsInfo {
       }
       private int bitField0_;
 
-      // required uint64 uptime = 1;
       private long uptime_ ;
       /**
        * <code>required uint64 uptime = 1;</code>
@@ -937,7 +924,6 @@ public final class OsInfo {
         return this;
       }
 
-      // required uint64 totalMemory = 2;
       private long totalMemory_ ;
       /**
        * <code>required uint64 totalMemory = 2;</code>
@@ -986,7 +972,6 @@ public final class OsInfo {
         return this;
       }
 
-      // required uint64 freeMemory = 3;
       private long freeMemory_ ;
       /**
        * <code>required uint64 freeMemory = 3;</code>
@@ -1035,7 +1020,6 @@ public final class OsInfo {
         return this;
       }
 
-      // required uint64 sharedMemory = 4;
       private long sharedMemory_ ;
       /**
        * <code>required uint64 sharedMemory = 4;</code>
@@ -1084,7 +1068,6 @@ public final class OsInfo {
         return this;
       }
 
-      // required uint64 bufferedMemory = 5;
       private long bufferedMemory_ ;
       /**
        * <code>required uint64 bufferedMemory = 5;</code>
@@ -1133,7 +1116,6 @@ public final class OsInfo {
         return this;
       }
 
-      // required uint64 cachedMemory = 6;
       private long cachedMemory_ ;
       /**
        * <code>required uint64 cachedMemory = 6;</code>
@@ -1182,7 +1164,6 @@ public final class OsInfo {
         return this;
       }
 
-      // required uint64 totalSwap = 7;
       private long totalSwap_ ;
       /**
        * <code>required uint64 totalSwap = 7;</code>
@@ -1231,7 +1212,6 @@ public final class OsInfo {
         return this;
       }
 
-      // required uint64 freeSwap = 8;
       private long freeSwap_ ;
       /**
        * <code>required uint64 freeSwap = 8;</code>
@@ -1291,7 +1271,7 @@ public final class OsInfo {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.osInfo)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_osInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -1313,23 +1293,23 @@ public final class OsInfo {
       "\010freeSwap\030\010 \002(\004"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_com_eolwral_osmonitor_core_osInfo_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_com_eolwral_osmonitor_core_osInfo_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_core_osInfo_descriptor,
-              new java.lang.String[] { "Uptime", "TotalMemory", "FreeMemory", "SharedMemory", "BufferedMemory", "CachedMemory", "TotalSwap", "FreeSwap", });
-          return null;
-        }
-      };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
+    internal_static_com_eolwral_osmonitor_core_osInfo_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_com_eolwral_osmonitor_core_osInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_core_osInfo_descriptor,
+        new java.lang.String[] { "Uptime", "TotalMemory", "FreeMemory", "SharedMemory", "BufferedMemory", "CachedMemory", "TotalSwap", "FreeSwap", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

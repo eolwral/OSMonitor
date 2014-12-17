@@ -8,10 +8,10 @@ public final class ProcessorInfo {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface processorInfoOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+  public interface processorInfoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:com.eolwral.osmonitor.core.processorInfo)
+      com.google.protobuf.MessageOrBuilder {
 
-    // required sint32 maxFrequency = 1;
     /**
      * <code>required sint32 maxFrequency = 1;</code>
      *
@@ -29,7 +29,6 @@ public final class ProcessorInfo {
      */
     int getMaxFrequency();
 
-    // required sint32 minFrequency = 2;
     /**
      * <code>required sint32 minFrequency = 2;</code>
      *
@@ -47,7 +46,6 @@ public final class ProcessorInfo {
      */
     int getMinFrequency();
 
-    // required sint32 maxScaling = 3;
     /**
      * <code>required sint32 maxScaling = 3;</code>
      *
@@ -65,7 +63,6 @@ public final class ProcessorInfo {
      */
     int getMaxScaling();
 
-    // required sint32 minScaling = 4;
     /**
      * <code>required sint32 minScaling = 4;</code>
      *
@@ -83,7 +80,6 @@ public final class ProcessorInfo {
      */
     int getMinScaling();
 
-    // required sint32 currentScaling = 5;
     /**
      * <code>required sint32 currentScaling = 5;</code>
      *
@@ -101,7 +97,6 @@ public final class ProcessorInfo {
      */
     int getCurrentScaling();
 
-    // required string grovernors = 6;
     /**
      * <code>required string grovernors = 6;</code>
      *
@@ -128,7 +123,6 @@ public final class ProcessorInfo {
     com.google.protobuf.ByteString
         getGrovernorsBytes();
 
-    // required uint32 number = 7;
     /**
      * <code>required uint32 number = 7;</code>
      *
@@ -146,7 +140,6 @@ public final class ProcessorInfo {
      */
     int getNumber();
 
-    // required bool offLine = 8;
     /**
      * <code>required bool offLine = 8;</code>
      *
@@ -164,7 +157,6 @@ public final class ProcessorInfo {
      */
     boolean getOffLine();
 
-    // required string avaiableGovernors = 9;
     /**
      * <code>required string avaiableGovernors = 9;</code>
      *
@@ -191,7 +183,6 @@ public final class ProcessorInfo {
     com.google.protobuf.ByteString
         getAvaiableGovernorsBytes();
 
-    // required string avaiableFrequeucy = 10;
     /**
      * <code>required string avaiableFrequeucy = 10;</code>
      *
@@ -222,8 +213,9 @@ public final class ProcessorInfo {
    * Protobuf type {@code com.eolwral.osmonitor.core.processorInfo}
    */
   public static final class processorInfo extends
-      com.google.protobuf.GeneratedMessage
-      implements processorInfoOrBuilder {
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:com.eolwral.osmonitor.core.processorInfo)
+      processorInfoOrBuilder {
     // Use processorInfo.newBuilder() to construct.
     private processorInfo(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
@@ -295,8 +287,9 @@ public final class ProcessorInfo {
               break;
             }
             case 50: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000020;
-              grovernors_ = input.readBytes();
+              grovernors_ = bs;
               break;
             }
             case 56: {
@@ -310,13 +303,15 @@ public final class ProcessorInfo {
               break;
             }
             case 74: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000100;
-              avaiableGovernors_ = input.readBytes();
+              avaiableGovernors_ = bs;
               break;
             }
             case 82: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000200;
-              avaiableFrequeucy_ = input.readBytes();
+              avaiableFrequeucy_ = bs;
               break;
             }
           }
@@ -359,7 +354,6 @@ public final class ProcessorInfo {
     }
 
     private int bitField0_;
-    // required sint32 maxFrequency = 1;
     public static final int MAXFREQUENCY_FIELD_NUMBER = 1;
     private int maxFrequency_;
     /**
@@ -383,7 +377,6 @@ public final class ProcessorInfo {
       return maxFrequency_;
     }
 
-    // required sint32 minFrequency = 2;
     public static final int MINFREQUENCY_FIELD_NUMBER = 2;
     private int minFrequency_;
     /**
@@ -407,7 +400,6 @@ public final class ProcessorInfo {
       return minFrequency_;
     }
 
-    // required sint32 maxScaling = 3;
     public static final int MAXSCALING_FIELD_NUMBER = 3;
     private int maxScaling_;
     /**
@@ -431,7 +423,6 @@ public final class ProcessorInfo {
       return maxScaling_;
     }
 
-    // required sint32 minScaling = 4;
     public static final int MINSCALING_FIELD_NUMBER = 4;
     private int minScaling_;
     /**
@@ -455,7 +446,6 @@ public final class ProcessorInfo {
       return minScaling_;
     }
 
-    // required sint32 currentScaling = 5;
     public static final int CURRENTSCALING_FIELD_NUMBER = 5;
     private int currentScaling_;
     /**
@@ -479,7 +469,6 @@ public final class ProcessorInfo {
       return currentScaling_;
     }
 
-    // required string grovernors = 6;
     public static final int GROVERNORS_FIELD_NUMBER = 6;
     private java.lang.Object grovernors_;
     /**
@@ -534,7 +523,6 @@ public final class ProcessorInfo {
       }
     }
 
-    // required uint32 number = 7;
     public static final int NUMBER_FIELD_NUMBER = 7;
     private int number_;
     /**
@@ -558,7 +546,6 @@ public final class ProcessorInfo {
       return number_;
     }
 
-    // required bool offLine = 8;
     public static final int OFFLINE_FIELD_NUMBER = 8;
     private boolean offLine_;
     /**
@@ -582,7 +569,6 @@ public final class ProcessorInfo {
       return offLine_;
     }
 
-    // required string avaiableGovernors = 9;
     public static final int AVAIABLEGOVERNORS_FIELD_NUMBER = 9;
     private java.lang.Object avaiableGovernors_;
     /**
@@ -637,7 +623,6 @@ public final class ProcessorInfo {
       }
     }
 
-    // required string avaiableFrequeucy = 10;
     public static final int AVAIABLEFREQUEUCY_FIELD_NUMBER = 10;
     private java.lang.Object avaiableFrequeucy_;
     /**
@@ -707,7 +692,8 @@ public final class ProcessorInfo {
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
 
       if (!hasMaxFrequency()) {
         memoizedIsInitialized = 0;
@@ -917,8 +903,9 @@ public final class ProcessorInfo {
      * Protobuf type {@code com.eolwral.osmonitor.core.processorInfo}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements com.eolwral.osmonitor.core.ProcessorInfo.processorInfoOrBuilder {
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:com.eolwral.osmonitor.core.processorInfo)
+        com.eolwral.osmonitor.core.ProcessorInfo.processorInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
         return com.eolwral.osmonitor.core.ProcessorInfo.internal_static_com_eolwral_osmonitor_core_processorInfo_descriptor;
@@ -1158,7 +1145,6 @@ public final class ProcessorInfo {
       }
       private int bitField0_;
 
-      // required sint32 maxFrequency = 1;
       private int maxFrequency_ ;
       /**
        * <code>required sint32 maxFrequency = 1;</code>
@@ -1207,7 +1193,6 @@ public final class ProcessorInfo {
         return this;
       }
 
-      // required sint32 minFrequency = 2;
       private int minFrequency_ ;
       /**
        * <code>required sint32 minFrequency = 2;</code>
@@ -1256,7 +1241,6 @@ public final class ProcessorInfo {
         return this;
       }
 
-      // required sint32 maxScaling = 3;
       private int maxScaling_ ;
       /**
        * <code>required sint32 maxScaling = 3;</code>
@@ -1305,7 +1289,6 @@ public final class ProcessorInfo {
         return this;
       }
 
-      // required sint32 minScaling = 4;
       private int minScaling_ ;
       /**
        * <code>required sint32 minScaling = 4;</code>
@@ -1354,7 +1337,6 @@ public final class ProcessorInfo {
         return this;
       }
 
-      // required sint32 currentScaling = 5;
       private int currentScaling_ ;
       /**
        * <code>required sint32 currentScaling = 5;</code>
@@ -1403,7 +1385,6 @@ public final class ProcessorInfo {
         return this;
       }
 
-      // required string grovernors = 6;
       private java.lang.Object grovernors_ = "";
       /**
        * <code>required string grovernors = 6;</code>
@@ -1425,9 +1406,12 @@ public final class ProcessorInfo {
       public java.lang.String getGrovernors() {
         java.lang.Object ref = grovernors_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          grovernors_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            grovernors_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1501,7 +1485,6 @@ public final class ProcessorInfo {
         return this;
       }
 
-      // required uint32 number = 7;
       private int number_ ;
       /**
        * <code>required uint32 number = 7;</code>
@@ -1550,7 +1533,6 @@ public final class ProcessorInfo {
         return this;
       }
 
-      // required bool offLine = 8;
       private boolean offLine_ ;
       /**
        * <code>required bool offLine = 8;</code>
@@ -1599,7 +1581,6 @@ public final class ProcessorInfo {
         return this;
       }
 
-      // required string avaiableGovernors = 9;
       private java.lang.Object avaiableGovernors_ = "";
       /**
        * <code>required string avaiableGovernors = 9;</code>
@@ -1621,9 +1602,12 @@ public final class ProcessorInfo {
       public java.lang.String getAvaiableGovernors() {
         java.lang.Object ref = avaiableGovernors_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          avaiableGovernors_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            avaiableGovernors_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1697,7 +1681,6 @@ public final class ProcessorInfo {
         return this;
       }
 
-      // required string avaiableFrequeucy = 10;
       private java.lang.Object avaiableFrequeucy_ = "";
       /**
        * <code>required string avaiableFrequeucy = 10;</code>
@@ -1719,9 +1702,12 @@ public final class ProcessorInfo {
       public java.lang.String getAvaiableFrequeucy() {
         java.lang.Object ref = avaiableFrequeucy_;
         if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          avaiableFrequeucy_ = s;
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            avaiableFrequeucy_ = s;
+          }
           return s;
         } else {
           return (java.lang.String) ref;
@@ -1806,7 +1792,7 @@ public final class ProcessorInfo {
     // @@protoc_insertion_point(class_scope:com.eolwral.osmonitor.core.processorInfo)
   }
 
-  private static com.google.protobuf.Descriptors.Descriptor
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_eolwral_osmonitor_core_processorInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -1830,23 +1816,23 @@ public final class ProcessorInfo {
       "(\t"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_com_eolwral_osmonitor_core_processorInfo_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_com_eolwral_osmonitor_core_processorInfo_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_com_eolwral_osmonitor_core_processorInfo_descriptor,
-              new java.lang.String[] { "MaxFrequency", "MinFrequency", "MaxScaling", "MinScaling", "CurrentScaling", "Grovernors", "Number", "OffLine", "AvaiableGovernors", "AvaiableFrequeucy", });
-          return null;
-        }
-      };
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
+    internal_static_com_eolwral_osmonitor_core_processorInfo_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_com_eolwral_osmonitor_core_processorInfo_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_eolwral_osmonitor_core_processorInfo_descriptor,
+        new java.lang.String[] { "MaxFrequency", "MinFrequency", "MaxScaling", "MinScaling", "CurrentScaling", "Grovernors", "Number", "OffLine", "AvaiableGovernors", "AvaiableFrequeucy", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

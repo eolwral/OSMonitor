@@ -105,7 +105,7 @@ public class CommonUtil {
    * @return true == yes, false == no
    */
   public static boolean isLollipop() {
-    return (Build.VERSION.RELEASE.equals("L") || Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
   }
 
   /**
@@ -119,20 +119,6 @@ public class CommonUtil {
   private static boolean fileExist(String localPath) {
     File targetFile = new File(localPath);
     return targetFile.exists();
-  }
-
-  /**
-   * check SQLite DB status
-   * 
-   * @param context
-   *          Context
-   * @param dbName
-   *          database name
-   * @return true == exist, false == not exist
-   */
-  public static boolean doesDatabaseExist(Context context, String dbName) {
-    File dbFile = context.getDatabasePath(dbName);
-    return dbFile.exists();
   }
 
   /**

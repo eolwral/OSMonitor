@@ -1,13 +1,9 @@
 package com.eolwral.osmonitor.provider;
 
-import java.util.Map;
-
 import com.eolwral.osmonitor.db.PreferenceDBHelper;
-import com.eolwral.osmonitor.util.CommonUtil;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
-import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,7 +23,6 @@ public class PreferenceContentProvider extends ContentProvider {
   private static final String SETTINGS_PATH = "settings";
 
   private static final int SETTINGS_METHOD = 10;
-  private static final int MODE_MULTI_PROCESS = 4;
 
   public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + SETTINGS_PATH);
 
@@ -39,32 +34,8 @@ public class PreferenceContentProvider extends ContentProvider {
 
   @Override
   public boolean onCreate() {
-
-    // TODO: this code should be removed soon
-    boolean initial = true;
-    if (!CommonUtil.doesDatabaseExist(getContext(),
-        PreferenceDBHelper.SQLITEDB_NAME))
-      initial = false;
-
     initSQLiteDB();
-
-    if (!initial)
-      mergeSettings();
-
     return false;
-  }
-
-  private void mergeSettings() {
-    SharedPreferences preferenceMgr = getContext().getSharedPreferences(
-        getContext().getPackageName() + "_preferences", MODE_MULTI_PROCESS);
-    // dump into SQLite
-    Map<String, ?> oldData = preferenceMgr.getAll();
-    for (Map.Entry<String, ?> entry : oldData.entrySet()) {
-      ContentValues data = new ContentValues();
-      data.put(KEY, entry.getKey());
-      data.put(VALUE, entry.getValue().toString());
-      insert(CONTENT_URI, data);
-    }
   }
 
   private void initSQLiteDB() {

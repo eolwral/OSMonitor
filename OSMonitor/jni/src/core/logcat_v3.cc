@@ -403,8 +403,8 @@ namespace core {
     curLogcatInfo->set_nanoseconds(entry->nsec);
     curLogcatInfo->set_pid(entry->pid);
     curLogcatInfo->set_tid(entry->tid);
-    curLogcatInfo->set_tag(msg+1);
-    curLogcatInfo->set_message(msg+msgStart);
+    curLogcatInfo->set_tag(msg+1, msgStart-1);
+    curLogcatInfo->set_message(msg+msgStart, msgEnd-msgStart);
 
     switch(msg[0])
     {

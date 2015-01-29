@@ -22,9 +22,9 @@ echo y | android update sdk --filter tools,platform-tools,android-21,extra-andro
 echo y | android update sdk --filter build-tools-21.1.2 --no-ui --force >> installation.log
 
 # get Coverity
-wget -q https://scan.coverity.com/download/linux-64 --post-data "token=$TOKEN&project=Android+OS+Monitor" -O coverity_tool.tgz
+wget -q https://scan.coverity.com/download/cxx/linux-64 --post-data "token=$TOKEN&project=Android+OS+Monitor" -O coverity_tool.tgz
 tar zxf coverity_tool.tgz 
-mv cov-analysis-linux64-7.5.0 cov 
+mv cov-analysis-linux64-7.6.0 cov 
 cov-configure --comptype gcc --compiler arm-linux-androideabi-gcc --template
 
 # get source code
@@ -73,9 +73,9 @@ mkdir assets
 mv libs/armeabi/osmcore assets/osmcore_arm
 mv libs/x86/osmcore assets/osmcore_x86
 mv libs/mips/osmcore assets/osmcore_mips
-mv libs/armeabi/osmcore_l assets/osmcore_arm_l
-mv libs/x86/osmcore_l assets/osmcore_x86_l
-mv libs/mips/osmcore_l assets/osmcore_mips_l
+mv libs/armeabi/osmcore_l assets/osmcore_arm_pie
+mv libs/x86/osmcore_l assets/osmcore_x86_pie
+mv libs/mips/osmcore_l assets/osmcore_mips_pie
 
 # build debug package
 ant debug

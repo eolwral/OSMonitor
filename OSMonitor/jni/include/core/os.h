@@ -10,7 +10,7 @@
 #include <linux/kernel.h>
 
 #include "base.h"
-#include "osInfo.pb.h"
+#include "osInfo_generated.h"
 
 #define OS_BOOT_TIME "/proc/uptime"
 
@@ -26,13 +26,47 @@ namespace core {
   class os : com::eolwral::osmonitor::core::base
   {
   private:
-    std::vector<osInfo*>  _curOSInfo; /**< current OS information */
+    FlatBufferBuilder *_flatbuffer; /**< current OS information */
+    osInfoBuilder *_info;           /**< current OS information object */
 
-    void getUpTime(osInfo *curOSInfo);
-    bool getMemoryFromFile(osInfo* curOsInfo);
+    /**
+     * get upTime
+     */
+    void getUpTime();
+
+    /**
+     * set memory information into osInfo object
+     */
+    void getMemoryFromFile();
+
+    /**
+     * move file to next line
+     * @param[in] file handle
+     * @return success and fail
+     */;
     bool moveToNextLine(FILE *file);
 
+    /**
+     * prepare FlatBuffer
+     */
+    void prepareBuffer();
+
+    /**
+     * finish FlatBuffer
+     */
+    void finishBuffer();
+
   public:
+
+    /**
+     * constructor
+     */
+    os();
+
+    /**
+     * destructor
+     */
+    ~os();
 
     /**
      * refresh status
@@ -41,9 +75,15 @@ namespace core {
 
     /**
      * get system information
-     * @return a object contains system information
+     * @return a buffer pointer
      */
-    const std::vector<google::protobuf::Message*>& getData();
+    const uint8_t* getData();
+
+    /**
+     * get buffer size
+     * @return buffer size
+     */
+    const uoffset_t getSize();
 
   };
 

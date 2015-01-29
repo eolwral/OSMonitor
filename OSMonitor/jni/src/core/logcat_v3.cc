@@ -23,11 +23,15 @@ namespace core {
   logcat::logcat(logcatLogger source)
   {
     this->_sourceLogger = source;
+
     this->_lastTime.tv_nsec = 0;
     this->_lastTime.tv_sec = 0;
+
     this->android_logger_open = NULL;
     this->android_logger_close = NULL;
     this->android_logger_read = NULL;
+
+    this->_flatbuffer = NULL;
     this->use_count++;
 
     if (eventTagMap == NULL)
@@ -80,13 +84,18 @@ namespace core {
       dlclose(this->handle);
     }
 
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
+    if (this->_flatbuffer != NULL)
+    {
+      delete this->_flatbuffer;
+      this->_flatbuffer = NULL;
+    }
   }
 
 
   void logcat::fetchLogcat(struct logger_list* logger)
   {
-    while (true) {
+    while (true)
+    {
 
       struct log_msg log_msg;
 
@@ -102,14 +111,10 @@ namespace core {
         continue;
 
       // extract log
-      if (this->_sourceLogger == EVENTS) {
-        if (!this->extractBinaryLog(&log_msg))
-          break;
-      }
-      else {
-        if (!this->extractLogV3(&log_msg.entry_v1))
-          break;
-      }
+      if (this->_sourceLogger == EVENTS)
+        this->extractBinaryLog(&log_msg);
+      else
+        this->extractLogV3(&log_msg.entry_v1);
 
       // save time
       this->_lastTime.tv_nsec = log_msg.entry.nsec;
@@ -119,13 +124,15 @@ namespace core {
     return;
   }
 
-  bool logcat::extractBinaryLog(struct log_msg *entry)
+  void logcat::extractBinaryLog(struct log_msg *entry)
   {
     unsigned int tagIndex = 0;
     const unsigned char* message = 0;
     unsigned int messageLen = 0;
     char outBuffer[BUFFERSIZE];
     unsigned int outBufferLen = BUFFERSIZE;
+    Offset<String> tag = 0;
+    Offset<String> logMessage = 0;
 
     /*
      * Pull the tag out.
@@ -135,55 +142,46 @@ namespace core {
       message = ((unsigned char*) entry) + entry->entry_v2.hdr_size;
     messageLen = entry->entry_v2.len;
     if (messageLen < 4)
-      return false;
+      return;
 
     // get tagIndex
     tagIndex = get4LE(message);
     message += 4;
     messageLen -= 4;
 
-    logcatInfo* curLogcatInfo = new logcatInfo();
-    curLogcatInfo->set_seconds(entry->entry_v2.sec);
-    curLogcatInfo->set_nanoseconds(entry->entry_v2.nsec);
-    curLogcatInfo->set_pid(entry->entry_v2.pid);
-    curLogcatInfo->set_tid(entry->entry_v2.tid);
-    curLogcatInfo->set_priority(logcatInfo_logPriority_INFO);
+    // clean up
+    memset(outBuffer, 0, BUFFERSIZE);
+    char *charBuffer = outBuffer;
+    if(!this->processBinaryLog(&message, &messageLen, &charBuffer, &outBufferLen))
+      return;
+    logMessage =  this->_flatbuffer->CreateString(outBuffer);
 
     // map tagIndex to tag
     if (eventTagMap != NULL)
     {
-      const char* tag = android_lookupEventTag(eventTagMap, tagIndex);
-      if(tag != NULL)
-        curLogcatInfo->set_tag(tag);
-    }
-
-    if (!curLogcatInfo->has_tag())
-    {
-      char buffer[64];
-      memset(buffer, 0, 64);
-      snprintf(buffer, 64, "%d", tagIndex );
-      curLogcatInfo->set_tag(buffer);
-    }
-
-    // clean up
-    memset(outBuffer, 0, BUFFERSIZE);
-
-    char *charBuffer = outBuffer;
-    if(this->processBinaryLog(&message, &messageLen, &charBuffer, &outBufferLen))
-    {
-      curLogcatInfo->set_message(outBuffer);
-      if (_curLogcatList.size() >= MAXLOGSIZE) {
-        delete *this->_curLogcatList.begin();
-        _curLogcatList.erase(_curLogcatList.begin());
+      const char* tagBuf = android_lookupEventTag(eventTagMap, tagIndex);
+      if(tagBuf == NULL)
+      {
+        char buffer[64];
+        memset(buffer, 0, 64);
+        snprintf(buffer, 64, "%d", tagIndex );
+        tag = this->_flatbuffer->CreateString(buffer);
       }
-      _curLogcatList.push_back(curLogcatInfo);
-    }
-    else {
-      delete curLogcatInfo;
-      return false;
+      else
+        tag = this->_flatbuffer->CreateString(tagBuf);
     }
 
-    return true;
+    logcatInfoBuilder logcatInfo(*this->_flatbuffer);
+    logcatInfo.add_seconds(entry->entry_v2.sec);
+    logcatInfo.add_nanoSeconds(entry->entry_v2.nsec);
+    logcatInfo.add_pid(entry->entry_v2.pid);
+    logcatInfo.add_tid(entry->entry_v2.tid);
+    logcatInfo.add_priority(logPriority_INFO);
+    logcatInfo.add_tag(tag);
+    logcatInfo.add_message(logMessage);
+    this->_list.push_back(logcatInfo.Finish());
+
+    return;
   }
 
   bool logcat::processBinaryLog(const unsigned char** pMessage,
@@ -356,13 +354,13 @@ namespace core {
     return (isProcessLog);
   }
 
-  bool logcat::extractLogV3(struct logger_entry *entry)
+  void logcat::extractLogV3(struct logger_entry *entry)
   {
 
     // copy following codes from liblog.c
     if (entry->len < 3) {
       //LOG: entry too small
-      return false;
+      return;
     }
 
     int msgStart = -1;
@@ -389,7 +387,7 @@ namespace core {
 
     if (msgStart == -1) {
         // "LOG: malformed log message\n";
-        return false;
+        return;
     }
     if (msgEnd == -1) {
         // incoming message not null-terminated; force it
@@ -397,53 +395,52 @@ namespace core {
         msg[msgEnd] = '\0';
     }
 
+    Offset<String> tag = this->_flatbuffer->CreateString(msg+1);
+    Offset<String> message = this->_flatbuffer->CreateString(msg+msgStart);
+
     // add logcat information into list
-    logcatInfo* curLogcatInfo = new logcatInfo();
-    curLogcatInfo->set_seconds(entry->sec);
-    curLogcatInfo->set_nanoseconds(entry->nsec);
-    curLogcatInfo->set_pid(entry->pid);
-    curLogcatInfo->set_tid(entry->tid);
-    curLogcatInfo->set_tag(msg+1, msgStart-1);
-    curLogcatInfo->set_message(msg+msgStart, msgEnd-msgStart);
+    logcatInfoBuilder logcatInfo(*this->_flatbuffer);
+    logcatInfo.add_seconds(entry->sec);
+    logcatInfo.add_nanoSeconds(entry->nsec);
+    logcatInfo.add_pid(entry->pid);
+    logcatInfo.add_tid(entry->tid);
+    logcatInfo.add_tag(tag);
+    logcatInfo.add_message(message);
 
     switch(msg[0])
     {
     case ANDROID_LOG_DEFAULT:
-      curLogcatInfo->set_priority(logcatInfo_logPriority_DEFAULT);
+      logcatInfo.add_priority(logPriority_DEFAULT);
       break;
     case ANDROID_LOG_VERBOSE:
-      curLogcatInfo->set_priority(logcatInfo_logPriority_VERBOSE);
+      logcatInfo.add_priority(logPriority_VERBOSE);
       break;
     case ANDROID_LOG_DEBUG:
-      curLogcatInfo->set_priority(logcatInfo_logPriority_DEBUG);
+      logcatInfo.add_priority(logPriority_DEBUG);
       break;
     case ANDROID_LOG_INFO:
-      curLogcatInfo->set_priority(logcatInfo_logPriority_INFO);
+      logcatInfo.add_priority(logPriority_INFO);
       break;
     case ANDROID_LOG_WARN:
-      curLogcatInfo->set_priority(logcatInfo_logPriority_WARN);
+      logcatInfo.add_priority(logPriority_WARN);
       break;
     case ANDROID_LOG_ERROR:
-      curLogcatInfo->set_priority(logcatInfo_logPriority_ERROR);
+      logcatInfo.add_priority(logPriority_ERROR);
       break;
     case ANDROID_LOG_FATAL:
-      curLogcatInfo->set_priority(logcatInfo_logPriority_FATAL);
+      logcatInfo.add_priority(logPriority_FATAL);
       break;
     case ANDROID_LOG_SILENT:
-      curLogcatInfo->set_priority(logcatInfo_logPriority_SILENT);
+      logcatInfo.add_priority(logPriority_SILENT);
       break;
     default:
-      curLogcatInfo->set_priority(logcatInfo_logPriority_UNKNOWN);
+      logcatInfo.add_priority(logPriority_UNKNOWN);
       break;
     }
 
-    if (this->_curLogcatList.size() >= MAXLOGSIZE) {
-      delete *this->_curLogcatList.begin();
-      this->_curLogcatList.erase(this->_curLogcatList.begin());
-    }
-    this->_curLogcatList.push_back(curLogcatInfo);
+    this->_list.push_back(logcatInfo.Finish());
 
-    return true;
+    return;
   }
 
   struct logger_list* logcat::prepareLogDevice()
@@ -468,10 +465,32 @@ namespace core {
       this->android_logger_close(logger);
   }
 
+  void logcat::prepareBuffer ()
+  {
+    // clean up
+    if (this->_flatbuffer != NULL)
+      delete this->_flatbuffer;
+
+    this->_flatbuffer = new FlatBufferBuilder ();
+    this->_list.clear ();
+  }
+
+	void
+	logcat::finishBuffer ()
+	{
+	  // logcatInfo
+	  Offset<Vector<Offset<logcatInfo> > > list =
+	      this->_flatbuffer->CreateVector (this->_list);
+	  logcatInfoListBuilder logcatInfoList (*this->_flatbuffer);
+	  logcatInfoList.add_list (list);
+	  FinishlogcatInfoListBuffer (*this->_flatbuffer,
+				      logcatInfoList.Finish ().o);
+	}
+
   void logcat::refresh()
   {
     // clean up
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curLogcatList);
+    this->prepareBuffer ();
 
     // check library function
     if (!this->android_logger_open  || !this->android_logger_close || !this->android_logger_read)
@@ -479,17 +498,26 @@ namespace core {
 
     // prepare load log device
     struct logger_list *logger = this->prepareLogDevice();
-    if (!logger)
-      return;
+    if (!logger) return;
 
     this->fetchLogcat(logger);
     this->closeLogDevice(logger);
+
+    // logcatInfo
+    this->finishBuffer();
+
   }
 
-  const std::vector<google::protobuf::Message*>& logcat::getData()
+  const uint8_t* logcat::getData()
   {
-    return ((const std::vector<google::protobuf::Message*>&) this->_curLogcatList);
+    return this->_flatbuffer->GetBufferPointer();
   }
+
+  const uoffset_t logcat::getSize()
+  {
+    return this->_flatbuffer->GetSize();
+  }
+
 }
 }
 }

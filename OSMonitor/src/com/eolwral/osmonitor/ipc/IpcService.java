@@ -1,6 +1,5 @@
 package com.eolwral.osmonitor.ipc;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,15 +9,11 @@ import java.util.concurrent.Semaphore;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData.Builder;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
-import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.util.CoreUtil;
+import com.eolwral.osmonitor.core.commandInfo;
 import com.eolwral.osmonitor.settings.Settings;
-import com.google.protobuf.ByteString;
+import com.google.flatbuffers.FlatBufferBuilder;
 
 /**
  * implement communicate mechanize between process with Unix socket
@@ -34,7 +29,7 @@ public class IpcService {
   /**
    * Connection Object
    */
-  private IpcConnectionBase client = null;
+  private IpcConnection client = null;
   
   /**
    * comparator for using time stamp
@@ -65,15 +60,15 @@ public class IpcService {
    * a class for single task
    */
   private class QueuedTask {
-    public ipcAction[] action = null;
+    public byte[] action = null;
     public long timestamp = 0;
     public ipcClientListener listener = null;
-    public ipcMessage result = null;
+    public byte [] result = null;
 
     /**
      * constructor
      */
-    QueuedTask(ipcAction[] action, long timestamp, ipcClientListener listener) {
+    QueuedTask(byte[] action, long timestamp, ipcClientListener listener) {
       this.action = action;
       this.timestamp = timestamp;
       this.listener = listener;
@@ -99,7 +94,7 @@ public class IpcService {
    * callback interface for ipcClient
    */
   public interface ipcClientListener {
-    public void onRecvData(ipcMessage result);
+    public void onRecvData(byte [] result);
   }
 
   /**
@@ -107,17 +102,16 @@ public class IpcService {
      */
   private static ipcTask worker = null;
 
-
   /**
    * initialize IpcService
-   * @param context
+   * @param[in] context
    */
   public static void Initialize(Context context) {
     if (instance == null)
     {
       instance = new IpcService();
       instance.ipcContext = context;
-      instance.createConnection(Settings.getInstance(context).isRoot());
+      instance.createConnection();
     }
   }
   
@@ -131,7 +125,7 @@ public class IpcService {
     
   /**
    * internal use only for creating object
-   * @param context Context
+   * @param[in] context Context
    */
   private IpcService() {    
     // prepare a priority queue
@@ -141,22 +135,17 @@ public class IpcService {
   
   /**
    * create a connection 
-   * @param boolean
-   *          TCP or unix socket
    */
-  public void createConnection(boolean isTCP) {
+  public void createConnection() {
     //clean up connection
     if (client != null) {
       try {
         client.close();
       } catch (IOException e) { }
     }
-
-    // create a tcp socket or unix socket
-    if (CommonUtil.isLollipop() && isTCP )  
-      client = new TCPConnection();
-    else 
-      client = new UnixConnection();
+    
+    // create ipcConnection
+    client = new IpcConnection(CoreUtil.getSocketName(instance.ipcContext));
   }
    
   /**
@@ -176,18 +165,18 @@ public class IpcService {
   private boolean connect() {
   
     try {
-      Settings settings = Settings.getInstance(ipcContext);     
+      Settings settings = Settings.getInstance(ipcContext); 
 
       client.connect(settings.getInterval()*1000);
-      
+
       // send token
       OutputStream outData = client.getOutputStream();
       if (outData == null)
         throw new IOException();
-      
+
       byte [] outToken = settings.getToken().getBytes();
       outData.write(outToken);
-       
+
     } catch (IOException e) {
       return false;
     } catch (Exception e) {
@@ -210,14 +199,15 @@ public class IpcService {
   
   /**
    * restart the daemon
-   * @param result
+   * @return true == success, false == fail
    */
   private boolean restartDaemon() {
-    return CommonUtil.execCore(ipcContext);
+    return CoreUtil.execCore(ipcContext);
   }
-  
+
   /**
-   * start to connect
+   * force connect to osmcore
+   * @return true == connected, false == not connected
    */
   public boolean forceConnect() {
     if(restartDaemon()) {
@@ -226,7 +216,7 @@ public class IpcService {
     }
     return false;
   }
-  
+
   /**
    * send a force exit command
    */
@@ -234,186 +224,83 @@ public class IpcService {
     if(!checkStatus()) 
       return;
 
-    ipcMessage.Builder exitCommand = ipcMessage.newBuilder();
-    exitCommand.setType(ipcMessage.ipcType.EXIT);
-    
+    FlatBufferBuilder flatbuffer = new FlatBufferBuilder(1);
+
+    // prepare an empty ipcData
+    int [] ipcDataArray = new int[1];
+    byte [] ipcDataPayLoad = new byte[1];
+    int emptyPayLoad = ipcData.createPayloadVector(flatbuffer, ipcDataPayLoad);
+    ipcDataArray[0] = ipcData.createipcData(flatbuffer, ipcCategory.NONEXIST, emptyPayLoad);
+    int ipcDataList = ipcMessage.createDataVector(flatbuffer, ipcDataArray);
+
+    // prepare an ipcMessage
+    ipcMessage.startipcMessage(flatbuffer);
+    ipcMessage.addType(flatbuffer, ipcType.EXIT);
+    ipcMessage.addData(flatbuffer, ipcDataList);
+    int message = ipcMessage.endipcMessage(flatbuffer);
+    ipcMessage.finishipcMessageBuffer(flatbuffer, message);
+
     // send
     try {
-      OutputStream outData = client.getOutputStream();
-      exitCommand.build().writeTo(outData);     
+      OutputStream outputStream = client.getOutputStream();
+      outputStream.write(flatbuffer.sizedByteArray());
     } catch (IOException e) {}
-        
+
     return;
   }
-  
-  public void setCPUStatus(int cpu, int status) {
-    if(!checkStatus())
-      return;
 
-    ipcMessage.Builder setCommand = ipcMessage.newBuilder();
-    setCommand.setType(ipcMessage.ipcType.COMMAND);
-    
-    Builder data = setCommand.addDataBuilder();
-    
-    data.setAction(ipcAction.SETCPUSTATUS);
-
-    String cpuData = ""+cpu;
-    data.addPayload(ByteString.copyFrom(cpuData.getBytes()));
-
-    String statusData = ""+status;
-    data.addPayload(ByteString.copyFrom(statusData.getBytes()));
-    
-    // send
-    try {
-      OutputStream outData = client.getOutputStream();
-      setCommand.build().writeTo(outData);      
-    } catch (IOException e) {}
-    
-    return;   
-  }
-  
-  public void setCPUMaxFreq(int cpu, long freq) {
-    if(!checkStatus())
-      return;
-
-    ipcMessage.Builder setCommand = ipcMessage.newBuilder();
-    setCommand.setType(ipcMessage.ipcType.COMMAND);
-    
-    Builder data = setCommand.addDataBuilder();
-    
-    data.setAction(ipcAction.SETCPUMAXFREQ);
-
-    String cpuData = ""+cpu;
-    data.addPayload(ByteString.copyFrom(cpuData.getBytes()));
-
-    String freqData = ""+freq;
-    data.addPayload(ByteString.copyFrom(freqData.getBytes()));
-    
-    // send
-    try {
-      OutputStream outData = client.getOutputStream();
-      setCommand.build().writeTo(outData);      
-    } catch (IOException e) {}
-    
-    return;   
-  }
-  
-  public void setCPUMinFreq(int cpu, long freq) {
-    if(!checkStatus())
-      return;
-
-    ipcMessage.Builder setCommand = ipcMessage.newBuilder();
-    setCommand.setType(ipcMessage.ipcType.COMMAND);
-    
-    Builder data = setCommand.addDataBuilder();
-    
-    data.setAction(ipcAction.SETCPUMINFREQ);
-
-    String cpuData = ""+cpu;
-    data.addPayload(ByteString.copyFrom(cpuData.getBytes()));
-
-    String freqData = ""+freq;
-    data.addPayload(ByteString.copyFrom(freqData.getBytes()));
-    
-    // send
-    try {
-      OutputStream outData = client.getOutputStream();
-      setCommand.build().writeTo(outData);      
-    } catch (IOException e) {}
-    
-    return;   
-  }
-  
-  public void setCPUGov(int cpu, String gov) {
-    if(!checkStatus())
-      return;
-
-    ipcMessage.Builder setCommand = ipcMessage.newBuilder();
-    setCommand.setType(ipcMessage.ipcType.COMMAND);
-    
-    Builder data = setCommand.addDataBuilder();
-    
-    data.setAction(ipcAction.SETCPUGORV);
-
-    String cpuData = ""+cpu;
-    data.addPayload(ByteString.copyFrom(cpuData.getBytes()));
-
-    String govData = gov;
-    data.addPayload(ByteString.copyFrom(govData.getBytes()));
-    
-    // send
-    try {
-      OutputStream outData = client.getOutputStream();
-      setCommand.build().writeTo(outData);      
-    } catch (IOException e) {}
-    
-    return;   
-  }
-  
   /**
-   * adjust the priority of process
-   * @param pid 
-   * @param priority
+   * send command to osmcore
+   * @param[in] category command type
+   * @param[in] arguments arguments for command
    */
-  public void setPrority(int pid, int priority) {
-    if(!checkStatus())
-      return;
-
-    ipcMessage.Builder setCommand = ipcMessage.newBuilder();
-    setCommand.setType(ipcMessage.ipcType.COMMAND);
+  public void sendCommand(byte category, Object... arguments) {
+    FlatBufferBuilder cmdFlatBuffer = new FlatBufferBuilder(1);
     
-    Builder data = setCommand.addDataBuilder();
-    
-    data.setAction(ipcAction.SETPRIORITY);
+    // prepare arguments of commandInfo
+    int commandArgsIndex = 0;
+    int [] commandArgs = new int[arguments.length];
+    for (Object argument: arguments) {
+      if (String.class.isInstance(argument)) 
+        commandArgs[commandArgsIndex] = cmdFlatBuffer.createString((String) argument);
+      else
+        commandArgs[commandArgsIndex] = cmdFlatBuffer.createString(argument.toString());
+      commandArgsIndex++;
+    }
 
-    String pidData = ""+pid;
-    data.addPayload(ByteString.copyFrom(pidData.getBytes()));
+    // prepare commandInfo
+    int commandArgsList = commandInfo.createArgumentsVector(cmdFlatBuffer, commandArgs);
+    int commandInfoObject = commandInfo.createcommandInfo(cmdFlatBuffer, commandArgsList);
+    commandInfo.finishcommandInfoBuffer(cmdFlatBuffer, commandInfoObject);
 
-    String prorityData = ""+priority;
-    data.addPayload(ByteString.copyFrom(prorityData.getBytes()));
-    
-    // send
-    try {
-      OutputStream outData = client.getOutputStream();
-      setCommand.build().writeTo(outData);      
-    } catch (Exception e) {}
-    
-    return;
-  }
-  
-  /**
-   * kill processes
-   * @param pid
-   */
-  public void killProcess(int pid) {
-    if(!checkStatus())
-      return;
+    // prepare the payload of ipcMessage
+    FlatBufferBuilder flatbuffer = new FlatBufferBuilder(1);
+    int commandPayLoad = ipcData.createPayloadVector(flatbuffer, cmdFlatBuffer.sizedByteArray());
 
-    ipcMessage.Builder setCommand = ipcMessage.newBuilder();
-    setCommand.setType(ipcMessage.ipcType.COMMAND);
-
-    Builder data = setCommand.addDataBuilder();
-    data.setAction(ipcAction.KILLPROCESS);
-    String pidData = ""+pid;
-    data.addPayload(ByteString.copyFrom(pidData.getBytes()));
+    // prepare an ipcMessage
+    int [] cmdDataArray = new int[1];
+    cmdDataArray[0] = ipcData.createipcData(flatbuffer, category, commandPayLoad);
+    int cmdDataList = ipcMessage.createDataVector(flatbuffer, cmdDataArray);
+    int cmdMessage = ipcMessage.createipcMessage(flatbuffer, ipcType.COMMAND, cmdDataList);
+    ipcMessage.finishipcMessageBuffer(flatbuffer, cmdMessage);
 
     // send
     try {
-      OutputStream outData = client.getOutputStream();
-      setCommand.build().writeTo(outData);      
+      OutputStream outputStream = client.getOutputStream();
+      outputStream.write(flatbuffer.sizedByteArray());
     } catch (IOException e) {}
-    
-    return;
+
   }
+
 
   /**
    * add a request to queue  
-   * @param action request actions which is a array
-   * @param sec how long before execute the request
-   * @param obj callback when request done
+   * @param[in] action request actions which is a array
+   * @param[in] sec how long before execute the request
+   * @param[in] obj callback when request done
    * @return true == success, false == fail
    */
-  public boolean addRequest(ipcAction[] action, int sec, ipcClientListener obj) {
+  public boolean addRequest(byte[] action, int sec, ipcClientListener obj) {
  
     // check worker 
     if (worker == null) {
@@ -440,7 +327,7 @@ public class IpcService {
   
   /**
    * search specific listener and remove its requests from queue 
-   * @param listenr 
+   * @param[in] listener 
    */
   public void removeRequest(ipcClientListener obj) {
     try {
@@ -448,9 +335,7 @@ public class IpcService {
       cmdQueueLock.acquire();
       cmdQueue.remove(checkObj);
       cmdQueueLock.release();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    } catch (InterruptedException e) { }
   } 
 
   /**
@@ -461,9 +346,7 @@ public class IpcService {
       cmdQueueLock.acquire();
       cmdQueue.clear();
       cmdQueueLock.release();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
+    } catch (InterruptedException e) { }
   }
   
   /**
@@ -484,7 +367,7 @@ public class IpcService {
 
   /**
    * wait for specific seconds 
-   * @param seconds
+   * @param[in] seconds
    */
   private void waitTime(int sec) {
     try {
@@ -495,12 +378,6 @@ public class IpcService {
   
   /* AsyncTask */
   private class ipcTask extends AsyncTask<Void, QueuedTask, Void> {
-
-    /**
-     * internal receive buffer
-     */
-    private byte[] buffer = new byte[IpcConnectionBase.recvBufferSize];
-    private int curBufferSize = IpcConnectionBase.recvBufferSize;
 
     private boolean prepareIpc() {
       // check connection's status
@@ -534,7 +411,7 @@ public class IpcService {
           cmdQueueLock.acquire();
           job = cmdQueue.peek();
           cmdQueueLock.release();
-        } catch (InterruptedException e) {}       
+        } catch (InterruptedException e) {}
         
         // if no jobs, just wait
         if(job == null) {
@@ -546,7 +423,7 @@ public class IpcService {
         if( job.timestamp > System.currentTimeMillis()) 
         {
           waitTime(1);
-            continue;
+          continue;
         }
         
         // process job
@@ -576,7 +453,7 @@ public class IpcService {
 
     /**
      * send result to the requester
-     * @param job the job has been finished
+     * @param[in] job the job has been finished
      */
     protected void onProgressUpdate(QueuedTask... job) {
 
@@ -593,70 +470,73 @@ public class IpcService {
     
     /**
      * send request to osmcore and get data when data is ready
-     * @param job the new job
+     * @param[in] job the new job
      * @return result the new data
      */
-    private ipcMessage sendMessage(QueuedTask job) {
-      ipcMessage result = null;
-      OutputStream outData = null;
-      InputStream inData = null; 
+    private byte [] sendMessage(QueuedTask job) {
+
+      byte [] result = null;
 
       try {
         // prepare ipcMessage
-        ipcMessage.Builder ipcmsg = ipcMessage.newBuilder();
-        ipcmsg.setType(ipcMessage.ipcType.ACTION);
+        FlatBufferBuilder flatbuffer = new FlatBufferBuilder(1);
+
+        // prepare a vector for ipcData
+        int [] ipcDataArray = new int[job.action.length];
         for (int index = 0; index < job.action.length; index++) {
-          ipcData.Builder data = ipcData.newBuilder();
-          data.setAction(job.action[index]);
-          ipcmsg.addData(data);
-        } 
+          // prepare empty data payload
+          byte [] ipcDataPayLoad = new byte[1];
+          int emptyPayLoad = ipcData.createPayloadVector(flatbuffer, ipcDataPayLoad);
+          ipcDataArray[index] = ipcData.createipcData(flatbuffer, job.action[index], emptyPayLoad);
+        }
+
+        int ipcDataList = ipcMessage.createDataVector(flatbuffer, ipcDataArray);
+
+        // prepare ipcMessage
+        ipcMessage.startipcMessage(flatbuffer);
+        ipcMessage.addType(flatbuffer, ipcType.ACTION);
+        ipcMessage.addData(flatbuffer, ipcDataList);
+        int message = ipcMessage.endipcMessage(flatbuffer);
+        ipcMessage.finishipcMessageBuffer(flatbuffer, message);
 
         // send message and wait result
-      
-        // send
-        outData = client.getOutputStream();
-        ipcmsg.build().writeTo(outData);
- 
-        // receive (blocking mode)
-        inData = client.getInputStream();
+        OutputStream outputStream = client.getOutputStream();
+        InputStream inputStream = client.getInputStream();
 
+        // send
+        outputStream.write(flatbuffer.sizedByteArray());
+
+        // receive (blocking mode) & read data size
         int totalSize = 0;
-    
-        // read data size
-        if( inData.read(buffer, 0, 4) == 0)
+        byte[] sizeBuffer = new byte[4];
+        if( inputStream.read(sizeBuffer, 0, 4) == 0)
           throw new IOException("Unable to get transfer size"); 
-         
+
         // convert byte to int 
-        totalSize = (int) buffer[0] & 0xFF; 
-        totalSize |= (int) (buffer[1] & 0xFF ) << 8;
-        totalSize |= (int) (buffer[2] & 0xFF ) << 16; 
-        totalSize |= (int) (buffer[3] & 0xFF ) << 24;
-        
+        totalSize = (int) sizeBuffer[0] & 0xFF; 
+        totalSize |= (int) (sizeBuffer[1] & 0xFF ) << 8;
+        totalSize |= (int) (sizeBuffer[2] & 0xFF ) << 16; 
+        totalSize |= (int) (sizeBuffer[3] & 0xFF ) << 24;
+
         // check limit (10M)
-        if(totalSize > IpcConnectionBase.recvBufferSize*10)
+        if(totalSize > IpcConnection.recvBufferSize)
           throw new Exception("Excced memory limit");
-         
+
+        if (totalSize == 0)
+          throw new Exception("No Data");
+
         // prepare enough buffer size
-        if (curBufferSize < totalSize) {
-          buffer = new byte[totalSize];
-          curBufferSize = totalSize; 
-        } 
-        
+        result = new byte[totalSize];
+
         // receive data  
         int transferSize = 0; 
         while(transferSize != totalSize)  
-          transferSize += inData.read(buffer, transferSize, totalSize-transferSize);
-    
-        // convert to ipcMessage
-        ByteArrayInputStream byteStream = new ByteArrayInputStream(buffer, 0, totalSize+0);
-        result = ipcMessage.parseFrom(byteStream);
-        byteStream.close();
-        byteStream = null; 
+          transferSize += inputStream.read(result, transferSize, totalSize-transferSize);
 
-      } catch (Exception e) { 
+      } catch (Exception e) {
         result = null;
       }
-       
+
       return result;
     }
   }

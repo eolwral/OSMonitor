@@ -15,14 +15,14 @@
 #include <stdio.h>
 #include <vector>
 
-// google protocol buffer (include declarations for base unit)
-#include <src/google/protobuf/message.h>
+#include "flatbuffers/flatbuffers.h"
+
+using namespace flatbuffers;
 
 namespace com {
 namespace eolwral {
 namespace osmonitor {
 namespace core {
-
 
   /**
    * @class base
@@ -30,21 +30,6 @@ namespace core {
    */
   class base
   {
-  protected:
-    /**
-     * clean up target set
-     * @param currentSet
-     */
-    void clearDataSet(std::vector<google::protobuf::Message*>& currentSet);
-
-    /**
-     * move data from source set to destination set
-     * @param srcDataSet source set
-     * @param dstDataSet destination set
-     */
-    void moveDataSet(std::vector<google::protobuf::Message*>& srcDataSet,
-                     std::vector<google::protobuf::Message*>& dstDataSet);
-
   public:
 
     /**
@@ -58,10 +43,16 @@ namespace core {
     virtual void refresh() = 0;
 
     /**
-     * get data list
-     * @return data list
+     * get data
+     * @return a buffer pointer
      */
-    virtual const std::vector<google::protobuf::Message*>& getData() = 0;
+    virtual const uint8_t* getData() = 0;
+
+    /**
+     * get data size
+     * @return buffer size
+     */
+    virtual const uoffset_t getSize() = 0;
 
   };
 

@@ -1,0 +1,36 @@
+namespace com.eolwral.osmonitor.core;
+
+enum logPriority : byte {
+  UNKNOWN = 0,
+  DEFAULT = 1,    
+  VERBOSE = 2,  
+  DEBUG = 3,  
+  INFO = 4, 
+  WARN = 5,  
+  ERROR = 6,  
+  FATAL = 7,  
+  SILENT = 8 
+}
+
+table logcatInfo {
+  /// priority
+  priority:logPriority = UNKNOWN;
+  /// seconds since Epoch 
+  seconds:ulong; 
+  /// nanoseconds 
+  nanoSeconds:ulong;
+  /// generating process's pid 
+  pid:uint;
+  /// generating process's tid 
+  tid:uint;            
+  /// Tag 
+  tag:string;  
+  /// message
+  message:string;
+}
+
+table logcatInfoList {
+  list:[logcatInfo];
+}
+
+root_type logcatInfoList;

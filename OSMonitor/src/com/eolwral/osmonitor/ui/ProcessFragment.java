@@ -1,5 +1,6 @@
 package com.eolwral.osmonitor.ui;
 
+import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,20 +52,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.core.OsInfo.osInfo;
-import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
-import com.eolwral.osmonitor.core.ProcessInfo.processInfo.processStatus;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.core.osInfo;
+import com.eolwral.osmonitor.core.processInfo;
+import com.eolwral.osmonitor.core.processInfoList;
+import com.eolwral.osmonitor.core.processStatus;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
+import com.eolwral.osmonitor.ipc.ipcCategory;
+import com.eolwral.osmonitor.ipc.ipcData;
+import com.eolwral.osmonitor.ipc.ipcMessage;
 import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
-import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.util.CoreUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
-import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.flatbuffers.FlatBufferBuilder;
 
 public class ProcessFragment extends ListFragment implements ipcClientListener {
 
@@ -80,6 +82,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
   // data
   private ProcessUtil infoHelper = null;
+  private FlatBufferBuilder sysProcess = null;
   private ArrayList<processInfo> data = new ArrayList<processInfo>();
   private osInfo info = null;
   private Settings settings = null;
@@ -130,8 +133,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     itemColor = new int[3];
     itemColor[oddItem] = getResources().getColor(R.color.dkgrey_osmonitor);
     itemColor[evenItem] = getResources().getColor(R.color.black_osmonitor);
-    itemColor[selectedItem] = getResources().getColor(
-        R.color.selected_osmonitor);
+    itemColor[selectedItem] = getResources().getColor(R.color.selected_osmonitor);
 
     settings = Settings.getInstance(getActivity().getApplicationContext());
     infoHelper = ProcessUtil.getInstance(getActivity().getApplicationContext(),
@@ -494,16 +496,15 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     ipcStop = !isVisibleToUser;
 
     if (isVisibleToUser == true) {
-      ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESS };
+      byte newCommand[] = { ipcCategory.OS, ipcCategory.PROCESS };
       ipcService.addRequest(newCommand, 0, this);
     }
 
   }
 
   private void killProcess(int pid, String process) {
-    CommonUtil.killProcess(pid, getActivity());
-    ((ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE))
-        .restartPackage(process);
+    CoreUtil.killProcess(pid, getActivity());
+    ((ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE)).restartPackage(process);
   }
 
   private void watchLog(int pid, String process) {
@@ -563,18 +564,19 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
   }
 
   @Override
-  public void onRecvData(ipcMessage result) {
+  public void onRecvData(byte [] result) {
 
     // check
     if (ipcStop == true)
       return;
 
     // stop update
-    if (stopUpdate == true || result == null) {
-      ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESS };
+    if (stopUpdate == true || result == null || result.length == 0) {
+      byte newCommand[] = { ipcCategory.OS, ipcCategory.PROCESS };
       ipcService.addRequest(newCommand, settings.getInterval(), this);
       return;
     }
+    
 
     // clean up
     while (!data.isEmpty())
@@ -582,15 +584,16 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     data.clear();
 
     // convert data
-    // TODO: reuse old objects
-    for (int index = 0; index < result.getDataCount(); index++) {
+    ipcMessage ipcMessageResult = ipcMessage.getRootAsipcMessage(ByteBuffer.wrap(result));
+    for (int index = 0; index < ipcMessageResult.dataLength(); index++) {
 
       try {
-        ipcData rawData = result.getData(index);
 
-        if (rawData.getAction() == ipcAction.OS)
-          info = osInfo.parseFrom(rawData.getPayload(0));
-        else if (rawData.getAction() == ipcAction.PROCESS)
+        ipcData rawData = ipcMessageResult.data(index);
+
+        if (rawData.category() == ipcCategory.OS)
+          info = osInfo.getRootAsosInfo(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+        else if (rawData.category() == ipcCategory.PROCESS)
           extractProcessInfo(rawData);
 
       } catch (Exception e) {
@@ -601,7 +604,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     // calculate CPU Usage
     float totalCPUUsage = 0;
     for (int index = 0; index < data.size(); index++)
-      totalCPUUsage += data.get(index).getCpuUsage();
+      totalCPUUsage += data.get(index).cpuUsage();
 
     // sort data
     switch (sortSetting) {
@@ -626,14 +629,11 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     }
 
     processCount.setText("" + data.size());
-    cpuUsage.setText(CommonUtil.convertToUsage(totalCPUUsage) + "%");
+    cpuUsage.setText(UserInterfaceUtil.convertToUsage(totalCPUUsage) + "%");
 
     if (info != null) {
-      memoryTotal
-          .setText(CommonUtil.convertToSize(info.getTotalMemory(), true));
-      memoryFree.setText(CommonUtil.convertToSize(
-          info.getFreeMemory() + info.getBufferedMemory()
-              + info.getCachedMemory(), true));
+      memoryTotal.setText(UserInterfaceUtil.convertToSize(info.totalMemory(), true));
+      memoryFree.setText(UserInterfaceUtil.convertToSize( info.freeMemory() + info.bufferedMemory() + info.cachedMemory(), true));
     }
 
     getActivity().runOnUiThread(new Runnable() {
@@ -643,7 +643,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     });
 
     // send command again
-    ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESS };
+    byte newCommand[] = { ipcCategory.OS, ipcCategory.PROCESS };
     ipcService.addRequest(newCommand, settings.getInterval(), this);
   }
 
@@ -654,9 +654,9 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
     @Override
     public int compare(processInfo lhs, processInfo rhs) {
-      if (lhs.getCpuUsage() > rhs.getCpuUsage())
+      if (lhs.cpuUsage() > rhs.cpuUsage())
         return -1;
-      else if (lhs.getCpuUsage() < rhs.getCpuUsage())
+      else if (lhs.cpuUsage() < rhs.cpuUsage())
         return 1;
       return 0;
     }
@@ -669,9 +669,9 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
     @Override
     public int compare(processInfo lhs, processInfo rhs) {
-      if (lhs.getRss() > rhs.getRss())
+      if (lhs.rss() > rhs.rss())
         return -1;
-      else if (lhs.getRss() < rhs.getRss())
+      else if (lhs.rss() < rhs.rss())
         return 1;
       return 0;
     }
@@ -684,9 +684,9 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
     @Override
     public int compare(processInfo lhs, processInfo rhs) {
-      if (lhs.getPid() > rhs.getPid())
+      if (lhs.pid() > rhs.pid())
         return -1;
-      else if (lhs.getPid() < rhs.getPid())
+      else if (lhs.pid() < rhs.pid())
         return 1;
       return 0;
     }
@@ -699,13 +699,13 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
     @Override
     public int compare(processInfo lhs, processInfo rhs) {
-      String lhsName = infoHelper.getPackageName(lhs.getName());
+      String lhsName = infoHelper.getPackageName(lhs.name());
       if (lhsName == null)
-        lhsName = lhs.getName();
+        lhsName = lhs.name();
 
-      String rhsName = infoHelper.getPackageName(rhs.getName());
+      String rhsName = infoHelper.getPackageName(rhs.name());
       if (rhsName == null)
-        rhsName = rhs.getName();
+        rhsName = rhs.name();
 
       if (rhsName.compareTo(lhsName) < 0)
         return 1;
@@ -722,9 +722,9 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
     @Override
     public int compare(processInfo lhs, processInfo rhs) {
-      if (lhs.getCpuTime() > rhs.getCpuTime())
+      if (lhs.cpuTime() > rhs.cpuTime())
         return -1;
-      else if (lhs.getCpuTime() < rhs.getCpuTime())
+      else if (lhs.cpuTime() < rhs.cpuTime())
         return 1;
       return 0;
     }
@@ -737,9 +737,9 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
     @Override
     public int compare(processInfo lhs, processInfo rhs) {
-      if (lhs.getStatus().getNumber() < rhs.getStatus().getNumber())
+      if (lhs.status() < rhs.status())
         return -1;
-      else if (lhs.getStatus().getNumber() > rhs.getStatus().getNumber())
+      else if (lhs.status() > rhs.status())
         return 1;
       return 0;
     }
@@ -781,43 +781,31 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
   }
 
   private void extractProcessInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    // summary all system processes
-    processInfo.Builder syspsInfo = processInfo.newBuilder();
-
-    // fixed value
-    syspsInfo.setPid(0);
-    syspsInfo.setUid(0);
-    syspsInfo.setPpid(0);
-    syspsInfo.setName("System");
-    syspsInfo.setOwner("root");
-    syspsInfo.setPriorityLevel(0);
-    syspsInfo.setStatus(processInfo.processStatus.Running);
-
+  {
     // summary value
-    syspsInfo.setCpuUsage(0);
-    syspsInfo.setRss(0);
-    syspsInfo.setVsz(0);
-    syspsInfo.setStartTime(0);
-    syspsInfo.setThreadCount(0);
-    syspsInfo.setUsedSystemTime(0);
-    syspsInfo.setUsedUserTime(0);
-    syspsInfo.setCpuTime(0);
+    float cpuUsage = 0;
+    long rss = 0;
+    long vsz = 0;
+    long startTime = 0;
+    int threadCount = 0;
+    long usedSystemTime = 0;
+    long usedUserTime = 0;
+    long cpuTime = 0;
 
     // process processInfo
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
+    processInfoList psInfoList = processInfoList.getRootAsprocessInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < psInfoList.listLength(); count++) {
+      processInfo psInfo = psInfoList.list(count);
 
       boolean doMerge = false;
 
-      if (psInfo.getUid() == 0 || psInfo.getName().contains("/system/")
-          || psInfo.getName().contains("/sbin/"))
+      if (psInfo.uid() == 0 || psInfo.name().contains("/system/") || psInfo.name().contains("/sbin/"))
         doMerge = true;
 
-      if (psInfo.getName().toLowerCase(Locale.getDefault()).contains("osmcore"))
+      if (psInfo.name().toLowerCase(Locale.getDefault()).contains("osmcore"))
         doMerge = false;
 
-      if (settings.isUseExpertMode())
+      if (settings.isUseExpertMode()) 
         doMerge = false;
 
       // Don't merge data
@@ -827,25 +815,56 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       }
 
       // Merge process information into a process
-      syspsInfo.setCpuUsage(syspsInfo.getCpuUsage() + psInfo.getCpuUsage());
-      syspsInfo.setRss(syspsInfo.getRss() + psInfo.getRss());
-      syspsInfo.setVsz(syspsInfo.getVsz() + psInfo.getVsz());
-      syspsInfo.setThreadCount(syspsInfo.getThreadCount()
-          + psInfo.getThreadCount());
-      syspsInfo.setUsedSystemTime(syspsInfo.getUsedSystemTime()
-          + psInfo.getUsedSystemTime());
-      syspsInfo.setUsedUserTime(syspsInfo.getUsedUserTime()
-          + psInfo.getUsedUserTime());
-      syspsInfo.setCpuTime(syspsInfo.getCpuTime() + psInfo.getCpuTime());
+      cpuUsage += psInfo.cpuUsage();
+      rss += psInfo.rss();
+      vsz += psInfo.vsz();
+      threadCount += psInfo.threadCount();
+      usedSystemTime += psInfo.usedSystemTime();
+      usedUserTime += psInfo.usedUserTime();
+      cpuTime += psInfo.cpuTime();
 
-      if (syspsInfo.getStartTime() < psInfo.getStartTime()
-          || syspsInfo.getStartTime() == 0)
-        syspsInfo.setStartTime(psInfo.getStartTime());
+      if (startTime < psInfo.startTime() || startTime == 0)
+        startTime = psInfo.startTime();
 
     }
 
     if (!settings.isUseExpertMode())
-      data.add(syspsInfo.build());
+    {
+      
+      // summary all system processes
+      sysProcess = new FlatBufferBuilder(0);
+
+      int [] sysProcessArray = new int[1];
+      int sysProcessName = sysProcess.createString("System");
+      int sysProcessOwner = sysProcess.createString("root");
+
+      processInfo.startprocessInfo(sysProcess);
+      processInfo.addPid(sysProcess, 0);
+      processInfo.addUid(sysProcess, 0);
+      processInfo.addPpid(sysProcess, 0);
+      processInfo.addName(sysProcess, sysProcessName);
+      processInfo.addOwner(sysProcess, sysProcessOwner);
+      processInfo.addPriorityLevel(sysProcess, 0);
+      processInfo.addStatus(sysProcess, processStatus.Running);
+      processInfo.addCpuUsage(sysProcess, cpuUsage);
+      processInfo.addRss(sysProcess, rss);
+      processInfo.addVsz(sysProcess, vsz);
+      processInfo.addStartTime(sysProcess, startTime);
+      processInfo.addThreadCount(sysProcess, threadCount);
+      processInfo.addUsedSystemTime(sysProcess, usedSystemTime);
+      processInfo.addUsedUserTime(sysProcess, usedUserTime);
+      processInfo.addCpuTime(sysProcess, cpuTime);
+
+      sysProcessArray[0] = processInfo.endprocessInfo(sysProcess);
+
+      int sysProcessVector = processInfoList.createListVector(sysProcess, sysProcessArray);
+      int sysProcessList = processInfoList.createprocessInfoList(sysProcess, sysProcessVector);
+      processInfoList.finishprocessInfoListBuffer(sysProcess, sysProcessList);
+
+      processInfoList sysProcessInfoList = processInfoList.getRootAsprocessInfoList(sysProcess.dataBuffer());
+
+      data.add(sysProcessInfoList.list(0));
+    }
   }
 
   private void setItemStatus(View v, boolean status) {
@@ -945,13 +964,13 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       processInfo item = data.get(position);
 
       // check cached status
-      if (!infoHelper.checkPackageInformation(item.getName())) {
-        if (item.getName().toLowerCase(Locale.getDefault()).contains("osmcore"))
-          infoHelper.doCacheInfo(android.os.Process.myUid(), item.getOwner(),
-              item.getName());
+      if (!infoHelper.checkPackageInformation(item.name())) {
+        if (item.name().toLowerCase(Locale.getDefault()).contains("osmcore"))
+          infoHelper.doCacheInfo(android.os.Process.myUid(), item.owner(),
+              item.name());
         else
           infoHelper
-              .doCacheInfo(item.getUid(), item.getOwner(), item.getName());
+              .doCacheInfo(item.uid(), item.owner(), item.name());
       }
 
       // prepare view
@@ -977,14 +996,14 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
       // check expand status
       if (!tabletLayout) {
-        if (expandStatus.containsKey(data.get(position).getName()) == true)
+        if (expandStatus.containsKey(data.get(position).name()) == true)
           setItemStatus(sv, true);
         else
           setItemStatus(sv, false);
       }
 
       // draw current color for each item
-      if (selectedStatus.containsKey(data.get(position).getName()) == true)
+      if (selectedStatus.containsKey(data.get(position).name()) == true)
         holder.bkcolor = itemColor[selectedItem];
       else if (position % 2 == 0)
         holder.bkcolor = itemColor[oddItem];
@@ -1016,20 +1035,18 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       });
 
       // prepare main information
-      holder.pid.setText(String.format("%5d", item.getPid()));
-      holder.name.setText(infoHelper.getPackageName(item.getName()));
-      holder.icon.setImageDrawable(infoHelper.getPackageIcon(item.getName()));
+      holder.pid.setText(String.format("%5d", item.pid()));
+      holder.name.setText(infoHelper.getPackageName(item.name()));
+      holder.icon.setImageDrawable(infoHelper.getPackageIcon(item.name()));
 
       if (sortSetting == SortType.SortbyMemory)
-        holder.cpuUsage.setText(CommonUtil.convertToSize(
-            (item.getRss() * 1024), true));
+        holder.cpuUsage.setText(UserInterfaceUtil.convertToSize((item.rss() * 1024), true));
       else if (sortSetting == SortType.SortbyCPUTime)
-        holder.cpuUsage.setText(String.format("%02d:%02d",
-            item.getCpuTime() / 60, item.getCpuTime() % 60));
+        holder.cpuUsage.setText(String.format("%02d:%02d", item.cpuTime() / 60, item.cpuTime() % 60));
       else if (sortSetting == SortType.SortbyStatus) 
-        holder.cpuUsage.setText(UserInterfaceUtil.getSatusString(item.getStatus()));
+        holder.cpuUsage.setText(UserInterfaceUtil.getSatusString(item.status()));
       else
-        holder.cpuUsage.setText(CommonUtil.convertToUsage(item.getCpuUsage()));
+        holder.cpuUsage.setText(UserInterfaceUtil.convertToUsage(item.cpuUsage()));
 
       // prepare detail information
       if (holder.detail != null)
@@ -1046,7 +1063,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       // find target Item
       processInfo targetItem = null;
       for (int i = 0; i < data.size(); i++) {
-        if (data.get(i).getPid() != selectedPID)
+        if (data.get(i).pid() != selectedPID)
           continue;
         targetItem = data.get(i);
         break;
@@ -1054,8 +1071,8 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
       // show
       if (targetItem != null && selectedHolder != null) {
-        selectedProcess = targetItem.getName();
-        selectedPrority = targetItem.getPriorityLevel();
+        selectedProcess = targetItem.name();
+        selectedPrority = targetItem.priorityLevel();
         showProcessDetail(selectedHolder, targetItem);
       }
 
@@ -1064,47 +1081,43 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     private void showProcessDetail(ViewHolder holder, processInfo item) {
 
       if (holder.detailTitle != null)
-        holder.detailTitle.setText(infoHelper.getPackageName(item.getName()));
+        holder.detailTitle.setText(infoHelper.getPackageName(item.name()));
 
       if (holder.detailIcon != null)
         holder.detailIcon.setImageDrawable(infoHelper.getPackageIcon(item
-            .getName()));
+            .name()));
 
-      holder.detailName.setText(item.getName());
+      holder.detailName.setText(item.name());
       holder.detailStime
-          .setText(String.format("%,d", item.getUsedSystemTime()));
-      holder.detailUtime.setText(String.format("%,d", item.getUsedUserTime()));
+          .setText(String.format("%,d", item.usedSystemTime()));
+      holder.detailUtime.setText(String.format("%,d", item.usedUserTime()));
 
       holder.detailCPUtime.setText(String.format("%02d:%02d",
-          item.getCpuTime() / 60, item.getCpuTime() % 60));
+          item.cpuTime() / 60, item.cpuTime() % 60));
 
-      holder.detailThread.setText(String.format("%d", item.getThreadCount()));
-      holder.detailNice.setText(String.format("%d", item.getPriorityLevel()));
+      holder.detailThread.setText(String.format("%d", item.threadCount()));
+      holder.detailNice.setText(String.format("%d", item.priorityLevel()));
 
       // get memory information
-      MemoryInfo memInfo = infoHelper.getMemoryInfo(item.getPid());
-      String memoryData = CommonUtil
-          .convertToSize((item.getRss() * 1024), true)
-          + " /  "
-          + CommonUtil.convertToSize(memInfo.getTotalPss() * 1024, true)
-          + " / "
-          + CommonUtil.convertToSize(memInfo.getTotalPrivateDirty() * 1024,
-              true);
+      MemoryInfo memInfo = infoHelper.getMemoryInfo(item.pid());
+      String memoryData = UserInterfaceUtil.convertToSize((item.rss() * 1024), true) + " /  "
+                        + UserInterfaceUtil.convertToSize(memInfo.getTotalPss() * 1024, true) + " / "
+                        + UserInterfaceUtil.convertToSize(memInfo.getTotalPrivateDirty() * 1024, true);
 
       holder.detailMemory.setText(memoryData);
 
-      holder.detailPPID.setText("" + item.getPpid());
+      holder.detailPPID.setText("" + item.ppid());
 
       // convert time format
       final Calendar calendar = Calendar.getInstance();
       final DateFormat convertTool = DateFormat.getDateTimeInstance(
           DateFormat.LONG, DateFormat.MEDIUM, Locale.getDefault());
-      calendar.setTimeInMillis(item.getStartTime() * 1000);
+      calendar.setTimeInMillis(item.startTime() * 1000);
       holder.detailStarttime.setText(convertTool.format(calendar.getTime()));
 
-      holder.detailUser.setText(item.getOwner());
+      holder.detailUser.setText(item.owner());
 
-      holder.detailStatus.setText(UserInterfaceUtil.getSatusString(item.getStatus()));
+      holder.detailStatus.setText(UserInterfaceUtil.getSatusString(item.status()));
     }
 
     public void refresh() {
@@ -1125,7 +1138,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(
-            infoHelper.getPackageName(data.get(position).getName())).setItems(
+            infoHelper.getPackageName(data.get(position).name())).setItems(
             R.array.ui_process_menu_item, new ProcessItemMenu(position));
         builder.create().show();
         return false;
@@ -1139,9 +1152,9 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       private int prority;
 
       public ProcessItemMenu(int position) {
-        this.process = data.get(position).getName();
-        this.pid = data.get(position).getPid();
-        this.prority = data.get(position).getPriorityLevel();
+        this.process = data.get(position).name();
+        this.pid = data.get(position).pid();
+        this.prority = data.get(position).priorityLevel();
       }
 
       public void onClick(DialogInterface dialog, int which) {
@@ -1198,12 +1211,12 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
       private void ToogleSelected(View v) {
         // change expand status
-        if (selectedStatus.containsKey(data.get(position).getName()) == false) {
-          selectedStatus.put(data.get(position).getName(), data.get(position)
-              .getPid());
+        if (selectedStatus.containsKey(data.get(position).name()) == false) {
+          selectedStatus.put(data.get(position).name(), data.get(position)
+              .pid());
           setSelectStatus(v, position, true);
         } else {
-          selectedStatus.remove(data.get(position).getName());
+          selectedStatus.remove(data.get(position).name());
           setSelectStatus(v, position, false);
         }
       }
@@ -1215,8 +1228,8 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
           return;
 
         // change expand status
-        if (expandStatus.containsKey(data.get(position).getName()) == false) {
-          expandStatus.put(data.get(position).getName(), Boolean.TRUE);
+        if (expandStatus.containsKey(data.get(position).name()) == false) {
+          expandStatus.put(data.get(position).name(), Boolean.TRUE);
           setItemStatus(v, true);
 
           // force redraw single row
@@ -1224,7 +1237,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
           list.getAdapter().getView(position, v, list);
 
         } else {
-          expandStatus.remove(data.get(position).getName());
+          expandStatus.remove(data.get(position).name());
           setItemStatus(v, false);
         }
       }
@@ -1233,7 +1246,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
   }
 
   void ShowHelp() {
-    CommonUtil.showHelp(getActivity(),
+    CoreUtil.showHelp(getActivity(),
         "http://eolwral.github.io/OSMonitor/maunal/index.html");
   }
   

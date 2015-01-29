@@ -1,6 +1,7 @@
 package com.eolwral.osmonitor;
 
 import com.eolwral.osmonitor.ipc.IpcService;
+import com.eolwral.osmonitor.ipc.ipcCategory;
 import com.eolwral.osmonitor.settings.Settings;
 
 import android.content.BroadcastReceiver;
@@ -54,11 +55,12 @@ public class BootUpReceiver extends BroadcastReceiver {
       String gov = value[3];
       int enable = Integer.parseInt(value[4]);
 
-      IpcService.getInstance().setCPUStatus(processorNum, 1);
-      IpcService.getInstance().setCPUMaxFreq(processorNum, maxFreq);
-      IpcService.getInstance().setCPUMinFreq(processorNum, minFreq);
-      IpcService.getInstance().setCPUGov(processorNum, gov);
-      IpcService.getInstance().setCPUStatus(processorNum, enable);
+      IpcService.getInstance().sendCommand(ipcCategory.SETCPUSTATUS, processorNum, 1);
+      IpcService.getInstance().sendCommand(ipcCategory.SETCPUMAXFREQ, processorNum, maxFreq);
+      IpcService.getInstance().sendCommand(ipcCategory.SETCPUMINFREQ, processorNum, minFreq);
+      IpcService.getInstance().sendCommand(ipcCategory.SETCPUGORV, processorNum, gov);
+      IpcService.getInstance().sendCommand(ipcCategory.SETCPUSTATUS, processorNum, enable);
+
     }
     IpcService.getInstance().disconnect();
   }

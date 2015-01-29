@@ -1,18 +1,19 @@
 package com.eolwral.osmonitor.util;
 
+import java.util.ArrayList;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Color;
 
 import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
-import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionStatus;
-import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo.connectionType;
-import com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo;
-import com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo.dmesgLevel;
-import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo;
-import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo.logPriority;
-import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
+import com.eolwral.osmonitor.core.connectionStatus;
+import com.eolwral.osmonitor.core.connectionType;
+import com.eolwral.osmonitor.core.dmesgLevel;
+import com.eolwral.osmonitor.core.logPriority;
+import com.eolwral.osmonitor.core.processStatus;
+import com.eolwral.osmonitor.ipc.ipcCategory;
 import com.eolwral.osmonitor.settings.Settings;
 
 public class UserInterfaceUtil {
@@ -34,21 +35,24 @@ public class UserInterfaceUtil {
   
   /**
    * get status by processStatus
-   * @param processStatus
+   * @param byte
    * @return status (by char)
    */
-  public static String getSatusString(processInfo.processStatus status) {
-    switch (status.getNumber()) {
-    case processInfo.processStatus.Running_VALUE:
+  public static String getSatusString(byte status) {
+    if (resource == null)
+      return "?";
+      
+    switch (status) {
+    case processStatus.Running:
       return resource.getText(R.string.ui_process_status_running).toString();
-    case processInfo.processStatus.Sleep_VALUE:
+    case processStatus.Sleep:
       return resource.getText(R.string.ui_process_status_sleep).toString();
-    case processInfo.processStatus.Stopped_VALUE:
+    case processStatus.Stopped:
       return resource.getText(R.string.ui_process_status_stop).toString();
-    case processInfo.processStatus.Page_VALUE:
-    case processInfo.processStatus.Disk_VALUE:
+    case processStatus.Page:
+    case processStatus.Disk:
       return resource.getText(R.string.ui_process_status_waitio).toString();
-    case processInfo.processStatus.Zombie_VALUE:
+    case processStatus.Zombie:
       return resource.getText(R.string.ui_process_status_zombie).toString();
     }
     return resource.getText(R.string.ui_process_status_unknown).toString();
@@ -61,17 +65,17 @@ public class UserInterfaceUtil {
    */
   public static int convertLogcatType(int type) {
     switch (type) {
-    case logcatInfo.logPriority.DEBUG_VALUE:
+    case logPriority.DEBUG:
       return 0;
-    case logcatInfo.logPriority.VERBOSE_VALUE:
+    case logPriority.VERBOSE:
       return 1;
-    case logcatInfo.logPriority.INFO_VALUE:
+    case logPriority.INFO:
       return 2;
-    case logcatInfo.logPriority.WARN_VALUE:
+    case logPriority.WARN:
       return 3;
-    case logcatInfo.logPriority.ERROR_VALUE:
+    case logPriority.ERROR:
       return 4;
-    case logcatInfo.logPriority.FATAL_VALUE:
+    case logPriority.FATAL:
       return 5;
     }
     return 0;
@@ -84,21 +88,21 @@ public class UserInterfaceUtil {
    */
   public static int convertDmesgType(int type) {
     switch (type) {
-    case dmesgInfo.dmesgLevel.DEBUG_VALUE:
+    case dmesgLevel.DEBUG:
       return 0;
-    case dmesgInfo.dmesgLevel.INFORMATION_VALUE:
+    case dmesgLevel.INFORMATION:
       return 1;
-    case dmesgInfo.dmesgLevel.NOTICE_VALUE:
+    case dmesgLevel.NOTICE:
       return 2;
-    case dmesgInfo.dmesgLevel.WARNING_VALUE:
+    case dmesgLevel.WARNING:
       return 3;
-    case dmesgInfo.dmesgLevel.ALERT_VALUE:
+    case dmesgLevel.ALERT:
       return 4;
-    case dmesgInfo.dmesgLevel.EMERGENCY_VALUE:
+    case dmesgLevel.EMERGENCY:
       return 5;
-    case dmesgInfo.dmesgLevel.ERROR_VALUE:
+    case dmesgLevel.ERROR:
       return 6;
-    case dmesgInfo.dmesgLevel.CRITICAL_VALUE:
+    case dmesgLevel.CRITICAL:
       return 7;
     }
     return 0;
@@ -109,39 +113,39 @@ public class UserInterfaceUtil {
    * @param integer
    * @return Logcat
    */
-  public static ipcAction convertLocToType(int loc) {
+  public static byte convertLocToType(int loc) {
     switch (loc) {
     case 0:
-      return ipcAction.LOGCAT_MAIN;
+      return ipcCategory.LOGCAT_MAIN;
     case 1:
-      return ipcAction.LOGCAT_SYSTEM;
+      return ipcCategory.LOGCAT_SYSTEM;
     case 2:
-      return ipcAction.LOGCAT_EVENT;
+      return ipcCategory.LOGCAT_EVENT;
     case 3:
-      return ipcAction.LOGCAT_RADIO;
+      return ipcCategory.LOGCAT_RADIO;
     case 4:
-      return ipcAction.DMESG;
+      return ipcCategory.DMESG;
     }
 
-    return ipcAction.LOGCAT_MAIN;
+    return ipcCategory.LOGCAT_MAIN;
   }
 
   /**
    * convert IpcAction into integer
-   * @param IpcAction
+   * @param byte
    * @return integer
    */
-  public static int convertTypeToLoc(ipcAction type) {
+  public static int convertTypeToLoc(byte type) {
     switch (type) {
-    case LOGCAT_MAIN:
+    case ipcCategory.LOGCAT_MAIN:
       return 0;
-    case LOGCAT_SYSTEM:
+    case ipcCategory.LOGCAT_SYSTEM:
       return 1;
-    case LOGCAT_EVENT:
+    case ipcCategory.LOGCAT_EVENT:
       return 2;
-    case LOGCAT_RADIO:
+    case ipcCategory.LOGCAT_RADIO:
       return 3;
-    case DMESG:
+    case ipcCategory.DMESG:
       return 4;
     }
     return 0;
@@ -149,26 +153,26 @@ public class UserInterfaceUtil {
 
   /**
    * get priority string by logPriority
-   * @param logPriority
+   * @param byte
    * @return String
    */
-  public static String getLogprority(logPriority priority) {
-    switch (priority.getNumber()) {
-    case logcatInfo.logPriority.SILENT_VALUE:
+  public static String getLogprority(byte priority) {
+    switch (priority) {
+    case logPriority.SILENT:
       return "SILENT";
-    case logcatInfo.logPriority.DEFAULT_VALUE:
+    case logPriority.DEFAULT:
       return "DEFAULT";
-    case logcatInfo.logPriority.VERBOSE_VALUE:
+    case logPriority.VERBOSE:
       return "VERBOSE";
-    case logcatInfo.logPriority.WARN_VALUE:
+    case logPriority.WARN:
       return "WARNING";
-    case logcatInfo.logPriority.INFO_VALUE:
+    case logPriority.INFO:
       return "INFORMATION";
-    case logcatInfo.logPriority.FATAL_VALUE:
+    case logPriority.FATAL:
       return "FATAL";
-    case logcatInfo.logPriority.ERROR_VALUE:
+    case logPriority.ERROR:
       return "ERROR";
-    case logcatInfo.logPriority.DEBUG_VALUE:
+    case logPriority.DEBUG:
       return "DEBUG";
     }
     return "UNKNOWN";
@@ -176,26 +180,26 @@ public class UserInterfaceUtil {
   
   /**
    * get dmesg by dmesgLevel
-   * @param dmesgLevel
+   * @param byte
    * @return String
    */
-  public static String getDmesgLevel(dmesgLevel level) {
-    switch (level.getNumber()) {
-    case dmesgInfo.dmesgLevel.DEBUG_VALUE:
+  public static String getDmesgLevel(byte level) {
+    switch (level) {
+    case dmesgLevel.DEBUG:
       return "DEBUG";
-    case dmesgInfo.dmesgLevel.INFORMATION_VALUE:
+    case dmesgLevel.INFORMATION:
       return "INFORMATION";
-    case dmesgInfo.dmesgLevel.NOTICE_VALUE:
+    case dmesgLevel.NOTICE:
       return "NOTICE";
-    case dmesgInfo.dmesgLevel.WARNING_VALUE:
+    case dmesgLevel.WARNING:
       return "WARNING";
-    case dmesgInfo.dmesgLevel.EMERGENCY_VALUE:
+    case dmesgLevel.EMERGENCY:
       return "EMERGENCY";
-    case dmesgInfo.dmesgLevel.ERROR_VALUE:
+    case dmesgLevel.ERROR:
       return "ERROR";
-    case dmesgInfo.dmesgLevel.ALERT_VALUE:
+    case dmesgLevel.ALERT:
       return "ALERT";
-    case dmesgInfo.dmesgLevel.CRITICAL_VALUE:
+    case dmesgLevel.CRITICAL:
       return "CRITICAL";
     }
     return "UNKNOWN";
@@ -203,25 +207,25 @@ public class UserInterfaceUtil {
 
   /**
    * get color by Logcat type
-   * @param logPriority
+   * @param byte
    * @return integer color
    */
-  public static int getLogcatColor(logPriority priority) {
-    switch (priority.getNumber()) {
-    case logcatInfo.logPriority.WARN_VALUE:
+  public static int getLogcatColor(byte priority) {
+    switch (priority) {
+    case logPriority.WARN:
       return settings.getLogcatWarningColor();
-    case logcatInfo.logPriority.INFO_VALUE:
+    case logPriority.INFO:
       return settings.getLogcatInfoColor();
-    case logcatInfo.logPriority.FATAL_VALUE:
+    case logPriority.FATAL:
       return settings.getLogcatFatalColor();
-    case logcatInfo.logPriority.ERROR_VALUE:
+    case logPriority.ERROR:
       return settings.getLogcatErrorColor();
-    case logcatInfo.logPriority.DEBUG_VALUE:
+    case logPriority.DEBUG:
       return settings.getLogcatDebugColor();
-    case logcatInfo.logPriority.SILENT_VALUE:
-    case logcatInfo.logPriority.UNKNOWN_VALUE:
-    case logcatInfo.logPriority.DEFAULT_VALUE:
-    case logcatInfo.logPriority.VERBOSE_VALUE:
+    case logPriority.SILENT:
+    case logPriority.UNKNOWN:
+    case logPriority.DEFAULT:
+    case logPriority.VERBOSE:
       return settings.getLogcatVerboseColor();
     }
     return settings.getLogcatVerboseColor();
@@ -229,26 +233,26 @@ public class UserInterfaceUtil {
 
   /**
    * get short tag for Logcat priority
-   * @param logPriority
+   * @param byte
    * @return String short tag
    */
-  public static String getLogcatTag(logPriority priority) {
-    switch (priority.getNumber()) {
-    case logcatInfo.logPriority.SILENT_VALUE:
-    case logcatInfo.logPriority.UNKNOWN_VALUE:
-    case logcatInfo.logPriority.DEFAULT_VALUE:
+  public static String getLogcatTag(byte priority) {
+    switch (priority) {
+    case logPriority.SILENT:
+    case logPriority.UNKNOWN:
+    case logPriority.DEFAULT:
       return "S";
-    case logcatInfo.logPriority.VERBOSE_VALUE:
+    case logPriority.VERBOSE:
       return "V";
-    case logcatInfo.logPriority.WARN_VALUE:
+    case logPriority.WARN:
       return "W";
-    case logcatInfo.logPriority.INFO_VALUE:
+    case logPriority.INFO:
       return "I";
-    case logcatInfo.logPriority.FATAL_VALUE:
+    case logPriority.FATAL:
       return "F";
-    case logcatInfo.logPriority.ERROR_VALUE:
+    case logPriority.ERROR:
       return "E";
-    case logcatInfo.logPriority.DEBUG_VALUE:
+    case logPriority.DEBUG:
       return "D";
     }
     return "S";
@@ -256,22 +260,22 @@ public class UserInterfaceUtil {
   
   /**
    * get connection type by connectionType
-   * @param connectionType
+   * @param byte
    * @return String connection type 
    */
-  public static String getConnectionType(connectionType type) {
-    switch (type.getNumber()) {
-    case connectionInfo.connectionType.TCPv4_VALUE:
+  public static String getConnectionType(byte type) {
+    switch (type) {
+    case connectionType.TCPv4:
       return "TCP4";
-    case connectionInfo.connectionType.TCPv6_VALUE:
+    case connectionType.TCPv6:
       return "TCP6";
-    case connectionInfo.connectionType.UDPv4_VALUE:
+    case connectionType.UDPv4:
       return "UDP4";
-    case connectionInfo.connectionType.UDPv6_VALUE:
+    case connectionType.UDPv6:
       return "UDP6";
-    case connectionInfo.connectionType.RAWv4_VALUE:
+    case connectionType.RAWv4:
       return "RAW4";
-    case connectionInfo.connectionType.RAWv6_VALUE:
+    case connectionType.RAWv6:
       return "RAW6";
     }
     return "????";
@@ -279,32 +283,32 @@ public class UserInterfaceUtil {
   
   /**
    * get connection status by connectionStatus
-   * @param connectionStatus
+   * @param byte
    * @return connection status
    */
-  public static String getConnectionStatus(connectionStatus status) {
-    switch (status.getNumber()) {
-    case connectionInfo.connectionStatus.CLOSE_VALUE:
+  public static String getConnectionStatus(byte status) {
+    switch (status) {
+    case connectionStatus.CLOSE:
       return "CLOSE";
-    case connectionInfo.connectionStatus.CLOSE_WAIT_VALUE:
+    case connectionStatus.CLOSE_WAIT:
       return "CLOSE_WAIT";
-    case connectionInfo.connectionStatus.CLOSING_VALUE:
+    case connectionStatus.CLOSING:
       return "CLOSING";
-    case connectionInfo.connectionStatus.ESTABLISHED_VALUE:
+    case connectionStatus.ESTABLISHED:
       return "ESTABLISHED";
-    case connectionInfo.connectionStatus.FIN_WAIT1_VALUE:
+    case connectionStatus.FIN_WAIT1:
       return "FIN_WAIT1";
-    case connectionInfo.connectionStatus.FIN_WAIT2_VALUE:
+    case connectionStatus.FIN_WAIT2:
       return "FIN_WAIT2";
-    case connectionInfo.connectionStatus.LAST_ACK_VALUE:
+    case connectionStatus.LAST_ACK:
       return "LAST_ACK";
-    case connectionInfo.connectionStatus.LISTEN_VALUE:
+    case connectionStatus.LISTEN:
       return "LISTEN";
-    case connectionInfo.connectionStatus.SYN_RECV_VALUE:
+    case connectionStatus.SYN_RECV:
       return "SYN_RECV";
-    case connectionInfo.connectionStatus.SYN_SENT_VALUE:
+    case connectionStatus.SYN_SENT:
       return "SYN_SENT";
-    case connectionInfo.connectionStatus.TIME_WAIT_VALUE:
+    case connectionStatus.TIME_WAIT:
       return "TIME_WAIT";
     }
     return "UNKNOWN";
@@ -322,6 +326,113 @@ public class UserInterfaceUtil {
     if (port == 0)
       return ip + ":*";
     return ip + ":" + port;
+  }
+
+
+  /**
+   * For custom purposes. Not used by ColorPickerPreference
+   * 
+   * @param color
+   * @author Charles Rosaaen
+   * @return A string representing the hex value of color, without the alpha
+   *         value
+   */
+  public static String convertToRGB(int color) {
+    String red = Integer.toHexString(Color.red(color));
+    String green = Integer.toHexString(Color.green(color));
+    String blue = Integer.toHexString(Color.blue(color));
+
+    if (red.length() == 1) {
+      red = "0" + red;
+    }
+
+    if (green.length() == 1) {
+      green = "0" + green;
+    }
+
+    if (blue.length() == 1) {
+      blue = "0" + blue;
+    }
+
+    return "#" + red + green + blue;
+  }
+
+
+  /**
+   * convert data as Usage
+   * 
+   * @param data
+   * @return a string of float value
+   */
+  @SuppressLint("DefaultLocale")
+  public static String convertToUsage(float data) {
+    return String.format("%.1f", data);
+  }
+
+  /**
+   * convert string as Integer
+   * 
+   * @param string
+   * @return int
+   */
+  public static int convertToInt(String value) {
+    try {
+      return Integer.parseInt(value);
+    } catch (Exception e) {
+    }
+    return 0;
+  }
+
+  /**
+   * remove string from array , if it can't be converted to int
+   * 
+   * @param string
+   *          []
+   * @return string []
+   */
+  public static String[] eraseNonIntegarString(String[] data) {
+    ArrayList<String> checked = new ArrayList<String>();
+    for (int index = 0; index < data.length; index++) {
+      if (convertToInt(data[index]) != 0)
+        checked.add(data[index]);
+    }
+    return checked.toArray(new String[checked.size()]);
+  }
+
+  /**
+   * remove empty string from array
+   * 
+   * @param string
+   *          []
+   * @return string []
+   */
+  public static String[] eraseEmptyString(String[] data) {
+    ArrayList<String> checked = new ArrayList<String>();
+    for (int index = 0; index < data.length; index++) {
+      if (!data[index].trim().isEmpty())
+        checked.add(data[index]);
+    }
+    return checked.toArray(new String[checked.size()]);
+  }
+
+
+  /**
+   * convert data as memory
+   * 
+   * @param data
+   * @return a string with correct format
+   *
+   * Reference:
+   * http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
+   */
+  @SuppressLint("DefaultLocale")
+  public static String convertToSize(long data, boolean si) {
+    int unit = si ? 1000 : 1024;
+    if (data < unit)
+      return data + " B";
+    int exp = (int) (Math.log(data) / Math.log(unit));
+    String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
+    return String.format("%.1f %sB", data / Math.pow(unit, exp), pre);
   }
 
 }

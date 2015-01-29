@@ -22,10 +22,10 @@ struct logger_entry {
     char        msg[0]; /* the entry's payload */
 };
 
-#define LOGGER_LOG_MAIN         "log/main"
-#define LOGGER_LOG_RADIO        "log/radio"
-#define LOGGER_LOG_EVENTS       "log/events"
-#define LOGGER_LOG_SYSTEM       "log/system"
+#define LOGGER_LOG_MAIN         "/dev/log/main"
+#define LOGGER_LOG_RADIO        "/dev/log/radio"
+#define LOGGER_LOG_EVENTS       "/dev/log/events"
+#define LOGGER_LOG_SYSTEM       "/dev/log/system"
 
 #define LOGGER_ENTRY_MAX_LEN            (4*1024)
 #define LOGGER_ENTRY_MAX_PAYLOAD        \

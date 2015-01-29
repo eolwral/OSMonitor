@@ -5,8 +5,6 @@
 
 #include "ipcserver.h"
 
-#include <sys/stat.h>
-
 namespace com {
 namespace eolwral {
 namespace osmonitor {
@@ -17,12 +15,9 @@ namespace ipc {
     // Initialize
     this->serverFD = 0;
     this->waitNumber = 0;
-    this->useTCPSocket = false;
 
     this->uServerLen = 0;
     memset(&this->uServerAddr, 0, sizeof(this->uServerAddr));
-
-    bzero((char *)&this->sServerAddr, sizeof(this->sServerAddr));
 
     // initialize clean socket
     for ( int index = 0 ; index < 8 ; index++)
@@ -54,30 +49,21 @@ namespace ipc {
     return (hasClient);
   }
 
-  bool ipcserver::init(int portNumber)
+  bool ipcserver::init()
   {
-    this->useTCPSocket = true;
-
-    this->sServerAddr.sin_family = AF_INET;
-    this->sServerAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-    this->sServerAddr.sin_port = htons(portNumber);
-
-    return (true);
-  }
-
-
-  bool ipcserver::init(char* socketName)
-  {
-    this->useTCPSocket = false;
-
     // check socket name to avoid overflow
-    if (strlen(socketName) > (int) sizeof(this->uServerAddr.sun_path))
+    if (this->uServerSocketName.length() > (int) sizeof(this->uServerAddr.sun_path))
       return (false);
 
-    this->uServerAddr.sun_path[0] = '\0';
-    strcpy(this->uServerAddr.sun_path+1, socketName);
+    strcpy(this->uServerAddr.sun_path, this->uServerSocketName.c_str());
     this->uServerAddr.sun_family = AF_UNIX;
-    this->uServerLen = 1 + strlen(socketName) + offsetof(struct sockaddr_un, sun_path);
+    this->uServerLen = this->uServerSocketName.length() + offsetof(struct sockaddr_un, sun_path);
+
+    // unlink if file is exist
+    struct stat statFile;
+    if (stat(this->uServerSocketName.c_str(), &statFile) != -1)
+      if (unlink(this->uServerSocketName.c_str()) != 0)
+        return (false);
 
     return (true);
   }
@@ -85,16 +71,9 @@ namespace ipc {
   bool ipcserver::bind()
   {
     // listen
-    if (this->useTCPSocket == true)
-      this->serverFD = socket(AF_INET, SOCK_STREAM, 0);
-    else
-      this->serverFD = socket(AF_UNIX, SOCK_STREAM, 0);
+    this->serverFD = socket(AF_UNIX, SOCK_STREAM, 0);
 
     if(this->serverFD < 0) {
-      if (this->useTCPSocket == true)
-        __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","useTCPSocket\n");
-      else
-        __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","useUnixSocket\n");
       __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","Failed to open socket: %d\n", errno);
       return (false);
     }
@@ -109,10 +88,7 @@ namespace ipc {
     }
 
     int result = 0;
-    if (this->useTCPSocket == true)
-      result = ::bind(this->serverFD, (const sockaddr*) &this->sServerAddr, sizeof(this->sServerAddr));
-    else
-      result = ::bind(this->serverFD, (const sockaddr*) &this->uServerAddr, this->uServerLen);
+    result = ::bind(this->serverFD, (const sockaddr*) &this->uServerAddr, this->uServerLen);
 
     if (result < 0)
     {
@@ -128,6 +104,13 @@ namespace ipc {
       return (false);
     }
 
+    if (chown(this->uServerSocketName.c_str(), this->socketUid, this->socketUid) != 0)
+    {
+      __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","Failed to change owner: %d\n", errno);
+      ::close(this->serverFD);
+      return (false);
+    }
+
     return (true);
   }
 
@@ -136,15 +119,7 @@ namespace ipc {
 
     // accept new connection
     int newSocket = 0;
-    if (this->useTCPSocket == true) {
-      // client address
-      struct sockaddr_in clientAddr;
-      int clientAddrLen = sizeof(clientAddr);;
-      newSocket = ::accept(this->serverFD, (struct sockaddr *) &clientAddr, &clientAddrLen);
-    }
-    else {
-      newSocket = ::accept(this->serverFD, NULL, NULL);
-    }
+    newSocket = ::accept(this->serverFD, NULL, NULL);
 
     if (newSocket < 0)
       return (false);
@@ -325,6 +300,25 @@ namespace ipc {
     int size = strlen(fileName);
     memset(fileName, 'x', size);
 
+    return;
+  }
+
+  void ipcserver::extractSocketName(char* socketName)
+  {
+
+    // save socket name
+    this->uServerSocketName.assign(socketName);
+
+    // erase socket name (for secure communication)
+    int size = strlen(socketName);
+    memset(socketName, 'x', size);
+
+    return;
+  }
+
+  void ipcserver::extractUid(char* uid)
+  {
+    this->socketUid = atoi(uid);
     return;
   }
 

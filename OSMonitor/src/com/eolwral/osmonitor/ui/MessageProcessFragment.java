@@ -5,8 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
-import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.core.processInfo;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
 
@@ -52,37 +51,36 @@ public class MessageProcessFragment extends Dialog {
     TextView detailThread = ((TextView) findViewById(R.id.id_process_detail_thread));
     TextView detailNice = ((TextView) findViewById(R.id.id_process_detail_nice));
 
-    detailName.setText(item.getName());
-    detailStime.setText(String.format("%,d", item.getUsedSystemTime()));
-    detailUtime.setText(String.format("%,d", item.getUsedUserTime()));
+    detailName.setText(item.name());
+    detailStime.setText(String.format("%,d", item.usedSystemTime()));
+    detailUtime.setText(String.format("%,d", item.usedUserTime()));
 
-    detailCPUtime.setText(String.format("%02d:%02d", item.getCpuTime() / 60,
-        item.getCpuTime() % 60));
+    detailCPUtime.setText(String.format("%02d:%02d", item.cpuTime() / 60,
+        item.cpuTime() % 60));
 
-    detailThread.setText(String.format("%d", item.getThreadCount()));
-    detailNice.setText(String.format("%d", item.getPriorityLevel()));
+    detailThread.setText(String.format("%d", item.threadCount()));
+    detailNice.setText(String.format("%d", item.priorityLevel()));
 
     // get memory information
-    MemoryInfo memInfo = infoHelper.getMemoryInfo(item.getPid());
-    String memoryData = CommonUtil.convertToSize((item.getRss() * 1024), true)
-        + " /  " + CommonUtil.convertToSize(memInfo.getTotalPss() * 1024, true)
-        + " / "
-        + CommonUtil.convertToSize(memInfo.getTotalPrivateDirty() * 1024, true);
+    MemoryInfo memInfo = infoHelper.getMemoryInfo(item.pid());
+    String memoryData = UserInterfaceUtil.convertToSize((item.rss() * 1024), true)
+        + " /  " + UserInterfaceUtil.convertToSize(memInfo.getTotalPss() * 1024, true)
+        + " / " + UserInterfaceUtil.convertToSize(memInfo.getTotalPrivateDirty() * 1024, true);
 
     detailMemory.setText(memoryData);
 
-    detailPPID.setText("" + item.getPpid());
+    detailPPID.setText("" + item.ppid());
 
     // convert time format
     final Calendar calendar = Calendar.getInstance();
     final DateFormat convertTool = DateFormat.getDateTimeInstance(
         DateFormat.LONG, DateFormat.MEDIUM, Locale.getDefault());
-    calendar.setTimeInMillis(item.getStartTime() * 1000);
+    calendar.setTimeInMillis(item.startTime() * 1000);
     detailStarttime.setText(convertTool.format(calendar.getTime()));
 
-    detailUser.setText(item.getOwner());
+    detailUser.setText(item.owner());
 
     // convert status
-    detailStatus.setText(UserInterfaceUtil.getSatusString(item.getStatus()));
+    detailStatus.setText(UserInterfaceUtil.getSatusString(item.status()));
   }
 }

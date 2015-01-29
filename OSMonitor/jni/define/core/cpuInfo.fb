@@ -1,0 +1,34 @@
+namespace com.eolwral.osmonitor.core;
+
+table cpuInfo {
+  /// normal processes executing in user mode 
+  userTime:ulong;     
+  /// niced processes executing in user mode 
+  niceTime:ulong;     
+  /// processes executing in kernel mode 
+  systemTime:ulong;   
+  /// twiddling thumbs 
+  idleTime:ulong;     
+  /// waiting for I/O to complete 
+  ioWaitTime:ulong;   
+  /// servicing interrupts 
+  irqTime:ulong;      
+  /// servicing softirqs 
+  softIrqTime:ulong;  
+  /// CPU utilization 
+  cpuUtilization:float; 
+  /// Io utilization
+  ioUtilization:float;
+  /// CPU Time 
+  cpuTime:ulong;   
+  /// CPU Number 
+  cpuNumber:uint; 
+  /// CPU Offline 
+  offLine:bool;       
+}
+
+table cpuInfoList {
+  list: [cpuInfo];
+}
+
+root_type cpuInfoList;

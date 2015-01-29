@@ -25,7 +25,7 @@
 
 #include "logger.h" // copy it from Android source code
 #include "base.h"
-#include "logcatInfo.pb.h"
+#include "logcatInfo_generated.h"
 
 #define BUFFERSIZE 4096
 
@@ -64,7 +64,8 @@ namespace core {
   {
   private:
     logcatLogger _sourceLogger;                 /**< data source */
-    std::vector<logcatInfo*> _curLogcatList;    /**< internal logcat list */
+    FlatBufferBuilder *_flatbuffer;             /**< internal flatbuffer */
+    std::vector<Offset<logcatInfo>> _list;      /**< internal logcat list */
     int _logfd;                                 /**< device handle */
 
     /**
@@ -79,35 +80,35 @@ namespace core {
 
     /**
      * check logger device status
-     * @param logfd file handle
+     * @param[in] logfd file handle
      * @return status
      */
     bool checkLogDevice(int logfd);
 
     /**
      * read logcat from device
-     * @param logcat device handle
+     * @param[in] logcat device handle
      */
     void fetchLogcat(int logfd);
 
     /**
      * extract log from logger_entry and insert into list
-     * @param single log entry
+     * @param[in] single log entry
      */
     void extractLog(struct logger_entry *entry);
 
     /**
      * extract log from logger_entry and insert into list
-     * @param single log entry
+     * @param[in] single log entry
      */
     void extractBinaryLog(struct logger_entry *entry);
 
     /**
      * convert binary log into readable log
-     * @param pMessage binary log
-     * @param pMessageLen length of binary log
-     * @param pBuffer output buffer
-     * @param pBufferLen length of output buffer
+     * @param[in] pMessage binary log
+     * @param[in] pMessageLen length of binary log
+     * @param[in] pBuffer output buffer
+     * @param[in] pBufferLen length of output buffer
      * @return true == success, false == fail
      */
     bool processBinaryLog(const unsigned char** pMessage,
@@ -115,11 +116,21 @@ namespace core {
                           char** pBuffer,
                           unsigned int* pBufferLen);
 
+    /**
+     * prepare FlatBuffer
+     */
+    void prepareBuffer();
+
+    /**
+     * finish FlatBuffer
+     */
+    void finishBuffer();
+
   public:
 
     /**
      * constructor
-     * @param choose a source logger
+     * @param[in] choose a source logger
      */
     logcat(logcatLogger logger);
 
@@ -135,9 +146,15 @@ namespace core {
 
     /**
      * get logcat list
-     * @return a vector contains logcat
+     * @return a buffer pointer
      */
-    const std::vector<google::protobuf::Message*>& getData();
+    const uint8_t* getData();
+
+    /**
+     * get buffer size
+     * @return buffer size
+     */
+    const uoffset_t getSize();
 
   };
 

@@ -2,6 +2,7 @@ package com.eolwral.osmonitor.ui;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,20 +50,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.core.DmesgInfo.dmesgInfo;
-import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo;
-import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.core.dmesgInfo;
+import com.eolwral.osmonitor.core.dmesgInfoList;
+import com.eolwral.osmonitor.core.dmesgLevel;
+import com.eolwral.osmonitor.core.logPriority;
+import com.eolwral.osmonitor.core.logcatInfo;
+import com.eolwral.osmonitor.core.logcatInfoList;
+import com.eolwral.osmonitor.core.processInfo;
+import com.eolwral.osmonitor.core.processInfoList;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
+import com.eolwral.osmonitor.ipc.ipcCategory;
+import com.eolwral.osmonitor.ipc.ipcData;
+import com.eolwral.osmonitor.ipc.ipcMessage;
 import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
-import com.eolwral.osmonitor.util.CommonUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 public class MessageFragment extends ListFragment implements ipcClientListener {
 
@@ -83,12 +87,12 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
   // ipc client
   private static IpcService ipc = IpcService.getInstance();
   private static boolean ipcStop = false;
-  private ipcAction selectedType = ipcAction.LOGCAT_MAIN;
+  private byte selectedType = ipcCategory.LOGCAT_MAIN;
 
   // data
   private ArrayList<logcatInfo> viewLogcatData = new ArrayList<logcatInfo>();
   private ArrayList<dmesgInfo> viewDmesgData = new ArrayList<dmesgInfo>();
-  private ipcAction logType = ipcAction.LOGCAT_MAIN;
+  private byte logType = ipcCategory.LOGCAT_MAIN;
   private Settings settings = null;
 
   // selected log
@@ -103,10 +107,10 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
   // filter
   private final static int MAXLOGCAT = 30000;
   private List<ArrayList<logcatInfo>> sourceLogcatData = new ArrayList<ArrayList<logcatInfo>>();
-  private boolean[] filterLogcatArray = new boolean[logcatInfo.logPriority.SILENT_VALUE + 1];
+  private boolean[] filterLogcatArray = new boolean[logPriority.SILENT + 1];
 
   private ArrayList<dmesgInfo> sourceDmesgData = new ArrayList<dmesgInfo>();
-  private boolean[] filterDmesgArray = new boolean[dmesgInfo.dmesgLevel.DEBUG_VALUE + 1];
+  private boolean[] filterDmesgArray = new boolean[dmesgLevel.DEBUG + 1];
 
   private MessageListAdapter messageList = null;
   private String filterString = "";
@@ -347,7 +351,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
   private void forceRefresh() {
     if (logType != selectedType) {
       ipc.removeRequest(this);
-      ipcAction newCommand[] = new ipcAction[1];
+      byte newCommand[] = new byte[1];
       newCommand[0] = selectedType;
       ipc.addRequest(newCommand, 0, this);
     }
@@ -434,38 +438,38 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
 
         if (isLogcat(logType)) {
           calendar
-              .setTimeInMillis(viewLogcatData.get(index).getSeconds() * 1000);
+              .setTimeInMillis(viewLogcatData.get(index).seconds() * 1000);
 
           logLine.append(DateFormat.format("yyyy-MM-dd hh:mm:ss",
               calendar.getTime())
               + ",");
 
-          logLine.append(UserInterfaceUtil.getLogprority(viewLogcatData.get(index).getPriority()) + ",");
-          logLine.append(viewLogcatData.get(index).getTag() + ",");
+          logLine.append(UserInterfaceUtil.getLogprority(viewLogcatData.get(index).priority()) + ",");
+          logLine.append(viewLogcatData.get(index).tag() + ",");
 
-          if (viewLogcatData.get(index).getPid() == 0)
+          if (viewLogcatData.get(index).pid() == 0)
             logLine.append("System,");
-          else if (map.containsKey(viewLogcatData.get(index).getPid()))
+          else if (map.containsKey(viewLogcatData.get(index).pid()))
             logLine.append(infoHelper.getPackageName(map.get(
-                viewLogcatData.get(index).getPid()).getName())
+                viewLogcatData.get(index).pid()).name())
                 + ",");
           else
             logLine.append("Unknown,");
 
-          logLine.append(viewLogcatData.get(index).getMessage() + "\n");
+          logLine.append(viewLogcatData.get(index).message() + "\n");
 
         } else {
 
-          if (viewDmesgData.get(index).getSeconds() != 0) {
+          if (viewDmesgData.get(index).seconds() != 0) {
             calendar
-                .setTimeInMillis(viewDmesgData.get(index).getSeconds() * 1000);
+                .setTimeInMillis(viewDmesgData.get(index).seconds() * 1000);
             logLine.append(DateFormat.format("yyyy-MM-dd hh:mm:ss",
                 calendar.getTime())
                 + ",");
           }
 
-          logLine.append(UserInterfaceUtil.getDmesgLevel(viewDmesgData.get(index).getLevel()) + ",");
-          logLine.append(viewDmesgData.get(index).getMessage().toString() + "\n");
+          logLine.append(UserInterfaceUtil.getDmesgLevel(viewDmesgData.get(index).level()) + ",");
+          logLine.append(viewDmesgData.get(index).message().toString() + "\n");
         }
         logWriter.write(logLine.toString());
       }
@@ -571,7 +575,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
     ipcStop = !isVisibleToUser;
 
     if (isVisibleToUser == true) {
-      ipcAction newCommand[] = { logType, ipcAction.PROCESS };
+      byte newCommand[] = { logType, ipcCategory.PROCESS };
       ipc.addRequest(newCommand, 0, this);
     }
 
@@ -581,7 +585,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
   }
 
   @Override
-  public void onRecvData(ipcMessage result) {
+  public void onRecvData(byte [] result) {
 
     // check
     if (ipcStop == true)
@@ -589,9 +593,9 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
 
     // update
     if (stopUpdate == true || result == null) {
-      ipcAction newCommand[] = new ipcAction[2];
+      byte newCommand[] = new byte[2];
       newCommand[0] = selectedType;
-      newCommand[1] = ipcAction.PROCESS;
+      newCommand[1] = ipcCategory.PROCESS;
       ipc.addRequest(newCommand, settings.getInterval(), this);
       return;
     }
@@ -601,24 +605,24 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
     map.clear();
 
     // convert data
-    // TODO: reuse old objects
-    for (int index = 0; index < result.getDataCount(); index++) {
+    ipcMessage resultMessage = ipcMessage.getRootAsipcMessage(ByteBuffer.wrap(result));
+    for (int index = 0; index < resultMessage.dataLength(); index++) {
 
       try {
-        ipcData rawData = result.getData(index);
-
+        ipcData rawData = resultMessage.data(index);
+            
         // prepare mapping table
-        if (rawData.getAction() == ipcAction.PROCESS) {
+        if (rawData.category() == ipcCategory.PROCESS) {
           extractProcessInfo(rawData);
           continue;
         }
 
-        if (isLogcat(rawData.getAction()))
+        if (isLogcat(rawData.category()))
           extractLogcatInfo(rawData);
-        else if (rawData.getAction() == ipcAction.DMESG)
+        else if (rawData.category() == ipcCategory.DMESG)
           extractDmesgInfo(rawData);
 
-        logType = rawData.getAction();
+        logType = rawData.category();
 
       } catch (Exception e) {
         // TODO Auto-generated catch block
@@ -631,9 +635,9 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
     messageList.getFilter().doFilter();
 
     // send command again
-    ipcAction newCommand[] = new ipcAction[2];
+    byte newCommand[] = new byte[2];
     newCommand[0] = selectedType;
-    newCommand[1] = ipcAction.PROCESS;
+    newCommand[1] = ipcCategory.PROCESS;
     if (selectedType != logType)
       ipc.addRequest(newCommand, 0, this);
     else
@@ -641,39 +645,43 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
   }
 
   private void extractLogcatInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      logcatInfo lgInfo = logcatInfo.parseFrom(rawData.getPayload(count));
-      if (sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(rawData.getAction())).size() > MAXLOGCAT)
-        sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(rawData.getAction())).remove(0);
-      sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(rawData.getAction())).add(lgInfo);
+  {
+    logcatInfoList list = logcatInfoList.getRootAslogcatInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < list.listLength(); count++) {
+      logcatInfo lgInfo = list.list(count);
+      if (sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(rawData.category())).size() > MAXLOGCAT)
+        sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(rawData.category())).remove(0);
+      sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(rawData.category())).add(lgInfo);
     }
   }
 
   private void extractDmesgInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      dmesgInfo dgInfo = dmesgInfo.parseFrom(rawData.getPayload(count));
+  {
+    dmesgInfoList list = dmesgInfoList.getRootAsdmesgInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < list.listLength(); count++) {
+      dmesgInfo dgInfo = list.list(count);
       sourceDmesgData.add(dgInfo);
     }
   }
 
   private void extractProcessInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
-      if (!infoHelper.checkPackageInformation(psInfo.getName())) {
-        infoHelper.doCacheInfo(psInfo.getUid(), psInfo.getOwner(),
-            psInfo.getName());
+  {
+    processInfoList list = processInfoList.getRootAsprocessInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < list.listLength(); count++) {
+      processInfo psInfo = list.list(count);
+      if (!infoHelper.checkPackageInformation(psInfo.name())) {
+        infoHelper.doCacheInfo(psInfo.uid(), psInfo.owner(),
+            psInfo.name());
       }
-      map.put(psInfo.getPid(), psInfo);
+      map.put(psInfo.pid(), psInfo);
     }
   }
 
-  private boolean isLogcat(ipcAction logType) {
-    if (logType == ipcAction.LOGCAT_MAIN || logType == ipcAction.LOGCAT_EVENT
-        || logType == ipcAction.LOGCAT_SYSTEM
-        || logType == ipcAction.LOGCAT_RADIO)
+  private boolean isLogcat(byte logType) {
+    if (logType == ipcCategory.LOGCAT_MAIN 
+        || logType == ipcCategory.LOGCAT_EVENT
+        || logType == ipcCategory.LOGCAT_SYSTEM
+        || logType == ipcCategory.LOGCAT_RADIO)
       return true;
     return false;
   }
@@ -872,7 +880,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
         return;
       }
 
-      int pid = viewLogcatData.get(position).getPid();
+      int pid = viewLogcatData.get(position).pid();
       if (!map.containsKey(pid)) {
         Toast.makeText(getActivity(),
             getActivity().getResources().getText(R.string.ui_text_notfound),
@@ -882,7 +890,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
 
       MessageProcessFragment procView = new MessageProcessFragment(
           getActivity());
-      procView.setTitle(infoHelper.getPackageName(map.get(pid).getName()));
+      procView.setTitle(infoHelper.getPackageName(map.get(pid).name()));
       procView.setProcessData(map.get(pid));
       procView.show();
     }
@@ -894,10 +902,9 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
       holder.time.setVisibility(View.GONE);
       holder.tag.setVisibility(View.GONE);
 
-      String textColor = CommonUtil.convertToRGB(getDmesgColor(item.getLevel()
-          .getNumber()));
+      String textColor = UserInterfaceUtil.convertToRGB(getDmesgColor(item.level()));
       holder.msg.setText(Html.fromHtml(highlightText(String.format("<%d>%s",
-          item.getSeconds(), item.getMessage().toString()), filterString,
+          item.seconds(), item.message().toString()), filterString,
           textColor)));
     }
 
@@ -908,39 +915,39 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
       holder.time.setVisibility(View.VISIBLE);
       holder.tag.setVisibility(View.GONE);
 
-      if (item.getSeconds() != 0) {
+      if (item.seconds() != 0) {
         final Calendar calendar = Calendar.getInstance();
         final java.text.DateFormat convertTool = java.text.DateFormat
             .getDateTimeInstance();
-        calendar.setTimeInMillis(item.getSeconds() * 1000);
+        calendar.setTimeInMillis(item.seconds() * 1000);
         holder.time.setText(convertTool.format(calendar.getTime()));
       }
 
-      holder.msg.setText(Html.fromHtml(highlightText(item.getMessage()
+      holder.msg.setText(Html.fromHtml(highlightText(item.message()
           .toString(), filterString, "#FFCCCCCC")));
       holder.level.setTextColor(Color.BLACK);
       holder.level
-          .setBackgroundColor(getDmesgColor(item.getLevel().getNumber()));
-      holder.level.setText(getDmesgTag(item.getLevel().getNumber()));
+          .setBackgroundColor(getDmesgColor(item.level()));
+      holder.level.setText(getDmesgTag(item.level()));
     }
 
     private int getDmesgColor(int value) {
       switch (value) {
-      case dmesgInfo.dmesgLevel.DEBUG_VALUE:
+      case dmesgLevel.DEBUG:
         return settings.getDmesgDebugColor();
-      case dmesgInfo.dmesgLevel.INFORMATION_VALUE:
+      case dmesgLevel.INFORMATION:
         return settings.getDmesgInfoColor();
-      case dmesgInfo.dmesgLevel.NOTICE_VALUE:
+      case dmesgLevel.NOTICE:
         return settings.getDmesgNoticeColor();
-      case dmesgInfo.dmesgLevel.WARNING_VALUE:
+      case dmesgLevel.WARNING:
         return settings.getDmesgWarningColor();
-      case dmesgInfo.dmesgLevel.EMERGENCY_VALUE:
+      case dmesgLevel.EMERGENCY:
         return settings.getDmesgEmergencyColor();
-      case dmesgInfo.dmesgLevel.ERROR_VALUE:
+      case dmesgLevel.ERROR:
         return settings.getDmesgErrorColor();
-      case dmesgInfo.dmesgLevel.ALERT_VALUE:
+      case dmesgLevel.ALERT:
         return settings.getDmesgAlertColor();
-      case dmesgInfo.dmesgLevel.CRITICAL_VALUE:
+      case dmesgLevel.CRITICAL:
         return settings.getDmesgCriticalColor();
       }
       return settings.getDmesgDebugColor();
@@ -948,21 +955,21 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
 
     private String getDmesgTag(int value) {
       switch (value) {
-      case dmesgInfo.dmesgLevel.DEBUG_VALUE:
+      case dmesgLevel.DEBUG:
         return "D";
-      case dmesgInfo.dmesgLevel.INFORMATION_VALUE:
+      case dmesgLevel.INFORMATION:
         return "I";
-      case dmesgInfo.dmesgLevel.NOTICE_VALUE:
+      case dmesgLevel.NOTICE:
         return "N";
-      case dmesgInfo.dmesgLevel.WARNING_VALUE:
+      case dmesgLevel.WARNING:
         return "W";
-      case dmesgInfo.dmesgLevel.EMERGENCY_VALUE:
+      case dmesgLevel.EMERGENCY:
         return "E";
-      case dmesgInfo.dmesgLevel.ERROR_VALUE:
+      case dmesgLevel.ERROR:
         return "E";
-      case dmesgInfo.dmesgLevel.ALERT_VALUE:
+      case dmesgLevel.ALERT:
         return "A";
-      case dmesgInfo.dmesgLevel.CRITICAL_VALUE:
+      case dmesgLevel.CRITICAL:
         return "C";
       }
       return "D";
@@ -971,68 +978,68 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
     private void showLogcatFormat(logcatInfo item) {
 
       final Calendar calendar = Calendar.getInstance();
-      calendar.setTimeInMillis(item.getSeconds() * 1000);
+      calendar.setTimeInMillis(item.seconds() * 1000);
 
       holder.level.setVisibility(View.GONE);
       holder.time.setVisibility(View.GONE);
       holder.tag.setVisibility(View.GONE);
 
-      String textColor = CommonUtil.convertToRGB(UserInterfaceUtil.getLogcatColor(item.getPriority()));
+      String textColor = UserInterfaceUtil.convertToRGB(UserInterfaceUtil.getLogcatColor(item.priority()));
 
       switch (printLogcatFMT) {
       case FORMAT_PROCESS:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
-            "%s(%5d)  %s (%s)", UserInterfaceUtil.getLogcatTag(item.getPriority()),
-            item.getPid(), item.getMessage().toString(), item.getTag()),
+            "%s(%5d)  %s (%s)", UserInterfaceUtil.getLogcatTag(item.priority()),
+            item.pid(), item.message().toString(), item.tag()),
             filterString, textColor)));
 
         break;
       case FORMAT_TAG:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
-            "%s/%-8s: %s", UserInterfaceUtil.getLogcatTag(item.getPriority()),
-            item.getTag(), item.getMessage().toString()), filterString,
+            "%s/%-8s: %s", UserInterfaceUtil.getLogcatTag(item.priority()),
+            item.tag(), item.message().toString()), filterString,
             textColor)));
         break;
       case FORMAT_THREAD:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
-            "%s(%5d:%5d) %s", UserInterfaceUtil.getLogcatTag(item.getPriority()),
-            item.getPid(), item.getTid(), item.getMessage().toString()),
+            "%s(%5d:%5d) %s", UserInterfaceUtil.getLogcatTag(item.priority()),
+            item.pid(), item.tid(), item.message().toString()),
             filterString, textColor)));
         break;
       case FORMAT_RAW:
         holder.msg.setText(Html.fromHtml(highlightText(
-            String.format("%s", item.getMessage().toString()), filterString,
+            String.format("%s", item.message().toString()), filterString,
             textColor)));
         break;
       case FORMAT_TIME:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
             "%s.%03d %s/%-8s(%5d):  %s", DateFormat.format("MM-dd HH:mm:ss",
-                calendar.getTime()), item.getNanoSeconds() / 1000000,
-                UserInterfaceUtil.getLogcatTag(item.getPriority()), item.getTag(), item
-                .getPid(), item.getMessage().toString()), filterString,
+                calendar.getTime()), item.nanoSeconds() / 1000000,
+                UserInterfaceUtil.getLogcatTag(item.priority()), item.tag(), item
+                .pid(), item.message().toString()), filterString,
             textColor)));
         break;
       case FORMAT_THREADTIME:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
             "%s.%03d %5d %5d %s %-8s: %s", DateFormat.format("MM-dd HH:mm:ss",
-                calendar.getTime()), item.getNanoSeconds() / 1000000, item
-                .getPid(), item.getTid(), UserInterfaceUtil.getLogcatTag(item.getPriority()),
-                item.getTag(), item.getMessage().toString()),
+                calendar.getTime()), item.nanoSeconds() / 1000000, item
+                .pid(), item.tid(), UserInterfaceUtil.getLogcatTag(item.priority()),
+                item.tag(), item.message().toString()),
             filterString, textColor)));
         break;
       case FORMAT_LONG:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
             "[ %s.%03d %5d:%5d %s/%-8s ]\n%s", DateFormat.format(
                 "MM-dd HH:mm:ss", calendar.getTime()),
-            item.getNanoSeconds() / 1000000, item.getPid(), item.getTid(),
-            UserInterfaceUtil.getLogcatTag(item.getPriority()), item.getTag(), item
-                .getMessage().toString()), filterString, textColor)));
+            item.nanoSeconds() / 1000000, item.pid(), item.tid(),
+            UserInterfaceUtil.getLogcatTag(item.priority()), item.tag(), item
+                .message().toString()), filterString, textColor)));
         break;
       case FORMAT_BRIEF:
       default:
         holder.msg.setText(Html.fromHtml(highlightText(String.format(
-            "%s/%-8s(%5d): %s", UserInterfaceUtil.getLogcatTag(item.getPriority()),
-            item.getTag(), item.getPid(), item.getMessage().toString()),
+            "%s/%-8s(%5d): %s", UserInterfaceUtil.getLogcatTag(item.priority()),
+            item.tag(), item.pid(), item.message().toString()),
             filterString, textColor)));
         break;
       }
@@ -1043,21 +1050,21 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
       final Calendar calendar = Calendar.getInstance();
       final java.text.DateFormat convertTool = java.text.DateFormat
           .getDateTimeInstance();
-      calendar.setTimeInMillis(item.getSeconds() * 1000);
+      calendar.setTimeInMillis(item.seconds() * 1000);
 
       holder.level.setVisibility(View.VISIBLE);
       holder.time.setVisibility(View.VISIBLE);
       holder.tag.setVisibility(View.VISIBLE);
 
       holder.time.setText(convertTool.format(calendar.getTime()));
-      holder.tag.setText(Html.fromHtml(highlightText(item.getTag(),
+      holder.tag.setText(Html.fromHtml(highlightText(item.tag(),
           filterString, "#FFCCCCCC")));
-      holder.msg.setText(Html.fromHtml(highlightText(item.getMessage()
+      holder.msg.setText(Html.fromHtml(highlightText(item.message()
           .toString(), filterString, "#FFCCCCCC")));
 
-      holder.level.setText(UserInterfaceUtil.getLogcatTag(item.getPriority()));
+      holder.level.setText(UserInterfaceUtil.getLogcatTag(item.priority()));
       holder.level.setTextColor(Color.BLACK);
-      holder.level.setBackgroundColor(UserInterfaceUtil.getLogcatColor(item.getPriority()));
+      holder.level.setBackgroundColor(UserInterfaceUtil.getLogcatColor(item.priority()));
     }
 
     private String highlightText(String Msg, String HLText, String Color) {
@@ -1111,14 +1118,13 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
             logcatInfo item = sourceLogcatData.get(UserInterfaceUtil.convertTypeToLoc(logType))
                 .get(index);
 
-            if (filterLogcatArray[UserInterfaceUtil.convertLogcatType(item.getPriority()
-                .getNumber())] == false)
+            if (filterLogcatArray[UserInterfaceUtil.convertLogcatType(item.priority())] == false)
               continue;
 
             if (filterString.length() != 0)
-              if (!item.getMessage().toLowerCase(Locale.getDefault())
+              if (!item.message().toLowerCase(Locale.getDefault())
                   .contains(filterString)
-                  && !item.getTag().toLowerCase(Locale.getDefault())
+                  && !item.tag().toLowerCase(Locale.getDefault())
                       .contains(filterString))
                 continue;
 
@@ -1131,11 +1137,11 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
           for (int index = 0; index < sourceDmesgData.size(); index++) {
             dmesgInfo item = sourceDmesgData.get(index);
 
-            if (filterDmesgArray[UserInterfaceUtil.convertDmesgType(item.getLevel().getNumber())] == false)
+            if (filterDmesgArray[UserInterfaceUtil.convertDmesgType(item.level())] == false)
               continue;
 
             if (filterString.length() != 0)
-              if (!item.getMessage().toLowerCase(Locale.getDefault())
+              if (!item.message().toLowerCase(Locale.getDefault())
                   .contains(filterString))
                 continue;
 

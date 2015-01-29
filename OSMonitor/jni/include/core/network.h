@@ -17,8 +17,10 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include <tuple>
+
 #include "base.h"
-#include "networkInfo.pb.h"
+#include "networkInfo_generated.h"
 
 #define INT_IPV4_FILE "/proc/%d/net/dev"
 #define INT_IPV4_PATTERN " %[^:]: %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %lu %u %u %lu"
@@ -42,9 +44,11 @@ namespace core {
   class network : com::eolwral::osmonitor::core::base
   {
   private:
-    const static int BufferSize = 256;          /**< internal buffer size */
-    std::vector<networkInfo*> _curNetworkList;  /**< current network list */
-    std::vector<networkInfo*> _prevNetworkList;  /**< previous network list */
+    const static int BufferSize = 256;           /**< internal buffer size */
+    FlatBufferBuilder* _curFlatBuffer;           /**< current flatbuffer */
+    FlatBufferBuilder* _preFlatBuffer;           /**< previous flatbuffer */
+
+    std::vector<Offset<networkInfo>> _list;      /**< current network list */
 
     /**
      * get interface information
@@ -53,33 +57,67 @@ namespace core {
 
     /**
      * get IPv6 information
+     * @param[in] ifName interface name
+     * @param[in] networkInfo target interface
      */
-    void getIPv6Information();
+    std::tuple<Offset<String>, int> getIPv6Information(char* ifName);
 
     /**
      * calculate Network IO information
+     * @param[in] ifName interface name
+     * @param[in] targetNetworkInfo target interface
+     * @param[in] recvBytes receive bytes
+     * @param[in] transBytes transmit bytes
      */
-    void calculateNetworkIO();
+    std::tuple<unsigned long, unsigned long> calculateNetworkIO( char* ifName,
+                              unsigned long recvBytes, unsigned long transBytes);
 
     /**
      * get IPv4 information
-     * @param _curNetworkInfo target interface
+     * @param[in] ifName interface name
+     * @param[in] networkInfo target interface
      */
-    void getIPv4Information(networkInfo* curNetworkInfo);
+    std::tuple<Offset<String>, Offset<String>, short> getIPv4Information(char* ifName);
 
     /**
      * get MAC information
-     * @param curNetworkInfo target interface
+     * @param[in] ifName interface name
+     * @return flatbuffer string
      */
-    void getMACInformation(networkInfo* curNetworkInfo);
+    Offset<String> getMACInformation(char* ifName);
 
     /**
-     * get Traffic information
-     * @param curNetworkInfo target interface
+     * get receive traffic information
+     * @param[in] ifName interface name
+     * @param[in] networkInfo target interface
+     * @return receive bytes
      */
-    void getTrafficInformation(networkInfo* curNetworkInfo);
+    unsigned long getTrafficRecvInformation(char* ifName);
+
+    /**
+     * get transmit traffic information
+     * @param[in] ifName interface name
+     * @param[in] networkInfo target interface
+     * @return transmit bytes
+     */
+    unsigned long getTrafficTransInformation(char* ifName);
+
+    /**
+     * prepare FlatBuffer
+     */
+    void prepareBuffer();
+
+    /**
+     * finish FlatBuffer
+     */
+    void finishBuffer();
 
   public:
+
+    /**
+     * constructor for Network
+     */
+    network();
 
     /**
      * destructor for Network
@@ -93,9 +131,15 @@ namespace core {
 
     /**
      * get network interface list
-     * @return a vector contains all network information
+     * @return a buffer pointer
      */
-    const std::vector<google::protobuf::Message*>& getData();
+    const uint8_t* getData();
+
+    /**
+     * get buffer size
+     * @return buffer size
+     */
+    const uoffset_t getSize();
 
   };
 }

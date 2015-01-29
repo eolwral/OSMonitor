@@ -14,6 +14,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Debug.MemoryInfo;
@@ -28,10 +29,14 @@ import android.view.WindowManager;
 public class ProcessUtil extends Thread {
 
   private static ProcessUtil singletone = null;
+  private static final Rect rect = new Rect();
+  private static final Canvas canvas = new Canvas();
+  
   private PackageManager packageMgr = null;
   private Resources resourceMgr = null;
   private ActivityManager activityMgr = null;
   private Drawable commonIcon = null;
+
   private boolean useDetail = true;
   private int iconSize = 60;
 
@@ -56,54 +61,52 @@ public class ProcessUtil extends Thread {
 
   public static ProcessUtil getInstance(Context context, boolean detail) {
 
-    if (singletone == null) {
-      singletone = new ProcessUtil();
+    if (singletone != null) 
+      return singletone;
 
-      singletone.packageMgr = context.getPackageManager();
-      singletone.resourceMgr = context.getResources();
-      singletone.activityMgr = (ActivityManager) context
-          .getSystemService(Context.ACTIVITY_SERVICE);
+    singletone = new ProcessUtil();
 
-      DisplayMetrics metrics = new DisplayMetrics();
-      WindowManager wmanager = (WindowManager) context
-          .getSystemService(Context.WINDOW_SERVICE);
-      wmanager.getDefaultDisplay().getMetrics(metrics);
+    singletone.packageMgr = context.getPackageManager();
+    singletone.resourceMgr = context.getResources();
+    singletone.activityMgr = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
-      switch (metrics.densityDpi) {
-      case DENSITY_LOW:
-        singletone.iconSize = 12;
-        break;
-      case DENSITY_MEDIUM:
-        singletone.iconSize = 28;
-        break;
-      case 213: // DENSITY_TV
-        singletone.iconSize = 50;
-        break;
-      case DENSITY_HIGH:
-        singletone.iconSize = 60;
-        break;
-      case 400: // DENSITY_400
-        singletone.iconSize = 80;
-        break;
-      case DENSITY_XHIGH:
-        singletone.iconSize = 100;
-        break;
-      case DENSITY_XXHIGH:
-        singletone.iconSize = 200;
-        break;
-      case 640: // DENSITY_XXXHIGH
-        singletone.iconSize = 250;
-        break;
-      }
+    DisplayMetrics metrics = new DisplayMetrics();
+    WindowManager wmanager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    wmanager.getDefaultDisplay().getMetrics(metrics);
 
-      singletone.useDetail = detail;
-      if (singletone.useDetail == true)
-        singletone.commonIcon = resizeImage(
-            singletone.resourceMgr.getDrawable(R.drawable.ic_process_system),
-            singletone.iconSize);
-
-      singletone.start();
+    switch (metrics.densityDpi) {
+    case DENSITY_LOW:
+      singletone.iconSize = 15;
+      break;
+    case DENSITY_MEDIUM:
+      singletone.iconSize = 20;
+      break;
+    case 213: // DENSITY_TV
+      singletone.iconSize = 30;  
+      break;
+    case DENSITY_HIGH:
+      singletone.iconSize = 40;
+      break;
+    case 400: // DENSITY_400
+      singletone.iconSize = 45;
+      break;
+    case DENSITY_XHIGH:
+      singletone.iconSize = 50;
+      break;
+    case DENSITY_XXHIGH:
+      singletone.iconSize = 65;
+      break;
+    case 640: // DENSITY_XXXHIGH
+      singletone.iconSize = 80;
+      break;
     }
+
+    singletone.useDetail = detail;
+    if (singletone.useDetail == true)
+       singletone.commonIcon = resizeImage(singletone.resourceMgr.getDrawable(R.drawable.ic_process_system),
+                                          singletone.iconSize);
+
+    singletone.start();
 
     return singletone;
   }
@@ -177,21 +180,17 @@ public class ProcessUtil extends Thread {
     PackageInfo curPackageInfo = null;
     String curPackageName = null;
     if (processJob.process.contains(":"))
-      curPackageName = processJob.process.substring(0,
-          processJob.process.indexOf(":"));
+      curPackageName = processJob.process.substring(0, processJob.process.indexOf(":"));
     else
       curPackageName = processJob.process;
 
     // for system user
-    if (processJob.owner.contains("system")
-        && processJob.process.contains("system")
-        && !processJob.process.contains(".")
-        && !processJob.process.contains("osmcore"))
+    if (processJob.owner.contains("system") && processJob.process.contains("system")
+        && !processJob.process.contains(".") && !processJob.process.contains("osmcore"))
       curPackageName = "android";
     try {
       curPackageInfo = packageMgr.getPackageInfo(curPackageName, 0);
-    } catch (NameNotFoundException e) {
-    }
+    } catch (NameNotFoundException e) { }
 
     if (curPackageInfo == null && processJob.uid > 0) {
       String[] subPackageName = packageMgr.getPackagesForUid(processJob.uid);
@@ -201,8 +200,7 @@ public class ProcessUtil extends Thread {
           if (subPackageName[PackagePtr] == null)
             continue;
           try {
-            curPackageInfo = packageMgr.getPackageInfo(
-                subPackageName[PackagePtr], 0);
+            curPackageInfo = packageMgr.getPackageInfo(subPackageName[PackagePtr], 0);
             PackagePtr = subPackageName.length;
           } catch (NameNotFoundException e) {
           }
@@ -213,11 +211,9 @@ public class ProcessUtil extends Thread {
     CacheItem processItem = new CacheItem();
 
     if (curPackageInfo != null) {
-      processItem.name = curPackageInfo.applicationInfo.loadLabel(packageMgr)
-          .toString();
+      processItem.name = curPackageInfo.applicationInfo.loadLabel(packageMgr).toString();
       if (useDetail == true)
-        processItem.icon = resizeImage(
-            curPackageInfo.applicationInfo.loadIcon(packageMgr), iconSize);
+        processItem.icon = resizeImage(curPackageInfo.applicationInfo.loadIcon(packageMgr), iconSize);
     } else {
       processItem.name = curPackageName;
       processItem.icon = commonIcon;
@@ -237,14 +233,23 @@ public class ProcessUtil extends Thread {
    *          icon size
    * @return resized image
    */
-  private static Drawable resizeImage(Drawable Icon, int iconSize) {
-    Bitmap BitmapOrg = Bitmap.createBitmap(iconSize, iconSize,
-        Bitmap.Config.ARGB_8888);
-    Canvas BitmapCanvas = new Canvas(BitmapOrg);
-    Icon.setBounds(0, 0, iconSize, iconSize);
-    Icon.draw(BitmapCanvas);
-    BitmapCanvas = null;
-    return new BitmapDrawable(BitmapOrg);
+  private static Drawable resizeImage(Drawable icon, int iconSize) {
+    // create a new bitmap
+    Bitmap bitmap = Bitmap.createBitmap(iconSize, iconSize, Bitmap.Config.ARGB_8888);
+
+    // reuse canvas and rect
+    canvas.setBitmap(bitmap);
+    icon.setBounds(0, 0, iconSize, iconSize);
+    icon.draw(canvas);
+    icon.setBounds(rect);
+    
+    // use try-catch to avoid crash 
+    // for Android 2.3.3 
+    try {
+      canvas.setBitmap(null);
+    } catch (Exception e) {}
+    
+    return new BitmapDrawable(singletone.resourceMgr, bitmap);
   }
 
   /**

@@ -1,0 +1,59 @@
+namespace com.eolwral.osmonitor.core;
+
+enum processStatus : byte {
+  /// process status is unknown 
+  Unknown = 0,
+  /// process is running 
+  Running = 1,
+  /// process is s sleeping in an interruptible wait 
+  Sleep = 2,      
+  /// process is traced or stopped 
+  Stopped = 3, 
+  /// process is is waiting in uninterruptible disk sleep 
+  Disk = 4,
+  /// process is zombie that couldn't be killed 
+  Zombie = 5,  
+  /// process is paging 
+  Page = 6
+}
+
+table processInfo {
+  /// process name 
+  name:string;
+  /// process owner 
+  owner:string;
+
+  /// process status 
+  status:processStatus = Unknown;
+
+  /// process uid 
+  uid:uint;
+  /// process pid 
+  pid:uint;
+  /// process pid for parent 
+  ppid:uint;
+  /// resident set size 
+  rss:ulong;
+  /// virtual size 
+  vsz:ulong;
+  /// CPU usage 
+  cpuUsage:float;
+  /// thread count for this process 
+  threadCount:uint;
+  /// priority from -20 to 20 
+  priorityLevel:uint;
+  /// used user time (user mode) 
+  usedUserTime:ulong;
+  /// used system time (kernel mode) 
+  usedSystemTime:ulong;
+  /// start time 
+  startTime:ulong;
+  /// CPU time 
+  cpuTime:ulong;
+}
+
+table processInfoList {
+  list:[processInfo];
+}
+
+root_type processInfoList;

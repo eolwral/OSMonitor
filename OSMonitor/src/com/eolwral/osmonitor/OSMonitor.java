@@ -14,7 +14,7 @@ import com.eolwral.osmonitor.ui.ConnectionFragment;
 import com.eolwral.osmonitor.ui.MessageFragment;
 import com.eolwral.osmonitor.ui.MiscFragment;
 import com.eolwral.osmonitor.ui.ProcessFragment;
-import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.util.CoreUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.eolwral.osmonitor.settings.Settings;
 
@@ -29,6 +29,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 
+@SuppressWarnings("deprecation")
 public class OSMonitor extends ActionBarActivity implements
     ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
@@ -93,7 +94,7 @@ public class OSMonitor extends ActionBarActivity implements
     // start background service
     final Settings setting = Settings.getInstance(this);
     if ((setting.isEnableCPUMeter() || setting.isAddShortCut())
-        && !CommonUtil.isServiceRunning(this))
+        && !CoreUtil.isServiceRunning(this))
       startService(new Intent(this, OSMonitorService.class));
 
     // prepare exit
@@ -142,9 +143,7 @@ public class OSMonitor extends ActionBarActivity implements
       // catch exception when back from screen off
       try {
         mFragment.setUserVisibleHint(true);
-      } catch (Exception e) {
-      }
-      ;
+      } catch (Exception e) { }
     }
   }
 

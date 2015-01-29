@@ -5,7 +5,7 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.ipc.IpcService;
-import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.util.CoreUtil;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.settings.SettingsHelper;
 
@@ -163,8 +163,7 @@ public class Preference extends PreferenceActivity {
 
       if (key.equals(Settings.PREFERENCE_ROOT)) {
         IpcService.getInstance().forceExit();
-        IpcService.getInstance().createConnection(
-            helper.getBoolean(Settings.PREFERENCE_ROOT, true));
+        IpcService.getInstance().createConnection();
       }
 
       // prevent exit
@@ -190,7 +189,7 @@ public class Preference extends PreferenceActivity {
   public boolean onPrePreferenceCheck(String key) {
     if (key.equals(Settings.PREFERENCE_ROOT)
         && !helper.getBoolean(Settings.PREFERENCE_ROOT, false)) {
-      if (CommonUtil.preCheckRoot() == false)
+      if (CoreUtil.preCheckRoot() == false)
         return false;
     }
     return true;

@@ -11,33 +11,57 @@ namespace eolwral {
 namespace osmonitor {
 namespace core {
 
+  os::os()
+  {
+    this->_flatbuffer = NULL;
+    this->_info = NULL;
+  }
+
+  os::~os()
+  {
+    if (this->_flatbuffer != NULL)
+      delete this->_flatbuffer;
+
+    if (this->_info != NULL)
+      delete this->_info;
+  }
+
+  void os::prepareBuffer()
+  {
+    if (this->_info != NULL)
+      delete this->_info;
+
+    if (this->_flatbuffer != NULL)
+      delete this->_flatbuffer;
+
+    this->_flatbuffer = new FlatBufferBuilder();
+    this->_info = new osInfoBuilder(*this->_flatbuffer);
+
+  }
+
+  void os::finishBuffer( )
+  {
+    FinishosInfoBuffer(*this->_flatbuffer, this->_info->Finish().o);
+  }
+
   void os::refresh()
   {
     // clean up data
-    this->clearDataSet((std::vector<google::protobuf::Message*>&)this->_curOSInfo);
-
-    // save value
-    osInfo* curOSInfo = new osInfo();
-    curOSInfo->set_uptime(0);
-    curOSInfo->set_freememory(0);
-    curOSInfo->set_totalmemory(0);
-    curOSInfo->set_sharedmemory(0);
-    curOSInfo->set_bufferedmemory(0);
-    curOSInfo->set_freeswap(0);
-    curOSInfo->set_totalswap(0);
+    this->prepareBuffer();
 
     // get uptime
-    getUpTime(curOSInfo);
+    this->getUpTime();
 
     // get current memory from meminfo
-    getMemoryFromFile(curOSInfo);
+    this->getMemoryFromFile();
 
-    this->_curOSInfo.push_back(curOSInfo);
+    // Finish
+    this->finishBuffer();
 
     return;
   }
 
-  void os::getUpTime(osInfo *curOSInfo)
+  void os::getUpTime()
   {
      // get uptime
      long uptime = 0;
@@ -45,24 +69,33 @@ namespace core {
 
      if(uptimeFile)
      {
-       if ( fscanf(uptimeFile, "%lu.%*lu", &uptime) != 1 )
+       if ( 1 != fscanf(uptimeFile, "%lu.%*u", &uptime) )
          uptime = 0;
        fclose(uptimeFile);
      }
 
      time_t currentTime = time(0);
 
-     curOSInfo->set_uptime(currentTime - uptime);
+     this->_info->add_upTime(currentTime - uptime);
 
      return;
   }
 
-  bool os::getMemoryFromFile(osInfo *curOSInfo)
+  void os::getMemoryFromFile()
   {
+
+    // set basic value
+    this->_info->add_freeMemory(0);
+    this->_info->add_totalMemory(0);
+    this->_info->add_sharedMemory(0);
+    this->_info->add_bufferedMemory(0);
+    this->_info->add_freeSwap(0);
+    this->_info->add_totalSwap(0);
+
     FILE *mif = 0;
     mif = fopen("/proc/meminfo", "r");
     if(mif == 0 )
-      return (false);
+      return;
 
     /* MemTotal:      2001372 kB
        MemFree:         96856 kB
@@ -74,44 +107,44 @@ namespace core {
     {
       moveToNextLine(mif);
       if(value != 0)
-        curOSInfo->set_totalmemory(value*1024);
+        this->_info->add_totalMemory(value*1024);
     }
 
     if ( fscanf(mif, "MemFree: %lu kB", &value) == 1 )
     {
       moveToNextLine(mif);
       if(value != 0)
-        curOSInfo->set_freememory(value*1024);
+        this->_info->add_freeMemory(value*1024);
     }
 
     if ( fscanf(mif, "Buffers: %lu kB", &value) == 1 )
     {
       moveToNextLine(mif);
       if(value != 0)
-        curOSInfo->set_bufferedmemory(value*1024);
+        this->_info->add_bufferedMemory(value*1024);
     }
 
     if ( fscanf(mif, "Cached: %lu kB", &value) == 1 )
     {
       if(value != 0)
-        curOSInfo->set_cachedmemory(value*1024);
+        this->_info->add_cachedMemory(value*1024);
     }
 
     while (moveToNextLine(mif) == true)
     {
         if(fscanf(mif, "SwapTotal: %lu kB", &value) == 1) {
-          curOSInfo->set_totalswap(value*1024);
+          this->_info->add_totalSwap(value*1024);
           continue;
         }
         if(fscanf(mif, "SwapFree: %lu kB", &value) == 1) {
-          curOSInfo->set_freeswap(value*1024);
+          this->_info->add_freeSwap(value*1024);
           continue;
         }
     }
 
     fclose(mif);
 
-    return (true);
+    return;
   }
 
   bool os::moveToNextLine(FILE *file)
@@ -126,10 +159,16 @@ namespace core {
     return (false);
   }
 
-  const std::vector<google::protobuf::Message*>& os::getData()
+  const uint8_t* os::getData()
   {
-    return ((const std::vector<google::protobuf::Message*>&) this->_curOSInfo);
+    return this->_flatbuffer->GetBufferPointer();
   }
+
+  const uoffset_t os::getSize()
+  {
+    return this->_flatbuffer->GetSize();
+  }
+
 }
 }
 }

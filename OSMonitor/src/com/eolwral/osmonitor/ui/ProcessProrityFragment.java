@@ -13,6 +13,7 @@ import android.widget.Spinner;
 
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.ipc.IpcService;
+import com.eolwral.osmonitor.ipc.ipcCategory;
 
 public class ProcessProrityFragment extends DialogFragment {
 
@@ -78,7 +79,7 @@ public class ProcessProrityFragment extends DialogFragment {
 
     @Override
     public void onClick(View v) {
-      ipcService.setPrority(targetPID, targetPrority);
+      ipcService.sendCommand(ipcCategory.SETPRIORITY, targetPID, targetPrority);
       ProcessProrityFragment.this.dismiss();
     }
 

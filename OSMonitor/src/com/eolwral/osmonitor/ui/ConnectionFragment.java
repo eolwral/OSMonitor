@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,19 +50,20 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.core.ConnectionInfo.connectionInfo;
-import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.core.connectionInfo;
+import com.eolwral.osmonitor.core.connectionInfoList;
+import com.eolwral.osmonitor.core.processInfo;
+import com.eolwral.osmonitor.core.processInfoList;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
+import com.eolwral.osmonitor.ipc.ipcCategory;
+import com.eolwral.osmonitor.ipc.ipcData;
+import com.eolwral.osmonitor.ipc.ipcMessage;
 import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.HttpUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ConnectionFragment extends ListFragment implements
     ipcClientListener {
@@ -219,24 +221,24 @@ public class ConnectionFragment extends ListFragment implements
         connectionInfo item = data.get(index);
 
         // prepare main information
-        logLine.append(UserInterfaceUtil.getConnectionType(item.getType()));
+        logLine.append(UserInterfaceUtil.getConnectionType(item.type()));
         logLine.append(",");
 
-        logLine.append(UserInterfaceUtil.convertToIPv4(item.getLocalIP(), item.getLocalPort()));
+        logLine.append(UserInterfaceUtil.convertToIPv4(item.localIP(), item.localPort()));
         logLine.append(",");
 
-        logLine.append(UserInterfaceUtil.convertToIPv4(item.getRemoteIP(), item.getRemotePort()));
+        logLine.append(UserInterfaceUtil.convertToIPv4(item.remoteIP(), item.remotePort()));
         logLine.append(",");
 
-        logLine.append(UserInterfaceUtil.getConnectionStatus(item.getStatus()));
+        logLine.append(UserInterfaceUtil.getConnectionStatus(item.status()));
         logLine.append(",");
 
-        if (item.getUid() == 0)
+        if (item.uid() == 0)
           logLine.append("System");
-        else if (map.containsKey(item.getUid()))
-          logLine.append(infoHelper.getPackageName(map.get(item.getUid())));
+        else if (map.containsKey(item.uid()))
+          logLine.append(infoHelper.getPackageName(map.get(item.uid())));
         else
-          logLine.append(item.getUid() + "(UID)");
+          logLine.append(item.uid() + "(UID)");
         logLine.append("\n");
 
         logWriter.write(logLine.toString());
@@ -296,13 +298,13 @@ public class ConnectionFragment extends ListFragment implements
 
     // detect local IP address via InetAddress 
     try {
-      InetAddress ia = InetAddress.getByName(data.get(position).getRemoteIP());
+      InetAddress ia = InetAddress.getByName(data.get(position).remoteIP());
       if (ia.isAnyLocalAddress() || ia.isSiteLocalAddress() || ia.isLoopbackAddress() )
         return;
     } catch (Exception e) { }
 
     // execute WHOIS procedure 
-    String QueryIP = data.get(position).getRemoteIP().replace("::ffff:", "");
+    String QueryIP = data.get(position).remoteIP().replace("::ffff:", "");
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
       new PrepareQuery().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, QueryIP);
     else
@@ -317,21 +319,21 @@ public class ConnectionFragment extends ListFragment implements
     ipcStop = !isVisibleToUser;
 
     if (isVisibleToUser == true) {
-      ipcAction newCommand[] = { ipcAction.CONNECTION, ipcAction.PROCESS };
+      byte newCommand[] = { ipcCategory.CONNECTION, ipcCategory.PROCESS };
       ipcService.addRequest(newCommand, 0, this);
     }
 
   }
 
   @Override
-  public void onRecvData(ipcMessage result) {
+  public void onRecvData(byte [] result) {
 
     // check
     if (ipcStop == true)
       return;
 
     if (stopUpdate == true || result == null) {
-      ipcAction newCommand[] = { ipcAction.CONNECTION, ipcAction.PROCESS };
+      byte newCommand[] = { ipcCategory.CONNECTION, ipcCategory.PROCESS };
       ipcService.addRequest(newCommand, settings.getInterval(), this);
       return;
     }
@@ -344,16 +346,16 @@ public class ConnectionFragment extends ListFragment implements
     map.clear();
 
     // convert data
-    // TODO: reuse old objects
+    ipcMessage resultMessage = ipcMessage.getRootAsipcMessage(ByteBuffer.wrap(result));
     try {
-      for (int index = 0; index < result.getDataCount(); index++) {
+      for (int index = 0; index < resultMessage.dataLength(); index++) {
 
-        ipcData rawData = result.getData(index);
+        ipcData rawData = resultMessage.data(index);
 
         // prepare mapping table
-        if (rawData.getAction() == ipcAction.PROCESS)
+        if (rawData.category() == ipcCategory.PROCESS)
           extractProfessInfo(rawData);
-        else if (rawData.getAction() == ipcAction.CONNECTION)
+        else if (rawData.category() == ipcCategory.CONNECTION)
           extractConnectionInfo(rawData);
 
       }
@@ -365,29 +367,29 @@ public class ConnectionFragment extends ListFragment implements
     ((ConnectionListAdapter) getListAdapter()).refresh();
 
     // send command again
-    ipcAction newCommand[] = { ipcAction.CONNECTION, ipcAction.PROCESS };
+    byte newCommand[] = { ipcCategory.CONNECTION, ipcCategory.PROCESS };
     ipcService.addRequest(newCommand, settings.getInterval(), this);
   }
 
   private void extractConnectionInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    // process processInfo
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      connectionInfo cnInfo = connectionInfo.parseFrom(rawData
-          .getPayload(count));
+  {
+    // process connectionInfo
+    connectionInfoList list = connectionInfoList.getRootAsconnectionInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < list.listLength(); count++) {
+      connectionInfo cnInfo = list.list(count);
       data.add(cnInfo);
     }
   }
 
   private void extractProfessInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      processInfo psInfo = processInfo.parseFrom(rawData.getPayload(count));
-      if (!infoHelper.checkPackageInformation(psInfo.getName())) {
-        infoHelper.doCacheInfo(psInfo.getUid(), psInfo.getOwner(),
-            psInfo.getName());
+  {
+    processInfoList list = processInfoList.getRootAsprocessInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < list.listLength(); count++) {
+      processInfo psInfo = list.list(count);
+      if (!infoHelper.checkPackageInformation(psInfo.name())) {
+        infoHelper.doCacheInfo(psInfo.uid(), psInfo.owner(), psInfo.name());
       }
-      map.put(psInfo.getUid(), psInfo.getName());
+      map.put(psInfo.uid(), psInfo.name());
     }
   }
 
@@ -461,25 +463,24 @@ public class ConnectionFragment extends ListFragment implements
 
       // draw icon when screen is not small
       if (holder.icon != null) {
-        if (item.getUid() == 0)
+        if (item.uid() == 0)
           holder.icon.setImageDrawable(infoHelper.getDefaultIcon());
         else
-          holder.icon.setImageDrawable(infoHelper.getPackageIcon(map.get(item
-              .getUid())));
+          holder.icon.setImageDrawable(infoHelper.getPackageIcon(map.get(item.uid())));
       }
 
       // prepare main information
-      holder.type.setText(UserInterfaceUtil.getConnectionType(item.getType()));
-      holder.src.setText(UserInterfaceUtil.convertToIPv4(item.getLocalIP(), item.getLocalPort()));
-      holder.dst.setText(UserInterfaceUtil.convertToIPv4(item.getRemoteIP(), item.getRemotePort()));
-      holder.status.setText(UserInterfaceUtil.getConnectionStatus(item.getStatus()));
+      holder.type.setText(UserInterfaceUtil.getConnectionType(item.type()));
+      holder.src.setText(UserInterfaceUtil.convertToIPv4(item.localIP(), item.localPort()));
+      holder.dst.setText(UserInterfaceUtil.convertToIPv4(item.remoteIP(), item.remotePort()));
+      holder.status.setText(UserInterfaceUtil.getConnectionStatus(item.status()));
 
-      if (item.getUid() == 0)
+      if (item.uid() == 0)
         holder.owner.setText("System");
-      else if (map.containsKey(item.getUid()))
-        holder.owner.setText(infoHelper.getPackageName(map.get(item.getUid())));
+      else if (map.containsKey(item.uid()))
+        holder.owner.setText(infoHelper.getPackageName(map.get(item.uid())));
       else
-        holder.owner.setText(item.getUid() + "(UID)");
+        holder.owner.setText(item.uid() + "(UID)");
 
       return sv;
     }
@@ -643,18 +644,12 @@ public class ConnectionFragment extends ListFragment implements
         whoisInfo.append("<b>IP:</b> " + QueryIP + "<br/>");
 
         try {
-          whoisInfo.append("<b>Country:</b> " + response.getString("country")
-              + "<br/>");
-          whoisInfo.append("<b>Region:</b> " + response.getString("regionName")
-              + "<br/>");
-          whoisInfo.append("<b>City:</b> " + response.getString("city")
-              + "<br/>");
-          whoisInfo
-              .append("<b>ISP:</b> " + response.getString("isp") + "<br/>");
-          whoisInfo
-              .append("<b>Org:</b> " + response.getString("org") + "<br/>");
-          whoisInfo.append("<b>Latitude:</b> " + response.getString("lat")
-              + "<br/>");
+          whoisInfo.append("<b>Country:</b> " + response.getString("country") + "<br/>");
+          whoisInfo.append("<b>Region:</b> " + response.getString("regionName") + "<br/>");
+          whoisInfo.append("<b>City:</b> " + response.getString("city") + "<br/>");
+          whoisInfo.append("<b>ISP:</b> " + response.getString("isp") + "<br/>");
+          whoisInfo.append("<b>Org:</b> " + response.getString("org") + "<br/>");
+          whoisInfo.append("<b>Latitude:</b> " + response.getString("lat") + "<br/>");
           whoisInfo.append("<b>Longitude:</b> " + response.getString("lon"));
 
           WhoisQuery.Longtiude = (float) response.getDouble("lon");

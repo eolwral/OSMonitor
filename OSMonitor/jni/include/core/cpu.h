@@ -7,7 +7,7 @@
 #define CPU_H_
 
 #include "base.h"
-#include "cpuInfo.pb.h"
+#include "cpuInfo_generated.h"
 
 #define SYS_PROC_FILE "/proc/stat"
 
@@ -28,44 +28,64 @@ namespace core {
   {
   private:
 
-    int _totalCPUCount;                 /**< total CPUs count */
-    unsigned long _totalCPUTime;        /**< passed time since last time */
-    float _totalCPUUtilization;         /**< total CPUs utilization */
+    float _totalCPUUtilization;              /**< total CPUs utilization since last time*/
+    unsigned long _totalCPUTime;             /**< passed time since last time */
+    unsigned long _totalCPUIdleTime;         /**< total CPU Idle Time since last time*/
 
-    cpuInfo *_prevTotalCPU;             /**< previous total CPUs information */
-    cpuInfo *_currentTotalCPU;          /**< previous total CPUs information */
-    std::vector<cpuInfo*> _prevCPUStatus;    /**< previous CPUs information */
-    std::vector<cpuInfo*> _currentCPUStatus; /**< current CPUs information */
+    unsigned long _prevCPUTime;              /**< passed time since last time */
+    unsigned long _prevCPUIdleTime;          /**< total CPU Idle Time */
 
-    static const unsigned PATTERNSIZE = 64;        /**< size of pattern string */
+    int _totalCPUCount;                      /**< total CPUs count */
+    FlatBufferBuilder *_prevFlatBuffer;      /**< previous CPUs information */
+    FlatBufferBuilder *_curFlatBuffer;       /**< current CPUs information */
+    std::vector<Offset<cpuInfo>> _list;      /**< current CPUs list */
+
+    static const unsigned PATTERNSIZE = 64;    /**< size of pattern string */
 
     /**
      * dump information for activity CPU
-     * @param curCPUInfo CPUInfo object want to be filled
-     * @param curCPUNum which CPU number want to read\n
-     *        -1 == whole system's CPU usage\n
-     *        0~n == specific CPU number
+     * @param[in] cpuInfo    cpuInfo object want to be filled
+     * @param[in] cpuNum     which CPU number want to read\n
+     *                         0~n == specific CPU number
      * @return success or fail
      */
-    bool fillCPUInfo(cpuInfo& curCPUInfo, int curCPUNum);
+    bool fillCPUInfo(cpuInfoBuilder& cpuInfo, int cpuNum);
 
     /**
-     * gather all information into a CPUStatus vector
-     * @param curCPUStatus
+     * dump information for inactivity CPU
+     * @param[in] cpuInfo    cpuInfo object want to be filled
+     * @param[in] cpuNum     which CPU number want to read\n
+     *                         -1 == whole system's CPU usage\n
+     *                         0~n == specific CPU number
      */
-    void gatherCPUsInfo(std::vector<cpuInfo*>& curCPUStatus);
+    void fillEmptyCPUInfo(cpuInfoBuilder& cpuInfo, int cpuNum);
 
     /**
      * calculate CPUs utilization
-     * @param prevCPUInfo previous status
-     * @param curCPUInfo current status
+     * @param[in] cpuInfo    cpuInfo object want to be filled
+     * @param[in] cpuNum     which CPU number want to read\n
+     *                         0~n == specific CPU number
+     * @param[in] cpuTime    usage Time
+     * @param[in] idleTime   idle Time
+     * @param[in] ioWaitTime iowait Time
      */
-    void calcuateCPUUtil(cpuInfo& prevCPUInfo, cpuInfo& curCPUInfo);
+    void calcuateCPUUtil(cpuInfoBuilder& cpuInfo, int cpuNum,
+                         unsigned long cpuTime, unsigned long idleTime, unsigned long ioWaitTime);
 
     /**
-     * processing Off-line CPUs
+     * gather all CPU information
      */
-    void processOfflineCPUs();
+    void gatherCPUsInfo();
+
+    /**
+     * prepare FlatBuffer
+     */
+    void prepareBuffer();
+
+    /**
+     * finish FlatBuffer
+     */
+    void finishBuffer();
 
   public:
 
@@ -86,9 +106,15 @@ namespace core {
 
     /**
      * get current CPUs information
-     * @return a vector contains all CPUs information
+     * @return buffer pointer
      */
-    const std::vector<google::protobuf::Message*>& getData();
+    const uint8_t* getData();
+
+    /**
+     * get current data size
+     * @return size
+     */
+    const uoffset_t getSize();
 
     /**
      * get total CPUs utilization
@@ -101,9 +127,13 @@ namespace core {
      * @return total CPUs Time
      */
     unsigned long getCPUTime();
-          void
-          refreshGlobal();
-        };
+
+    /**
+     * refresh total CPUs information
+     */
+    void refreshGlobal();
+
+  };
 
 }
 }

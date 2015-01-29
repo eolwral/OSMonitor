@@ -1,0 +1,67 @@
+namespace com.eolwral.osmonitor.core;
+
+table networkInfo {
+  /// interface name 
+  name:string;
+  /// MAC address 
+  mac:string;
+
+  /// IPv4 address 
+  ipv4Addr:string;
+  /// IPv4 netmask 
+  netMaskv4:string;
+  /// IPv6 address 
+  ipv6Addr:string;
+  /// IPv6 netmask 
+  netMaskv6:uint;
+  
+
+  /// status flag 
+  flags:uint;
+
+  /// received bytes 
+  recvBytes:ulong;
+  /// received packages 
+  recvPackages:ulong;
+  /// error bytes when receiving 
+  recvErrorBytes:ulong;
+  /// drop bytes when receiving  
+  recvDropBytes:ulong;
+  /// FIFO bytes when receiving 
+  recvFIFOBytes:ulong;
+  /// received frames 
+  recvFrames:ulong;
+  /// received compressed bytes 
+  recvCompressedBytes:ulong;
+  /// received multi-cast bytes 
+  recvMultiCastBytes:ulong;
+
+  /// transmitted bytes 
+  transBytes:ulong;
+  /// transmitted packages 
+  transPackages:ulong;
+  /// error bytes when transmitting 
+  transErrorBytes:ulong;
+  /// dropped bytes when transmitting 
+  transDropBytes:ulong;
+  /// FIFO bytes when transmitting 
+  transFIFOBytes:ulong;
+  /// transmitted compressed bytes 
+  transCompressedBytes:ulong;
+
+  /// collision times 
+  collisionTimes:uint;
+  /// carrier error times 
+  carrierErros:uint;
+  
+  /// transmitted usage 
+  transUsage:ulong;
+  /// received usage 
+  recvUsage:ulong;
+}
+
+table networkInfoList {
+  list:[networkInfo];
+}
+
+root_type networkInfoList;

@@ -10,22 +10,51 @@ namespace eolwral {
 namespace osmonitor {
 namespace core {
 
+  connection::connection()
+  {
+    this->_flatbuffer = NULL;
+  }
+
   connection::~connection()
   {
-    // clean up _lastCPUStatus
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curConnectionList);
+    // clean up _current
+    if (this->_flatbuffer != NULL) {
+      delete this->_flatbuffer;
+      this->_flatbuffer = NULL;
+    }
+  }
+
+  void connection::prepareBuffer()
+  {
+    // clean up current connections list
+    if (this->_flatbuffer != NULL)
+      delete this->_flatbuffer;
+
+    // create a new FlatBufferBuilder and clear up connection list
+    this->_flatbuffer = new FlatBufferBuilder ();
+    this->_list.clear ();
+  }
+
+  void connection::finishBuffer()
+  {
+    // finish the buffer
+    auto mloc = CreateconnectionInfoList (*this->_flatbuffer, this->_flatbuffer->CreateVector (_list));
+    FinishconnectionInfoListBuffer (*this->_flatbuffer, mloc);
   }
 
   void connection::refresh()
   {
     // clean up current connections list
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curConnectionList);
+    this->prepareBuffer ();
 
     // gathering IPv4 Connection
     this->gatheringIPv4Connection();
 
     // gathering IPv6 Connection
     this->gatheringIPv6Connection();
+
+    // finish the buffer
+    this->finishBuffer();
 
     return;
   }
@@ -36,21 +65,21 @@ namespace core {
 
     // gathering TCP connections
     snprintf(filename, BufferSize, CONNECTION_TCP6, getpid());
-    this->processIPv6Connection(filename, connectionInfo::TCPv6);
+    this->processIPv6Connection(filename, connectionType_TCPv6);
 
     // gathering UDP connections
     snprintf(filename, BufferSize, CONNECTION_UDP6, getpid());
-    this->processIPv6Connection(filename, connectionInfo::UDPv6);
+    this->processIPv6Connection(filename, connectionType_UDPv6);
 
     // gathering RAW connections
     snprintf(filename, BufferSize, CONNECTION_RAW6, getpid());
-    this->processIPv6Connection(filename, connectionInfo::RAWv6);
+    this->processIPv6Connection(filename, connectionType_RAWv6);
 
     return;
   }
 
   void connection::processIPv6Connection(char* fileName,
-                                         connectionInfo::connectionType type)
+                                         connectionType type)
   {
     struct in6_addr localAddrv6;
     struct in6_addr remoteAddrv6;
@@ -75,7 +104,8 @@ namespace core {
                          &localPort,
                          &remoteAddrv6.in6_u.u6_addr32[0], &remoteAddrv6.in6_u.u6_addr32[1],
                          &remoteAddrv6.in6_u.u6_addr32[2], &remoteAddrv6.in6_u.u6_addr32[3],
-                         &remotePort, &connectionStatus, &connectionUid);
+                         &remotePort,
+			 &connectionStatus, &connectionUid);
 
 
         if(matchCount == 12)
@@ -87,7 +117,7 @@ namespace core {
     return;
   }
 
-  void connection::addConnvectionIPv6(connectionInfo::connectionType type,
+  void connection::addConnvectionIPv6(connectionType type,
                                       struct in6_addr& rawLocalAddr,
                                       unsigned int localPort,
                                       struct in6_addr& rawRemoteAddr,
@@ -97,29 +127,33 @@ namespace core {
   {
     char addrV6[INET6_ADDRSTRLEN];
 
-    // save type and uid
-    connectionInfo* curConnectionInfo = new connectionInfo();
-    curConnectionInfo->set_type(type);
-    curConnectionInfo->set_uid(rawUID);
-
-    // save local information
     memset(addrV6, 0, INET6_ADDRSTRLEN);
     inet_ntop(AF_INET6, &rawLocalAddr, addrV6, INET6_ADDRSTRLEN);
 
-    curConnectionInfo->set_localip(addrV6);
-    curConnectionInfo->set_localport(localPort);
+    Offset<String> localIP = this->_flatbuffer->CreateString(addrV6);
 
-    // save remote information
     memset(addrV6, 0, INET6_ADDRSTRLEN);
     inet_ntop(AF_INET6, &rawRemoteAddr, addrV6, INET6_ADDRSTRLEN);
 
-    curConnectionInfo->set_remoteip(addrV6);
-    curConnectionInfo->set_remoteport(remotePort);
+    Offset<String> remoteIP = this->_flatbuffer->CreateString(addrV6);
+
+    // save type and uid
+    connectionInfoBuilder connectionInfo(*this->_flatbuffer);
+    connectionInfo.add_type(type);
+    connectionInfo.add_uid(rawUID);
+
+    // save local information
+    connectionInfo.add_localIP(localIP);
+    connectionInfo.add_localPort(localPort);
+
+    // save remote information
+    connectionInfo.add_remoteIP(remoteIP);
+    connectionInfo.add_remotePort(remotePort);
 
     // we could directly assign it, because enumerate value equals status code
-    curConnectionInfo->set_status(convertStatus(rawStatus));
+    connectionInfo.add_status(convertStatus(rawStatus));
 
-    this->_curConnectionList.push_back(curConnectionInfo);
+    this->_list.push_back(connectionInfo.Finish());
 
     return;
   }
@@ -130,21 +164,21 @@ namespace core {
 
     // gathering TCP connections
     snprintf(filename, BufferSize, CONNECTION_TCP4, getpid());
-    this->processIPv4Connection(filename, connectionInfo::TCPv4);
+    this->processIPv4Connection(filename, connectionType_TCPv4);
 
     // gathering UDP connections
     snprintf(filename, BufferSize, CONNECTION_UDP4, getpid());
-    this->processIPv4Connection(filename, connectionInfo::UDPv4);
+    this->processIPv4Connection(filename, connectionType_UDPv4);
 
     // gathering RAW connections
     snprintf(filename, BufferSize, CONNECTION_RAW4, getpid());
-    this->processIPv4Connection(filename, connectionInfo::RAWv4);
+    this->processIPv4Connection(filename, connectionType_RAWv4);
 
     return;
   }
 
   void connection::processIPv4Connection(char* fileName,
-                                         connectionInfo::connectionType type)
+                                         connectionType type)
   {
     struct in_addr localAddrv4;
     struct in_addr remoteAddrv4;
@@ -177,7 +211,7 @@ namespace core {
     return;
   }
 
-  void connection::addConnvectionIPv4(connectionInfo::connectionType type,
+  void connection::addConnvectionIPv4(connectionType type,
                                       struct in_addr& rawLocalAddr,
                                       unsigned int localPort,
                                       struct in_addr& rawRemoteAddr,
@@ -185,69 +219,82 @@ namespace core {
                                       unsigned int rawStatus,
                                       unsigned int rawUID)
   {
+
     char addrV4[INET_ADDRSTRLEN];
-
-    // save type and uid
-    connectionInfo* curConnectionInfo = new connectionInfo();
-    curConnectionInfo->set_type(type);
-    curConnectionInfo->set_uid(rawUID);
-
-    // save local information
     memset(addrV4, 0, INET_ADDRSTRLEN);
     inet_ntop(AF_INET, &rawLocalAddr, addrV4, INET_ADDRSTRLEN);
 
-    curConnectionInfo->set_localip(addrV4);
-    curConnectionInfo->set_localport(localPort);
+    Offset<String> localIP = this->_flatbuffer->CreateString(addrV4);
+
+    memset(addrV4, 0, INET_ADDRSTRLEN);
+    inet_ntop(AF_INET, &rawRemoteAddr, addrV4 ,INET_ADDRSTRLEN);
+
+    Offset<String> remoteIP = this->_flatbuffer->CreateString(addrV4);
+
+    // save type and uid
+    connectionInfoBuilder connectionInfo(*this->_flatbuffer);
+    connectionInfo.add_type(type);
+    connectionInfo.add_uid(rawUID);
+
+    // save local information
+    connectionInfo.add_localIP(localIP);
+    connectionInfo.add_localPort(localPort);
 
     // save remote information
     memset(addrV4, 0, INET_ADDRSTRLEN);
     inet_ntop(AF_INET, &rawRemoteAddr, addrV4 ,INET_ADDRSTRLEN);
 
-    curConnectionInfo->set_remoteip(addrV4);
-    curConnectionInfo->set_remoteport(remotePort);
+    connectionInfo.add_remoteIP(remoteIP);
+    connectionInfo.add_remotePort(remotePort);
 
     // we could directly assign it, because enumerate value equals status code
-    curConnectionInfo->set_status(convertStatus(rawStatus));
+    connectionInfo.add_status(convertStatus(rawStatus));
 
-    this->_curConnectionList.push_back(curConnectionInfo);
+    this->_list.push_back(connectionInfo.Finish());
 
     return;
   }
 
-  connectionInfo::connectionStatus connection::convertStatus(unsigned int rawStatus)
+  connectionStatus connection::convertStatus(unsigned int rawStatus)
   {
     switch(rawStatus)
     {
     case 1:
-      return (connectionInfo_connectionStatus_ESTABLISHED);
+      return (connectionStatus_ESTABLISHED);
     case 2:
-      return (connectionInfo_connectionStatus_SYN_SENT);
+      return (connectionStatus_SYN_SENT);
     case 3:
-      return (connectionInfo_connectionStatus_SYN_RECV);
+      return (connectionStatus_SYN_RECV);
     case 4:
-      return (connectionInfo_connectionStatus_FIN_WAIT1);
+      return (connectionStatus_FIN_WAIT1);
     case 5:
-      return (connectionInfo_connectionStatus_FIN_WAIT2);
+      return (connectionStatus_FIN_WAIT2);
     case 6:
-      return (connectionInfo_connectionStatus_TIME_WAIT);
+      return (connectionStatus_TIME_WAIT);
     case 7:
-      return (connectionInfo_connectionStatus_CLOSE);
+      return (connectionStatus_CLOSE);
     case 8:
-      return (connectionInfo_connectionStatus_CLOSE_WAIT);
+      return (connectionStatus_CLOSE_WAIT);
     case 9:
-      return (connectionInfo_connectionStatus_LAST_ACK);
+      return (connectionStatus_LAST_ACK);
     case 10:
-      return (connectionInfo_connectionStatus_LISTEN);
+      return (connectionStatus_LISTEN);
     case 11:
-      return (connectionInfo_connectionStatus_CLOSING);
+      return (connectionStatus_CLOSING);
     }
-    return (connectionInfo_connectionStatus_UNKNOWN);
+    return (connectionStatus_UNKNOWN);
   }
 
-  const std::vector<google::protobuf::Message*>& connection::getData()
+  const uint8_t* connection::getData()
   {
-    return ((const std::vector<google::protobuf::Message*>&) this->_curConnectionList);
+    return this->_flatbuffer->GetBufferPointer();
   }
+
+  const uoffset_t connection::getSize()
+  {
+    return this->_flatbuffer->GetSize();
+  }
+
 }
 }
 }

@@ -1,5 +1,6 @@
 package com.eolwral.osmonitor.ui;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import android.app.ProgressDialog;
@@ -20,13 +21,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.core.ProcessorInfo.processorInfo;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.core.processorInfo;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
-import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.ipc.ipcCategory;
+import com.eolwral.osmonitor.ipc.ipcData;
+import com.eolwral.osmonitor.ipc.ipcMessage;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.eolwral.osmonitor.settings.Settings;
 
 public class MiscProcessorFragment extends ListFragment implements
@@ -60,7 +61,7 @@ public class MiscProcessorFragment extends ListFragment implements
     if (coreEnable != null) {
       for (int index = 0; index < coreEnable.length; index++) {
         if (coreEnable[index] == false)
-          ipcService.setCPUStatus(index, 0);
+          ipcService.sendCommand(ipcCategory.SETCPUSTATUS, index, 0);
       }
     }
   }
@@ -78,34 +79,34 @@ public class MiscProcessorFragment extends ListFragment implements
         getResources().getString(R.string.ui_processor_enable_title),
         getResources().getString(R.string.ui_processor_enable_msg), true, true);
 
-    ipcAction newCommand[] = { ipcAction.PROCESSOR };
+    byte newCommand[] = { ipcCategory.PROCESSOR };
     ipcService.addRequest(newCommand, 0, this);
 
     return v;
   }
 
   @Override
-  public void onRecvData(ipcMessage result) {
+  public void onRecvData(byte [] result) {
 
     if (result == null) {
-      ipcAction newCommand[] = { ipcAction.PROCESSOR };
+      byte newCommand[] = { ipcCategory.PROCESSOR };
       ipcService.addRequest(newCommand, 0, this);
       return;
     }
 
+    // cleanup
     coredata.clear();
 
     // convert data
-    // TODO: reuse old objects
-    for (int index = 0; index < result.getDataCount(); index++) {
+    ipcMessage resultMessage = ipcMessage.getRootAsipcMessage(ByteBuffer.wrap(result));
+    for (int index = 0; index < resultMessage.dataLength(); index++) {
 
       try {
-        ipcData rawData = result.getData(index);
+        ipcData rawData = resultMessage.data(index);
 
-        if (rawData.getAction() == ipcAction.PROCESSOR) {
-          for (int count = 0; count < rawData.getPayloadCount(); count++) {
-            processorInfo prInfo = processorInfo.parseFrom(rawData
-                .getPayload(count));
+        if (rawData.category() == ipcCategory.PROCESSOR) {
+          for (int count = 0; count < rawData.payloadLength(); count++) {
+            processorInfo prInfo = processorInfo.getRootAsprocessorInfo(rawData.payloadAsByteBuffer());
             coredata.add(prInfo);
           }
         }
@@ -115,7 +116,7 @@ public class MiscProcessorFragment extends ListFragment implements
     }
 
     if (coredata.size() <= 0) {
-      ipcAction newCommand[] = { ipcAction.PROCESSOR };
+      byte newCommand[] = { ipcCategory.PROCESSOR };
       ipcService.addRequest(newCommand, 0, this);
       return;
     }
@@ -124,14 +125,14 @@ public class MiscProcessorFragment extends ListFragment implements
     if (coreEnable == null) {
       coreEnable = new boolean[coredata.size()];
       for (int index = 0; index < coredata.size(); index++)
-        coreEnable[index] = !coredata.get(index).getOffLine();
+        coreEnable[index] = ! (coredata.get(index).offLine() == 1);
     }
 
     // force enable all CPUs
     boolean forceOnline = false;
     for (int index = 0; index < coredata.size(); index++) {
-      if (coredata.get(index).getOffLine() == true) {
-        ipcService.setCPUStatus(index, 1);
+      if (coredata.get(index).offLine() == 1) {
+        ipcService.sendCommand(ipcCategory.SETCPUSTATUS, index, 1);
         forceOnline = true;
       }
     }
@@ -141,10 +142,9 @@ public class MiscProcessorFragment extends ListFragment implements
       ipcProcess.dismiss();
     } else {
       coredata.clear();
-      ipcAction newCommand[] = { ipcAction.PROCESSOR };
+      byte newCommand[] = { ipcCategory.PROCESSOR };
       ipcService.addRequest(newCommand, 0, this);
     }
-
   }
 
   private class ProcessorListAdapter extends BaseAdapter {
@@ -194,8 +194,8 @@ public class MiscProcessorFragment extends ListFragment implements
 
       enableBox.setChecked(coreEnable[position]);
 
-      String[] freqList = CommonUtil.eraseNonIntegarString(coredata
-          .get(position).getAvaiableFrequeucy().split(" "));
+      String[] freqList = UserInterfaceUtil.eraseNonIntegarString(coredata
+          .get(position).availableFrequency().split(" "));
       ArrayAdapter<String> freqAdapter = new ArrayAdapter<String>(mContext,
           android.R.layout.simple_spinner_item, freqList);
       freqAdapter
@@ -203,8 +203,8 @@ public class MiscProcessorFragment extends ListFragment implements
       maxSeekBar.setAdapter(freqAdapter);
       minSeekBar.setAdapter(freqAdapter);
 
-      String[] govList = CommonUtil.eraseEmptyString(coredata.get(position)
-          .getAvaiableGovernors().split(" "));
+      String[] govList = UserInterfaceUtil.eraseEmptyString(coredata.get(position)
+          .availableGovernors().split(" "));
       ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(mContext,
           android.R.layout.simple_spinner_item, govList);
       govAdapter
@@ -214,29 +214,29 @@ public class MiscProcessorFragment extends ListFragment implements
       ((TextView) sv.findViewById(R.id.id_processor_title)).setText(mContext
           .getResources().getString(R.string.ui_processor_core)
           + " "
-          + coredata.get(position).getNumber());
+          + coredata.get(position).number());
 
       for (int i = 0; i < govList.length; i++)
-        if (govList[i].equals(coredata.get(position).getGrovernors()))
+        if (govList[i].equals(coredata.get(position).governors()))
           govSeekBar.setSelection(i);
 
-      if (coredata.get(position).getMaxScaling() != -1)
+      if (coredata.get(position).maxScaling() != -1)
         maxSeekBarValue.setText(mContext.getResources().getString(
             R.string.ui_processor_freq_max_title)
-            + " " + coredata.get(position).getMaxScaling());
+            + " " + coredata.get(position).maxScaling());
 
       for (int i = 0; i < freqList.length; i++)
-        if (coredata.get(position).getMaxScaling() == Integer
+        if (coredata.get(position).maxScaling() == Integer
             .parseInt(freqList[i]))
           maxSeekBar.setSelection(i);
 
-      if (coredata.get(position).getMinScaling() != -1)
+      if (coredata.get(position).minScaling() != -1)
         minSeekBarValue.setText(mContext.getResources().getString(
             R.string.ui_processor_freq_min_title)
-            + " " + coredata.get(position).getMinScaling());
+            + " " + coredata.get(position).minScaling());
 
       for (int i = 0; i < freqList.length; i++)
-        if (coredata.get(position).getMinFrequency() == Integer
+        if (coredata.get(position).minFrequency() == Integer
             .parseInt(freqList[i]))
           minSeekBar.setSelection(i);
 
@@ -255,7 +255,7 @@ public class MiscProcessorFragment extends ListFragment implements
       else
         sv.setBackgroundColor(0x80000000);
 
-      enableBox.setTag("" + coredata.get(position).getNumber());
+      enableBox.setTag("" + coredata.get(position).number());
       enableBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView,
@@ -270,9 +270,9 @@ public class MiscProcessorFragment extends ListFragment implements
 
           // change CPU status
           if (isChecked)
-            ipcService.setCPUStatus(CPUNum, 1);
+            ipcService.sendCommand(ipcCategory.SETCPUSTATUS, CPUNum, 1);
           else
-            ipcService.setCPUStatus(CPUNum, 0);
+            ipcService.sendCommand(ipcCategory.SETCPUSTATUS, CPUNum, 0);
 
           coreEnable[CPUNum] = isChecked;
         }
@@ -284,7 +284,7 @@ public class MiscProcessorFragment extends ListFragment implements
           int CPUNum = Integer.parseInt((String) ((View) parentView.getParent())
               .getTag());
           String selected = parentView.getItemAtPosition(position).toString();
-          ipcService.setCPUGov(CPUNum, selected);
+          ipcService.sendCommand(ipcCategory.SETCPUGORV, CPUNum, selected);
         }
 
         public void onNothingSelected(AdapterView<?> parentView) {
@@ -304,15 +304,15 @@ public class MiscProcessorFragment extends ListFragment implements
 
           int CPUNum = Integer.parseInt((String) ((View) parentView.getParent())
               .getTag());
-          String[] freqList = CommonUtil.eraseNonIntegarString(coredata
-              .get(CPUNum).getAvaiableFrequeucy().split(" "));
+          String[] freqList = UserInterfaceUtil.eraseNonIntegarString(coredata
+              .get(CPUNum).availableFrequency().split(" "));
 
           maxSeekBarValue.setText(mContext.getResources().getString(
               R.string.ui_processor_freq_max_title)
               + " " + freqList[maxSeekBar.getSelectedItemPosition()]);
 
-          ipcService.setCPUStatus(CPUNum, 1);
-          ipcService.setCPUMaxFreq(CPUNum,
+          ipcService.sendCommand(ipcCategory.SETCPUSTATUS, CPUNum, 1);
+          ipcService.sendCommand(ipcCategory.SETCPUMAXFREQ, CPUNum,
               Long.parseLong(freqList[maxSeekBar.getSelectedItemPosition()]));
         }
 
@@ -333,15 +333,15 @@ public class MiscProcessorFragment extends ListFragment implements
 
           int CPUNum = Integer.parseInt((String) ((View) minSeekBar.getParent())
               .getTag());
-          String[] freqList = CommonUtil.eraseNonIntegarString(coredata
-              .get(CPUNum).getAvaiableFrequeucy().split(" "));
+          String[] freqList = UserInterfaceUtil.eraseNonIntegarString(coredata
+              .get(CPUNum).availableFrequency().split(" "));
 
           minSeekBarValue.setText(mContext.getResources().getString(
               R.string.ui_processor_freq_min_title)
               + " " + freqList[minSeekBar.getSelectedItemPosition()]);
 
-          ipcService.setCPUStatus(CPUNum, 1);
-          ipcService.setCPUMinFreq(CPUNum,
+          ipcService.sendCommand(ipcCategory.SETCPUSTATUS, CPUNum, 1);
+          ipcService.sendCommand(ipcCategory.SETCPUMINFREQ, CPUNum,
               Long.parseLong(freqList[minSeekBar.getSelectedItemPosition()]));
         }
 
@@ -350,7 +350,7 @@ public class MiscProcessorFragment extends ListFragment implements
 
       });
 
-      sv.setTag("" + coredata.get(position).getNumber());
+      sv.setTag("" + coredata.get(position).number());
 
       return sv;
     }

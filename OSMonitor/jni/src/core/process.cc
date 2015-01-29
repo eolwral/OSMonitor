@@ -15,16 +15,17 @@ namespace core {
   process::process()
   {
     this->_bootTime = 0;
+    this->_prevFlatBuffer = NULL;
+    this->_curFlatBuffer = NULL;
   }
 
   process::~process()
   {
+    if (this->_prevFlatBuffer != NULL)
+      delete this->_prevFlatBuffer;
 
-    // clean up _lastCPUStatus
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_PrevProcessList);
-
-    // clean up _lastCPUStatus
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_CurProcessList);
+    if (this->_curFlatBuffer != NULL)
+      delete this->_curFlatBuffer;
   }
 
   void process::getBootTime()
@@ -35,7 +36,7 @@ namespace core {
 
     if(uptimeFile)
     {
-      if ( fscanf(uptimeFile, "%lu.%*lu", &uptime) != 1 )
+      if ( 1 != fscanf(uptimeFile, "%lu.%*u", &uptime) )
         uptime = 0;
       fclose(uptimeFile);
     }
@@ -47,6 +48,9 @@ namespace core {
 
   bool process::gatherProcesses()
   {
+    // refresh CPU usage
+    this->_cpuInfo.refreshGlobal();
+
     // search /proc
     DIR *curDirectory = 0;
     curDirectory = opendir(SYS_PROC_DIR);
@@ -64,46 +68,87 @@ namespace core {
       if(curPID == 0)
         continue;
 
-      processInfo* curProcessInfo = new processInfo();
-      if(curProcessInfo == 0)
+      if(this->getProcessInfo(curPID) != true)
         continue;
-
-      if(this->getProcessInfo(*curProcessInfo, curPID) == true)
-        this->_CurProcessList.push_back(curProcessInfo);
-      else
-        delete curProcessInfo;
-
     }
 
     closedir(curDirectory);
 
-    // refresh CPU usage
-    this->_curCPUInfo.refreshGlobal();
-
     return (true);
   }
 
-  bool process::getProcessInfo(processInfo& curProcessInfo, unsigned int pid)
+  bool process::getProcessName(unsigned int pid, char *buffer, const unsigned int size)
   {
-    // initialize
-    curProcessInfo.set_pid(0);
-    curProcessInfo.set_uid(0);
-    curProcessInfo.set_ppid(0);
-    curProcessInfo.set_owner("");
-    curProcessInfo.set_name("");
-    curProcessInfo.set_usedusertime(0);
-    curProcessInfo.set_usedsystemtime(0);
-    curProcessInfo.set_threadcount(0);
-    curProcessInfo.set_starttime(0);
-    curProcessInfo.set_vsz(0);
-    curProcessInfo.set_rss(0);
-    curProcessInfo.set_status(processInfo_processStatus_Unknown);
-    curProcessInfo.set_prioritylevel(0);
-    curProcessInfo.set_cpuusage(0);
-    curProcessInfo.set_cputime(0);
+    // get command line
+    char statProc[BUFFERSIZE];
+    FILE *psFile = 0;
+    bool done = false;
 
-    // save pid
-    curProcessInfo.set_pid(pid);
+    snprintf(statProc, BUFFERSIZE, SYS_PROC_CMD, pid);
+    psFile = fopen(statProc, "r");
+    if (psFile != 0) {
+      char cmdLine[BUFFERSIZE];
+      int readSize = 0;
+      memset(cmdLine, 0, BUFFERSIZE);
+      readSize = fread(cmdLine, 1, BUFFERSIZE, psFile);
+      fclose(psFile);
+      cmdLine[BUFFERSIZE - 1] = '\0';
+      if (readSize != 0)
+      {
+        memcpy(buffer, cmdLine, size);
+        done = true;
+      }
+    }
+    return done;
+  }
+
+  bool process::getProcessNamebyStat(unsigned int pid, char *buffer, const unsigned int size)
+  {
+    char statProc[BUFFERSIZE];
+    FILE *psFile = 0;
+    bool done = false;
+
+    snprintf(statProc, BUFFERSIZE, SYS_PROC_STAT, pid);
+    psFile = fopen(statProc, "r");
+    if(psFile != 0)
+    {
+      char cmdLine[BUFFERSIZE];
+      int matchItem = 0;
+      memset(cmdLine, 0, BUFFERSIZE);
+
+      // restrict maximum chars is 255, it could prevent security warning
+      matchItem = fscanf(psFile, SYS_PROC_BIN, &pid, cmdLine);
+      fclose(psFile);
+
+      if(matchItem == 2)
+      {
+        cmdLine[BUFFERSIZE-1] = '\0';
+
+        // remove ')'
+        if(cmdLine[strlen(cmdLine)-1] == ')')
+          cmdLine[strlen(cmdLine)-1] = '\0';
+
+        memcpy(buffer, cmdLine, size);
+        done = true;
+      }
+    }
+    return done;
+  }
+
+  bool process::getProcessInfo(unsigned int pid)
+  {
+
+    /* Scan rest of string. */
+    char curProcessStats = '\0';
+    int parentPid = 0;
+    unsigned long usedUserTime = 0;
+    unsigned long usedSystemTime = 0;
+    int threadCount = 0;
+    unsigned long startTime = 0;
+    unsigned long vsz = 0;
+    unsigned long rss = 0;
+    Offset<String> owner = 0;
+    Offset<String> processName = 0;
 
     // get UID
     char statProc[BUFFERSIZE];
@@ -113,7 +158,30 @@ namespace core {
     if(stat(statProc, &statInfo) == -1)
       return (false);
 
-    curProcessInfo.set_uid(statInfo.st_uid);
+    // get other process information
+    snprintf(statProc, BUFFERSIZE, SYS_PROC_STAT, pid);
+    FILE* psFile = fopen(statProc, "r");
+    if(psFile != 0)
+    {
+      // all value must available
+      // %*d %*s %c %d %*d %*d %*d %*d %*d %*d %*d %*d %*d %lu %lu %*d %*d %*d %*d %d %*u %lu %lu %lu
+      if ( 8 != fscanf(psFile, SYS_PROC_PATTERN,
+                       &curProcessStats,
+                       &parentPid,
+                       &usedUserTime,
+                       &usedSystemTime,
+                       &threadCount,
+                       &startTime,
+                       &vsz,
+                       &rss))
+      {
+        fclose(psFile);
+        return (false);
+      }
+
+      fclose(psFile);
+      psFile = 0;
+    }
 
     // get Owner
     struct passwd *curPW = 0;
@@ -123,198 +191,135 @@ namespace core {
       char uidToStr[BUFFERSIZE];
       memset(uidToStr, 0, BUFFERSIZE);
       snprintf(uidToStr, BUFFERSIZE, "%lu", statInfo.st_uid);
-      curProcessInfo.set_owner(uidToStr);
+      owner = this->_curFlatBuffer->CreateString(uidToStr);
     }
     else
+      owner = this->_curFlatBuffer->CreateString(curPW->pw_name);
+
+    // get process name
+    char processNameBuf[BUFFERSIZE];
+    memset(processNameBuf, 0, BUFFERSIZE);
+    if (this->getProcessName(pid, processNameBuf, BUFFERSIZE) == false)
+      this->getProcessNamebyStat(pid, processNameBuf, BUFFERSIZE);
+    processName = this->_curFlatBuffer->CreateString(processNameBuf);
+
+    processInfoBuilder curProcessInfo(*this->_curFlatBuffer);
+
+    curProcessInfo.add_pid(pid);
+    curProcessInfo.add_uid(statInfo.st_uid);
+    curProcessInfo.add_owner(owner);
+    curProcessInfo.add_ppid(parentPid);
+    curProcessInfo.add_usedUserTime(usedUserTime);
+    curProcessInfo.add_usedSystemTime(usedSystemTime);
+    curProcessInfo.add_threadCount(threadCount);
+    curProcessInfo.add_name(processName);
+
+    if( (_bootTime+startTime) >0 )
+      curProcessInfo.add_startTime(_bootTime+startTime/HZ);
+    else
+      curProcessInfo.add_startTime(0);
+
+    if(vsz > 0)
+      curProcessInfo.add_vsz(vsz/1024);
+    else
+      curProcessInfo.add_vsz(0);
+
+    if(rss > 0)
+      curProcessInfo.add_rss(rss*4);
+    else
+      curProcessInfo.add_rss(0);
+
+    // get CPU time
+    unsigned long CPUTimeJiffies = (usedSystemTime + usedUserTime);
+    if(CPUTimeJiffies > 0)
+      curProcessInfo.add_cpuTime( CPUTimeJiffies / HZ);
+
+    // mapping process status
+    switch(curProcessStats)
     {
-      curProcessInfo.set_owner(curPW->pw_name);
-    }
-
-    // get other process information
-    snprintf(statProc, BUFFERSIZE, SYS_PROC_STAT, pid);
-    FILE* psFile = fopen(statProc, "r");
-    if(psFile != 0)
-    {
-      /* Scan rest of string. */
-      char curProcessStats = '\0';
-      unsigned long parentPid = 0;
-      unsigned long usedUserTime = 0;
-      unsigned long usedSystemTime = 0;
-      unsigned long threadCount = 0;
-      unsigned long startTime = 0;
-      unsigned long vsz = 0;
-      unsigned long rss = 0;
-
-      // all value must available
-      if ( fscanf(psFile, SYS_PROC_PATTERN,
-                     &curProcessStats,
-                     &parentPid,
-                     &usedUserTime,
-                     &usedSystemTime,
-                     &threadCount,
-                     &startTime,
-                     &vsz,
-                     &rss) != 8 )
-      {
-        fclose(psFile);
-        return (false);
-      }
-
-      curProcessInfo.set_ppid(parentPid);
-      curProcessInfo.set_usedusertime(usedUserTime);
-      curProcessInfo.set_usedsystemtime(usedSystemTime);
-      curProcessInfo.set_threadcount(threadCount);
-
-      if( (_bootTime+startTime) >0 )
-        curProcessInfo.set_starttime(_bootTime+startTime/HZ);
-
-      if(vsz > 0)
-        curProcessInfo.set_vsz(vsz/1024);
-
-      if(rss > 0)
-        curProcessInfo.set_rss(rss*4);
-
-      fclose(psFile);
-      psFile = 0;
-
-      // mapping process status
-      switch(curProcessStats)
-      {
-      case 'R':
-        curProcessInfo.set_status(processInfo_processStatus_Running);
-        break;
-      case 'S':
-        curProcessInfo.set_status(processInfo_processStatus_Sleep);
-        break;
-      case 'Z':
-        curProcessInfo.set_status(processInfo_processStatus_Zombie);
-        break;
-      case 'D':
-        curProcessInfo.set_status(processInfo_processStatus_Disk);
-        break;
-      case 'T':
-        curProcessInfo.set_status(processInfo_processStatus_Stopped);
-        break;
-      case 'W':
-        curProcessInfo.set_status(processInfo_processStatus_Page);
-        break;
-      default:
-        curProcessInfo.set_status(processInfo_processStatus_Unknown);
-        break;
-      }
-
-    }
-
-    // get command line
-    snprintf(statProc, BUFFERSIZE, SYS_PROC_CMD, pid);
-    psFile = fopen(statProc, "r");
-    if(psFile != 0)
-    {
-      char cmdLine[BUFFERSIZE];
-      int readSize = 0;
-      memset(cmdLine, 0, BUFFERSIZE);
-      readSize = fread(cmdLine, 1, BUFFERSIZE, psFile);
-      fclose(psFile);
-
-      cmdLine[BUFFERSIZE-1] = '\0';
-
-      if(readSize != 0)
-        curProcessInfo.set_name(cmdLine);
-    }
-
-    // if we couldn't get data from cmdline, try to get from stat
-    if(curProcessInfo.name().size() == 0)
-    {
-      snprintf(statProc, BUFFERSIZE, SYS_PROC_STAT, pid);
-      psFile = fopen(statProc, "r");
-      if(psFile != 0)
-      {
-        char cmdLine[BUFFERSIZE];
-        int matchItem = 0;
-        memset(cmdLine, 0, BUFFERSIZE);
-
-        // restrict maximum chars is 255, it could prevent security warning
-        matchItem = fscanf(psFile, SYS_PROC_BIN, &pid, cmdLine);
-        fclose(psFile);
-
-        if(matchItem == 2)
-        {
-          cmdLine[BUFFERSIZE-1] = '\0';
-
-          // remove ')'
-          if(cmdLine[strlen(cmdLine)-1] == ')')
-            cmdLine[strlen(cmdLine)-1] = '\0';
-
-          curProcessInfo.set_name(cmdLine);
-        }
-      }
+    case 'R':
+      curProcessInfo.add_status(processStatus_Running);
+      break;
+    case 'S':
+      curProcessInfo.add_status(processStatus_Sleep);
+      break;
+    case 'Z':
+      curProcessInfo.add_status(processStatus_Zombie);
+      break;
+    case 'D':
+      curProcessInfo.add_status(processStatus_Disk);
+      break;
+    case 'T':
+      curProcessInfo.add_status(processStatus_Stopped);
+      break;
+    case 'W':
+      curProcessInfo.add_status(processStatus_Page);
+      break;
+    default:
+      curProcessInfo.add_status(processStatus_Unknown);
+      break;
     }
 
     // get priority
-    curProcessInfo.set_prioritylevel(getpriority(PRIO_PROCESS, pid));
+    curProcessInfo.add_priorityLevel(getpriority(PRIO_PROCESS, pid));
 
-    // get CPU time
-    unsigned long CPUTimeJiffies = (curProcessInfo.usedsystemtime() +
-                                    curProcessInfo.usedusertime());
-    if(CPUTimeJiffies > 0)
-      curProcessInfo.set_cputime( CPUTimeJiffies / HZ);
+    // calculate CPU usage
+    curProcessInfo.add_cpuUsage(this->calculateCPUUsage(pid, usedSystemTime, usedUserTime));
+
+    // push into list
+    this->_list.push_back(curProcessInfo.Finish());
 
     return (true);
   }
 
-  void process::calcuateCPUUsage()
+  float process::calculateCPUUsage(unsigned int pid, unsigned long systemTime, unsigned long userTime)
   {
-    // check 2 lists is ready to calculate
-    if(this->_CurProcessList.size() == 0  || this->_PrevProcessList.size() == 0)
-      return;
+    float cpuUsage = 0;
 
-    // search for match PID and summary all CPUTime (Remove it for reducing CPU consume)
-    unsigned long curCPUTime = 0;
-    for(int curItem=0; curItem < this->_CurProcessList.size(); curItem++)
-    {
-      for(int prevItem=0; prevItem < this->_PrevProcessList.size(); prevItem++)
-      {
-        if(this->_CurProcessList[curItem]->pid() == this->_PrevProcessList[prevItem]->pid())
-        {
-          curCPUTime += this->_CurProcessList[curItem]->usedsystemtime() -
-                              this->_PrevProcessList[prevItem]->usedsystemtime();
-          curCPUTime += this->_CurProcessList[curItem]->usedusertime() -
-                              this->_PrevProcessList[prevItem]->usedusertime();
+    if (this->_prevFlatBuffer == NULL)
+      return cpuUsage;
 
-          prevItem = this->_PrevProcessList.size();
-        }
-      }
-    }
-
-    if(curCPUTime < _curCPUInfo.getCPUTime())
-      curCPUTime = (float) _curCPUInfo.getCPUTime();
+    float curCPUTime = (float) _cpuInfo.getCPUTime();
     if(curCPUTime == 0)
-      return;
+      return cpuUsage;
 
     // calculate load for each process
-    for(int curItem=0; curItem < this->_CurProcessList.size(); curItem++)
+    const processInfoList *infoList = GetprocessInfoList(this->_prevFlatBuffer->GetBufferPointer());
+    for (int curItem = 0; curItem < infoList->list()->size(); curItem++)
     {
-      for(int prevItem=0; prevItem < this->_PrevProcessList.size(); prevItem++)
-      {
-        if(this->_CurProcessList[curItem]->pid() == this->_PrevProcessList[prevItem]->pid())
-        {
-          unsigned long procCPUTime = 0;
-          procCPUTime += this->_CurProcessList[curItem]->usedsystemtime() -
-                              this->_PrevProcessList[prevItem]->usedsystemtime();
-          procCPUTime += this->_CurProcessList[curItem]->usedusertime() -
-                              this->_PrevProcessList[prevItem]->usedusertime();
+      const processInfo *prevProcessItem = infoList->list()->Get(curItem);
 
-          if(procCPUTime != 0)
-            this->_CurProcessList[curItem]->set_cpuusage((float) procCPUTime * 100/curCPUTime);
+      if (prevProcessItem->pid() != pid)
+        continue;
 
-          // check upper and bottom limit
-          //if(this->_CurProcessList[curItem]->cpuusage() > 100 ||
-          //   this->_CurProcessList[curItem]->cpuusage() < 0 )
-          //  this->_CurProcessList[curItem]->set_cpuusage(0);
-        }
-      }
+      unsigned long procCPUTime = 0;
+      procCPUTime += systemTime - prevProcessItem->usedSystemTime();
+      procCPUTime += userTime - prevProcessItem->usedUserTime();
+
+      if(procCPUTime != 0)
+        cpuUsage = ((float) (procCPUTime * 100)/curCPUTime);
+      break;
     }
-    return ;
+    return cpuUsage;
+  }
+
+  void process::prepareBuffer()
+  {
+    // clean up
+    if (this->_prevFlatBuffer != NULL)
+      delete this->_prevFlatBuffer;
+
+    // move current to previous
+    this->_prevFlatBuffer = this->_curFlatBuffer;
+    this->_curFlatBuffer = new FlatBufferBuilder ();
+    this->_list.clear ();
+  }
+
+  void process::finishBuffer ()
+  {
+    // finish flatbuffer
+    auto mloc = CreateprocessInfoList(*this->_curFlatBuffer, this->_curFlatBuffer->CreateVector(this->_list));
+    FinishprocessInfoListBuffer(*this->_curFlatBuffer, mloc);
   }
 
   void process::refresh()
@@ -323,25 +328,23 @@ namespace core {
     this->getBootTime();
 
     // clean up
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_PrevProcessList);
-
-    // move current to previous
-    this->moveDataSet((std::vector<google::protobuf::Message*>&) this->_CurProcessList,
-                      (std::vector<google::protobuf::Message*>&) this->_PrevProcessList);
+    this->prepareBuffer ();
 
     // gathering information
-    if(this->gatherProcesses() == false)
-      return;
+    this->gatherProcesses();
 
-    // calculate CPU usage
-   this->calcuateCPUUsage();
-
-    return;
+    // finish flatbuffer
+    this->finishBuffer ();
   }
 
-  const std::vector<google::protobuf::Message*>& process::getData()
+  const uint8_t* process::getData()
   {
-    return ((const std::vector<google::protobuf::Message*>&) this->_CurProcessList);
+    return this->_curFlatBuffer->GetBufferPointer();
+  }
+
+  const uoffset_t process::getSize()
+  {
+    return this->_curFlatBuffer->GetSize();
   }
 }
 }

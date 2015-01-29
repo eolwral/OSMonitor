@@ -2,6 +2,7 @@ package com.eolwral.osmonitor.ui;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,15 +31,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.core.LogcatInfo.logcatInfo;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.core.logPriority;
+import com.eolwral.osmonitor.core.logcatInfo;
+import com.eolwral.osmonitor.core.logcatInfoList;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
+import com.eolwral.osmonitor.ipc.ipcCategory;
+import com.eolwral.osmonitor.ipc.ipcData;
+import com.eolwral.osmonitor.ipc.ipcMessage;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 public class ProcessLogViewFragment extends DialogFragment implements
     ipcClientListener {
@@ -54,7 +56,7 @@ public class ProcessLogViewFragment extends DialogFragment implements
 
   // data
   private ArrayList<logcatInfo> viewLogcatData = new ArrayList<logcatInfo>();
-  private ipcAction logType = ipcAction.LOGCAT_MAIN_R;
+  private byte logType = ipcCategory.LOGCAT_MAIN_R;
 
   private MessageListAdapter messageList = null;
   private Settings settings = null;
@@ -164,43 +166,43 @@ public class ProcessLogViewFragment extends DialogFragment implements
       for (int index = 0; index < LogCount; index++) {
         StringBuilder logLine = new StringBuilder();
 
-        calendar.setTimeInMillis(viewLogcatData.get(index).getSeconds() * 1000);
+        calendar.setTimeInMillis(viewLogcatData.get(index).seconds() * 1000);
 
         logLine.append(DateFormat.format("yyyy-MM-dd hh:mm:ss",
             calendar.getTime())
             + ",");
 
-        switch (viewLogcatData.get(index).getPriority().getNumber()) {
-        case logcatInfo.logPriority.SILENT_VALUE:
+        switch (viewLogcatData.get(index).priority()) {
+        case logPriority.SILENT:
           logLine.append("SILENT,");
           break;
-        case logcatInfo.logPriority.UNKNOWN_VALUE:
+        case logPriority.UNKNOWN:
           logLine.append("UNKNOWN,");
           break;
-        case logcatInfo.logPriority.DEFAULT_VALUE:
+        case logPriority.DEFAULT:
           logLine.append("DEFAULT,");
           break;
-        case logcatInfo.logPriority.VERBOSE_VALUE:
+        case logPriority.VERBOSE:
           logLine.append("VERBOSE,");
           break;
-        case logcatInfo.logPriority.WARN_VALUE:
+        case logPriority.WARN:
           logLine.append("WARNING,");
           break;
-        case logcatInfo.logPriority.INFO_VALUE:
+        case logPriority.INFO:
           logLine.append("INFORMATION,");
           break;
-        case logcatInfo.logPriority.FATAL_VALUE:
+        case logPriority.FATAL:
           logLine.append("FATAL,");
           break;
-        case logcatInfo.logPriority.ERROR_VALUE:
+        case logPriority.ERROR:
           logLine.append("ERROR,");
           break;
-        case logcatInfo.logPriority.DEBUG_VALUE:
+        case logPriority.DEBUG:
           logLine.append("DEBUG,");
           break;
         }
-        logLine.append(viewLogcatData.get(index).getTag() + ",");
-        logLine.append(viewLogcatData.get(index).getMessage() + "\n");
+        logLine.append(viewLogcatData.get(index).tag() + ",");
+        logLine.append(viewLogcatData.get(index).message() + "\n");
 
         logWriter.write(logLine.toString());
       }
@@ -236,7 +238,7 @@ public class ProcessLogViewFragment extends DialogFragment implements
     super.onStart();
 
     ipcService.removeRequest(this);
-    ipcAction newCommand[] = { logType };
+    byte newCommand[] = { logType };
     ipcService.addRequest(newCommand, 0, this);
   }
 
@@ -248,10 +250,10 @@ public class ProcessLogViewFragment extends DialogFragment implements
   }
 
   @Override
-  public void onRecvData(ipcMessage result) {
+  public void onRecvData(byte [] result) {
 
     if (result == null) {
-      ipcAction newCommand[] = new ipcAction[1];
+      byte newCommand[] = new byte[1];
       newCommand[0] = logType;
       ipcService.addRequest(newCommand, settings.getInterval(), this);
       return;
@@ -261,23 +263,23 @@ public class ProcessLogViewFragment extends DialogFragment implements
     viewLogcatData.clear();
 
     // convert data
-    // TODO: reuse old objects
-    for (int index = 0; index < result.getDataCount(); index++) {
+    ipcMessage ipcMessageResult = ipcMessage.getRootAsipcMessage(ByteBuffer.wrap(result));
+    for (int index = 0; index < ipcMessageResult.dataLength(); index++) {
 
       try {
-        ipcData rawData = result.getData(index);
+        ipcData rawData = ipcMessageResult.data(index);
 
-        for (int count = 0; count < rawData.getPayloadCount(); count++) {
-          logcatInfo lgInfo = logcatInfo.parseFrom(rawData.getPayload(count));
+        logcatInfoList list = logcatInfoList.getRootAslogcatInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+        for (int count = 0; count < list.listLength(); count++) {
+          logcatInfo lgInfo = list.list(count);
 
           // filter
-          if (lgInfo.getPid() != targetPID)
+          if (lgInfo.pid() != this.targetPID)
             continue;
 
           viewLogcatData.add(lgInfo);
         }
-
-      } catch (InvalidProtocolBufferException e) {
+      } catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
@@ -287,7 +289,7 @@ public class ProcessLogViewFragment extends DialogFragment implements
     messageList.refresh();
 
     // send command again
-    ipcAction newCommand[] = new ipcAction[1];
+    byte newCommand[] = new byte[1];
     newCommand[0] = logType;
     ipcService.addRequest(newCommand, settings.getInterval(), this);
   }
@@ -360,17 +362,17 @@ public class ProcessLogViewFragment extends DialogFragment implements
       final Calendar calendar = Calendar.getInstance();
       final java.text.DateFormat convertTool = java.text.DateFormat
           .getDateTimeInstance();
-      calendar.setTimeInMillis(item.getSeconds() * 1000);
+      calendar.setTimeInMillis(item.seconds() * 1000);
       holder.time.setText(convertTool.format(calendar.getTime()));
 
-      holder.tag.setText(item.getTag());
+      holder.tag.setText(item.tag());
 
-      holder.msg.setText(item.getMessage().toString());
+      holder.msg.setText(item.message().toString());
 
       holder.level.setTextColor(Color.BLACK);
 
-      holder.level.setBackgroundColor(UserInterfaceUtil.getLogcatColor(item.getPriority()));
-      holder.level.setText(UserInterfaceUtil.getLogcatTag(item.getPriority()));
+      holder.level.setBackgroundColor(UserInterfaceUtil.getLogcatColor(item.priority()));
+      holder.level.setText(UserInterfaceUtil.getLogcatTag(item.priority()));
 
       // avoid to trigger errors when refreshing
       sv.setOnTouchListener(new OnTouchListener() {

@@ -1,0 +1,22 @@
+namespace com.eolwral.osmonitor.core;
+
+table osInfo {
+  /// system uptime 
+  upTime:ulong;
+  /// total memory
+  totalMemory:ulong;
+  /// free memory
+  freeMemory:ulong;
+  /// shared memory
+  sharedMemory:ulong;
+  /// buffered memory
+  bufferedMemory:ulong;
+  /// cached memory
+  cachedMemory:ulong;
+  /// total swap size
+  totalSwap:ulong;
+  /// free swap size
+  freeSwap:ulong;
+}
+
+root_type osInfo;

@@ -1,22 +1,25 @@
 package com.eolwral.osmonitor;
 
+import java.nio.ByteBuffer;
 import java.util.Locale;
 
-import com.eolwral.osmonitor.core.CpuInfo.cpuInfo;
-import com.eolwral.osmonitor.core.NetworkInfo.networkInfo;
-import com.eolwral.osmonitor.core.OsInfo.osInfo;
-import com.eolwral.osmonitor.core.ProcessInfo.processInfo;
+import com.eolwral.osmonitor.core.cpuInfo;
+import com.eolwral.osmonitor.core.cpuInfoList;
+import com.eolwral.osmonitor.core.networkInfo;
+import com.eolwral.osmonitor.core.networkInfoList;
+import com.eolwral.osmonitor.core.osInfo;
+import com.eolwral.osmonitor.core.processInfo;
+import com.eolwral.osmonitor.core.processInfoList;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
-import com.eolwral.osmonitor.util.CommonUtil;
+import com.eolwral.osmonitor.ipc.ipcCategory;
+import com.eolwral.osmonitor.ipc.ipcData;
+import com.eolwral.osmonitor.ipc.ipcMessage;
 import com.eolwral.osmonitor.util.ProcessUtil;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.settings.Settings.NotificationType;
 import com.eolwral.osmonitor.settings.Settings.StatusBarColor;
-import com.google.protobuf.InvalidProtocolBufferException;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -107,7 +110,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
     useCelsius = settings.isUseCelsius();
     
     // recreate connection type when refreshing settings
-    ipcService.createConnection(Settings.getInstance(this).isRoot());
+    ipcService.createConnection();
   }
 
   @Override
@@ -188,21 +191,20 @@ public class OSMonitorService extends Service implements ipcClientListener {
     goSleep();
   }
 
-  private ipcAction[] getReceiveDataType() {
-    ipcAction newCommand[] = { ipcAction.PROCESS, ipcAction.CPU, ipcAction.OS };
+  private byte[] getReceiveDataType() {
+    byte newCommand[] = { ipcCategory.PROCESS, ipcCategory.CPU, ipcCategory.OS };
     switch (notificationType) {
     case NotificationType.MEMORY_BATTERY:
-      newCommand = new ipcAction[] { ipcAction.PROCESS, ipcAction.OS };
+      newCommand = new byte[] { ipcCategory.PROCESS, ipcCategory.OS };
       break;
     case NotificationType.MEMORY_DISKIO:
-      newCommand = new ipcAction[] { ipcAction.PROCESS, ipcAction.CPU,
-          ipcAction.OS };
+      newCommand = new byte[] { ipcCategory.PROCESS, ipcCategory.CPU, ipcCategory.OS };
       break;
     case NotificationType.BATTERY_DISKIO:
-      newCommand = new ipcAction[] { ipcAction.PROCESS, ipcAction.CPU };
+      newCommand = new byte[] { ipcCategory.PROCESS, ipcCategory.CPU };
       break;
     case NotificationType.NETWORKIO:
-      newCommand = new ipcAction[] { ipcAction.PROCESS, ipcAction.NETWORK };
+      newCommand = new byte[] { ipcCategory.PROCESS, ipcCategory.NETWORK };
       break;
     }
     return newCommand;
@@ -210,7 +212,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
 
   private void wakeUp() {
     UpdateInterval = settings.getInterval();
-    ipcAction newCommand[] = getReceiveDataType();
+    byte newCommand[] = getReceiveDataType();
     ipcService.removeRequest(this);
     ipcService.addRequest(newCommand, 0, this);
     startBatteryMonitor();
@@ -257,10 +259,10 @@ public class OSMonitorService extends Service implements ipcClientListener {
   };
 
   @Override
-  public void onRecvData(ipcMessage result) {
+  public void onRecvData(byte [] result) {
 
     if (result == null) {
-      ipcAction newCommand[] = getReceiveDataType();
+      byte newCommand[] = getReceiveDataType();
       ipcService.addRequest(newCommand, UpdateInterval, this);
       return;
     }
@@ -275,62 +277,65 @@ public class OSMonitorService extends Service implements ipcClientListener {
     }
 
     try {
+      ipcMessage ipcMessageResult = ipcMessage.getRootAsipcMessage(ByteBuffer.wrap(result));
 
-      for (int index = 0; index < result.getDataCount(); index++) {
-        ipcData rawData = result.getData(index);
+      for (int index = 0; index < ipcMessageResult.dataLength(); index++) {
+        ipcData rawData = ipcMessageResult.data(index);
 
-        if (rawData.getAction() == ipcAction.OS)
+        if (rawData.category() == ipcCategory.OS)
           extractOSInfo(rawData);
-        else if (rawData.getAction() == ipcAction.CPU)
+        else if (rawData.category() == ipcCategory.CPU)
           extractCPUInfo(rawData);
-        else if (rawData.getAction() == ipcAction.NETWORK)
+        else if (rawData.category() == ipcCategory.NETWORK)
           extractNetworkInfo(rawData);
-        else if (rawData.getAction() == ipcAction.PROCESS)
+        else if (rawData.category() == ipcCategory.PROCESS)
           extractProcessInfo(rawData);
       }
 
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    } catch (Exception e) {}
 
     refreshNotification();
 
     // send command again
-    ipcAction newCommand[] = getReceiveDataType();
+    byte newCommand[] = getReceiveDataType();
     ipcService.addRequest(newCommand, UpdateInterval, this);
   }
 
   private void extractProcessInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
+  {
 
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      processInfo item = processInfo.parseFrom(rawData.getPayload(count));
-      cpuUsage += item.getCpuUsage();
+    processInfoList infoList = processInfoList.getRootAsprocessInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < infoList.listLength(); count++) {
+      processInfo item = infoList.list(count);
+      cpuUsage += item.cpuUsage();
 
       for (int check = 0; check < 3; check++) {
 
-        if (topUsage[check] >= item.getCpuUsage())
+        if (topUsage[check] >= item.cpuUsage())
           continue;
 
+        // keep top 3 usage
         for (int push = 2; push > check; push--) {
           topUsage[push] = topUsage[push - 1];
           topProcess[push] = topProcess[push - 1];
         }
 
-        topUsage[check] = item.getCpuUsage();
-        topProcess[check] = infoHelper.getPackageName(item.getName());
+        topUsage[check] = item.cpuUsage();
+        topProcess[check] = infoHelper.getPackageName(item.name());
+
+        // if name is not ready, use process name
+        if (topProcess[check] == null)
+          topProcess[check] = item.name();
 
         // check cached status
-        if (infoHelper.checkPackageInformation(item.getName()))
+        if (infoHelper.checkPackageInformation(item.name()))
           break;
 
         // prepare to do cache
-        if (item.getName().toLowerCase(Locale.getDefault()).contains("osmcore"))
-          infoHelper.doCacheInfo(android.os.Process.myUid(), item.getOwner(),
-              item.getName());
+        if (item.name().toLowerCase(Locale.getDefault()).contains("osmcore"))
+          infoHelper.doCacheInfo(android.os.Process.myUid(), item.owner(), item.name());
         else
-          infoHelper
-              .doCacheInfo(item.getUid(), item.getOwner(), item.getName());
+          infoHelper.doCacheInfo(item.uid(), item.owner(), item.name());
         break;
       }
 
@@ -338,29 +343,33 @@ public class OSMonitorService extends Service implements ipcClientListener {
   }
 
   private void extractNetworkInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
+  {
     // process processInfo
     trafficOut = 0;
     trafficIn = 0;
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      networkInfo nwInfo = networkInfo.parseFrom(rawData.getPayload(count));
-      trafficOut += nwInfo.getTransUsage();
-      trafficIn += nwInfo.getRecvUsage();
+    networkInfoList nwInfoList = networkInfoList.getRootAsnetworkInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < nwInfoList.listLength(); count++) {
+      networkInfo nwInfo = nwInfoList.list(count);
+      trafficOut += nwInfo.transUsage();
+      trafficIn += nwInfo.recvUsage();
     }
   }
 
   private void extractCPUInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    cpuInfo info = cpuInfo.parseFrom(rawData.getPayload(0));
-    ioWaitUsage = info.getIoUtilization();
+  {
+    cpuInfoList infoList = cpuInfoList.getRootAscpuInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for(int count = 0; count < infoList.listLength(); count++) {
+      cpuInfo info = infoList.list(count);
+      ioWaitUsage = info.ioUtilization();
+      break;
+    }
   }
 
   private void extractOSInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    osInfo info = osInfo.parseFrom(rawData.getPayload(0));
-    memoryFree = info.getFreeMemory() + info.getBufferedMemory()
-        + info.getCachedMemory();
-    memoryTotal = info.getTotalMemory();
+  {
+    osInfo info = osInfo.getRootAsosInfo(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    memoryFree = info.freeMemory() + info.bufferedMemory() + info.cachedMemory();
+    memoryTotal = info.totalMemory();
   }
 
   private String getBatteryInfo() {
@@ -381,77 +390,69 @@ public class OSMonitorService extends Service implements ipcClientListener {
     // set contentIntent to fix
     // "android.app.RemoteServiceException: Bad notification posted from package"
     Intent notificationIntent = new Intent(this, OSMonitor.class);
-    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT
-        | Intent.FLAG_ACTIVITY_NEW_TASK);
-    osNotification.contentIntent = PendingIntent.getActivity(
-        this.getBaseContext(), 0, notificationIntent, 0);
+    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+    osNotification.contentIntent = PendingIntent.getActivity( this.getBaseContext(), 0, notificationIntent, 0);
 
     osNotification.contentView.setTextViewText(R.id.notification_cpu, "CPU: "
-        + CommonUtil.convertToUsage(cpuUsage) + "%");
-    osNotification.contentView.setProgressBar(R.id.notification_cpu_bar, 100,
-        (int) cpuUsage, false);
+                                               + UserInterfaceUtil.convertToUsage(cpuUsage) + "%");
+    osNotification.contentView.setProgressBar(R.id.notification_cpu_bar, 100, (int) cpuUsage, false);
 
     switch (notificationType) {
+
     case NotificationType.MEMORY_BATTERY:
       osNotification.contentView.setTextViewText(R.id.notification_1nd, "MEM: "
-          + CommonUtil.convertToSize(memoryFree, true));
-      osNotification.contentView.setTextViewText(R.id.notification_2nd, "BAT: "
-          + getBatteryInfo());
-      osNotification.contentView.setProgressBar(R.id.notification_1nd_bar,
-          (int) memoryTotal, (int) (memoryTotal - memoryFree), false);
-      osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, 100,
-          (int) battLevel, false);
+                                                 + UserInterfaceUtil.convertToSize(memoryFree, true));
+      osNotification.contentView.setTextViewText(R.id.notification_2nd, "BAT: " + getBatteryInfo());
+      osNotification.contentView.setProgressBar(R.id.notification_1nd_bar, (int) memoryTotal,
+                                                 (int) (memoryTotal - memoryFree), false);
+      osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, 100, (int) battLevel, false);
       break;
+
     case NotificationType.MEMORY_DISKIO:
       osNotification.contentView.setTextViewText(R.id.notification_1nd, "MEM: "
-          + CommonUtil.convertToSize(memoryFree, true));
+                                                 + UserInterfaceUtil.convertToSize(memoryFree, true));
       osNotification.contentView.setTextViewText(R.id.notification_2nd, "IO: "
-          + CommonUtil.convertToUsage(ioWaitUsage) + "%");
-      osNotification.contentView.setProgressBar(R.id.notification_1nd_bar,
-          (int) memoryTotal, (int) (memoryTotal - memoryFree), false);
-      osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, 100,
-          (int) ioWaitUsage, false);
+                                                 + UserInterfaceUtil.convertToUsage(ioWaitUsage) + "%");
+      osNotification.contentView.setProgressBar(R.id.notification_1nd_bar, (int) memoryTotal,
+                                                 (int) (memoryTotal - memoryFree), false);
+      osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, 100, (int) ioWaitUsage, false);
       break;
+
     case NotificationType.BATTERY_DISKIO:
-      osNotification.contentView.setTextViewText(R.id.notification_1nd, "BAT: "
-          + getBatteryInfo());
+      osNotification.contentView.setTextViewText(R.id.notification_1nd, "BAT: " + getBatteryInfo());
       osNotification.contentView.setTextViewText(R.id.notification_2nd, "IO: "
-          + CommonUtil.convertToUsage(ioWaitUsage) + "%");
-      osNotification.contentView.setProgressBar(R.id.notification_1nd_bar, 100,
-          (int) battLevel, false);
-      osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, 100,
-          (int) ioWaitUsage, false);
+                                                 + UserInterfaceUtil.convertToUsage(ioWaitUsage) + "%");
+      osNotification.contentView.setProgressBar(R.id.notification_1nd_bar, 100, (int) battLevel, false);
+      osNotification.contentView.setProgressBar(R.id.notification_2nd_bar, 100, (int) ioWaitUsage, false);
       break;
+
     case NotificationType.NETWORKIO:
       osNotification.contentView.setTextViewText(R.id.notification_1nd, "OUT: "
-          + CommonUtil.convertToSize(trafficOut, true));
+                                                + UserInterfaceUtil.convertToSize(trafficOut, true));
       osNotification.contentView.setTextViewText(R.id.notification_2nd, "IN: "
-          + CommonUtil.convertToSize(trafficIn, true));
+                                                + UserInterfaceUtil.convertToSize(trafficIn, true));
       osNotification.contentView.setProgressBar(R.id.notification_1nd_bar,
-          (int) (trafficOut + trafficIn), (int) trafficOut, false);
+                                                (int) (trafficOut + trafficIn), (int) trafficOut, false);
       osNotification.contentView.setProgressBar(R.id.notification_2nd_bar,
-          (int) (trafficOut + trafficIn), (int) trafficIn, false);
+                                                (int) (trafficOut + trafficIn), (int) trafficIn, false);
       break;
     }
 
     osNotification.contentView.setTextViewText(R.id.notification_top1st,
-        CommonUtil.convertToUsage(topUsage[0]) + "% " + topProcess[0]);
+        UserInterfaceUtil.convertToUsage(topUsage[0]) + "% " + topProcess[0]);
     osNotification.contentView.setTextViewText(R.id.notification_top2nd,
-        CommonUtil.convertToUsage(topUsage[1]) + "% " + topProcess[1]);
+        UserInterfaceUtil.convertToUsage(topUsage[1]) + "% " + topProcess[1]);
     osNotification.contentView.setTextViewText(R.id.notification_top3nd,
-        CommonUtil.convertToUsage(topUsage[2]) + "% " + topProcess[2]);
+        UserInterfaceUtil.convertToUsage(topUsage[2]) + "% " + topProcess[2]);
 
     // use custom color
     if (fontColor != -1) {
       osNotification.contentView.setTextColor(R.id.notification_2nd, fontColor);
       osNotification.contentView.setTextColor(R.id.notification_1nd, fontColor);
       osNotification.contentView.setTextColor(R.id.notification_cpu, fontColor);
-      osNotification.contentView.setTextColor(R.id.notification_top1st,
-          fontColor);
-      osNotification.contentView.setTextColor(R.id.notification_top2nd,
-          fontColor);
-      osNotification.contentView.setTextColor(R.id.notification_top3nd,
-          fontColor);
+      osNotification.contentView.setTextColor(R.id.notification_top1st, fontColor);
+      osNotification.contentView.setTextColor(R.id.notification_top2nd, fontColor);
+      osNotification.contentView.setTextColor(R.id.notification_top3nd, fontColor);
     }
 
     osNotification.icon = iconColor;

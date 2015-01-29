@@ -41,7 +41,6 @@ public class PreferenceContentProvider extends ContentProvider {
   private void initSQLiteDB() {
     dbHelper = new PreferenceDBHelper(getContext());
     database = dbHelper.getWritableDatabase();
-    database.setLockingEnabled(true);
   }
 
   @Override

@@ -10,17 +10,7 @@
 
 
 // Linux
-#include <string.h>
-#include <unistd.h>
-
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <time.h>
 #include <sys/types.h>
-#include <sys/time.h>
-#include <sys/stat.h>
-#include <sys/resource.h>
 
 // STL
 #include <vector>
@@ -39,6 +29,8 @@
 #include <dmesg.h>
 #include <logcat.h>
 
+#include <command.h>
+
 // OSMIPC library
 #include <ipcserver.h>
 
@@ -49,7 +41,7 @@ using namespace com::eolwral::osmonitor;
 
 // global variables
 static ipc::ipcserver server;
-static ipc::ipcMessage command;
+static ipc::ipcMessage* command;
 
 // system object
 static std::vector<core::base *> adapter;
@@ -58,7 +50,6 @@ static std::vector<core::base *> adapter;
 struct cachedData {
   int id;
   int time;
-  ipc::ipcData data;
 };
 
 static std::vector<cachedData *> storage;
@@ -73,14 +64,7 @@ bool prepareIPC()
   // initialize
   bool result = false;
 
-#ifdef ANDROD_L_BINARY
-  if (geteuid() == 0)
-    result = server.init(PORTNUMBER);
-  else
-    result = server.init(SOCKETNAME);
-#else
-  result = server.init(SOCKETNAME);
-#endif
+  result = server.init();
   if (!result)
   {
     __android_log_print(ANDROID_LOG_VERBOSE, APPNAME,"can't initialize socket!\n");
@@ -135,12 +119,10 @@ bool checkToken()
 
 bool receiveCMD()
 {
-  if(!prepareBuffer(1024))
+  if(!prepareBuffer(4096))
     return (false);
 
-  // clean up
-  command.Clear();
-
+  // receive data
   int recvSize = 0;
   if(!server.receieve(buffer, bufferSize, recvSize))
   {
@@ -148,35 +130,23 @@ bool receiveCMD()
     return (false);
   }
 
-  if(!command.ParseFromArray(buffer, recvSize))
+  // verify buffer
+  flatbuffers::Verifier verifier((const uint8_t*) buffer, (size_t) recvSize);
+  if(!ipc::VerifyipcMessageBuffer(verifier))
   {
     __android_log_print(ANDROID_LOG_VERBOSE, APPNAME,"can't parse data!\n");
     return (false);
   }
 
+  // build instance
+  command = (ipc::ipcMessage *) ipc::GetipcMessage(buffer);
+
   return (true);
 }
 
-bool sendData(ipc::ipcMessage& result)
+bool sendData(char *data, int dataSize)
 {
-  if(result.has_type() == false) {
-    __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "action type is empty!\n");
-    return (false);
-  }
-
-  if(!prepareBuffer(result.ByteSize()))
-  {
-    __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "can't prepare send buffer!\n");
-    return (false);
-  }
-
-  if(!result.SerializeToArray(buffer, result.GetCachedSize()))
-  {
-    __android_log_print(ANDROID_LOG_VERBOSE, APPNAME,"can't serialize!\n");
-    return (false);
-  }
-
-  if(!server.send(buffer, result.GetCachedSize()))
+  if(!server.send(data, dataSize))
   {
     __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "can't send data!\n");
     return (false);
@@ -184,35 +154,24 @@ bool sendData(ipc::ipcMessage& result)
   return (true);
 }
 
-
-bool fillPayload(const std::vector<google::protobuf::Message *>& objList,
-                 ipc::ipcData& result)
-{
-  // put data into payload
-  for (int ptr = 0; ptr < objList.size(); ptr++)
-    result.add_payload(objList[ptr]->SerializeAsString());
-
-  return (true);
-}
-
 void initAdapter()
 {
   // initial the array
-  for (int i = 0; i < ipc::ipcAction_MAX+1; i++)
+  for (int i = 0; i < ipc::ipcCategory_FINAL; i++)
   {
     adapter.push_back(NULL);
     storage.push_back(NULL);
   }
 }
 
-bool prepareAdapter(ipc::ipcAction action)
+bool prepareAdapter(ipc::ipcCategory action)
 {
   // check and clean up when processing _R
   if (adapter[action] != NULL)
   {
     switch (action)
     {
-    case ipc::LOGCAT_MAIN_R:
+    case ipc::ipcCategory_LOGCAT_MAIN_R:
       delete adapter[action];
       adapter[action] = NULL;
       break;
@@ -225,51 +184,51 @@ bool prepareAdapter(ipc::ipcAction action)
   // prepare
   switch(action)
   {
-    case ipc::CPU:
-      adapter[ipc::CPU] = (core::base*) new core::cpu();
+    case ipc::ipcCategory_CPU:
+      adapter[ipc::ipcCategory_CPU] = (core::base*) new core::cpu();
       break;
-    case ipc::PROCESSOR:
-      adapter[ipc::PROCESSOR] = (core::base *) new core::processor();
+    case ipc::ipcCategory_PROCESSOR:
+      adapter[ipc::ipcCategory_PROCESSOR] = (core::base *) new core::processor();
       break;
-    case ipc::OS:
-      adapter[ipc::OS] =(core::base *) new core::os();
+    case ipc::ipcCategory_OS:
+      adapter[ipc::ipcCategory_OS] =(core::base *) new core::os();
       break;
-    case ipc::PROCESS:
-      adapter[ipc::PROCESS] =(core::base *) new core::process();
+    case ipc::ipcCategory_PROCESS:
+      adapter[ipc::ipcCategory_PROCESS] =(core::base *) new core::process();
       break;
-    case ipc::CONNECTION:
-      adapter[ipc::CONNECTION] =(core::base *) new core::connection();
+    case ipc::ipcCategory_CONNECTION:
+      adapter[ipc::ipcCategory_CONNECTION] =(core::base *) new core::connection();
       break;
-    case ipc::NETWORK:
-      adapter[ipc::NETWORK] =(core::base *) new core::network();
-      break;
-
-    case ipc::DMESG:
-      adapter[ipc::DMESG] =(core::base *) new core::dmesg();
+    case ipc::ipcCategory_NETWORK:
+      adapter[ipc::ipcCategory_NETWORK] =(core::base *) new core::network();
       break;
 
-    case ipc::LOGCAT_RADIO:
-      adapter[ipc::LOGCAT_RADIO] =
+    case ipc::ipcCategory_DMESG:
+      adapter[ipc::ipcCategory_DMESG] =(core::base *) new core::dmesg();
+      break;
+
+    case ipc::ipcCategory_LOGCAT_RADIO:
+      adapter[ipc::ipcCategory_LOGCAT_RADIO] =
                  (core::base *) new core::logcat(core::RADIO);
       break;
 
-    case ipc::LOGCAT_EVENT:
-      adapter[ipc::LOGCAT_EVENT] =
+    case ipc::ipcCategory_LOGCAT_EVENT:
+      adapter[ipc::ipcCategory_LOGCAT_EVENT] =
                  (core::base *) new core::logcat(core::EVENTS);
       break;
 
-    case ipc::LOGCAT_SYSTEM:
-      adapter[ipc::LOGCAT_SYSTEM] =
+    case ipc::ipcCategory_LOGCAT_SYSTEM:
+      adapter[ipc::ipcCategory_LOGCAT_SYSTEM] =
                  (core::base *) new core::logcat(core::SYSTEM);
       break;
 
-    case ipc::LOGCAT_MAIN:
-      adapter[ipc::LOGCAT_MAIN] =
+    case ipc::ipcCategory_LOGCAT_MAIN:
+      adapter[ipc::ipcCategory_LOGCAT_MAIN] =
                  (core::base *) new core::logcat(core::MAIN);
       break;
 
-    case ipc::LOGCAT_MAIN_R:
-      adapter[ipc::LOGCAT_MAIN_R] =
+    case ipc::ipcCategory_LOGCAT_MAIN_R:
+      adapter[ipc::ipcCategory_LOGCAT_MAIN_R] =
                  (core::base *) new core::logcat(core::MAIN);
       break;
 
@@ -286,12 +245,10 @@ void cleanUp()
   server.clean();
 
   // remove and empty all data
-  for (int index = 0; index < ipc::ipcAction_MAX + 1; index++)
+  for (int index = 0; index < ipc::ipcCategory_FINAL + 1; index++)
   {
     if (adapter[index] != NULL)
       delete adapter[index];
-    if (storage[index] != NULL)
-      delete storage[index];
   }
   return;
 }
@@ -299,77 +256,64 @@ void cleanUp()
 bool processActionMsg()
 {
   // current result
-  ipc::ipcMessage result;
+  FlatBufferBuilder flatBuffer;
+  std::vector<Offset<ipc::ipcData>> resultList;
   bool flag = true;
 
-  //prepare ipcMessage
-  result.Clear();
-
-  // result
-  result.set_type(ipc::ipcMessage::RESULT);
-
   // process ACTION message
-  for (int index = 0; index < command.data_size(); index++)
+  for (int index = 0; index < command->data()->size(); index++)
   {
 
     // get data
-    ipc::ipcData data = command.data(index);
+    const ipc::ipcData *data = command->data()->Get(index);
 
     // check cache status and use cached data
-    if (storage[data.action()] != NULL)
+    if (storage[data->category()] != NULL)
     {
-      if (storage[data.action()]->id != server.getClientId()
-       && storage[data.action()]->time > (time(NULL) - 3))
+      if (storage[data->category()]->id != server.getClientId() &&
+          storage[data->category()]->time > (time(NULL) - 3))
       {
-        ipc::ipcData* newData = result.add_data();
-        newData->set_action(data.action());
-        newData->CopyFrom(storage[data.action()]->data);
+        auto result = flatBuffer.CreateVector(adapter[data->category()]->getData(),
+                                              adapter[data->category()]->getSize());
+        resultList.push_back(ipc::CreateipcData(flatBuffer, data->category(), result));
         continue;
       }
     }
 
     // prepare
-    if (!prepareAdapter(data.action()))
+    if (!prepareAdapter(data->category()))
     {
       flag = false;
-      break;
+      return flag;
     }
 
     // refresh
-    (adapter[data.action()])->refresh();
-
-    // get list
-    const std::vector<google::protobuf::Message *>& objList =
-                                 adapter[data.action()]->getData();
+    (adapter[data->category()])->refresh();
 
     // add a new data
-    ipc::ipcData* newData = result.add_data();
-
-    // fill data
-    newData->set_action(data.action());
-    fillPayload(objList, *newData);
+    auto rawData = flatBuffer.CreateVector(adapter[data->category()]->getData(),
+                                           adapter[data->category()]->getSize());
+    resultList.push_back(ipc::CreateipcData(flatBuffer, data->category(), rawData));
 
     // set cached data as empty
-    if (storage[data.action()] != NULL)
-    {
-      delete storage[data.action()];
-      storage[data.action()] = NULL;
+    if (storage[data->category()] != NULL) {
+      delete storage[data->category()];
+      storage[data->category()] = NULL;
     }
 
     // save data into cache storage
     cachedData *newCache = new cachedData();
     newCache->id = server.getClientId();
-    newCache->data.CopyFrom(*newData);
     newCache->time = time(NULL);
-    storage[data.action()] = newCache;
+    storage[data->category()] = newCache;
     newCache = NULL;
   }
 
-  // clear up
-  command.Clear();
-
   // send data
-  if (!sendData(result))
+  auto mloc = ipc::CreateipcMessage(flatBuffer, ipc::ipcType_RESULT, flatBuffer.CreateVector(resultList));
+  ipc::FinishipcMessageBuffer(flatBuffer, mloc);
+
+  if (!sendData((char *) flatBuffer.GetBufferPointer(), (int) flatBuffer.GetSize()))
   {
     server.close();
     flag = false;
@@ -378,123 +322,22 @@ bool processActionMsg()
   return (flag);
 }
 
-void processCommandMsg()
+bool processCommandMsg()
 {
   // process ACTION message
-  for (int index = 0; index < command.data_size(); index++)
+  for (int index = 0; index < command->data()->size(); index++)
   {
-    // get data
-    ipc::ipcData data = command.data(index);
+    const ipc::ipcData *data = command->data()->Get(index);
 
-    // set priority
-    if(data.action() == ipc::SETPRIORITY)
-    {
-      int pid = atoi(data.payload(0).c_str());
-      int priority = atoi(data.payload(1).c_str());
-      setpriority(PRIO_PROCESS, pid, priority);
+    // skip invalid data
+    flatbuffers::Verifier verifier(data->payload()->Data(), data->payload()->size());
+    if(core::VerifycommandInfoBuffer(verifier))
       continue;
-    }
 
-    // kill process
-    if(data.action() == ipc::KILLPROCESS)
-    {
-      int pid = atoi(data.payload(0).c_str());
-      kill(pid, SIGKILL);
-      continue;
-    }
-
-    // set CPU status
-    if(data.action() == ipc::SETCPUSTATUS)
-    {
-        int cpu = atoi(data.payload(0).c_str());
-        short status = atoi(data.payload(1).c_str());
-        mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-
-        char buffer[BufferSize];
-        sprintf(buffer, PROCESSOR_STATUS, cpu);
-        if (chmod(buffer, mode) == 0)
-        {
-          FILE *processorFile = fopen(buffer, "w");
-          if (processorFile)
-          {
-            fprintf(processorFile, "%d", status);
-            fclose(processorFile);
-          }
-        }
-        continue;
-    }
-
-    // set CPU max frequency
-    if(data.action() == ipc::SETCPUMAXFREQ)
-    {
-        int cpu = atoi(data.payload(0).c_str());
-        const char* freq = data.payload(1).c_str();
-        mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
-
-        char buffer[BufferSize];
-        sprintf(buffer, PROCESSOR_SCALING_MAX, cpu);
-        if (chmod(buffer, mode) == 0)
-        {
-          FILE *processorFile = fopen(buffer, "w");
-          if (processorFile)
-          {
-            fprintf(processorFile, "%s", freq);
-            fclose(processorFile);
-          }
-        }
-        continue;
-    }
-
-    // set CPU min frequency
-    if(data.action() == ipc::SETCPUMINFREQ)
-    {
-        int cpu = atoi(data.payload(0).c_str());
-        const char* freq = data.payload(1).c_str();
-        mode_t mode =S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
-
-        char buffer[BufferSize];
-        sprintf(buffer, PROCESSOR_SCALING_MIN, cpu);
-        if ( chmod(buffer, mode) == 0)
-        {
-          FILE *processorFile = fopen(buffer, "w");
-          if (processorFile)
-          {
-            fprintf(processorFile, "%s", freq);
-            fclose(processorFile);
-          }
-        }
-        continue;
-    }
-
-    // set CPU governor
-    if(data.action() == ipc::SETCPUGORV)
-    {
-        int cpu = atoi(data.payload(0).c_str());
-        const char* gov = data.payload(1).c_str();
-        mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
-
-        char buffer[BufferSize];
-        sprintf(buffer, PROCESSOR_SCALING_GOR, cpu);
-        if ( chmod(buffer, mode) == 0 )
-        {
-          FILE *processorFile = fopen(buffer, "w");
-          if (processorFile)
-          {
-            fprintf(processorFile, "%s", gov);
-            fclose(processorFile);
-          }
-        }
-        continue;
-    }
-
-
-
+    core::command cmd(data->category(), core::GetcommandInfo(data->payload()->Data()));
+    cmd.execute();
   }
-
-  // clear up
-  command.Clear();
-
-  return;
+  return (true);
 }
 
 bool processCommand()
@@ -504,26 +347,25 @@ bool processCommand()
     return (true);
 
   // receive ipcMessage
-  if( receiveCMD() == false)
+  if(receiveCMD() == false)
     return (true);
 
   // process Message
-  switch(command.type())
+  switch(command->type())
   {
 
   // process EXIT message
-  case ipc::ipcMessage::EXIT:
+  case ipc::ipcType_EXIT:
     __android_log_print(ANDROID_LOG_VERBOSE, APPNAME,"force Exit\n");
     endLoop = true;
     return (false);
 
   // process ACTION message
-  case ipc::ipcMessage::ACTION:
+  case ipc::ipcType_ACTION:
     return (processActionMsg());
 
-  case ipc::ipcMessage::COMMAND:
-    processCommandMsg();
-    return (true);
+  case ipc::ipcType_COMMAND:
+    return (processCommandMsg());
   }
 
   return (false);
@@ -531,8 +373,17 @@ bool processCommand()
 
 int main(int argc, char* argv[])
 {
-  if (argc == 1)
+  if (argc != 4)
     return (1);
+
+  // extract and erase Token
+  server.extractToken(argv[1]);
+
+  // extract and erase Socket name
+  server.extractSocketName(argv[2]);
+
+  // extract uid
+  server.extractUid(argv[3]);
 
   // prepare IPC
   if(!prepareIPC())
@@ -540,13 +391,11 @@ int main(int argc, char* argv[])
 
   initAdapter();
 
-  // extract and erase Token
-  server.extractToken(argv[1]);
-
   // receive commands
   endLoop = false;
   while(!endLoop)
   {
+
     ipc::ipcserver::EVENT event = server.poll();
     switch(event)
     {

@@ -1,0 +1,30 @@
+namespace com.eolwral.osmonitor.core;
+
+table processorInfo {
+  /// Maximum Frequency 
+  maxFrequency:uint;
+  /// Minimum Frequency 
+  minFrequency:uint;
+  /// Maximum Scaling Frequency 
+  maxScaling:uint;
+  /// Minimum Scaling Frequency 
+  minScaling:uint;
+  /// Current Scaling Frequency 
+  currentScaling:uint;
+  /// Current Governors 
+  governors:string;
+  /// Number 
+  number:uint;
+  /// Off-line 
+  offLine:bool;
+  /// Available Grovernors 
+  availableGovernors:string;
+  /// Available Frequency 
+  availableFrequency:string;
+}
+
+table processorInfoList {
+  list:[processorInfo];
+}
+
+root_type processorInfoList;

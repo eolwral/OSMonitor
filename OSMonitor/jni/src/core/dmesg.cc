@@ -15,12 +15,15 @@ namespace core {
   dmesg::dmesg()
   {
     this->_bootTime = 0;
+    this->_flatbuffer = NULL;
+    this->_list.clear();
   }
 
   dmesg::~dmesg()
   {
     // clean up _curDemsgList
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curDmesgList);
+    if (this->_flatbuffer != NULL)
+      delete this->_flatbuffer;
   }
 
   void dmesg::getBootTime()
@@ -31,7 +34,7 @@ namespace core {
 
      if(uptimeFile)
      {
-       if ( fscanf(uptimeFile, "%lu.%*lu", &uptime) != 1 )
+       if ( fscanf(uptimeFile, "%lu.%*u", &uptime) != 0x1 )
          uptime = 0;
        fclose(uptimeFile);
      }
@@ -41,15 +44,25 @@ namespace core {
      _bootTime = currentTime - uptime;
   }
 
-  void dmesg::refresh()
+  void dmesg::prepareBuffer()
   {
-    // clean up
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curDmesgList);
 
-    // refresh boot time
-    if (this->_bootTime == 0)
-      this->getBootTime();
+    if (this->_flatbuffer != NULL)
+      delete this->_flatbuffer;
 
+    this->_flatbuffer = new FlatBufferBuilder();
+    this->_list.clear();
+  }
+
+  void dmesg::finishBuffer ()
+  {
+    // finish the buffer
+    auto mloc = CreatedmesgInfoList(*this->_flatbuffer, this->_flatbuffer->CreateVector(this->_list));
+    FinishdmesgInfoListBuffer(*this->_flatbuffer, mloc);
+  }
+
+  void dmesg::gatheringDmesg()
+  {
     char* buffer = 0;
     int bufferSize = 0;
 
@@ -90,68 +103,74 @@ namespace core {
       // move to next block
       offsetStart = offsetStart + procLineLen + 1;
 
-      // prepare a Dmesginfo object
-      dmesgInfo* curDmesgInfo = new dmesgInfo();
-
       char message[BufferSize];
       char level = '\x0';
       unsigned long seconds = 0;
       int itemCounts= 0;
+
       memset(message, 0, BufferSize);
 
       // detect log message format and parse it
       if(procLine[3] == '[')
       {
-        itemCounts = sscanf(procLine, "<%c>[%lu.%*06lu] %[^\n]",
+        itemCounts = sscanf(procLine, "<%c>[%lu.%*06u] %[^\n]",
                             &level,
                             &seconds,
                             message);
-        curDmesgInfo->set_seconds(_bootTime+seconds);
+        seconds += _bootTime+seconds;
       }
       else
       {
-        curDmesgInfo->set_seconds(0);
+        seconds = 0;
         itemCounts = sscanf(procLine, "<%c>%[^\n]", &level, message);
       }
 
-      switch(level)
-      {
-      case '0':
-        curDmesgInfo->set_level(dmesgInfo_dmesgLevel_EMERGENCY);
-        break;
-      case '1':
-        curDmesgInfo->set_level(dmesgInfo_dmesgLevel_ALERT);
-        break;
-      case '2':
-        curDmesgInfo->set_level(dmesgInfo_dmesgLevel_CRITICAL);
-        break;
-      case '3':
-        curDmesgInfo->set_level(dmesgInfo_dmesgLevel_ERROR);
-        break;
-      case '4':
-        curDmesgInfo->set_level(dmesgInfo_dmesgLevel_WARNING);
-        break;
-      case '5':
-        curDmesgInfo->set_level(dmesgInfo_dmesgLevel_NOTICE);
-        break;
-      case '6':
-        curDmesgInfo->set_level(dmesgInfo_dmesgLevel_INFORMATION);
-        break;
-      case '7':
-        curDmesgInfo->set_level(dmesgInfo_dmesgLevel_DEBUG);
-        break;
-      default:
-        curDmesgInfo->set_level(dmesgInfo_dmesgLevel_INFORMATION);
-        break;
-      }
-
-      curDmesgInfo->set_message(message);
-
       // push log into list
-      if (itemCounts == 3)
-        this->_curDmesgList.push_back(curDmesgInfo);
-      else
-        delete curDmesgInfo;
+      if (itemCounts == 2 || itemCounts == 3)
+      {
+        // save message
+        auto msg = this->_flatbuffer->CreateString(message);
+
+        // prepare a Dmesginfo object
+        dmesgInfoBuilder dmesgInfo(*this->_flatbuffer);
+
+        dmesgInfo.add_seconds(seconds);
+
+        switch(level)
+        {
+        case '0':
+          dmesgInfo.add_level(dmesgLevel_EMERGENCY);
+          break;
+        case '1':
+          dmesgInfo.add_level(dmesgLevel_ALERT);
+          break;
+        case '2':
+          dmesgInfo.add_level(dmesgLevel_CRITICAL);
+          break;
+        case '3':
+          dmesgInfo.add_level(dmesgLevel_ERROR);
+          break;
+        case '4':
+          dmesgInfo.add_level(dmesgLevel_WARNING);
+          break;
+        case '5':
+          dmesgInfo.add_level(dmesgLevel_NOTICE);
+          break;
+        case '6':
+          dmesgInfo.add_level(dmesgLevel_INFORMATION);
+          break;
+        case '7':
+          dmesgInfo.add_level(dmesgLevel_DEBUG);
+          break;
+        default:
+          dmesgInfo.add_level(dmesgLevel_INFORMATION);
+          break;
+        }
+
+        dmesgInfo.add_message(msg);
+
+        this->_list.push_back(dmesgInfo.Finish());
+      }
 
       // EOF ?
       if(offsetStart >= readSize)
@@ -161,12 +180,32 @@ namespace core {
     // release memory
     if (buffer != 0)
       free(buffer);
-
   }
 
-  const std::vector<google::protobuf::Message*>& dmesg::getData()
+  void dmesg::refresh()
   {
-    return ((const std::vector<google::protobuf::Message*>&) this->_curDmesgList);
+    // clean up
+    this->prepareBuffer();
+
+    // refresh boot time
+    if (this->_bootTime == 0)
+      this->getBootTime();
+
+    // gathering dmesg messages
+    this->gatheringDmesg();
+
+    // finish the buffer
+    this->finishBuffer ();
+
+  }
+  const uint8_t* dmesg::getData()
+  {
+    return this->_flatbuffer->GetBufferPointer();
+  }
+
+  const uoffset_t dmesg::getSize()
+  {
+    return this->_flatbuffer->GetSize();
   }
 
 }

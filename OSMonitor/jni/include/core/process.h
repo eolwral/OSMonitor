@@ -18,7 +18,7 @@
 
 #include "base.h"
 #include "cpu.h"
-#include "processInfo.pb.h"
+#include "processInfo_generated.h"
 
 #define HZ 100
 #define SYS_BOOT_TIME "/proc/uptime"
@@ -44,12 +44,13 @@ namespace core {
 
     const static unsigned int BUFFERSIZE = 256; /**< buffer size */
 
-    std::vector<processInfo*> _PrevProcessList; /**< internal previous process list  */
-    std::vector<processInfo*> _CurProcessList; /**< internal current process list */
+    FlatBufferBuilder *_prevFlatBuffer;               /**< internal previous flatbuffer  */
+    FlatBufferBuilder *_curFlatBuffer;                /**< internal current flatbuffer */
+    std::vector<Offset<processInfo>> _list;           /**< internal process list */
 
-    cpu _curCPUInfo; /**< internal CPU usage */
+    cpu _cpuInfo;                               /**< internal CPU usage */
 
-    unsigned long _bootTime; /**< boot time in milliseconds */
+    unsigned long _bootTime;                    /**< boot time in milliseconds */
 
     /**
      * get boot time
@@ -64,16 +65,48 @@ namespace core {
 
     /**
      * get specific process information by PID
-     * @param curProcessInfo process information object
-     * @param pid target process
-     * @return true == success, false == fail
+     * @param[in] pid target process id
+     * @return success or fail
      */
-    bool getProcessInfo(processInfo& curProcessInfo, unsigned int pid);
+    bool getProcessInfo(unsigned int pid);
 
     /**
-     * calculate CPU usage for each process
+     * calculate CPU usage
+     * @param[in] pid target process id
+     * @param[out] curProcessInfo process information object
+     * @param[in] systemTime system time for specific process
+     * @param[in] userTime user time for specific process
+     * @return CPU Usage
      */
-    void calcuateCPUUsage();
+    float calculateCPUUsage(unsigned int pid, unsigned long systemTime, unsigned long userTime);
+
+    /**
+     * get process name from /proc/{pid}/cmdline
+     * @param[in] pid target process id
+     * @param[out] buffer buffer for process name
+     * @param[in] size buffer size
+     * @return true or fail
+     */
+    bool getProcessName(unsigned int pid, char *buffer, unsigned int size);
+
+    /**
+     * get process name from /proc/{pid}/stat
+     * @param[in] pid target process id
+     * @param[out] buffer buffer for process name
+     * @param[in] size buffer size
+     * @return true or fail
+     */
+    bool getProcessNamebyStat(unsigned int pid, char *buffer, unsigned int size);
+
+    /**
+     * prepare FlatBuffer
+     */
+    void prepareBuffer();
+
+    /**
+     * finish FlatBuffer
+     */
+    void finishBuffer();
 
   public:
 
@@ -88,10 +121,16 @@ namespace core {
     ~process();
 
     /**
-     * get process list
-     * @return a ProcessInfo list for running process
+     * get system information
+     * @return a buffer pointer
      */
-    const std::vector<google::protobuf::Message*>& getData();
+    const uint8_t* getData();
+
+    /**
+     * get buffer size
+     * @return buffer size
+     */
+    const uoffset_t getSize();
 
     /**
      * refresh process information

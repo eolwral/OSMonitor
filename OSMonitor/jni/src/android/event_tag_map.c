@@ -16,6 +16,7 @@
 #include "android/event_tag_map.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <fcntl.h>
 #include <sys/mman.h>

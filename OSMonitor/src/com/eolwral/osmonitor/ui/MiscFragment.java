@@ -1,5 +1,6 @@
 package com.eolwral.osmonitor.ui;
 
+import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,18 +32,19 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.eolwral.osmonitor.R;
-import com.eolwral.osmonitor.core.NetworkInfo.networkInfo;
-import com.eolwral.osmonitor.core.OsInfo.osInfo;
-import com.eolwral.osmonitor.core.ProcessorInfo.processorInfo;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcAction;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcData;
-import com.eolwral.osmonitor.ipc.IpcMessage.ipcMessage;
+import com.eolwral.osmonitor.core.networkInfo;
+import com.eolwral.osmonitor.core.networkInfoList;
+import com.eolwral.osmonitor.core.osInfo;
+import com.eolwral.osmonitor.core.processorInfo;
+import com.eolwral.osmonitor.core.processorInfoList;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
+import com.eolwral.osmonitor.ipc.ipcCategory;
+import com.eolwral.osmonitor.ipc.ipcData;
+import com.eolwral.osmonitor.ipc.ipcMessage;
 import com.eolwral.osmonitor.preference.Preference;
 import com.eolwral.osmonitor.settings.Settings;
-import com.eolwral.osmonitor.util.CommonUtil;
-import com.google.protobuf.InvalidProtocolBufferException;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 
 public class MiscFragment extends Fragment implements ipcClientListener {
 
@@ -232,65 +234,59 @@ public class MiscFragment extends Fragment implements ipcClientListener {
       networkInfo item = nwdata.get(position);
 
       // prepare main information
-      ((TextView) sv.findViewById(R.id.id_network_interface)).setText(item
-          .getName());
-      if (item.hasIpv4Addr())
-        ((TextView) sv.findViewById(R.id.id_network_ip4)).setText(item
-            .getIpv4Addr() + "/" + item.getNetMaskv4());
+      ((TextView) sv.findViewById(R.id.id_network_interface)).setText(item.name());
+      if (item.ipv4Addr() != null)
+        ((TextView) sv.findViewById(R.id.id_network_ip4)).setText(item.ipv4Addr()
+             + "/" + item.netMaskv4());
       else
         ((TextView) sv.findViewById(R.id.id_network_ip4)).setText("");
 
-      if (item.hasIpv6Addr())
-        ((TextView) sv.findViewById(R.id.id_network_ip6)).setText(item
-            .getIpv6Addr() + "/" + item.getNetMaskv6());
+      if (item.ipv6Addr() != null)
+        ((TextView) sv.findViewById(R.id.id_network_ip6)).setText(item.ipv6Addr() + "/" + item.netMaskv6());
       else
         ((TextView) sv.findViewById(R.id.id_network_ip6)).setText("");
 
       // prepare main information
-      ((TextView) sv.findViewById(R.id.id_network_mac)).setText(item.getMac());
-      ((TextView) sv.findViewById(R.id.id_network_rx)).setText(String.format(
-          "%,d", item.getRecvBytes())
-          + " ("
-          + CommonUtil.convertToSize(item.getRecvBytes(), true) + ")");
-      ((TextView) sv.findViewById(R.id.id_network_tx)).setText(String.format(
-          "%,d", item.getTransBytes())
-          + " ("
-          + CommonUtil.convertToSize(item.getTransBytes(), true) + ")");
+      ((TextView) sv.findViewById(R.id.id_network_mac)).setText(item.mac());
+      ((TextView) sv.findViewById(R.id.id_network_rx)).setText(String.format("%,d", item.recvBytes()) +
+          " (" + UserInterfaceUtil.convertToSize(item.recvBytes(), true) + ")");
+      ((TextView) sv.findViewById(R.id.id_network_tx)).setText(String.format("%,d", item.transBytes()) +
+          " (" + UserInterfaceUtil.convertToSize(item.transBytes(), true) + ")");
 
       StringBuilder status = new StringBuilder();
 
       final Resources resMgr = getActivity().getResources();
 
       // IFF_UP = 0x1, /* Interface is up. */
-      if ((item.getFlags() & 0x1) != 0)
+      if ((item.flags() & 0x1) != 0)
         status.append(resMgr.getString(R.string.ui_network_status_up));
       else
         status.append(resMgr.getString(R.string.ui_network_status_down));
 
       // IFF_BROADCAST = 0x2, /* Broadcast address valid. */
-      if ((item.getFlags() & 0x2) != 0)
+      if ((item.flags() & 0x2) != 0)
         status.append(" "
             + resMgr.getString(R.string.ui_network_status_broadcast));
 
       // IFF_DEBUG = 0x4, /* Turn on debugging. */
       // IFF_LOOPBACK = 0x8, /* Is a loopback net. */
-      if ((item.getFlags() & 0x8) != 0)
+      if ((item.flags() & 0x8) != 0)
         status.append(" "
             + resMgr.getString(R.string.ui_network_status_loopback));
 
       // IFF_POINTOPOINT = 0x10, /* Interface is point-to-point link. */
-      if ((item.getFlags() & 0x10) != 0)
+      if ((item.flags() & 0x10) != 0)
         status.append(" " + resMgr.getString(R.string.ui_network_status_p2p));
 
       // IFF_NOTRAILERS = 0x20, /* Avoid use of trailers. */
       // IFF_RUNNING = 0x40, /* Resources allocated. */
-      if ((item.getFlags() & 0x40) != 0)
+      if ((item.flags() & 0x40) != 0)
         status.append(" "
             + resMgr.getString(R.string.ui_network_status_running));
 
       // IFF_NOARP = 0x80, /* No address resolution protocol. */
       // IFF_PROMISC = 0x100, /* Receive all packets. */
-      if ((item.getFlags() & 0x100) != 0)
+      if ((item.flags() & 0x100) != 0)
         status.append(" "
             + resMgr.getString(R.string.ui_network_status_promisc));
 
@@ -299,7 +295,7 @@ public class MiscFragment extends Fragment implements ipcClientListener {
       // IFF_SLAVE = 0x800, /* Slave of a load balancer. */
 
       // IFF_MULTICAST = 0x1000, /* Supports multicast. */
-      if ((item.getFlags() & 0x1000) != 0)
+      if ((item.flags() & 0x1000) != 0)
         status.append(" "
             + resMgr.getString(R.string.ui_network_status_multicast));
 
@@ -311,7 +307,7 @@ public class MiscFragment extends Fragment implements ipcClientListener {
           .toString());
 
       // prepare click
-      sv.setTag(item.getName());
+      sv.setTag(item.name());
       sv.setClickable(true);
       sv.setOnClickListener(new OnClickListener() {
         @Override
@@ -335,7 +331,7 @@ public class MiscFragment extends Fragment implements ipcClientListener {
       });
 
       // set visibility
-      Boolean flag = networkExpanded.get(item.getName());
+      Boolean flag = networkExpanded.get(item.name());
       if (flag == null)
         flag = false;
       if (flag)
@@ -360,42 +356,35 @@ public class MiscFragment extends Fragment implements ipcClientListener {
       // get data
       processorInfo item = coredata.get(position);
 
-      if (item.getMinFrequency() != -1)
-        ((TextView) sv.findViewById(R.id.id_processor_freq_min)).setText(""
-            + item.getMinFrequency());
+      if (item.minFrequency() != -1)
+        ((TextView) sv.findViewById(R.id.id_processor_freq_min)).setText("" + item.minFrequency());
       else
         ((TextView) sv.findViewById(R.id.id_processor_freq_min)).setText("?");
 
-      if (item.getMaxFrequency() != -1)
-        ((TextView) sv.findViewById(R.id.id_processor_freq_max)).setText(""
-            + item.getMaxFrequency());
+      if (item.maxFrequency() != -1)
+        ((TextView) sv.findViewById(R.id.id_processor_freq_max)).setText("" + item.maxFrequency());
       else
         ((TextView) sv.findViewById(R.id.id_processor_freq_max)).setText("?");
 
-      if (item.getMinScaling() != -1)
-        ((TextView) sv.findViewById(R.id.id_processor_cur_max)).setText(""
-            + item.getMaxScaling());
+      if (item.minScaling() != -1)
+        ((TextView) sv.findViewById(R.id.id_processor_cur_max)).setText("" + item.maxScaling());
       else
         ((TextView) sv.findViewById(R.id.id_processor_cur_max)).setText("?");
 
-      if (item.getMaxScaling() != -1)
-        ((TextView) sv.findViewById(R.id.id_processor_cur_min)).setText(""
-            + item.getMinScaling());
+      if (item.maxScaling() != -1)
+        ((TextView) sv.findViewById(R.id.id_processor_cur_min)).setText("" + item.minScaling());
       else
         ((TextView) sv.findViewById(R.id.id_processor_cur_min)).setText("?");
 
-      if (item.getCurrentScaling() != -1)
-        ((TextView) sv.findViewById(R.id.id_processor_cur)).setText(""
-            + item.getCurrentScaling());
+      if (item.currentScaling() != -1)
+        ((TextView) sv.findViewById(R.id.id_processor_cur)).setText("" + item.currentScaling());
       else
         ((TextView) sv.findViewById(R.id.id_processor_cur)).setText("?");
 
-      ((TextView) sv.findViewById(R.id.id_processor_gov)).setText(item
-          .getGrovernors());
-      ((TextView) sv.findViewById(R.id.id_processor_core)).setText(""
-          + item.getNumber());
+      ((TextView) sv.findViewById(R.id.id_processor_gov)).setText(item.governors());
+      ((TextView) sv.findViewById(R.id.id_processor_core)).setText("" + item.number());
 
-      if (item.getOffLine() == true)
+      if (item.offLine() == 1)
         ((TextView) sv.findViewById(R.id.id_processor_status))
             .setText(getActivity().getResources().getText(
                 R.string.ui_processor_status_offline));
@@ -405,7 +394,7 @@ public class MiscFragment extends Fragment implements ipcClientListener {
                 R.string.ui_processor_status_online));
 
       // prepare click
-      sv.setTag("" + item.getNumber());
+      sv.setTag("" + item.number());
       sv.setClickable(true);
       sv.setOnClickListener(new OnClickListener() {
         @Override
@@ -429,7 +418,7 @@ public class MiscFragment extends Fragment implements ipcClientListener {
       });
 
       // set visibility
-      Boolean flag = coreExpanded.get("" + item.getNumber());
+      Boolean flag = coreExpanded.get("" + item.number());
       if (flag == null)
         flag = false;
       if (flag)
@@ -449,13 +438,13 @@ public class MiscFragment extends Fragment implements ipcClientListener {
       if (osdata != null) {
 
         ((TextView) sv.findViewById(R.id.id_swap_total)).setText(String.format(
-            "%,d", osdata.getTotalSwap())
+            "%,d", osdata.totalSwap())
             + " ("
-            + CommonUtil.convertToSize(osdata.getTotalSwap(), true) + ")");
+            + UserInterfaceUtil.convertToSize(osdata.totalSwap(), true) + ")");
         ((TextView) sv.findViewById(R.id.id_swap_free)).setText(String.format(
-            "%,d", osdata.getFreeSwap())
+            "%,d", osdata.freeSwap())
             + " ("
-            + CommonUtil.convertToSize(osdata.getFreeSwap(), true) + ")");
+            + UserInterfaceUtil.convertToSize(osdata.freeSwap(), true) + ")");
       }
 
       return sv;
@@ -469,24 +458,24 @@ public class MiscFragment extends Fragment implements ipcClientListener {
       if (osdata != null) {
 
         ((TextView) sv.findViewById(R.id.id_memory_total)).setText(String
-            .format("%,d", osdata.getTotalMemory())
+            .format("%,d", osdata.totalMemory())
             + " ("
-            + CommonUtil.convertToSize(osdata.getTotalMemory(), true) + ")");
+            + UserInterfaceUtil.convertToSize(osdata.totalMemory(), true) + ")");
 
         ((TextView) sv.findViewById(R.id.id_memory_free)).setText(String
-            .format("%,d", osdata.getFreeMemory())
+            .format("%,d", osdata.freeMemory())
             + " ("
-            + CommonUtil.convertToSize(osdata.getFreeMemory(), true) + ")");
+            + UserInterfaceUtil.convertToSize(osdata.freeMemory(), true) + ")");
 
         ((TextView) sv.findViewById(R.id.id_memory_cached)).setText(String
-            .format("%,d", osdata.getCachedMemory())
+            .format("%,d", osdata.cachedMemory())
             + " ("
-            + CommonUtil.convertToSize(osdata.getCachedMemory(), true) + ")");
+            + UserInterfaceUtil.convertToSize(osdata.cachedMemory(), true) + ")");
 
         ((TextView) sv.findViewById(R.id.id_memory_buffered)).setText(String
-            .format("%,d", osdata.getBufferedMemory(), true)
+            .format("%,d", osdata.bufferedMemory(), true)
             + " ("
-            + CommonUtil.convertToSize(osdata.getBufferedMemory(), true) + ")");
+            + UserInterfaceUtil.convertToSize(osdata.bufferedMemory(), true) + ")");
       }
 
       return sv;
@@ -502,13 +491,13 @@ public class MiscFragment extends Fragment implements ipcClientListener {
       final Date currentDate = new Date();
       if (osdata != null) {
 
-        long Uptime = currentDate.getTime() - (osdata.getUptime() * 1000);
+        long Uptime = currentDate.getTime() - (osdata.upTime() * 1000);
         int seconds = (int) ((Uptime / 1000) % 60);
         int minutes = (int) ((Uptime / 1000) / 60 % 60);
         int hours = (int) ((Uptime / 1000) / 3600 % 24);
         int days = (int) ((Uptime / 1000) / 86400);
 
-        calendar.setTimeInMillis(osdata.getUptime() * 1000);
+        calendar.setTimeInMillis(osdata.upTime() * 1000);
 
         ((TextView) sv.findViewById(R.id.id_system_update)).setText(Html
             .fromHtml(convertTool.format(calendar.getTime())
@@ -641,8 +630,7 @@ public class MiscFragment extends Fragment implements ipcClientListener {
       stopBatteryMonitor();
 
     if (isVisibleToUser == true) {
-      ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESSOR,
-          ipcAction.NETWORK };
+      byte newCommand[] = { ipcCategory.OS, ipcCategory.PROCESSOR, ipcCategory.NETWORK };
       ipcService.addRequest(newCommand, 0, this);
       startBatteryMonitor();
     }
@@ -650,15 +638,14 @@ public class MiscFragment extends Fragment implements ipcClientListener {
   }
 
   @Override
-  public void onRecvData(ipcMessage result) {
+  public void onRecvData(byte [] result) {
 
     // check
     if (ipcStop == true)
       return;
 
     if (stopUpdate == true || result == null) {
-      ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESSOR,
-          ipcAction.NETWORK };
+      byte newCommand[] = { ipcCategory.OS, ipcCategory.PROCESSOR, ipcCategory.NETWORK };
       ipcService.addRequest(newCommand, settings.getInterval(), this);
       return;
     }
@@ -667,17 +654,17 @@ public class MiscFragment extends Fragment implements ipcClientListener {
     nwdata.clear();
 
     // convert data
-    // TODO: reuse old objects
-    for (int index = 0; index < result.getDataCount(); index++) {
+    ipcMessage resultMessage = ipcMessage.getRootAsipcMessage(ByteBuffer.wrap(result));
+    for (int index = 0; index < resultMessage.dataLength(); index++) {
 
       try {
-        ipcData rawData = result.getData(index);
+        ipcData rawData = resultMessage.data(index);
 
-        if (rawData.getAction() == ipcAction.OS)
-          osdata = osInfo.parseFrom(rawData.getPayload(0));
-        else if (rawData.getAction() == ipcAction.PROCESSOR)
+        if (rawData.category() == ipcCategory.OS)
+          osdata = osInfo.getRootAsosInfo(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+        else if (rawData.category() == ipcCategory.PROCESSOR)
           extractProcessorInfo(rawData);
-        else if (rawData.getAction() == ipcAction.NETWORK)
+        else if (rawData.category() == ipcCategory.NETWORK)
           extractNetworkInfo(rawData);
 
       } catch (Exception e) {
@@ -690,16 +677,15 @@ public class MiscFragment extends Fragment implements ipcClientListener {
     misckAdapter.notifyDataSetChanged();
 
     // send command again
-    ipcAction newCommand[] = { ipcAction.OS, ipcAction.PROCESSOR,
-        ipcAction.NETWORK };
+    byte newCommand[] = { ipcCategory.OS, ipcCategory.PROCESSOR, ipcCategory.NETWORK };
     ipcService.addRequest(newCommand, settings.getInterval(), this);
   }
 
   private void extractNetworkInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    // process processInfo
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      networkInfo nwInfo = networkInfo.parseFrom(rawData.getPayload(count));
+  {
+    networkInfoList list = networkInfoList.getRootAsnetworkInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < list.listLength(); count++) {
+      networkInfo nwInfo = list.list(count);
 
       /*
        * if(nwInfo.getIpv4Addr().length() > 0 || nwInfo.getIpv6Addr().length() >
@@ -710,9 +696,10 @@ public class MiscFragment extends Fragment implements ipcClientListener {
   }
 
   private void extractProcessorInfo(ipcData rawData)
-      throws InvalidProtocolBufferException {
-    for (int count = 0; count < rawData.getPayloadCount(); count++) {
-      processorInfo prInfo = processorInfo.parseFrom(rawData.getPayload(count));
+  {
+    processorInfoList list = processorInfoList.getRootAsprocessorInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < list.listLength(); count++) {
+      processorInfo prInfo = list.list(count);
       coredata.add(prInfo);
     }
   }

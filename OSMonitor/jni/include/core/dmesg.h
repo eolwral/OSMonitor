@@ -9,7 +9,7 @@
 #include <sys/klog.h>
 
 #include "base.h"
-#include "dmesgInfo.pb.h"
+#include "dmesgInfo_generated.h"
 
 #define SYS_BOOT_TIME "/proc/uptime"
 
@@ -28,11 +28,29 @@ namespace core {
    */
   class dmesg : com::eolwral::osmonitor::core::base
   {
-    const static int BufferSize = 512;                  /**< internal buffer size */
 
   private:
-    std::vector<dmesgInfo*> _curDmesgList;              /**< internal list for dmesg */
+    const static int BufferSize = 1024;                  /**< internal buffer size */
+
     unsigned long _bootTime;                            /**< boot time in milliseconds */
+
+    FlatBufferBuilder* _flatbuffer;                     /**< internal FlatBuffer */
+    std::vector<Offset<dmesgInfo>> _list;               /**< internal dmesg list */
+
+    /**
+     * prepare FlatBuffer
+     */
+    void prepareBuffer();
+
+    /**
+     * finish FlatBuffer
+     */
+    void finishBuffer();
+
+    /**
+     * collecting dmesg
+     */
+    void gatheringDmesg();
 
   public:
 
@@ -58,9 +76,15 @@ namespace core {
 
     /**
      * get current dmesg information
-     * @return a vector contains dmesg information
+     * @return a buffer pointer
      */
-    const std::vector<google::protobuf::Message*>& getData();
+    const uint8_t* getData();
+
+    /**
+     * get buffer size
+     * @return buffer size
+     */
+    const uoffset_t getSize();
 
   };
 

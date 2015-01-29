@@ -19,14 +19,9 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <sys/stat.h>
 
-#include "ipcMessage.pb.h"
-
-// Name
-#define SOCKETNAME "osmipcV3"
-
-// Android L
-#define PORTNUMBER 15075
+#include "ipcMessage_generated.h"
 
 #define SOCKETBUF 1024
 #define TRANSIZE 4096
@@ -49,23 +44,20 @@ namespace ipc {
   private:
     int serverFD;                       /**<< server file descriptor */
 
-    bool useTCPSocket;                  /**<< use TCP Port */
-
     // unix domain socket
+    std::string uServerSocketName;      /**<< server socket name */
     struct sockaddr_un uServerAddr;     /**<< server socket address  */
     socklen_t uServerLen;               /**<< server socket length */
-
-    // TCP socket
-    struct sockaddr_in sServerAddr;     /**<< server socket address  */
 
     int waitNumber;                     /**<< which client is wait */
     int clientFD[8];                    /**<< client file descriptor */
     bool verified[8];                   /**<< verified security token */
     std::string token;                  /**<< security token */
+    unsigned int socketUid;             /**<< default UID */
 
     /**
      * close the specific socket
-     * @param number ==> client socket number
+     * @param[in] number ==> client socket number
      */
     void closeSocket(int number);
 
@@ -88,18 +80,10 @@ namespace ipc {
     ~ipcserver();
 
     /**
-     * initialize tcp socket
-     * @param portNumber tcp port number
-     * @return success or fail
-     */
-    bool init(int portNumber);
-
-    /**
      * initialize unix domain socket
-     * @param socketName socket name
      * @return success or fail
      */
-    bool init(char* socketName);
+    bool init();
 
     /**
      * bind socket
@@ -114,17 +98,17 @@ namespace ipc {
 
     /**
      * receive data from client
-     * @param data buffer
-     * @param size buffer size
-     * @param recvsize data size for received data
+     * @param[in] data buffer
+     * @param[in] size buffer size
+     * @param[in] recvsize data size for received data
      * @return success or fail
      */
     bool receieve(char* data, int& size, int& recvsize);
 
     /**
      * send data to client
-     * @param data data
-     * @param size data size
+     * @param[in] data data
+     * @param[in] size data size
      * @return success or fail
      */
     bool send(char* data, int size);
@@ -175,9 +159,21 @@ namespace ipc {
 
     /**
      * save security token
-     * @param token
+     * @param[in] token
      */
     void extractToken(char* fileName);
+
+    /**
+     * save unix domain socket name
+     * @param[in] name
+     */
+    void extractSocketName(char* socketName);
+
+    /**
+     * save uid
+     * @param[in] uid
+     */
+    void extractUid(char* uid);
 
   };
 

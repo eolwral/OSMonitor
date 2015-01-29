@@ -4,6 +4,8 @@
  */
 
 #include "processor.h"
+#include <android/log.h>
+
 
 namespace com {
 namespace eolwral {
@@ -13,18 +15,23 @@ namespace core {
   processor::~processor()
   {
     // clean up
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_curProcessorList);
+    if (this->_curFlatBuffer != NULL)
+      delete this->_curFlatBuffer;
 
     // clean up
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_prevProcessorList);
+    if (this->_preFlatBuffer != NULL)
+      delete this->_preFlatBuffer;
   }
 
   processor::processor()
   {
-    MaximumCPUs = getProcessorNumber();
+    this->_curFlatBuffer = NULL;
+    this->_preFlatBuffer = NULL;
+
+    this->_maximumCPUs = getProcessorNumber();
     int DetectedCPUs = sysconf(_SC_NPROCESSORS_CONF);
-    if (MaximumCPUs < DetectedCPUs)
-      MaximumCPUs = DetectedCPUs;
+    if (this->_maximumCPUs < DetectedCPUs)
+      this->_maximumCPUs = DetectedCPUs;
   }
 
   /*
@@ -55,281 +62,255 @@ namespace core {
     return (-1); /* failure */
   }
 
-  void processor::resetPermission()
+  void processor::resetAllPermissions()
   {
     // check root permission
     if(getuid() != 0)
       return;
 
-    // 644
-    mode_t mode = 0;
-
-    char buffer[BufferSize];
-    for (int curNumber = 0; curNumber < MaximumCPUs; curNumber++)
+    for (int curNumber = 0; curNumber < this->_maximumCPUs; curNumber++)
     {
       // max cur frequency
-      mode = S_IRUSR | S_IRGRP | S_IROTH;
-      sprintf(buffer, PROCESSOR_FREQ_MAX, curNumber);
-      if(mode != getPermission(buffer))
-        chmod(buffer, mode);
+      this->resetPermission(curNumber, PROCESSOR_FREQ_MAX, S_IRUSR | S_IRGRP | S_IROTH);
 
       // min cur frequency
-      mode = S_IRUSR | S_IRGRP | S_IROTH;
-      sprintf(buffer, PROCESSOR_FREQ_MIN, curNumber);
-      if(mode != getPermission(buffer))
-        chmod(buffer, mode);
+      this->resetPermission(curNumber, PROCESSOR_FREQ_MIN, S_IRUSR | S_IRGRP | S_IROTH);
 
       // scaling cur frequency
-      mode = S_IRUSR | S_IRGRP | S_IROTH;
-      sprintf(buffer, PROCESSOR_SCALING_CUR, curNumber);
-      if(mode != getPermission(buffer))
-        chmod(buffer, mode);
+      this->resetPermission(curNumber, PROCESSOR_SCALING_CUR, S_IRUSR | S_IRGRP | S_IROTH);
 
       // scaling max frequency
-      mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-      sprintf(buffer, PROCESSOR_SCALING_MAX, curNumber);
-      if(mode != getPermission(buffer))
-        chmod(buffer, mode);
+      this->resetPermission(curNumber, PROCESSOR_SCALING_MAX, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 
       // scaling min frequency
-      mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
-      sprintf(buffer, PROCESSOR_SCALING_MIN, curNumber);
-      if(mode != getPermission(buffer))
-        chmod(buffer, mode);
+      this->resetPermission(curNumber, PROCESSOR_SCALING_MIN, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 
       // scaling governor
-      mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
-      sprintf(buffer, PROCESSOR_SCALING_GOR, curNumber);
-      if(mode != getPermission(buffer))
-        chmod(buffer, mode);
+      this->resetPermission(curNumber, PROCESSOR_SCALING_GOR, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 
       // status
-      mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-      sprintf(buffer, PROCESSOR_STATUS, curNumber);
-      if(mode != getPermission(buffer))
-        chmod(buffer, mode);
+      this->resetPermission(curNumber, PROCESSOR_STATUS, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 
       // available frequency
-      mode = S_IRUSR | S_IRGRP | S_IROTH;
-      sprintf(buffer, PROCESSOR_AVAILABLE_FREQ, curNumber);
-      if(mode != getPermission(buffer))
-        chmod(buffer, mode);
+      this->resetPermission(curNumber, PROCESSOR_AVAILABLE_FREQ, S_IRUSR | S_IRGRP | S_IROTH);
 
       // available governors
-      mode = S_IRUSR | S_IRGRP | S_IROTH;
-      sprintf(buffer, PROCESSOR_AVAILABLE_GOR, curNumber);
-      if(mode != getPermission(buffer))
-        chmod(buffer, mode);
+      this->resetPermission(curNumber, PROCESSOR_AVAILABLE_GOR, S_IRUSR | S_IRGRP | S_IROTH);
     }
   }
 
-  mode_t processor::getPermission(const char* fileName)
+  void processor::resetPermission(int number, const char* pattern, unsigned short mode)
   {
     struct stat fileStat;
-    if(stat(fileName, &fileStat) < 0)
-      return (0);
-    return (fileStat.st_mode);
+    char buffer[BufferSize];
+
+    sprintf(buffer, pattern, number);
+    if(stat(buffer, &fileStat) > 0)
+    {
+      if (fileStat.st_mode != mode)
+        chmod(buffer, mode);
+    }
   }
 
   void processor::gatherProcessor()
   {
 
-    char buffer[BufferSize];
-    for (int curNumber = 0; curNumber < MaximumCPUs; curNumber++)
-    {
-      processorInfo* curProcessor = new processorInfo();
-      unsigned int extractValue = 0;
-      unsigned int threshold = 0;
+    char extractString[BufferSize];
 
-      curProcessor->set_number(curNumber);
-      curProcessor->set_maxfrequency(-1);
-      curProcessor->set_minfrequency(-1);
-      curProcessor->set_currentscaling(-1);
-      curProcessor->set_maxscaling(-1);
-      curProcessor->set_minscaling(-1);
-      curProcessor->set_grovernors("Unknown");
-      curProcessor->set_offline(true);
-      curProcessor->set_avaiablefrequeucy("");
-      curProcessor->set_avaiablegovernors("");
+    unsigned int minFrequency = 0;
+    unsigned int maxFrequency = 0;
+    unsigned int curScaling = 0;
+    unsigned int maxScaling = 0;
+    unsigned int minScaling = 0;
+    unsigned int threshold = 0;
+    Offset<String> governors = 0;
+    Offset<String> availableFrequency = 0;
+    Offset<String> availableGovernors = 0;
+    bool offLine = true;
+
+    for (int curNumber = 0; curNumber < this->_maximumCPUs; curNumber++)
+    {
+      const processorInfo *prevProcessor = this->getPrevProcessor(curNumber);
 
       // get processor maximum frequency
-      sprintf(buffer, PROCESSOR_FREQ_MAX, curNumber);
-      FILE *processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        if(fscanf(processorFile, "%d", &extractValue) == 1)
-          curProcessor->set_maxfrequency(extractValue);
-        fclose(processorFile);
+      maxFrequency = this->getProcessorValue(curNumber, PROCESSOR_FREQ_MAX);
+      if (maxFrequency != 0)
         threshold++;
-      }
+      else if (prevProcessor != NULL)
+        maxFrequency = prevProcessor->maxFrequency();
 
       // get processor minimum frequency
-      sprintf(buffer, PROCESSOR_FREQ_MIN, curNumber);
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        if (fscanf(processorFile, "%d", &extractValue) == 1)
-          curProcessor->set_minfrequency(extractValue);
-        fclose(processorFile);
+      minFrequency = this->getProcessorValue(curNumber, PROCESSOR_FREQ_MIN);
+      if (minFrequency != 0)
         threshold++;
-      }
+      else if (prevProcessor != NULL)
+        minFrequency = prevProcessor->minFrequency();
 
       // get scaling cur frequency
-      sprintf(buffer, PROCESSOR_SCALING_CUR, curNumber);
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        if (fscanf(processorFile, "%d", &extractValue) == 1)
-          curProcessor->set_currentscaling(extractValue);
-        fclose(processorFile);
+      curScaling = this->getProcessorValue(curNumber, PROCESSOR_SCALING_CUR);
+      if (curScaling != 0)
         threshold++;
-      }
+      else if (prevProcessor != NULL)
+        curScaling = prevProcessor->currentScaling();
 
       // get scaling max frequency
-      sprintf(buffer, PROCESSOR_SCALING_MAX, curNumber);
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        if ( fscanf(processorFile, "%d", &extractValue) == 1)
-          curProcessor->set_maxscaling(extractValue);
-        fclose(processorFile);
+      maxScaling = this->getProcessorValue(curNumber, PROCESSOR_SCALING_MAX);
+      if (maxScaling != 0)
         threshold++;
-      }
+      else if (prevProcessor != NULL)
+        maxScaling = prevProcessor->maxScaling();
 
       // get scaling min frequency
-      sprintf(buffer, PROCESSOR_SCALING_MIN, curNumber);
-
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        if ( fscanf(processorFile, "%d", &extractValue) == 1)
-          curProcessor->set_minscaling(extractValue);
-        fclose(processorFile);
+      minScaling = this->getProcessorValue(curNumber, PROCESSOR_SCALING_MIN);
+      if (minScaling != 0)
         threshold++;
-      }
+      else if (prevProcessor != NULL)
+        minScaling = prevProcessor->minScaling();
 
       // get scaling governor
-      sprintf(buffer, PROCESSOR_SCALING_GOR, curNumber);
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        char curScaling[BufferSize];
-        memset(curScaling, 0, BufferSize);
-        if ( fscanf(processorFile, "%64s", curScaling) == 1)
-          curProcessor->set_grovernors(curScaling);
-        fclose(processorFile);
+      if (this->getProcessorString(curNumber, PROCESSOR_SCALING_GOR, extractString, BufferSize))
         threshold++;
-      }
+      else if (prevProcessor != NULL)
+	strncpy(extractString, prevProcessor->governors()->c_str(), BufferSize);
+      else
+	strncpy(extractString, "", BufferSize);
+      governors = this->_curFlatBuffer->CreateString(extractString);
 
       // available frequency
-      sprintf(buffer, PROCESSOR_AVAILABLE_FREQ, curNumber);
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        char availableFreq[BufferSize];
-        memset(availableFreq, 0, BufferSize);
-        fgets(availableFreq, BufferSize, processorFile);
-        fclose(processorFile);
-        curProcessor->set_avaiablefrequeucy(availableFreq);
+      if (this->getProcessorString(curNumber, PROCESSOR_AVAILABLE_FREQ, extractString, BufferSize))
         threshold++;
-      }
+      else if (prevProcessor != NULL)
+        strncpy(extractString, prevProcessor->availableFrequency()->c_str(), BufferSize);
+      else
+        strncpy(extractString, "", BufferSize);
+      availableFrequency = this->_curFlatBuffer->CreateString(extractString);
 
-      // available gronvenors
-      sprintf(buffer, PROCESSOR_AVAILABLE_GOR, curNumber);
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-        char availableGor[BufferSize];
-        memset(availableGor, 0, BufferSize);
-        fgets(availableGor, BufferSize, processorFile);
-        fclose(processorFile);
-        curProcessor->set_avaiablegovernors(availableGor);
+      // available governors
+      if (this->getProcessorString(curNumber, PROCESSOR_AVAILABLE_GOR, extractString, BufferSize))
         threshold++;
-      }
+      else if (prevProcessor != NULL)
+        strncpy(extractString, prevProcessor->availableGovernors()->c_str(), BufferSize);
+      else
+        strncpy(extractString, "", BufferSize);
+      availableGovernors = this->_curFlatBuffer->CreateString(extractString);
 
       // status
-      sprintf(buffer, PROCESSOR_STATUS, curNumber);
-      processorFile = fopen(buffer, "r");
-      if (processorFile)
-      {
-          if (fscanf(processorFile, "%d", &extractValue) == 1)
-          {
-            if(extractValue == 1)
-              curProcessor->set_offline(false);
-            else
-              curProcessor->set_offline(true);
-          }
-          else
-            curProcessor->set_offline(true);
-          fclose(processorFile);
-      }
+      if(this->getProcessorValue(curNumber, PROCESSOR_STATUS) != 0)
+        offLine = false;
+      else
+        offLine = true;
 
       // some devices don't have a status file, but CPU is online.
       // if we got enough data, it should be online.
-      if(threshold > 6)
-        curProcessor->set_offline(false);
+      // if (threshold >= 6) offLine = false;
 
-      this->_curProcessorList.push_back(curProcessor);
+      processorInfoBuilder curProcessor(*this->_curFlatBuffer);
+      curProcessor.add_number(curNumber);
+      curProcessor.add_maxFrequency(maxFrequency);
+      curProcessor.add_minFrequency(minFrequency);
+      curProcessor.add_currentScaling(curScaling);
+      curProcessor.add_maxScaling(maxScaling);
+      curProcessor.add_minScaling(minScaling);
+      curProcessor.add_governors(governors);
+      curProcessor.add_availableFrequency(availableFrequency);
+      curProcessor.add_availableGovernors(availableGovernors);
+      curProcessor.add_offLine(offLine);
+      this->_list.push_back(curProcessor.Finish());
     }
   }
 
-  void processor::processOfflineProcessor()
+  bool processor::getProcessorString(int number, const char* fileName, char* extractString, int extractLen)
   {
-    std::vector<processorInfo*>::iterator iterPrevProcessorInfo = this->_prevProcessorList.begin();
-    while (iterPrevProcessorInfo != this->_prevProcessorList.end())
+    char buffer[BufferSize];
+
+    memset(extractString, 0, extractLen);
+    sprintf(buffer, fileName, number);
+    FILE *processorFile = fopen(buffer, "r");
+    if (processorFile)
     {
-      // lookup CPUs
-      bool findProcessor = false;
-      std::vector<processorInfo*>::iterator iterCurProcessorInfo = this->_curProcessorList.begin();
-      while (iterCurProcessorInfo != this->_curProcessorList.end())
-      {
-        if ((*iterPrevProcessorInfo)->number() == (*iterCurProcessorInfo)->number())
-        {
-          findProcessor = true;
-          break;
-        }
-        iterCurProcessorInfo++;
-      }
-
-      // if Processor is off-line, just copy old data
-      if (findProcessor == true &&  (*iterCurProcessorInfo)->offline() == true)
-      {
-        (*iterCurProcessorInfo)->set_maxfrequency((*iterPrevProcessorInfo)->maxfrequency());
-        (*iterCurProcessorInfo)->set_minfrequency((*iterPrevProcessorInfo)->minfrequency());
-        (*iterCurProcessorInfo)->set_currentscaling((*iterPrevProcessorInfo)->currentscaling());
-        (*iterCurProcessorInfo)->set_maxscaling((*iterPrevProcessorInfo)->maxscaling());
-        (*iterCurProcessorInfo)->set_minscaling((*iterPrevProcessorInfo)->minscaling());
-        (*iterCurProcessorInfo)->set_grovernors((*iterPrevProcessorInfo)->grovernors());
-      }
-
-      iterPrevProcessorInfo++;
+      fgets(extractString, extractLen, processorFile);
+      fclose(processorFile);
+      return true;
     }
+    return false;
+  }
+
+  int processor::getProcessorValue(int number, const char* fileName)
+  {
+    char buffer[BufferSize];
+    unsigned int extractValue = 0;
+
+    memset(buffer, 0, BufferSize);
+    sprintf(buffer, fileName, number);
+    FILE *processorFile = fopen(buffer, "r");
+    if (processorFile)
+    {
+      fscanf(processorFile, "%d", &extractValue);
+      fclose(processorFile);
+    }
+    else
+      extractValue = -1;
+
+    return extractValue;
+  }
+
+  const processorInfo* processor::getPrevProcessor(int number)
+  {
+    if (this->_preFlatBuffer == NULL)
+      return NULL;
+
+    const processorInfoList *prevProcessorInfoList = GetprocessorInfoList(this->_preFlatBuffer->GetBufferPointer());
+    for (int iterCPU = 0; iterCPU < prevProcessorInfoList->list()->Length(); iterCPU++)
+    {
+      const processorInfo *prevProcessorInfo = prevProcessorInfoList->list()->Get(iterCPU);
+      if (prevProcessorInfo->number() == number) {
+        return prevProcessorInfo;
+      }
+    }
+    return NULL;
+  }
+
+  void processor::prepareBuffer()
+  {
+    if (this->_preFlatBuffer != NULL)
+      delete this->_preFlatBuffer;
+
+    this->_preFlatBuffer = this->_curFlatBuffer;
+    this->_curFlatBuffer = new FlatBufferBuilder();
+    this->_list.clear();
+  }
+
+  void processor::finishBuffer()
+  {
+    auto mloc = CreateprocessorInfoList(*this->_curFlatBuffer, this->_curFlatBuffer->CreateVector(this->_list));
+    FinishprocessorInfoListBuffer(*this->_curFlatBuffer, mloc);
   }
 
   void processor::refresh()
   {
     // clean up
-    this->clearDataSet((std::vector<google::protobuf::Message*>&) this->_prevProcessorList);
-
-    // move
-    this->moveDataSet((std::vector<google::protobuf::Message*>&) this->_curProcessorList,
-                      (std::vector<google::protobuf::Message*>&) this->_prevProcessorList);
+    this->prepareBuffer();
 
     // check file permission
-    this->resetPermission();
+    this->resetAllPermissions();
 
     // gather processors
     this->gatherProcessor();
 
-    // process off-line processors
-    this->processOfflineProcessor();
+    // create a cpuInfoList
+    this->finishBuffer();
 
     return;
   }
 
-  const std::vector<google::protobuf::Message*>& processor::getData()
+  const uint8_t* processor::getData()
   {
-    return ((const std::vector<google::protobuf::Message*>&) this->_curProcessorList);
+    return this->_curFlatBuffer->GetBufferPointer();
+  }
+
+  const uoffset_t processor::getSize()
+  {
+    return this->_curFlatBuffer->GetSize();
   }
 
 }

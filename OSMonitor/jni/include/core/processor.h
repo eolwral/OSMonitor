@@ -6,9 +6,13 @@
 #ifndef PROCESSOR_H_
 #define PROCESSOR_H_
 
-#include "base.h"
-#include "processorInfo.pb.h"
 #include <limits.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+#include "base.h"
+#include "processorInfo_generated.h"
 
 #define PROCESSOR_FREQ_MAX "/sys/devices/system/cpu/cpu%d/cpufreq/cpuinfo_max_freq"
 #define PROCESSOR_FREQ_MIN "/sys/devices/system/cpu/cpu%d/cpufreq/cpuinfo_min_freq"
@@ -33,22 +37,71 @@ namespace core {
   class processor : com::eolwral::osmonitor::core::base
   {
   private:
-    const static int BufferSize = 256;                    /**< internal buffer size */
+    const static int BufferSize = 256;        /**< internal buffer size */
 
-    int MaximumCPUs;                                      /**< maximum cpu number */
-    std::vector<processorInfo*> _curProcessorList;        /**< get current processors list */
-    std::vector<processorInfo*> _prevProcessorList;       /**< get previous processors list */
+    int _maximumCPUs;                         /**< maximum CPU number */
+    FlatBufferBuilder* _curFlatBuffer;        /**< current flatbuffer */
+    FlatBufferBuilder* _preFlatBuffer;        /**< previous flatbuffer */
+    std::vector<Offset<processorInfo>> _list; /**< current processor list
 
+    /**
+     * reset all relative files permission
+     */
+    void resetAllPermissions();
 
-    mode_t getPermission(const char* fileName);
-
-    void resetPermission();
-
+    /**
+     * gathering all processors information
+     */
     void gatherProcessor();
 
+    /**
+     * get processor number
+     */
     int getProcessorNumber();
 
-    void processOfflineProcessor();
+
+    /**
+     * check and set permission
+     * @param[in] number CPU Number
+     * @prarm[in] pattern check file pattern
+     * @param[in] mode desired permission
+     */
+    void resetPermission(int number, const char* pattern, unsigned short mode);
+
+    /**
+     * get previous processor inforamtion
+     * @param[in] number number
+     * @return a point of processorInfo
+     */
+    const processorInfo* getPrevProcessor(int number);
+
+    /**
+     * get string value from file
+     * @param[in] number CPU Number
+     * @param[in] fileName check file pattern
+     * @paran[out] extractString string buffer
+     * @param[in] extractLen buffer length
+     * @return boolean successful or fail
+     */
+    bool getProcessorString(int number, const char* fileName, char* extractString, int extractLen);
+
+    /**
+     * get integer from file
+     * @param[in] number CPU Number
+     * @param[in] fileName check file pattern
+     * @return integer value
+     */
+    int getProcessorValue(int number, const char* fileName);
+
+    /**
+     * prepare FlatBuffer
+     */
+    void prepareBuffer();
+
+    /**
+     * finish FlatBuffer
+     */
+    void finishBuffer();
 
   public:
 
@@ -69,9 +122,15 @@ namespace core {
 
     /**
      * get processors list
-     * @return processors list
+     * @return a buffer pointer
      */
-    const std::vector<google::protobuf::Message*>& getData();
+    const uint8_t* getData();
+
+    /**
+     * get buffer size
+     * @return buffer size
+     */
+    const uoffset_t getSize();
 
   };
 

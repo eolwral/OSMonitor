@@ -14,7 +14,7 @@
 #include <unistd.h>
 
 #include "base.h"
-#include "connectionInfo.pb.h"
+#include "connectionInfo_generated.h"
 
 #define CONNECTION_TCP4 "/proc/%d/net/tcp"
 #define CONNECTION_TCP6 "/proc/%d/net/tcp6"
@@ -39,8 +39,8 @@ namespace core {
   {
   private:
     const static int BufferSize = 256;                  /**< internal buffer size */
-    std::vector<connectionInfo*> _curConnectionList;    /**< current connections list */
-
+    FlatBufferBuilder *_flatbuffer;                     /**< current FlatBuffer object */
+    std::vector<Offset<connectionInfo>> _list;   /**< current connections list */
 
     /**
      * gathering IPv4 connections
@@ -49,22 +49,22 @@ namespace core {
 
     /**
      * process IPv4 connections file
-     * @param fileName filename
-     * @param type process connection's type
+     * @param[in] fileName filename
+     * @param[in] type process connection's type
      */
-    void processIPv4Connection(char* fileName, connectionInfo::connectionType type);
+    void processIPv4Connection(char* fileName, connectionType type);
 
     /**
      * add a IPv4 connection into list
-     * @param type connection type
-     * @param rawLocalAddr raw local address (in_addr)
-     * @param localPort local port
-     * @param rawRemoteAddr raw remote address (in_addr)
-     * @param remotePort remote port
-     * @param rawStatus raw status (unsigned int)
-     * @param rawUID raw UID (unsigned int)
+     * @param[in] type connection type
+     * @param[in] rawLocalAddr raw local address (in_addr)
+     * @param[in] localPort local port
+     * @param[in] rawRemoteAddr raw remote address (in_addr)
+     * @param[in] remotePort remote port
+     * @param[in] rawStatus raw status (unsigned int)
+     * @param[in] rawUID raw UID (unsigned int)
      */
-    void addConnvectionIPv4(connectionInfo::connectionType type,
+    void addConnvectionIPv4(connectionType type,
                             struct in_addr& rawLocalAddr, unsigned int localPort,
                             struct in_addr& rawRemoteAddr, unsigned int remotePort,
                             unsigned int rawStatus, unsigned int rawUID);
@@ -76,37 +76,52 @@ namespace core {
 
     /**
      * process IPv6 connections file
-     * @param fileName filename
-     * @param type process connection's type
+     * @param[in] fileName filename
+     * @param[in] type process connection's type
      */
-    void processIPv6Connection(char* fileName, connectionInfo::connectionType type);
+    void processIPv6Connection(char* fileName, connectionType type);
 
     /**
      * add a IPv6 connection into list
-     * @param type connection type
-     * @param rawLocalAddr raw local address (in_addr6)
-     * @param localPort local port
-     * @param rawRemoteAddr raw remote address (in_addr6)
-     * @param remotePort remote port
-     * @param rawStatus raw status (unsigned int)
-     * @param rawUID raw UID (unsigned int)
+     * @param[in] type connection type
+     * @param[in] rawLocalAddr raw local address (in_addr6)
+     * @param[in] localPort local port
+     * @param[in] rawRemoteAddr raw remote address (in_addr6)
+     * @param[in] remotePort remote port
+     * @param[in] rawStatus raw status (unsigned int)
+     * @param[in] rawUID raw UID (unsigned int)
      */
-    void addConnvectionIPv6(connectionInfo::connectionType type,
+    void addConnvectionIPv6(connectionType type,
                             struct in6_addr& rawLocalAddr, unsigned int localPort,
                             struct in6_addr& rawRemoteAddr, unsigned int remotePort,
                             unsigned int rawStatus, unsigned int rawUID);
 
     /**
      * convert status code from int to enum
-     * @param rawStatus
-     * @return enum
+     * @param[in] rawStatus
+     * @return connectionStatus
      */
-    connectionInfo::connectionStatus convertStatus(unsigned int rawStatus);
+    connectionStatus convertStatus(unsigned int rawStatus);
+
+    /**
+     * prepare FlatBuffer
+     */
+    void prepareBuffer();
+
+    /**
+     * finish FlatBuffer
+     */
+    void finishBuffer();
 
   public:
 
     /**
-     * destructor for Connection
+     * constructor for connecitonInfo
+     */
+    connection();
+
+    /**
+     * destructor for connectionInfo
      */
     ~connection();
 
@@ -117,9 +132,15 @@ namespace core {
 
     /**
      * get connections information
-     * @return a vector contains all connections
+     * @return a buffer pointer
      */
-    const std::vector<google::protobuf::Message*>& getData();
+    const uint8_t* getData();
+
+    /**
+     * get buffer size
+     * @return buffer size
+     */
+    const uoffset_t getSize();
 
   };
 

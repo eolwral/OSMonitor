@@ -1,0 +1,35 @@
+namespace com.eolwral.osmonitor.core;
+
+enum dmesgLevel : byte {
+  /// emergency 
+  EMERGENCY   = 0,
+  /// alert 
+  ALERT       = 1, 
+  /// critical 
+  CRITICAL    = 2,  
+  /// error 
+  ERROR       = 3,  
+  /// warning 
+  WARNING     = 4, 
+  /// notice 
+  NOTICE      = 5,  
+  /// information 
+  INFORMATION = 6,  
+  /// debug 
+  DEBUG       = 7  
+}
+
+table dmesgInfo {
+  /// message level 
+  level:dmesgLevel = INFORMATION;
+  /// passed seconds since boot 
+  seconds:ulong;
+  /// message 
+  message:string;
+}
+
+table dmesgInfoList {
+  list:[dmesgInfo];
+}
+
+root_type dmesgInfoList;

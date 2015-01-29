@@ -1,0 +1,7 @@
+namespace com.eolwral.osmonitor.core;
+
+table commandInfo {
+  arguments:[string];
+}
+  
+root_type commandInfo;

@@ -1,0 +1,69 @@
+namespace com.eolwral.osmonitor.ipc;
+
+enum ipcCategory : byte {
+  /// Non-Exist
+  NONEXIST = 0,
+  /// OS 
+  OS = 1,
+  /// CPU
+  CPU = 2,
+  /// Processor 
+  PROCESSOR = 3,
+  /// Process 
+  PROCESS = 4,
+  /// Connection 
+  CONNECTION = 5,
+  /// Network 
+  NETWORK = 6, 
+  /// DMesg 
+  DMESG = 7,         
+  /// LogCat Radio 
+  LOGCAT_RADIO = 8, 
+  /// LogCat Event 
+  LOGCAT_EVENT = 9,
+  /// LogCat System 
+  LOGCAT_SYSTEM = 10,
+  /// LogCat Main 
+  LOGCAT_MAIN = 11,
+  /// LogCat Crash 
+  LOGCAT_CRASH = 12,
+  /// LogCat Main for WatchLog 
+  LOGCAT_MAIN_R = 13,
+  /// Set Priority
+  SETPRIORITY = 21,
+  /// Kill Processes
+  KILLPROCESS = 22,
+  /// Set CPU online
+  SETCPUSTATUS = 23,
+  /// Set CPU Frequency
+  SETCPUMAXFREQ = 24,
+  /// Set CPU Frequency
+  SETCPUMINFREQ = 25,
+  /// Set CPU Governor
+  SETCPUGORV = 26,
+  /// End
+  FINAL = 99
+}
+
+enum ipcType : byte {
+  /// ACTION 
+  ACTION = 0,
+  /// RESULT 
+  RESULT = 1,
+  /// COMMAND 
+  COMMAND = 2,
+  /// EXIT 
+  EXIT = 10
+} 
+
+table ipcData {
+  category:ipcCategory = NONEXIST;
+  payload:[ubyte];
+}
+
+table ipcMessage {
+  type:ipcType = ACTION;
+  data:[ipcData];
+}
+
+root_type ipcMessage;

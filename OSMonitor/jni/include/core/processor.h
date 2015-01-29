@@ -6,8 +6,13 @@
 #ifndef PROCESSOR_H_
 #define PROCESSOR_H_
 
+// Android
+#include <android/log.h>
+#define APPNAME "OSMCore"
+
 #include <limits.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 

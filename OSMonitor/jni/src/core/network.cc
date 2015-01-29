@@ -226,7 +226,10 @@ namespace core {
     curMAC = open(buffer, O_RDONLY);
     if(curMAC != -1)
     {
-      curMACLen = read(curMAC, curMACAddr, 17);
+      char readBuffer[BufferSize];
+      memset(readBuffer, 0, BufferSize);
+      curMACLen = read(curMAC, readBuffer, 17);
+      strncpy(curMACAddr, readBuffer, 16);
       close(curMAC);
     }
 

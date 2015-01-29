@@ -15,6 +15,7 @@ namespace ipc {
     // Initialize
     this->serverFD = 0;
     this->waitNumber = 0;
+    this->socketUid = 0;
 
     this->uServerLen = 0;
     memset(&this->uServerAddr, 0, sizeof(this->uServerAddr));
@@ -52,18 +53,16 @@ namespace ipc {
   bool ipcserver::init()
   {
     // check socket name to avoid overflow
-    if (this->uServerSocketName.length() > (int) sizeof(this->uServerAddr.sun_path))
+    if (this->uServerSocketName.length() > UNIX_PATH_MAX)
       return (false);
 
-    strcpy(this->uServerAddr.sun_path, this->uServerSocketName.c_str());
+    strncpy(this->uServerAddr.sun_path, this->uServerSocketName.c_str(), UNIX_PATH_MAX-1);
     this->uServerAddr.sun_family = AF_UNIX;
     this->uServerLen = this->uServerSocketName.length() + offsetof(struct sockaddr_un, sun_path);
 
-    // unlink if file is exist
-    struct stat statFile;
-    if (stat(this->uServerSocketName.c_str(), &statFile) != -1)
-      if (unlink(this->uServerSocketName.c_str()) != 0)
-        return (false);
+    // unlink file
+    if (unlink(this->uServerSocketName.c_str()) != 0)
+      if (errno != ENOENT) return (false);
 
     return (true);
   }

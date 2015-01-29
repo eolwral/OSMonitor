@@ -101,15 +101,26 @@ namespace core {
 
   void processor::resetPermission(int number, const char* pattern, unsigned short mode)
   {
+    int statFile = 0;
     struct stat fileStat;
     char buffer[BufferSize];
 
     sprintf(buffer, pattern, number);
-    if(stat(buffer, &fileStat) > 0)
+
+    statFile = open(buffer, O_RDONLY);
+    if (statFile < 0)
+      return;
+
+    if(fstat(statFile, &fileStat) > 0)
     {
       if (fileStat.st_mode != mode)
-        chmod(buffer, mode);
+      {
+        if(fchmod(statFile, mode) != 0)
+          __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "Unable to reset file permission");
+      }
     }
+
+    close(statFile);
   }
 
   void processor::gatherProcessor()
@@ -171,16 +182,16 @@ namespace core {
       if (this->getProcessorString(curNumber, PROCESSOR_SCALING_GOR, extractString, BufferSize))
         threshold++;
       else if (prevProcessor != NULL)
-	strncpy(extractString, prevProcessor->governors()->c_str(), BufferSize);
+        strncpy(extractString, prevProcessor->governors()->c_str(), BufferSize-1);
       else
-	strncpy(extractString, "", BufferSize);
+        strncpy(extractString, "", BufferSize);
       governors = this->_curFlatBuffer->CreateString(extractString);
 
       // available frequency
       if (this->getProcessorString(curNumber, PROCESSOR_AVAILABLE_FREQ, extractString, BufferSize))
         threshold++;
       else if (prevProcessor != NULL)
-        strncpy(extractString, prevProcessor->availableFrequency()->c_str(), BufferSize);
+        strncpy(extractString, prevProcessor->availableFrequency()->c_str(), BufferSize-1);
       else
         strncpy(extractString, "", BufferSize);
       availableFrequency = this->_curFlatBuffer->CreateString(extractString);
@@ -189,7 +200,7 @@ namespace core {
       if (this->getProcessorString(curNumber, PROCESSOR_AVAILABLE_GOR, extractString, BufferSize))
         threshold++;
       else if (prevProcessor != NULL)
-        strncpy(extractString, prevProcessor->availableGovernors()->c_str(), BufferSize);
+        strncpy(extractString, prevProcessor->availableGovernors()->c_str(), BufferSize-1);
       else
         strncpy(extractString, "", BufferSize);
       availableGovernors = this->_curFlatBuffer->CreateString(extractString);
@@ -245,7 +256,8 @@ namespace core {
     FILE *processorFile = fopen(buffer, "r");
     if (processorFile)
     {
-      fscanf(processorFile, "%d", &extractValue);
+      if (fscanf(processorFile, "%d", &extractValue) != 1)
+        extractValue = 0;
       fclose(processorFile);
     }
     else

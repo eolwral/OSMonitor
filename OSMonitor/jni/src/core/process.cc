@@ -151,14 +151,15 @@ namespace core {
     Offset<String> processName = 0;
 
     // get UID
-    char statProc[BUFFERSIZE];
+    char statUid[BUFFERSIZE];
     struct stat statInfo;
-    memset(statProc, 0, BUFFERSIZE);
-    snprintf(statProc, BUFFERSIZE, SYS_PROC_LOC, pid);
-    if(stat(statProc, &statInfo) == -1)
+    memset(statUid, 0, BUFFERSIZE);
+    snprintf(statUid, BUFFERSIZE, SYS_PROC_LOC, pid);
+    if(stat(statUid, &statInfo) == -1)
       return (false);
 
     // get other process information
+    char statProc[BUFFERSIZE];
     snprintf(statProc, BUFFERSIZE, SYS_PROC_STAT, pid);
     FILE* psFile = fopen(statProc, "r");
     if(psFile != 0)

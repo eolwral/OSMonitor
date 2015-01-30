@@ -113,6 +113,17 @@ public class CoreUtil {
   }
 
   /**
+   * is Cyanogenmod ROM ?
+   * @return true == yes, false == no
+   */
+  public static boolean isCyanogenmod() {
+    String version = System.getProperty("os.version");
+    if (version.contains("cyanogenmod"))
+      return true;
+    return false;
+  }
+
+  /**
    * check file status
    * 
    * @param file
@@ -266,8 +277,12 @@ public class CoreUtil {
           CoreUtil.runSU(new String [] { binary, binary + ".token", socket, uid, "&"});
         } else {
           CoreUtil.runSU(new String [] { "chcon", "u:object_r:system_file:s0", binary });
-          CoreUtil.runSU(new String [] { "su", "--context", "u:r:init:s0", "-c", "\"", binary,
-                                                binary + ".token", socket, uid, " &\" &" });
+          if (CoreUtil.isCyanogenmod())
+            CoreUtil.runSU(new String [] { "su", "-c", "\"", binary,
+                                           binary + ".token", socket, uid, " &\" &" });
+          else
+            CoreUtil.runSU(new String [] { "su", "--context", "u:r:init:s0", "-c", "\"", binary,
+                                           binary + ".token", socket, uid, " &\" &" });
           CoreUtil.runSU(new String [] { "chcon", "u:object_r:app_data_file:s0", binary });
         }
       }

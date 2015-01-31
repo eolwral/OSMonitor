@@ -176,7 +176,7 @@
     <string name="ui_preferences_color">Цвет индикатора ЦП</string>
     <string name="ui_preferences_color_detail">синий или зеленый</string>
     <string name="ui_preferences_expert">Экспертный режим</string>
-    <string name="ui_preferences_expert_detail">показавать системные процессы Linux</string>
+    <string name="ui_preferences_expert_detail">показывать системные процессы Linux</string>
     <string name="ui_preferences_root">Включить root</string>
     <string name="ui_preferences_root_detail">дать права root для выполнения системных команд</string>
     <string name="ui_preferences_tempvalue">Показывать градусы Цельсия</string>

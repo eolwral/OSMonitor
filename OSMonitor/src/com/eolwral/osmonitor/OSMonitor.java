@@ -30,7 +30,7 @@ import android.support.v7.app.ActionBar;
 import android.view.Menu;
 
 @SuppressWarnings("deprecation")
-public class OSMonitor extends ActionBarActivity implements
+public class OSMonitor extends OSMonitorActivity implements
     ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
   private ViewPager mViewPager = null;

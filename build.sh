@@ -73,9 +73,9 @@ mkdir assets
 mv libs/armeabi/osmcore assets/osmcore_arm
 mv libs/x86/osmcore assets/osmcore_x86
 mv libs/mips/osmcore assets/osmcore_mips
-mv libs/armeabi/osmcore_l assets/osmcore_arm_pie
-mv libs/x86/osmcore_l assets/osmcore_x86_pie
-mv libs/mips/osmcore_l assets/osmcore_mips_pie
+mv libs/armeabi/osmcore_pie assets/osmcore_arm_pie
+mv libs/x86/osmcore_pie assets/osmcore_x86_pie
+mv libs/mips/osmcore_pie assets/osmcore_mips_pie
 
 # build debug package
 ant debug

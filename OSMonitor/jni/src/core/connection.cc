@@ -150,8 +150,11 @@ namespace core {
     connectionInfo.add_remoteIP(remoteIP);
     connectionInfo.add_remotePort(remotePort);
 
-    // we could directly assign it, because enumerate value equals status code
-    connectionInfo.add_status(convertStatus(rawStatus));
+    // although status code is 0x7, but UDP is not "CLOSED"
+    if (type == connectionType_UDPv6 && rawStatus == connectionStatus_CLOSE)
+      connectionInfo.add_status(connectionStatus_LISTEN);
+    else
+      connectionInfo.add_status(convertStatus(rawStatus));
 
     this->_list.push_back(connectionInfo.Finish());
 
@@ -247,8 +250,11 @@ namespace core {
     connectionInfo.add_remoteIP(remoteIP);
     connectionInfo.add_remotePort(remotePort);
 
-    // we could directly assign it, because enumerate value equals status code
-    connectionInfo.add_status(convertStatus(rawStatus));
+    // although status code is 0x7, but UDP is not "CLOSED"
+    if (type == connectionType_UDPv6 && rawStatus == connectionStatus_CLOSE)
+      connectionInfo.add_status(connectionStatus_LISTEN);
+    else
+      connectionInfo.add_status(convertStatus(rawStatus));
 
     this->_list.push_back(connectionInfo.Finish());
 

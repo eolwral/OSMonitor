@@ -247,6 +247,13 @@ public class CoreUtil {
     String uid = CoreUtil.getUid(context);
     final Settings settings = Settings.getInstance(context);
 
+    // force set security context to avoid permission issue
+    if (settings.isRoot() && isLollipop()) {
+      try {
+        CoreUtil.runSU(new String [] { "chcon", "u:object_r:app_data_file:s0", binary });
+      } catch (Exception e) { }
+    }
+ 
     // copy file
     if (!copyFile("osmcore", binary, context))
       return flag;

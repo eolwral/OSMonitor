@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.processorInfo;
+import com.eolwral.osmonitor.core.processorInfoList;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.ipc.ipcCategory;
@@ -98,8 +99,9 @@ public class ProcessorPreference extends DialogPreference implements
         ipcData rawData = resultMessage.data(index);
 
         if (rawData.category() == ipcCategory.PROCESSOR) {
-          for (int count = 0; count < rawData.payloadLength(); count++) {
-            processorInfo prInfo = processorInfo.getRootAsprocessorInfo(rawData.payloadAsByteBuffer());
+          processorInfoList list = processorInfoList.getRootAsprocessorInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+          for (int count = 0; count < list.listLength(); count++) {
+            processorInfo prInfo = list.list(count);
             coredata.add(prInfo);
           }
         }

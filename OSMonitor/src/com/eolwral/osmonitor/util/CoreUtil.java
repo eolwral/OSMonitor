@@ -285,7 +285,6 @@ public class CoreUtil {
             CoreUtil.runSU(new String [] { "su", "--context", "u:r:init:s0", "-c", "\"" + binary,
                                            binary + ".token", socket, uid, " &\" &" });
           CoreUtil.runSU(new String [] { "chcon", "u:object_r:app_data_file:s0", binary });
-          CoreUtil.runSU(new String[] { "rm", binary });
         }
       }
       flag = true;  

@@ -130,16 +130,22 @@ namespace core {
         this->_info->add_cachedMemory(value*1024);
     }
 
+    int currentPos = ftell(mif);
     while (moveToNextLine(mif) == true)
     {
-        if(fscanf(mif, "SwapTotal: %lu kB", &value) == 1) {
-          this->_info->add_totalSwap(value*1024);
-          continue;
-        }
-        if(fscanf(mif, "SwapFree: %lu kB", &value) == 1) {
-          this->_info->add_freeSwap(value*1024);
-          continue;
-        }
+      if(fscanf(mif, "SwapTotal: %lu kB", &value) == 1) {
+        this->_info->add_totalSwap(value*1024);
+        break;
+      }
+    }
+
+    fseek(mif, currentPos, SEEK_SET);
+    while (moveToNextLine(mif) == true)
+    {
+      if(fscanf(mif, "SwapFree: %lu kB", &value) == 1) {
+        this->_info->add_freeSwap(value*1024);
+        break;
+      }
     }
 
     fclose(mif);

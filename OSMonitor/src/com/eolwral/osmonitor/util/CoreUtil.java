@@ -161,6 +161,11 @@ public class CoreUtil {
       if (isLollipop())
         assetPath += "_pie";
 
+      // remove file
+      try {
+        CoreUtil.runSU(new String[] { "rm", localPath });
+      } catch (Exception e) {}
+
       InputStream binary = context.getAssets().open(assetPath);
       FileOutputStream execute = new FileOutputStream(localPath);
 
@@ -273,6 +278,7 @@ public class CoreUtil {
       if (!settings.isRoot()) {
         CoreUtil.runSHELL(new String [] { binary, binary + ".token", socket, uid, "&"});
       } else {
+
         if (!CoreUtil.isLollipop()) {
           CoreUtil.runSU(new String [] { binary, binary + ".token", socket, uid, "&"});
         } else {

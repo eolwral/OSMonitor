@@ -35,7 +35,7 @@ public class CoreUtil {
   /**
    * predefine socket name
    */
-  private final static String socketName = "osmipc";
+  private final static String socketName = "osmipcV1";
 
   /**
    * bring up help activity
@@ -161,11 +161,6 @@ public class CoreUtil {
       if (isLollipop())
         assetPath += "_pie";
 
-      // remove file
-      try {
-        CoreUtil.runSU(new String[] { "rm", localPath });
-      } catch (Exception e) {}
-
       InputStream binary = context.getAssets().open(assetPath);
       FileOutputStream execute = new FileOutputStream(localPath);
 
@@ -290,9 +285,10 @@ public class CoreUtil {
             CoreUtil.runSU(new String [] { "su", "--context", "u:r:init:s0", "-c", "\"" + binary,
                                            binary + ".token", socket, uid, " &\" &" });
           CoreUtil.runSU(new String [] { "chcon", "u:object_r:app_data_file:s0", binary });
+          CoreUtil.runSU(new String[] { "rm", binary });
         }
       }
-      flag = true;
+      flag = true;  
     } catch (Exception e) { }
 
     // release the lock

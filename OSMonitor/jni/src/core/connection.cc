@@ -251,7 +251,7 @@ namespace core {
     connectionInfo.add_remotePort(remotePort);
 
     // although status code is 0x7, but UDP is not "CLOSED"
-    if (type == connectionType_UDPv6 && rawStatus == connectionStatus_CLOSE)
+    if (type == connectionType_UDPv4 && rawStatus == connectionStatus_CLOSE)
       connectionInfo.add_status(connectionStatus_LISTEN);
     else
       connectionInfo.add_status(convertStatus(rawStatus));

@@ -278,10 +278,10 @@ public class CoreUtil {
         } else {
           CoreUtil.runSU(new String [] { "chcon", "u:object_r:system_file:s0", binary });
           if (CoreUtil.isCyanogenmod())
-            CoreUtil.runSU(new String [] { "su", "-c", "\"", binary,
+            CoreUtil.runSU(new String [] { "su", "-c", "\"" + binary,
                                            binary + ".token", socket, uid, " &\" &" });
           else
-            CoreUtil.runSU(new String [] { "su", "--context", "u:r:init:s0", "-c", "\"", binary,
+            CoreUtil.runSU(new String [] { "su", "--context", "u:r:init:s0", "-c", "\"" + binary,
                                            binary + ".token", socket, uid, " &\" &" });
           CoreUtil.runSU(new String [] { "chcon", "u:object_r:app_data_file:s0", binary });
         }

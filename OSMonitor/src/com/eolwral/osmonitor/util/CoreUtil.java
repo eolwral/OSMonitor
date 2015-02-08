@@ -273,7 +273,7 @@ public class CoreUtil {
       if (!settings.isRoot()) {
         CoreUtil.runSHELL(new String [] { binary, binary + ".token", socket, uid, "&"});
       } else {
-        if (!isSELinuxEnforcing()) {
+        if (!CoreUtil.isLollipop()) {
           CoreUtil.runSU(new String [] { binary, binary + ".token", socket, uid, "&"});
         } else {
           CoreUtil.runSU(new String [] { "chcon", "u:object_r:system_file:s0", binary });
@@ -321,7 +321,7 @@ public class CoreUtil {
       os.writeBytes(builder.toString());
       os.flush();
 
-      os.writeBytes("exit\n");
+      os.writeBytes("exit\n\n");
       os.flush();
 
       process.waitFor();
@@ -359,7 +359,7 @@ public class CoreUtil {
       os.writeBytes(builder.toString());
       os.flush();
 
-      os.writeBytes("exit\n");
+      os.writeBytes("exit\n\n");
       os.flush();
       
       process.waitFor();

@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 
 import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.core.processorInfo;
+import com.eolwral.osmonitor.core.processorInfoList;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.ipc.ipcCategory;
@@ -105,8 +107,9 @@ public class MiscProcessorFragment extends ListFragment implements
         ipcData rawData = resultMessage.data(index);
 
         if (rawData.category() == ipcCategory.PROCESSOR) {
-          for (int count = 0; count < rawData.payloadLength(); count++) {
-            processorInfo prInfo = processorInfo.getRootAsprocessorInfo(rawData.payloadAsByteBuffer());
+          processorInfoList list = processorInfoList.getRootAsprocessorInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+          for (int count = 0; count < list.listLength(); count++) {
+            processorInfo prInfo = list.list(count);
             coredata.add(prInfo);
           }
         }
@@ -194,22 +197,26 @@ public class MiscProcessorFragment extends ListFragment implements
 
       enableBox.setChecked(coreEnable[position]);
 
-      String[] freqList = UserInterfaceUtil.eraseNonIntegarString(coredata
-          .get(position).availableFrequency().split(" "));
-      ArrayAdapter<String> freqAdapter = new ArrayAdapter<String>(mContext,
-          android.R.layout.simple_spinner_item, freqList);
-      freqAdapter
-          .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      maxSeekBar.setAdapter(freqAdapter);
-      minSeekBar.setAdapter(freqAdapter);
+      String[] freqList = new String[0];
+      if (coredata.get(position).availableFrequency() != null) {
+        freqList = UserInterfaceUtil.eraseNonIntegarString(coredata
+                            .get(position).availableFrequency().split(" "));
+        ArrayAdapter<String> freqAdapter = new ArrayAdapter<String>(mContext,
+                             android.R.layout.simple_spinner_item, freqList);
+        freqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        maxSeekBar.setAdapter(freqAdapter);
+        minSeekBar.setAdapter(freqAdapter);
+      }
 
-      String[] govList = UserInterfaceUtil.eraseEmptyString(coredata.get(position)
-          .availableGovernors().split(" "));
-      ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(mContext,
-          android.R.layout.simple_spinner_item, govList);
-      govAdapter
-          .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-      govSeekBar.setAdapter(govAdapter);
+      String[] govList = new String[0];
+      if (coredata.get(position).availableGovernors() != null) {
+        govList = UserInterfaceUtil.eraseEmptyString(coredata.get(position)
+                                   .availableGovernors().split(" "));
+        ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(mContext,
+                                   android.R.layout.simple_spinner_item, govList);
+        govAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        govSeekBar.setAdapter(govAdapter);
+      }
 
       ((TextView) sv.findViewById(R.id.id_processor_title)).setText(mContext
           .getResources().getString(R.string.ui_processor_core)

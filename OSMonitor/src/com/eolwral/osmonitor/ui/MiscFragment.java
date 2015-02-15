@@ -661,7 +661,7 @@ public class MiscFragment extends Fragment implements ipcClientListener {
         ipcData rawData = resultMessage.data(index);
 
         if (rawData.category() == ipcCategory.OS)
-          osdata = osInfo.getRootAsosInfo(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+          extractOsInfo(rawData);
         else if (rawData.category() == ipcCategory.PROCESSOR)
           extractProcessorInfo(rawData);
         else if (rawData.category() == ipcCategory.NETWORK)
@@ -680,6 +680,10 @@ public class MiscFragment extends Fragment implements ipcClientListener {
     byte newCommand[] = { ipcCategory.OS, ipcCategory.PROCESSOR, ipcCategory.NETWORK };
     ipcService.addRequest(newCommand, settings.getInterval(), this);
   }
+
+private void extractOsInfo(ipcData rawData) {
+	osdata = osInfo.getRootAsosInfo(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+}
 
   private void extractNetworkInfo(ipcData rawData)
   {

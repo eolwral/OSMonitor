@@ -98,13 +98,8 @@ public class ProcessorPreference extends DialogPreference implements
       try {
         ipcData rawData = resultMessage.data(index);
 
-        if (rawData.category() == ipcCategory.PROCESSOR) {
-          processorInfoList list = processorInfoList.getRootAsprocessorInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
-          for (int count = 0; count < list.listLength(); count++) {
-            processorInfo prInfo = list.list(count);
-            coredata.add(prInfo);
-          }
-        }
+        if (rawData.category() == ipcCategory.PROCESSOR)
+          extractProcessorInfo(rawData);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -151,6 +146,15 @@ public class ProcessorPreference extends DialogPreference implements
       ipcService.addRequest(newCommand, 0, this);
     }
     return;
+  }
+
+  private void extractProcessorInfo(ipcData rawData)
+  {
+    processorInfoList list = processorInfoList.getRootAsprocessorInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < list.listLength(); count++) {
+      processorInfo prInfo = list.list(count);
+      coredata.add(prInfo);
+    }
   }
 
   @Override
@@ -253,8 +257,8 @@ public class ProcessorPreference extends DialogPreference implements
       maxSeekBar.setAdapter(freqAdapter);
       minSeekBar.setAdapter(freqAdapter);
 
-      String[] govList = UserInterfaceUtil.eraseEmptyString(coredata.get(position)
-          .availableGovernors().split(" "));
+      String[] govList =  UserInterfaceUtil.eraseEmptyString(coredata.get(position)
+              .availableGovernors().split(" "));
       ArrayAdapter<String> govAdapter = new ArrayAdapter<String>(mContext,
           android.R.layout.simple_spinner_item, govList);
       govAdapter

@@ -106,13 +106,8 @@ public class MiscProcessorFragment extends ListFragment implements
       try {
         ipcData rawData = resultMessage.data(index);
 
-        if (rawData.category() == ipcCategory.PROCESSOR) {
-          processorInfoList list = processorInfoList.getRootAsprocessorInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
-          for (int count = 0; count < list.listLength(); count++) {
-            processorInfo prInfo = list.list(count);
-            coredata.add(prInfo);
-          }
-        }
+        if (rawData.category() == ipcCategory.PROCESSOR)
+          extractProcessorInfo(rawData);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -147,6 +142,15 @@ public class MiscProcessorFragment extends ListFragment implements
       coredata.clear();
       byte newCommand[] = { ipcCategory.PROCESSOR };
       ipcService.addRequest(newCommand, 0, this);
+    }
+  }
+
+  private void extractProcessorInfo(ipcData rawData)
+  {
+    processorInfoList list = processorInfoList.getRootAsprocessorInfoList(rawData.payloadAsByteBuffer().asReadOnlyBuffer());
+    for (int count = 0; count < list.listLength(); count++) {
+      processorInfo prInfo = list.list(count);
+      coredata.add(prInfo);
     }
   }
 

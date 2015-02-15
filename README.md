@@ -65,6 +65,10 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.4.0.8**
+- Fix crash when set cpu
+- Fix some issues on root mode
+
 **Version 3.4.0.6**
 
 - Fix incorrect swap value

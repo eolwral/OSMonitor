@@ -65,6 +65,25 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+** Version 3.4.0.6 **
+
+- Fix incorrect swap value
+- Fix incorrect sudo command (Thanks to Stephen)
+
+** Version 3.4.0.2 **
+
+- Fix incorrect UDP status (Thanks to haarp)
+
+** Version 3.4.0.1 **
+
+- Fix crash when pressing hardware button on LG phone (Thanks to Jimmy) 
+- Fix typo for Russia language files (Thanks to Serge)
+
+** Version 3.4.0.0 **
+
+- Reduce memory usage about 10% and improve speed. (Thanks to ARoiD)
+- Use unix domain socket on filesystem to fix TCP issue. (Thanks to Mateusz)
+
 **Version 3.3.1.0**
 
 - Support Android Lollipop

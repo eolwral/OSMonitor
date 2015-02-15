@@ -1,5 +1,7 @@
 package com.eolwral.osmonitor.util;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
@@ -19,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -247,12 +251,7 @@ public class CoreUtil {
     String uid = CoreUtil.getUid(context);
     final Settings settings = Settings.getInstance(context);
 
-    // force set security context to avoid permission issue
-    if (settings.isRoot() && isLollipop()) {
-      try {
-        CoreUtil.runSU(new String [] { "chcon", "u:object_r:app_data_file:s0", binary });
-      } catch (Exception e) { }
-    }
+    restoreSecurityContext(binary, settings);
  
     // copy file
     if (!copyFile("osmcore", binary, context))
@@ -284,8 +283,9 @@ public class CoreUtil {
         if (!CoreUtil.isLollipop()) {
           CoreUtil.runSU(new String [] { binary, binary + ".token", socket, uid, "&"});
         } else {
+          boolean supportSecurityContext = CoreUtil.isSupportSecurityContext();
           CoreUtil.runSU(new String [] { "chcon", "u:object_r:system_file:s0", binary });
-          if (CoreUtil.isCyanogenmod())
+          if (!supportSecurityContext)
             CoreUtil.runSU(new String [] { "su", "-c", "\"" + binary,
                                            binary + ".token", socket, uid, " &\" &" });
           else
@@ -307,13 +307,27 @@ public class CoreUtil {
   }
 
   /**
+   * restore security context
+   * @param String binary path
+   * @param settings 
+   */
+  private static void restoreSecurityContext(String binary, final Settings settings) {
+    // force set security context to avoid permission issue
+    if (settings.isRoot() && isLollipop()) {
+      try {
+        CoreUtil.runSU(new String [] { "chcon", "u:object_r:app_data_file:s0", binary });
+      } catch (Exception e) { }
+    }
+  }
+
+  /**
    * run shell command with root permission
    * @param String [] array of arguments
    * @return int Exit code
    * @throws Exception 
    */
   public static int runSU(String [] args) throws Exception {
-    int exitCode = 1;
+    int exitCode = 0;
 
     StringBuilder builder = new StringBuilder();
     for(String arg : args) {
@@ -329,7 +343,7 @@ public class CoreUtil {
       os.writeBytes(builder.toString());
       os.flush();
 
-      os.writeBytes("exit\n\n");
+      os.writeBytes("exit $?\n\n");
       os.flush();
 
       process.waitFor();
@@ -367,7 +381,7 @@ public class CoreUtil {
       os.writeBytes(builder.toString());
       os.flush();
 
-      os.writeBytes("exit\n\n");
+      os.writeBytes("exit $?\n\n");
       os.flush();
       
       process.waitFor();
@@ -390,62 +404,44 @@ public class CoreUtil {
     boolean flag = false;
 
     try {
-      if (CoreUtil.runSU(new String [] {}) == 0)
+      if (CoreUtil.runSU(new String [] {}) == 0) {
         flag = true;
+      }
     } catch (Exception e) { }
 
     return flag;
   }
-
+  
   /**
-   * Copyright (C) 2012-2014 Jorrit "Chainfire" Jongma
-   * 
-   * Use this library 
-   * 
-   * Detect if SELinux is set to enforcing, caches result
-   * 
-   * @return true if SELinux set to enforcing, or false in the case of
-   *         permissive or not present
+   * Detect security context feature
+   * @return true == yes, false == no
    */
-  private static Boolean isSELinuxEnforcing = null;
-  public static synchronized boolean isSELinuxEnforcing() {
-    if (isSELinuxEnforcing == null) {
-      Boolean enforcing = null;
+  public static boolean isSupportSecurityContext() {
 
-      // First known firmware with SELinux built-in was a 4.2 (17)
-      // leak
-      if (android.os.Build.VERSION.SDK_INT >= 17) {
-        // Detect enforcing through sysfs, not always present
-        if (enforcing == null) {
-          File f = new File("/sys/fs/selinux/enforce");
-          if (f.exists()) {
-            try {
-              InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
-              try {
-                enforcing = (is.read() == '1');
-              } finally {
-                is.close();
-              }
-            } catch (Exception e) {
-            }
-          }
-        }
+    
+    boolean support = false;
+    try {
+      Process process = Runtime.getRuntime().exec(new String[] { "sh" });
+      DataOutputStream os = new DataOutputStream(process.getOutputStream());
+      BufferedReader ibr = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-        // 4.4+ builds are enforcing by default, take the gamble
-        if (enforcing == null) {
-          enforcing = (android.os.Build.VERSION.SDK_INT >= 19);
-        }
-      }
+      os.writeBytes("su -h\n");
+      os.flush();
 
-      if (enforcing == null) {
-        enforcing = false;
-      }
+      os.writeBytes("exit\n\n");
+      os.flush();
 
-      isSELinuxEnforcing = enforcing;
-    }
-    return isSELinuxEnforcing;
+      process.waitFor();
+
+      // SuperSU supports security context feature
+      if (ibr.readLine().contains("SuperSU"))
+        support = true;
+
+    } catch (IOException e) {} 
+      catch (InterruptedException e) {} 
+
+    return support;
   }
-
 
   /**
    * detect background service is running or not

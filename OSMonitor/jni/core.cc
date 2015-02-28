@@ -331,7 +331,7 @@ bool processCommandMsg()
 
     // skip invalid data
     flatbuffers::Verifier verifier(data->payload()->Data(), data->payload()->size());
-    if(core::VerifycommandInfoBuffer(verifier))
+    if(!core::VerifycommandInfoBuffer(verifier))
       continue;
 
     core::command cmd(data->category(), core::GetcommandInfo(data->payload()->Data()));

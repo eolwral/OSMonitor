@@ -232,19 +232,23 @@ public class ProcessorPreference extends DialogPreference implements
 
       final CheckBox enableBox = (CheckBox) sv
           .findViewById(R.id.id_processor_enable);
+      enableBox.setOnCheckedChangeListener(null);
 
       final TextView maxSeekBarValue = (TextView) sv
           .findViewById(R.id.id_processor_freq_max_title);
       final Spinner maxSeekBar = (Spinner) sv
           .findViewById(R.id.id_processor_detail_max_value);
+      maxSeekBar.setOnItemSelectedListener(null);
 
       final TextView minSeekBarValue = (TextView) sv
           .findViewById(R.id.id_processor_freq_min_title);
       final Spinner minSeekBar = (Spinner) sv
           .findViewById(R.id.id_processor_detail_min_value);
+      minSeekBar.setOnItemSelectedListener(null);
 
       final Spinner govSeekBar = (Spinner) sv
           .findViewById(R.id.id_processor_detail_gov_value);
+      govSeekBar.setOnItemLongClickListener(null);
 
       enableBox.setChecked(coreEnable[position]);
 
@@ -295,6 +299,7 @@ public class ProcessorPreference extends DialogPreference implements
           minSeekBar.setSelection(i);
 
       final Settings setting = Settings.getInstance(mContext);
+
       if (setting.isRoot()) {
         maxSeekBar.setClickable(true);
         minSeekBar.setClickable(true);

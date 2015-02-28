@@ -49,6 +49,7 @@ namespace core {
 
     int cpu = atoi((*info->arguments()->Get(0)).c_str());
     short status = atoi((*info->arguments()->Get(1)).c_str());
+
     mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
 
     char buffer[BufferSize];
@@ -72,6 +73,7 @@ namespace core {
 
     int cpu = atoi((*info->arguments()->Get(0)).c_str());
     const char* freq = (*info->arguments()->Get(1)).c_str();
+
     mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
     char buffer[BufferSize];
@@ -94,6 +96,7 @@ namespace core {
 
     int cpu = atoi((*info->arguments()->Get(0)).c_str());
     const char* freq = (*info->arguments()->Get(1)).c_str();
+
     mode_t mode =S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
     char buffer[BufferSize];
@@ -116,7 +119,8 @@ namespace core {
       return;
 
     int cpu = atoi((*info->arguments()->Get(0)).c_str());
-    const char* gov = (*info->arguments()->Get(0)).c_str();
+    const char* gov = (*info->arguments()->Get(1)).c_str();
+
     mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 
     char buffer[BufferSize];

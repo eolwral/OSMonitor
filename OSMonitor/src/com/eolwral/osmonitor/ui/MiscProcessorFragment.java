@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +66,13 @@ public class MiscProcessorFragment extends ListFragment implements
       }
     }
   }
+  
+  public void onStart() {
+    super.onStart();
+
+    byte newCommand[] = { ipcCategory.PROCESSOR };
+    ipcService.addRequest(newCommand, 0, this);
+  }
 
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
@@ -80,9 +86,6 @@ public class MiscProcessorFragment extends ListFragment implements
     ipcProcess = ProgressDialog.show(getActivity(),
         getResources().getString(R.string.ui_processor_enable_title),
         getResources().getString(R.string.ui_processor_enable_msg), true, true);
-
-    byte newCommand[] = { ipcCategory.PROCESSOR };
-    ipcService.addRequest(newCommand, 0, this);
 
     return v;
   }
@@ -181,23 +184,28 @@ public class MiscProcessorFragment extends ListFragment implements
         LayoutInflater mInflater = LayoutInflater.from(mContext);
         sv = (View) mInflater.inflate(R.layout.ui_misc_item_processor_detail,
             parent, false);
-      } else
+      } else 
         sv = convertView;
 
       final CheckBox enableBox = (CheckBox) sv
           .findViewById(R.id.id_processor_enable);
+      enableBox.setOnCheckedChangeListener(null);
+
       final Spinner govSeekBar = (Spinner) sv
           .findViewById(R.id.id_processor_detail_gov_value);
+      govSeekBar.setOnItemSelectedListener(null);
 
       final Spinner maxSeekBar = (Spinner) sv
           .findViewById(R.id.id_processor_detail_max_value);
       final TextView maxSeekBarValue = (TextView) sv
           .findViewById(R.id.id_processor_freq_max_title);
+      maxSeekBar.setOnItemSelectedListener(null);
 
       final Spinner minSeekBar = (Spinner) sv
           .findViewById(R.id.id_processor_detail_min_value);
       final TextView minSeekBarValue = (TextView) sv
           .findViewById(R.id.id_processor_freq_min_title);
+      minSeekBar.setOnItemSelectedListener(null);
 
       enableBox.setChecked(coreEnable[position]);
 

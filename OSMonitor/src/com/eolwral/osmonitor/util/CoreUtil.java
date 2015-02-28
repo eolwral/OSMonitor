@@ -18,6 +18,7 @@ import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Build;
 
@@ -36,7 +37,7 @@ public class CoreUtil {
   /**
    * predefine socket name
    */
-  private final static String socketName = "osmipcV1";
+  private final static String socketName = "osmipcV";
 
   /**
    * bring up help activity
@@ -209,7 +210,13 @@ public class CoreUtil {
    * @return String socket name
    */
   public static String getSocketName(Context context) {
-    return context.getFilesDir().getAbsolutePath() + "/" + socketName;
+    String name = context.getFilesDir().getAbsolutePath() + "/" + socketName;
+    
+    try {
+      name += context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+    } catch (NameNotFoundException e) {}
+    
+    return name;
   }
 
   /**

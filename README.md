@@ -65,6 +65,11 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+
+**Version 3.4.0.8**
+- Bettr naming for unix domain socket
+- Fix command for root mode
+
 **Version 3.4.0.8**
 - Fix crash when set cpu
 - Fix some issues on root mode

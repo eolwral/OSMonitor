@@ -19,7 +19,7 @@ mv android-ndk-r10c android-ndk
 # prepare build-tools
 android list sdk --all --extended
 echo y | android update sdk --filter tools,platform-tools,android-21,extra-android-support --no-ui --force > installation.log
-echo y | android update sdk --filter build-tools-21.1.2 --no-ui --force >> installation.log
+echo y | android update sdk --filter build-tools-22.0.0 --no-ui --force >> installation.log
 
 # get Coverity
 wget -q https://scan.coverity.com/download/cxx/linux-64 --post-data "token=$TOKEN&project=Android+OS+Monitor" -O coverity_tool.tgz

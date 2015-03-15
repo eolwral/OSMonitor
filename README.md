@@ -65,6 +65,8 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.4.1.0**
+- Fix SetCPU function (Thanks to Ulrich)
 
 **Version 3.4.0.9**
 - Bettr naming for unix domain socket

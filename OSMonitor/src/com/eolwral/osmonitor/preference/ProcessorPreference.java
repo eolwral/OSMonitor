@@ -36,7 +36,7 @@ public class ProcessorPreference extends DialogPreference implements
     ipcClientListener {
 
   private ArrayList<processorInfo> coredata = new ArrayList<processorInfo>();
-  private boolean[] coreEnable = null;
+  private ArrayList<processorConfig> setdata = new ArrayList<processorConfig>();
 
   private class processorConfig {
     public boolean enable = true;
@@ -44,8 +44,6 @@ public class ProcessorPreference extends DialogPreference implements
     public long minFreq = 0;
     public String gov = "";
   }
-
-  private ArrayList<processorConfig> setdata = new ArrayList<processorConfig>();
 
   // ipc client
   private IpcService ipcService = IpcService.getInstance();
@@ -112,39 +110,28 @@ public class ProcessorPreference extends DialogPreference implements
       return;
     }
 
-    if (coreEnable == null) {
-      coreEnable = new boolean[coredata.size()];
-      for (int index = 0; index < coredata.size(); index++)
-        coreEnable[index] = ! (coredata.get(index).offLine() == 0x1);
-    }
-
-    boolean forceOnline = false;
+    // prepare settings data
     for (int index = 0; index < coredata.size(); index++) {
-      if (coredata.get(index).offLine() == 0x1) {
-        ipcService.sendCommand(ipcCategory.SETCPUSTATUS, index, 1);
-        forceOnline = true;
-      }
-    }
+      processorConfig newConfig = new processorConfig();
+      newConfig.enable = (coredata.get(index).offLine() != 0x1);
 
-    if (forceOnline == false) {
-
-      // prepare settings data
-      for (int index = 0; index < coredata.size(); index++) {
-        processorConfig newConfig = new processorConfig();
-        newConfig.maxFreq = coredata.get(index).maxScaling();
-        newConfig.minFreq = coredata.get(index).minScaling();
+      if (newConfig.enable) {
+        newConfig.maxFreq = coredata.get(index).maxFrequency();
+        newConfig.minFreq = coredata.get(index).minFrequency();
         newConfig.gov = coredata.get(index).governors();
-        newConfig.enable = coreEnable[index];
-        setdata.add(newConfig);
+      }
+      else {
+        // assign cpu0's value as default value
+        newConfig.maxFreq = coredata.get(0).maxFrequency();
+        newConfig.minFreq = coredata.get(0).minFrequency();
+        newConfig.gov = "";
       }
 
-      ((ProcessorListAdapter) cpuList.getAdapter()).refresh();
-      loadingText.setVisibility(View.GONE);
-    } else {
-      coredata.clear();
-      byte newCommand[] = { ipcCategory.PROCESSOR };
-      ipcService.addRequest(newCommand, 0, this);
+      setdata.add(newConfig);
     }
+
+    ((ProcessorListAdapter) cpuList.getAdapter()).refresh();
+    loadingText.setVisibility(View.GONE);
     return;
   }
 
@@ -184,13 +171,6 @@ public class ProcessorPreference extends DialogPreference implements
       if (getOnPreferenceChangeListener() != null)
         getOnPreferenceChangeListener().onPreferenceChange(this,
             preferenceString.toString());
-    }
-
-    if (coreEnable != null) {
-      for (int index = 0; index < coreEnable.length; index++) {
-        if (coreEnable[index] == false)
-          ipcService.sendCommand(ipcCategory.SETCPUSTATUS, index, 0);
-      }
     }
 
     super.onDialogClosed(positiveResult);
@@ -250,7 +230,7 @@ public class ProcessorPreference extends DialogPreference implements
           .findViewById(R.id.id_processor_detail_gov_value);
       govSeekBar.setOnItemLongClickListener(null);
 
-      enableBox.setChecked(coreEnable[position]);
+      enableBox.setChecked(setdata.get(position).enable);
 
       String[] freqList = UserInterfaceUtil.eraseNonIntegarString(coredata
           .get(position).availableFrequency().split(" "));
@@ -274,29 +254,36 @@ public class ProcessorPreference extends DialogPreference implements
           + " "
           + coredata.get(position).number());
 
-      for (int i = 0; i < govList.length; i++)
-        if (govList[i].equals(coredata.get(position).governors()))
+      for (int i = 0; i < govList.length; i++) {
+        if (govList[i].trim().equals(setdata.get(position).gov.trim())) {
           govSeekBar.setSelection(i);
+          setdata.get(position).gov = govList[i];
+        }
+      }
 
       if (coredata.get(position).maxScaling() != -1)
         maxSeekBarValue.setText(mContext.getResources().getString(
             R.string.ui_processor_freq_max_title)
             + " " + coredata.get(position).maxScaling());
 
-      for (int i = 0; i < freqList.length; i++)
-        if (coredata.get(position).maxScaling() == Integer
-            .parseInt(freqList[i]))
+      for (int i = 0; i < freqList.length; i++) {
+        if (setdata.get(position).maxFreq == Integer.parseInt(freqList[i])) {
           maxSeekBar.setSelection(i);
+          setdata.get(position).maxFreq = Integer.parseInt(freqList[i]);
+        }
+      }
 
       if (coredata.get(position).minScaling() != -1)
         minSeekBarValue.setText(mContext.getResources().getString(
             R.string.ui_processor_freq_min_title)
             + " " + coredata.get(position).minScaling());
 
-      for (int i = 0; i < freqList.length; i++)
-        if (coredata.get(position).minFrequency() == Integer
-            .parseInt(freqList[i]))
+      for (int i = 0; i < freqList.length; i++) {
+        if (setdata.get(position).minFreq == Integer.parseInt(freqList[i])) {
           minSeekBar.setSelection(i);
+          setdata.get(position).minFreq = Integer.parseInt(freqList[i]);
+        }
+      }
 
       final Settings setting = Settings.getInstance(mContext);
 
@@ -343,8 +330,7 @@ public class ProcessorPreference extends DialogPreference implements
 
           if (setdata.size() > CPUNum) {
             ipcService.sendCommand(ipcCategory.SETCPUGORV, CPUNum, selected);
-            setdata.get(CPUNum).gov = parentView.getItemAtPosition(position)
-                .toString();
+            setdata.get(CPUNum).gov = parentView.getItemAtPosition(position).toString();
           }
         }
 
@@ -376,8 +362,7 @@ public class ProcessorPreference extends DialogPreference implements
             ipcService.sendCommand(ipcCategory.SETCPUSTATUS, CPUNum, 1);
             ipcService.sendCommand(ipcCategory.SETCPUMAXFREQ, CPUNum,
                 Long.parseLong(freqList[maxSeekBar.getSelectedItemPosition()]));
-            setdata.get(CPUNum).maxFreq = Long.parseLong(freqList[maxSeekBar
-                .getSelectedItemPosition()]);
+            setdata.get(CPUNum).maxFreq = Long.parseLong(freqList[maxSeekBar.getSelectedItemPosition()]);
           }
         }
 
@@ -409,8 +394,7 @@ public class ProcessorPreference extends DialogPreference implements
             ipcService.sendCommand(ipcCategory.SETCPUSTATUS, CPUNum, 1);
             ipcService.sendCommand(ipcCategory.SETCPUMINFREQ, CPUNum,
                 Long.parseLong(freqList[minSeekBar.getSelectedItemPosition()]));
-            setdata.get(CPUNum).minFreq = Long.parseLong(freqList[minSeekBar
-                .getSelectedItemPosition()]);
+            setdata.get(CPUNum).minFreq = Long.parseLong(freqList[minSeekBar.getSelectedItemPosition()]);
           }
         }
 

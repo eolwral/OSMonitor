@@ -56,14 +56,32 @@ namespace ipc {
     if (this->uServerSocketName.length() > UNIX_PATH_MAX)
       return (false);
 
-    strncpy(this->uServerAddr.sun_path, this->uServerSocketName.c_str(), UNIX_PATH_MAX-1);
+    if (!this->isAbstractSocket())
+    {
+      __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","use file system Unix domain socket");
+      strncpy(this->uServerAddr.sun_path, this->uServerSocketName.c_str(), UNIX_PATH_MAX-1);
+      this->uServerLen = this->uServerSocketName.length() + offsetof(struct sockaddr_un, sun_path);
+
+      // unlink file
+      if (unlink(this->uServerSocketName.c_str()) != 0)
+        if (errno != ENOENT) return (false);
+    }
+    else {
+        __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","use abstract Unix domain socket");
+      this->uServerAddr.sun_path[0] = '\0';
+      strcpy(this->uServerAddr.sun_path+1, this->uServerSocketName.c_str());
+      this->uServerLen = 1 + this->uServerSocketName.length() + offsetof(struct sockaddr_un, sun_path);
+    }
+
     this->uServerAddr.sun_family = AF_UNIX;
-    this->uServerLen = this->uServerSocketName.length() + offsetof(struct sockaddr_un, sun_path);
 
-    // unlink file
-    if (unlink(this->uServerSocketName.c_str()) != 0)
-      if (errno != ENOENT) return (false);
+    return (true);
+  }
 
+  bool ipcserver::isAbstractSocket()
+  {
+    if (this->uServerSocketName[0] == '/')
+      return (false);
     return (true);
   }
 
@@ -103,11 +121,14 @@ namespace ipc {
       return (false);
     }
 
-    if (chown(this->uServerSocketName.c_str(), this->socketUid, this->socketUid) != 0)
+    if (!this->isAbstractSocket())
     {
-      __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","Failed to change owner: %d\n", errno);
-      ::close(this->serverFD);
-      return (false);
+      if (chown(this->uServerSocketName.c_str(), this->socketUid, this->socketUid) != 0)
+      {
+        __android_log_print(ANDROID_LOG_VERBOSE, "OSMCore","Failed to change owner: %d\n", errno);
+        ::close(this->serverFD);
+        return (false);
+      }
     }
 
     return (true);

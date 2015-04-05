@@ -39,7 +39,12 @@ public class IpcConnection {
 
   public boolean connect(int timeOut) throws IOException {
 
-    clientAddress = new LocalSocketAddress(socketName,
+    // use abstract or file system Unix domain socket
+    if (!socketName.startsWith("/"))
+      clientAddress = new LocalSocketAddress(socketName,
+                                           LocalSocketAddress.Namespace.ABSTRACT);
+    else
+      clientAddress = new LocalSocketAddress(socketName,
                                            LocalSocketAddress.Namespace.FILESYSTEM);
 
     clientSocket = new LocalSocket();

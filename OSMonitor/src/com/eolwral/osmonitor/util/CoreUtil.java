@@ -210,8 +210,14 @@ public class CoreUtil {
    * @return String socket name
    */
   public static String getSocketName(Context context) {
-    String name = context.getFilesDir().getAbsolutePath() + "/" + socketName;
-    
+
+    // use abstract or file system 
+    String name = null;
+    if (CoreUtil.isLollipop())
+      name = context.getFilesDir().getAbsolutePath() + "/" + socketName;
+    else
+      name = socketName;
+
     try {
       name += context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
     } catch (NameNotFoundException e) {}

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Applications -->
+<string name="ui_appname">OS Monitor</string>
+
+<!-- Tab -->
+<string name="ui_global_tab">Teljes</string>
+<string name="ui_process_tab">Művelet</string>
+<string name="ui_network_tab">Hálózat</string>
+<string name="ui_connection_tab">Kapcsolatok</string>
+<string name="ui_misc_tab">Egyéb</string>
+<string name="ui_debug_tab">Üzenet</string>
+<string name="ui_notification_tab">Értesítés</string>
+<string name="ui_shortcut_detail">OS Monitor indítása...</string>
+
+<!-- Menu -->
+<string name="ui_menu_setting">Beállítás</string>
+<string name="ui_menu_tools">Eszközök</string>
+<string name="ui_menu_sort">Rendezés</string>
+<string name="ui_menu_search">Keresés</string>
+<string name="ui_menu_stop">Stop</string>
+<string name="ui_menu_type">Típus</string>
+<string name="ui_menu_help">Segítség</string>
+<string name="ui_menu_logexport">Kimentés</string>
+<string name="ui_menu_exit">Kilépés</string>
+
+<!-- Start Process Detail -->
+ 
+<!-- Header -->
+<string name="ui_process_count">Feladat:</string>
+<string name="ui_process_cpuusage">CPU használat:</string>
+
+<!-- Footer -->
+<string name="ui_process_memorytotal">Teljes memória:</string>
+<string name="ui_process_memoryfree">Szabad:</string>
+
+<!-- Process Detail -->
+<string name="ui_process_sort_usage">Használat</string>
+<string name="ui_process_sort_memory">memória</string>
+<string name="ui_process_sort_pid">PID</string>
+<string name="ui_process_sort_name">Név</string>
+<string name="ui_process_sort_cputime">CPU Idő</string>
+<string name="ui_process_sort_status">Állapot</string>
+
+<!-- Process Detail -->
+<string name="ui_process_detail_process">Feladat</string>
+<string name="ui_process_detail_memory">Memória</string>
+<string name="ui_process_detail_ppid">PPID</string>
+<string name="ui_process_detail_thread">Végrehajtás</string>
+<string name="ui_process_detail_stime">SIdő</string>
+<string name="ui_process_detail_utime">UIdő</string>
+<string name="ui_process_detail_nice">Szép</string>
+<string name="ui_process_detail_user">Felhasználó</string>
+<string name="ui_process_detail_status">Állapot</string>
+<string name="ui_process_detail_cputime">CPU Idő</string>
+<string name="ui_process_detail_time">Indítás</string>
+
+<!-- Process Status -->
+<string name="ui_process_status_zombie">Zombi</string>
+<string name="ui_process_status_sleep">Alvás</string>
+<string name="ui_process_status_running">Futtatás</string>
+<string name="ui_process_status_waitio">IO várás</string>
+<string name="ui_process_status_stop">Stop</string>
+<string name="ui_process_status_unknown">Ismeretlen</string>
+
+<!-- Process Tab End -->
+
+
+<!-- Connection Tab Start -->
+
+<!-- Header -->
+<string name="ui_connection_protocol">Proto</string>
+<string name="ui_connection_localremote">Helyi/Távoli IP</string>
+<string name="ui_connection_status">Állapot</string>
+
+<!-- Connection Tab End -->
+
+<!-- Network Tab Start -->
+
+<!-- Header -->
+<string name="ui_network_interface">Kezelőfelület</string>
+<string name="ui_network_ip4">IPv4</string>
+<string name="ui_network_ip6">IPv6</string>
+
+<!-- Additional -->
+<string name="ui_network_mac">MAC</string>
+<string name="ui_network_rx">Rx</string>
+<string name="ui_network_tx">Tx</string>
+<string name="ui_network_status">Állapot</string>
+
+<!-- Status -->
+<string name="ui_network_status_up">le</string>
+<string name="ui_network_status_down">fel</string>
+<string name="ui_network_status_broadcast">adás</string>
+<string name="ui_network_status_loopback">visszatérő</string>
+<string name="ui_network_status_p2p">pont-pont protokol</string>
+<string name="ui_network_status_promisc">válogatatlan</string>
+<string name="ui_network_status_running">futtatás</string>
+<string name="ui_network_status_multicast">multiadás</string>
+
+<!-- Network Tab End -->
+
+<!-- Misc Tab Start -->
+<string name="ui_misc_more">Több</string>
+
+<!-- Memory -->
+<string name="ui_memory_title">Memória</string>
+<string name="ui_swap_title">Swap</string>
+<string name="ui_memory_total">Teljes</string>
+<string name="ui_memory_free">Szabad</string>
+<string name="ui_memory_shared">megosztott</string>
+<string name="ui_memory_buffered">Bufferelt</string>
+<string name="ui_memory_cached">Cach-elt</string>
+
+<!-- Uptime -->
+<string name="ui_system_uptime">Készenlét</string>
+
+<!-- CPU -->
+<string name="ui_processor_freq">Frekvencia</string>
+<string name="ui_processor_scal">Skálázás</string>
+<string name="ui_processor_cur">Jelenlegi</string>
+<string name="ui_processor_gov">Irányító</string>
+<string name="ui_processor_status">Állapot</string>
+<string name="ui_processor_core">Mag</string>
+<string name="ui_processor_freq_max_title">Max Frekvencia</string>
+<string name="ui_processor_freq_min_title">Min Frekvencia</string>
+<string name="ui_processor_enable">Szabad</string>
+<string name="ui_processor_enable_title">Szabad CPU-k</string>
+<string name="ui_processor_enable_msg">Információ kinyerés...</string>
+<string name="ui_processor_status_online">Aktív</string>
+<string name="ui_processor_status_offline">Inaktív</string>
+
+<!-- Battery -->
+<string name="ui_battery">Akkumulátor</string>
+<string name="ui_battery_health">Egészség</string>
+<string name="ui_battery_technology">Technológia</string>
+<string name="ui_battery_capacity">Kapacitás</string>
+<string name="ui_battery_voltage">Feszültség</string>
+<string name="ui_battery_temperature">Hőmérséklet</string>
+<string name="ui_battery_acpower">AC Teljesítmény</string>
+<string name="ui_battery_usbpower">USB Teljesítmény</string>
+<string name="ui_battery_status">Állapot</string>
+<string name="ui_battery_online">Aktív</string>
+<string name="ui_battery_offline">Inaktív</string>
+<string name="ui_battery_status_unknown">Ismertelen</string>
+<string name="ui_battery_status_charging">Töltés</string>
+<string name="ui_battery_status_discharging">Kisütés</string>
+<string name="ui_battery_status_notcharging">Nem Tölt</string>
+<string name="ui_battery_status_full">Teljes</string>
+<string name="ui_battery_health_dead">Halott</string>
+<string name="ui_battery_health_good">Jó</string>
+<string name="ui_battery_health_overheat">Túlmelegedés</string>
+<string name="ui_battery_health_overvoltage">Túlfeszültség</string>
+<string name="ui_battery_health_unknown">Ismeretlen</string>
+<string name="ui_battery_health_failure">Maghatározhatatlan Hiba</string>
+
+<!-- Misc Tab End -->
+
+<!-- Message Tab Start -->
+
+<!-- Header -->
+<string name="ui_message_count">Üzenet:</string>
+
+<!-- Message Tab End -->
+
+<!-- Preferences Start -->
+<string name="ui_preferences_update">Frissítési idő</string>
+<string name="ui_preferences_update_detail">Adatok frissítési ideje</string>
+<string name="ui_preferences_autostart">Autoindítás</string>
+<string name="ui_preferences_autostart_detail">CPU mérő vagy ikon mutatása felállás után</string>
+<string name="ui_preferences_cpuusage">CPU használat mutatása</string>
+<string name="ui_preferences_cpuusage_detail">Animált CPU mutató az értesítési sávban</string>
+<string name="ui_preferences_notification">Ikon hozzáadása</string>
+<string name="ui_preferences_notification_deatil">Ikon mutatása az értesítési sávban</string>
+<string name="ui_preferences_color">CPU mérő színe</string>
+<string name="ui_preferences_color_detail">Kék vagy Zöld</string>
+<string name="ui_preferences_expert">Haladó mód</string>
+<string name="ui_preferences_expert_detail">Natíve linux folyamatok mutatása</string>
+<string name="ui_preferences_root">Root hozzáférés engdeélyezése</string>
+<string name="ui_preferences_root_detail">Root engedély a végrehajtásokhoz</string>
+<string name="ui_preferences_tempvalue">Celsius mutatása</string>
+<string name="ui_preferences_tempvalue_detail"> Celsius/Fahrenheit váltása</string>
+<string name="ui_preferences_notification_customize">Személyre szabott értesítés</string>
+<string name="ui_preferences_notification_customize_detail">Információk kiválasztása amik az értesítési sávban megjelenjenek</string>
+<string name="ui_preferences_map">Térkép típus</string>
+<string name="ui_preferences_map_detail">GoogleMap vagy OpenStreeMap választása</string>
+<string name="ui_preferences_setcpu">CPU boot állítása</string>
+<string name="ui_preferences_setcpu_detail">Processzor beállítások beállítása boot után</string>
+<string name="ui_preferences_setcpu_data">Frekvencia és irányító beállítás</string>
+<string name="ui_preferences_notificaiton_color">Értesítési betű szín</string>
+<string name="ui_preferences_notificaiton_color_detail">Érintsd és válaszd</string>
+<string name="ui_preferences_notificaiton_top">Értesítések mindig felül</string>
+<string name="ui_preferences_notificaiton_top_detail">Értesítések prioritásának beállítása(Android 4.1.2 vagy újabb)</string>
+<string name="ui_preferences_logcat_format">Logcat formátum</string>
+<string name="ui_preferences_logcat_format_detail">log formátuma használathoz.</string>
+<string name="ui_preferences_dmesg_format">Dmesg Formátum</string>
+<string name="ui_preferences_dmesg_format_detail">dmesg fotmátuma használathoz.</string>
+<string name="ui_preferences_logcat_message_color">Logcat üzenet színe</string>
+<string name="ui_preferences_dmesg_message_color">Dmesg üzenet színe</string>
+<string name="ui_preferences_message_color_detail">Üzenet színe használatkor.</string>
+<string name="ui_preferences_message_emergency_color">Vészriasztás </string>
+<string name="ui_preferences_message_alert_color">Riasztás</string>
+<string name="ui_preferences_message_critical_color">Kritikus </string>
+<string name="ui_preferences_message_verbose_color">Kommunikatív </string>
+<string name="ui_preferences_message_warning_color">Figyelmeztetés</string>
+<string name="ui_preferences_message_notice_color">Értesítés</string>
+<string name="ui_preferences_message_info_color">Információ</string>
+<string name="ui_preferences_message_debug_color">Debug</string>
+<string name="ui_preferences_message_error_color">Hiba</string>
+<string name="ui_preferences_message_fatal_color">Fatális</string>
+
+<!-- Preferences End -->
+
+<!-- Common Start -->
+<string name="ui_text_okay">OK</string>
+<string name="ui_text_cancel">Mégse</string>
+<string name="ui_text_default">Alap</string>
+<string name="ui_text_notfound">Hiányzó!</string>
+
+<string name="ui_text_filename">Fájlnév</string>
+<string name="ui_text_fileexist">Létező fájlok!</string>
+<string name="ui_text_exportdone">Kész!</string>
+
+<string name="ui_text_zero">0</string>
+<string name="ui_text_refresh">Kérem várjon...</string>
+<string name="ui_text_kill">Folyamatok leállítása...</string>
+<!-- Common End -->
+
+</resources>

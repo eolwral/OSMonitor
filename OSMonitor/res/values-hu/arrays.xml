@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string-array name="ui_message_type">
+      <item>Fő</item>
+      <item>Rendszer</item>
+      <item>Események</item>
+      <item>Kommunikáció</item>
+      <item>Hiba üzenet</item>
+   </string-array>
+    
+   <string-array name="ui_message_dmesg_level">
+       <item>Debug</item>
+       <item>Információ</item>
+       <item>Értesítés</item>
+       <item>Figyelmeztetés</item>
+       <item>Riasztás</item>
+       <item>Vészhelyzet</item>
+       <item>Hiba</item>
+       <item>Kritikus</item>
+    </string-array>
+
+    <string-array name="ui_message_logcat_level">
+       <item>Debug</item>
+       <item>Kommunikatív</item>
+       <item>Információ</item>
+       <item>Figyelmeztetés</item>
+       <item>Hiba</item>
+       <item>Fatális</item>
+    </string-array>
+    
+    <string-array name="ui_misc_item">
+       <item>Rendszer</item>
+       <item>Akkumulátor</item>
+       <item>CPU</item>
+       <item>Memória</item>
+       <item>Swap</item>
+       <item>Hálózat</item>
+    <!--     <item>Tár</item>  -->
+    </string-array>
+    
+    <string-array name="ui_process_menu_item">
+       <item>Leállítás/Újraindítás</item>
+       <item>Folyamatra váltás</item>
+       <item>Log megnézése</item>
+       <item>Prioritás állítás</item>
+    </string-array>
+
+    <string-array name="ui_message_menu_item">
+        <item>Folyamat keresés</item>
+        <item>Log választás</item>
+    </string-array>
+    
+    <string-array name="ui_preference_interval">
+        <item>Gyors</item>
+        <item>Normál</item>
+        <item>Lassú</item>
+    </string-array>
+    
+    <string-array name="ui_preference_map_value">
+       <item>GoogleMap</item>
+       <item>OpenStreeMap</item>
+    </string-array>
+
+    <string-array name="ui_preference_interval_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    
+    <string-array name="ui_preference_color_base">
+        <item>Zöld</item>
+        <item>Kék</item>
+    </string-array>
+
+    <string-array name="ui_preference_color_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+            
+    <string-array name="ui_process_prority_value" translatable="false">
+        <item>19</item>
+        <item>18</item>
+        <item>17</item>
+        <item>16</item>
+        <item>15</item>
+        <item>14</item>
+        <item>13</item>
+        <item>12</item>
+        <item>11</item>
+        <item>10</item>
+        <item>9</item>
+        <item>8</item>
+        <item>7</item>
+        <item>6</item>
+        <item>5</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-2</item>
+        <item>-3</item>
+        <item>-4</item>
+        <item>-5</item>
+        <item>-6</item>
+        <item>-7</item>
+        <item>-8</item>
+        <item>-9</item>
+        <item>-10</item>
+        <item>-11</item>
+        <item>-12</item>
+        <item>-13</item>
+        <item>-14</item>
+        <item>-15</item>
+        <item>-16</item>
+        <item>-17</item>
+        <item>-18</item>
+        <item>-19</item>
+        <item>-20</item>
+    </string-array>
+    
+    <string-array name="ui_preference_logcat_format_entry">
+        <item>Minta</item>
+        <item>Folyamat</item>
+        <item>Címke</item>
+        <item>Végrehajtás</item>
+        <item>Végrehajtási idő</item>
+        <item>Idő</item>
+        <item>Hosszúság</item>
+        <item>Nyers</item>
+    <item>OS Monitor</item>        
+    </string-array>
+    
+    <string-array name="ui_preference_logcat_format_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>0</item>
+    </string-array>
+    
+    <string-array name="ui_preference_dmesg_format_entry">
+        <item>Nyers</item>
+        <item>OS Monitor</item>
+    </string-array>
+    
+    <string-array name="ui_preference_dmesg_format_value" translatable="false">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+        
+    <string-array name="ui_preference_notification_customize_entry">
+      <item>Memória + Akkumulátor</item>
+      <item>Memória + TárIO</item>
+      <item>Akkumulátor + TárIO</item>
+      <item>Hálózat IO</item>
+    </string-array>
+
+    <string-array name="ui_preference_notification_customize_value" translatable="false">
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+    </string-array>
+  
+</resources>

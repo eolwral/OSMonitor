@@ -278,6 +278,10 @@ public class ProcessorPreference extends DialogPreference implements
             R.string.ui_processor_freq_min_title)
             + " " + coredata.get(position).minScaling());
 
+      // set minimum value 
+      minSeekBar.setSelection(0);
+      setdata.get(0).minFreq = Integer.parseInt(freqList[0]);
+
       for (int i = 0; i < freqList.length; i++) {
         if (setdata.get(position).minFreq == Integer.parseInt(freqList[i])) {
           minSeekBar.setSelection(i);

@@ -142,7 +142,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
     nBuilder.setOnlyAlertOnce(true);
     nBuilder.setOngoing(true);
     nBuilder.setContentIntent(contentIntent);
-    nBuilder.setSmallIcon(R.drawable.ic_launcher);
+    nBuilder.setSmallIcon(R.drawable.ic_stat_notify);
 
     if (isSetTop)
       nBuilder.setPriority(NotificationCompat.PRIORITY_MAX);

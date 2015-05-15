@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string-array name="ui_message_type">
+      <item>Principal</item>
+      <item>Sistema</item>
+      <item>Eventos</item>
+      <item>Radio</item>
+      <item>Dmesg</item>
+   </string-array>
+    
+   <string-array name="ui_message_dmesg_level">
+       <item>Depuración</item>
+       <item>Información</item>
+       <item>Nota</item>
+       <item>Advertencia</item>
+       <item>Alerta</item>
+       <item>Emergencia</item>
+       <item>Error</item>
+       <item>Crítico</item>
+    </string-array>
+
+    <string-array name="ui_message_logcat_level">
+       <item>Depuración</item>
+       <item>Prolijo</item>
+       <item>Información</item>
+       <item>Advertencia</item>
+       <item>Error</item>
+       <item>Fatal</item>
+    </string-array>
+    
+    <string-array name="ui_misc_item">
+       <item>Sistema</item>
+       <item>Bateria</item>
+       <item>CPU</item>
+       <item>Memoria</item>
+       <item>Swap</item>
+       <item>Red</item>
+    <!--     <item>Disk</item>  -->
+    </string-array>
+    
+    <string-array name="ui_process_menu_item">
+       <item>Matar/Reiniciar proceso</item>
+       <item>Cambiar al proceso</item>
+       <item>Mirar registro</item>
+       <item>Fijar prioridad</item>
+    </string-array>
+
+    <string-array name="ui_message_menu_item">
+        <item>Buscar proceso</item>
+        <item>Seleccionar una entrada del registro</item>
+    </string-array>
+    
+    <string-array name="ui_preference_interval">
+        <item>Rápido</item>
+        <item>Normal</item>
+        <item>Lento</item>
+    </string-array>
+    
+    <string-array name="ui_preference_map_value">
+       <item>GoogleMap</item>
+       <item>OpenStreeMap</item>
+    </string-array>
+
+    <string-array name="ui_preference_interval_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    
+    <string-array name="ui_preference_color_base">
+        <item>Verde</item>
+        <item>Azul</item>
+    </string-array>
+
+    <string-array name="ui_preference_color_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+            
+    <string-array name="ui_process_prority_value" translatable="false">
+        <item>19</item>
+        <item>18</item>
+        <item>17</item>
+        <item>16</item>
+        <item>15</item>
+        <item>14</item>
+        <item>13</item>
+        <item>12</item>
+        <item>11</item>
+        <item>10</item>
+        <item>9</item>
+        <item>8</item>
+        <item>7</item>
+        <item>6</item>
+        <item>5</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-2</item>
+        <item>-3</item>
+        <item>-4</item>
+        <item>-5</item>
+        <item>-6</item>
+        <item>-7</item>
+        <item>-8</item>
+        <item>-9</item>
+        <item>-10</item>
+        <item>-11</item>
+        <item>-12</item>
+        <item>-13</item>
+        <item>-14</item>
+        <item>-15</item>
+        <item>-16</item>
+        <item>-17</item>
+        <item>-18</item>
+        <item>-19</item>
+        <item>-20</item>
+    </string-array>
+    
+    <string-array name="ui_preference_logcat_format_entry">
+        <item>Breve</item>
+        <item>Proceso</item>
+        <item>Etiqueta</item>
+        <item>Hilo</item>
+        <item>Hora del hilo</item>
+        <item>Hora</item>
+        <item>Largo</item>
+        <item>Bruto</item>
+    <item>OS Monitor</item>        
+    </string-array>
+    
+    <string-array name="ui_preference_logcat_format_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>0</item>
+    </string-array>
+    
+    <string-array name="ui_preference_dmesg_format_entry">
+        <item>Bruto</item>
+        <item>OS Monitor</item>
+    </string-array>
+    
+    <string-array name="ui_preference_dmesg_format_value" translatable="false">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+        
+    <string-array name="ui_preference_notification_customize_entry">
+      <item>Memoria + Batería</item>
+      <item>Memoria + DiscoIO</item>
+      <item>Batería + DiscoIO</item>
+      <item>Red IO</item>
+    </string-array>
+
+    <string-array name="ui_preference_notification_customize_value" translatable="false">
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+    </string-array>
+  
+</resources>

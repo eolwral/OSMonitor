@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Application -->
+<string name="ui_appname">ОС монитор</string>
+
+<!-- Tab -->
+<string name="ui_global_tab">Опште</string>
+<string name="ui_process_tab">Процеси</string>
+<string name="ui_network_tab">Мрежа</string>
+<string name="ui_connection_tab">Везе</string>
+<string name="ui_misc_tab">Разно</string>
+<string name="ui_debug_tab">Поруке</string>
+<string name="ui_notification_tab">Обавештење</string>
+<string name="ui_shortcut_detail">Тапните за покретање ОС монитора..</string>
+
+<!-- Menu -->
+<string name="ui_menu_setting">Поставке</string>
+<string name="ui_menu_tools">Алатке</string>
+<string name="ui_menu_sort">Ређање</string>
+<string name="ui_menu_search">Претрага</string>
+<string name="ui_menu_stop">Заустави</string>
+<string name="ui_menu_type">Тип</string>
+<string name="ui_menu_help">Помоћ</string>
+<string name="ui_menu_logexport">Извези</string>
+<string name="ui_menu_exit">Изађи</string>
+
+<!-- Process Tab Start -->
+ 
+<!-- Header -->
+<string name="ui_process_count">Процеса:</string>
+<string name="ui_process_cpuusage">Употреба ЦПУ-а:</string>
+
+<!-- Footer -->
+<string name="ui_process_memorytotal">Укупно меморије:</string>
+<string name="ui_process_memoryfree">Слободно:</string>
+
+<!-- Process Detail -->
+<string name="ui_process_sort_usage">Употреба</string>
+<string name="ui_process_sort_memory">Меморија</string>
+<string name="ui_process_sort_pid">ПИД</string>
+<string name="ui_process_sort_name">Назив</string>
+<string name="ui_process_sort_cputime">ЦПУ време</string>
+<string name="ui_process_sort_status">Стање</string>
+
+<!-- Process Detail -->
+<string name="ui_process_detail_process">Процес</string>
+<string name="ui_process_detail_memory">Меморија</string>
+<string name="ui_process_detail_ppid">ППИД</string>
+<string name="ui_process_detail_thread">Нит</string>
+<string name="ui_process_detail_stime">Сис. време</string>
+<string name="ui_process_detail_utime">Кор. време</string>
+<string name="ui_process_detail_nice">Финоћа</string>
+<string name="ui_process_detail_user">Корисник</string>
+<string name="ui_process_detail_status">Стање</string>
+<string name="ui_process_detail_cputime">ЦПУ време</string>
+<string name="ui_process_detail_time">Почетак</string>
+
+<!-- Process Status -->
+<string name="ui_process_status_zombie">зомби</string>
+<string name="ui_process_status_sleep">спава</string>
+<string name="ui_process_status_running">покренут</string>
+<string name="ui_process_status_waitio">чека У/И</string>
+<string name="ui_process_status_stop">заустављен</string>
+<string name="ui_process_status_unknown">непознато</string>
+
+<!-- Process Tab End -->
+
+
+<!-- Connection Tab Start -->
+
+<!-- Header -->
+<string name="ui_connection_protocol">Прото</string>
+<string name="ui_connection_localremote">Локална/удаљена ИП</string>
+<string name="ui_connection_status">Стање</string>
+
+<!-- Connection Tab End -->
+
+<!-- Network Tab Start -->
+
+<!-- Header -->
+<string name="ui_network_interface">Сучеље</string>
+<string name="ui_network_ip4">ИПв4</string>
+<string name="ui_network_ip6">ИПв6</string>
+
+<!-- Additional -->
+<string name="ui_network_mac">МАЦ</string>
+<string name="ui_network_rx">Прим.</string>
+<string name="ui_network_tx">Посл.</string>
+<string name="ui_network_status">Стање</string>
+
+<!-- Status -->
+<string name="ui_network_status_up">дигнута</string>
+<string name="ui_network_status_down">спуштена</string>
+<string name="ui_network_status_broadcast">емитовање</string>
+<string name="ui_network_status_loopback">петља</string>
+<string name="ui_network_status_p2p">point-to-point</string>
+<string name="ui_network_status_promisc">promisc</string>
+<string name="ui_network_status_running">покренута</string>
+<string name="ui_network_status_multicast">вишеструко ем.</string>
+
+<!-- Network Tab End -->
+
+<!-- Misc Tab Start -->
+<string name="ui_misc_more">Још</string>
+
+<!-- Memory -->
+<string name="ui_memory_title">Меморија</string>
+<string name="ui_swap_title">Разменска</string>
+<string name="ui_memory_total">Укупно</string>
+<string name="ui_memory_free">Слободно</string>
+<string name="ui_memory_shared">Дељено</string>
+<string name="ui_memory_buffered">Бафери</string>
+<string name="ui_memory_cached">Кеширано</string>
+
+<!-- Uptime -->
+<string name="ui_system_uptime">Време рада</string>
+
+<!-- CPU -->
+<string name="ui_processor_freq">Фреквенција</string>
+<string name="ui_processor_scal">Скалирање</string>
+<string name="ui_processor_cur">Тренутна</string>
+<string name="ui_processor_gov">Управљач</string>
+<string name="ui_processor_status">Стање</string>
+<string name="ui_processor_core">Језгро</string>
+<string name="ui_processor_freq_max_title">Макс. фрекв.</string>
+<string name="ui_processor_freq_min_title">Мин. фрекв.</string>
+<string name="ui_processor_enable">Укључено</string>
+<string name="ui_processor_enable_title">Укључивање језгара</string>
+<string name="ui_processor_enable_msg">Сакупљам податке..</string>
+<string name="ui_processor_status_online">ради</string>
+<string name="ui_processor_status_offline">не ради</string>
+
+<!-- Battery -->
+<string name="ui_battery">Батерија</string>
+<string name="ui_battery_health">Здравље</string>
+<string name="ui_battery_technology">Технологија</string>
+<string name="ui_battery_capacity">Капацитет</string>
+<string name="ui_battery_voltage">Напон</string>
+<string name="ui_battery_temperature">Температура</string>
+<string name="ui_battery_acpower">Пуњач</string>
+<string name="ui_battery_usbpower">УСБ</string>
+<string name="ui_battery_status">Стање</string>
+<string name="ui_battery_online">укључена</string>
+<string name="ui_battery_offline">искључена</string>
+<string name="ui_battery_status_unknown">Непознато</string>
+<string name="ui_battery_status_charging">Пуни се</string>
+<string name="ui_battery_status_discharging">Празни се</string>
+<string name="ui_battery_status_notcharging">Не пуни се</string>
+<string name="ui_battery_status_full">Пуна</string>
+<string name="ui_battery_health_dead">Мртва</string>
+<string name="ui_battery_health_good">Добро</string>
+<string name="ui_battery_health_overheat">Прегријава се</string>
+<string name="ui_battery_health_overvoltage">Преко напона</string>
+<string name="ui_battery_health_unknown">Непознато</string>
+<string name="ui_battery_health_failure">Неодређена грешка</string>
+
+<!-- Misc Tab End -->
+
+<!-- Message Tab Start -->
+
+<!-- Header -->
+<string name="ui_message_count">Порука:</string>
+
+<!-- Message Tab End -->
+
+<!-- Preferences Start -->
+<string name="ui_preferences_update">Ажурирање</string>
+<string name="ui_preferences_update_detail">Брзина ажурирања података</string>
+<string name="ui_preferences_autostart">Аутоматско покретање</string>
+<string name="ui_preferences_autostart_detail">Покретање ЦПУ мерача при дизању система</string>
+<string name="ui_preferences_cpuusage">Прикажи употребу ЦПУ-а</string>
+<string name="ui_preferences_cpuusage_detail">Приказ анимираног ЦПУ мерача у траци обавештења</string>
+<string name="ui_preferences_notification">Додај пречицу</string>
+<string name="ui_preferences_notification_deatil">Приказ иконе у траци обавештења</string>
+<string name="ui_preferences_color">Боја ЦПУ мерача</string>
+<string name="ui_preferences_color_detail">Плава или зелена</string>
+<string name="ui_preferences_expert">Режим за стручњаке</string>
+<string name="ui_preferences_expert_detail">Приказ системских процеса Линукса</string>
+<string name="ui_preferences_root">Корени приступ</string>
+<string name="ui_preferences_root_detail">Тражење кореног приступа за извршење привилегованих наредби</string>
+<string name="ui_preferences_tempvalue">Целзијуси</string>
+<string name="ui_preferences_tempvalue_detail">Целзијуси или фаренхајти за јединицу температуре</string>
+<string name="ui_preferences_notification_customize">Прилагоди обавештење</string>
+<string name="ui_preferences_notification_customize_detail">Избор података за приказ</string>
+<string name="ui_preferences_map">Тип мапе</string>
+<string name="ui_preferences_map_detail">Гуглове мапе или ОпенСтрит мапе</string>
+<string name="ui_preferences_setcpu">Поставке за ЦПУ</string>
+<string name="ui_preferences_setcpu_detail">Примена поставки при дизању система</string>
+<string name="ui_preferences_setcpu_data">Поставке фреквенције и управљача</string>
+<string name="ui_preferences_notificaiton_color">Боја фонта обавештења</string>
+<string name="ui_preferences_notificaiton_color_detail">Тапните и изаберите</string>
+<string name="ui_preferences_notificaiton_top">Држи обавештење на врху</string>
+<string name="ui_preferences_notificaiton_top_detail">Дизање приоритета обавештења (Андроид 4.1.2 и новији)</string>
+<string name="ui_preferences_logcat_format">Логкат формат</string>
+<string name="ui_preferences_logcat_format_detail">Логкат формат при приказу уноса дневника.</string>
+<string name="ui_preferences_dmesg_format">Дмесг формат</string>
+<string name="ui_preferences_dmesg_format_detail">Дмесг формат при приказу уноса дневника.</string>
+<string name="ui_preferences_logcat_message_color">Боја Логкат  порука</string>
+<string name="ui_preferences_dmesg_message_color">Боја Дмесг порука</string>
+<string name="ui_preferences_message_color_detail">Боја порука при приказу уноса дневника.</string>
+<string name="ui_preferences_message_emergency_color">Хитно</string>
+<string name="ui_preferences_message_alert_color">Узбуна</string>
+<string name="ui_preferences_message_critical_color">Критично</string>
+<string name="ui_preferences_message_verbose_color">Исцрпно</string>
+<string name="ui_preferences_message_warning_color">Упозорење</string>
+<string name="ui_preferences_message_notice_color">Објава</string>
+<string name="ui_preferences_message_info_color">Информативно</string>
+<string name="ui_preferences_message_debug_color">Исправљање грешака</string>
+<string name="ui_preferences_message_error_color">Грешка</string>
+<string name="ui_preferences_message_fatal_color">Кобна грешка</string>
+
+<!-- Preferences End -->
+
+<!-- Common Start -->
+<string name="ui_text_okay">У реду</string>
+<string name="ui_text_cancel">Одустани</string>
+<string name="ui_text_default">Подразумевано</string>
+<string name="ui_text_notfound">Није нађено!</string>
+
+<string name="ui_text_filename">Назив фајла</string>
+<string name="ui_text_fileexist">Фајл постоји!</string>
+<string name="ui_text_exportdone">Готово!</string>
+
+<string name="ui_text_zero">0</string>
+<string name="ui_text_refresh">Сачекајте..</string>
+<string name="ui_text_kill">Убијам %1$d процеса..</string>
+<!-- Common End -->
+
+</resources>

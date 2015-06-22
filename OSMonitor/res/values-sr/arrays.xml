@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string-array name="ui_message_type">
+      <item>Главно</item>
+      <item>Систем</item>
+      <item>Догађаји</item>
+      <item>Радио</item>
+      <item>Дмесг</item>
+   </string-array>
+
+   <string-array name="ui_message_dmesg_level">
+       <item>Исправљање грешака</item>
+       <item>Информативно</item>
+       <item>Објава</item>
+       <item>Упозорење</item>
+       <item>Узбуна</item>
+       <item>Хитно</item>
+       <item>Грешка</item>
+       <item>Критично</item>
+    </string-array>
+
+    <string-array name="ui_message_logcat_level">
+       <item>Исправљање грешака</item>
+       <item>Исцрпно</item>
+       <item>Информативно</item>
+       <item>Упозорење</item>
+       <item>Грешка</item>
+       <item>Кобна грешка</item>
+    </string-array>
+
+    <string-array name="ui_misc_item">
+       <item>Систем</item>
+       <item>Батерија</item>
+       <item>ЦПУ</item>
+       <item>Меморија</item>
+       <item>Разменска</item>
+       <item>Мрежа</item>
+    <!--     <item>Диск</item>  -->
+    </string-array>
+
+    <string-array name="ui_process_menu_item">
+       <item>Убиј/ресетуј процес</item>
+       <item>Пребаци на процес</item>
+       <item>Прати дневник</item>
+       <item>Постави приоритет</item>
+    </string-array>
+
+    <string-array name="ui_message_menu_item">
+        <item>Нађи процес</item>
+        <item>Изабери унос из дневника</item>
+    </string-array>
+
+    <string-array name="ui_preference_interval">
+        <item>Брзо</item>
+        <item>Нормално</item>
+        <item>Споро</item>
+    </string-array>
+
+    <string-array name="ui_preference_map_value">
+       <item>Гуглове мапе</item>
+       <item>ОпенСтрит мапе</item>
+    </string-array>
+
+    <string-array name="ui_preference_color_base">
+        <item>Зелена</item>
+        <item>Плава</item>
+    </string-array>
+
+    <string-array name="ui_preference_logcat_format_entry">
+        <item>Сажет</item>
+        <item>Процеси</item>
+        <item>Ознака</item>
+        <item>Нити</item>
+        <item>Време нити</item>
+        <item>Време</item>
+        <item>Опширан</item>
+        <item>Сиров</item>
+        <item>ОС монитор</item>
+    </string-array>
+
+    <string-array name="ui_preference_dmesg_format_entry">
+        <item>Сиров</item>
+        <item>ОС монитор</item>
+    </string-array>
+
+    <string-array name="ui_preference_notification_customize_entry">
+      <item>Меморија + Батерија</item>
+      <item>Меморија + У/И диска</item>
+      <item>Батерија + У/И диска</item>
+      <item>У/И мреже</item>
+    </string-array>
+
+</resources>

@@ -63,9 +63,15 @@ namespace ipc {
 
     /**
      * check if the client connect exist
-     * @return true == yes, false = false
+     * @return true == yes, false == no
      */
     bool hasClient();
+
+    /**
+     * check socket name, if the socket is abstract, return true
+     * @return true == yes, false == no
+     */
+    bool isAbstractSocket();
 
   public:
 

@@ -1,0 +1,6 @@
+[submodule "volley"]
+	path = volley
+	url = https://android.googlesource.com/platform/frameworks/volley/
+[submodule "colorpicker"]
+	path = colorpicker
+	url = git@github.com:eolwral/android-ColorPickerPreference.git

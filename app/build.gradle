@@ -1,0 +1,104 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/kenneylu/Android/debug.keystore')
+            keyAlias 'androiddebugkey'
+        }
+        release {
+            keyAlias 'eolwral'
+            storeFile file('/Users/kenneylu/Android/eolwral.keystore')
+        }
+    }
+    compileSdkVersion 22
+    buildToolsVersion "21.1.2"
+    defaultConfig {
+        applicationId "com.eolwral.osmonitor"
+        minSdkVersion 9
+        targetSdkVersion 22
+        versionCode 83
+        versionName "3.4.1.1"
+        ndk {
+            moduleName "osmonitor"
+        }
+        signingConfig signingConfigs.debug
+    }
+
+    sourceSets.main {
+        jniLibs.srcDir 'src/main/libs'
+        jni.srcDirs = [] //disable automatic ndk-build call
+    }
+
+
+    //noinspection GroovyAssignabilityCheck
+    task ndkBuild(type: Exec) {
+        workingDir file('src/main').absolutePath
+
+        def localProperties = new Properties()
+        localProperties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def ndkDir = localProperties.getProperty('ndk.dir')
+        def ndkBuildPrefix = ndkDir != null ? ndkDir + '/' : '';
+
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            commandLine ndkBuildPrefix + 'ndk-build.cmd', '-C', 'jni'
+        } else {
+            commandLine ndkBuildPrefix + 'ndk-build', '-C', 'jni'
+        }
+    }
+
+    //noinspection GroovyAssignabilityCheck
+    task ndkMove {
+        def srcDir = file('src/main').absolutePath
+
+        def assets = new File(srcDir, 'assets')
+        if(!assets.exists())
+            assets.mkdirs()
+
+        copy {
+            from srcDir + '/libs/armeabi'
+            into srcDir + '/assets'
+            rename ('osmcore', 'osmcore_arm')
+        }
+
+        copy {
+            from srcDir + '/libs/x86'
+            into srcDir + '/assets'
+            rename ('osmcore', 'osmcore_x86')
+        }
+
+        copy {
+            from srcDir + '/libs/mips'
+            into srcDir + '/assets'
+            rename ('osmcore', 'osmcore_mips')
+        }
+
+    }
+
+    // add this task as a dependency of Java compilation
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn ndkBuild, ndkMove
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile project(':volley')
+    compile project(':colorpicker')
+    compile 'com.android.support:appcompat-v7:22.2.0'
+}

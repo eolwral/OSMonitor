@@ -15,9 +15,17 @@
 bin/
 gen/
 obj/
+build/
+.gradle/
+.idea/
+app/src/main/assets/
+app/src/main/libs/
 
 # Local configuration file (sdk path, etc)
 local.properties
+
+# Andorid Studio files
+*.iml
 
 # Eclipse project files
 .classpath

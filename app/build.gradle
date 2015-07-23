@@ -5,12 +5,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('/Users/kenneylu/Android/debug.keystore')
-            keyAlias 'androiddebugkey'
-        }
-        release {
-            keyAlias 'eolwral'
-            storeFile file('/Users/kenneylu/Android/eolwral.keystore')
+            storeFile file('debug.keystore')
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
         }
     }
     compileSdkVersion 22
@@ -100,5 +98,5 @@ android {
 dependencies {
     compile project(':volley')
     compile project(':colorpicker')
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:appcompat-v7:22.2.0+'
 }

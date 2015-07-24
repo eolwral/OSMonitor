@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Farbeinstellung</string>
-    <string name="dialog_color_picker">Farbwahl</string>
-    <string name="press_color_to_apply">Zum Auswählen auf Farbe tippen</string>
-    <string name="abc_action_mode_done">Fertig</string>
-    <string name="abc_action_bar_home_description">Zur Startseite</string>
-    <string name="abc_action_bar_up_description">Nach oben</string>
-    <string name="abc_action_menu_overflow_description">Weitere Optionen</string>
-    <string name="abc_searchview_description_search">Suche</string>
-    <string name="abc_searchview_description_query">Eingabe</string>
-    <string name="abc_searchview_description_clear">Eingabe löschen</string>
-    <string name="abc_searchview_description_submit">Eingabe senden</string>
-    <string name="abc_searchview_description_voice">Sprachsuche</string>
-    <string name="abc_activitychooserview_choose_application">App auswählen</string>
-    <string name="abc_activity_chooser_view_see_all">Alle ansehen</string>
-    <string name="abc_shareactionprovider_share_with_application">Übergeben an %s</string>
-    <string name="abc_shareactionprovider_share_with">Teilen mit</string>
-    <string name="ui_appname">OS Monitor</string>
+    <string name="ui_appname">Farbeinstellung</string>
     <string name="ui_global_tab">Allgemein</string>
     <string name="ui_process_tab">Prozesse</string>
     <string name="ui_network_tab">Netzwerk</string>
@@ -98,7 +82,7 @@
     <string name="ui_processor_freq_min_title">Min-Frequenz</string>
     <string name="ui_processor_enable">Anwenden</string>
     <string name="ui_processor_enable_title">CPUs aktivieren</string>
-    <string name="ui_processor_enable_msg">Sammele Informationen...</string>
+    <string name="ui_processor_enable_msg">Sammele Informationen..</string>
     <string name="ui_processor_status_online">OnLine</string>
     <string name="ui_processor_status_offline">OffLine</string>
     <string name="ui_battery">Batterie</string>
@@ -130,6 +114,8 @@
     <string name="ui_preferences_autostart_detail">Anwendung beim Booten starten</string>
     <string name="ui_preferences_cpuusage">CPU-Verbrauch anzeigen</string>
     <string name="ui_preferences_cpuusage_detail">Animierte CPU-Last in Statusbar anzeigen</string>
+    <string name="ui_preferences_notification_customize">Anpassen Mitteilung</string>
+    <string name="ui_preferences_notification_customize_detail">Wählen Sie Informationen über die Meldung Widget zeigen</string>
     <string name="ui_preferences_notification">Details anzeigen</string>
     <string name="ui_preferences_notification_deatil">Zeigt Werte in Benachrichtigungsbereich an</string>
     <string name="ui_preferences_color">Farbe der CPU-Lastanzeige</string>
@@ -174,6 +160,6 @@
     <string name="ui_text_fileexist">Datei existiert bereits!</string>
     <string name="ui_text_exportdone">Fertig!</string>
     <string name="ui_text_zero">0</string>
-    <string name="ui_text_refresh">Bitte warten...</string>
-    <string name="ui_text_kill">Terminiere %1$d Prozesse...</string>
+    <string name="ui_text_refresh">Bitte warten..</string>
+    <string name="ui_text_kill">Terminiere %1$d Prozesse..</string>
 </resources>

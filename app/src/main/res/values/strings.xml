@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
 <!-- Application -->
@@ -224,7 +224,7 @@
 
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">Please wait..</string>
-<string name="ui_text_kill">Killing %1$d processes..</string>
+<string name="ui_text_kill">Killing %d processes..</string>
 <!-- Common End -->
 
 </resources>

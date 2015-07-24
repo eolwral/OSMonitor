@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
 <!-- Application -->
@@ -12,7 +12,7 @@
 <string name="ui_misc_tab">Pozostałe</string>
 <string name="ui_debug_tab">Komunikaty</string>
 <string name="ui_notification_tab">Powiadomienie</string>
-<string name="ui_shortcut_detail">Kliknij, aby uruchomić OS Monitor...</string>
+<string name="ui_shortcut_detail">Kliknij, aby uruchomić OS Monitor..</string>
 
 <!-- Menu -->
 <string name="ui_menu_setting">Ustawienia</string>
@@ -127,7 +127,7 @@
 <string name="ui_processor_freq_min_title">Częstotliwość min</string>
 <string name="ui_processor_enable">Włączone</string>
 <string name="ui_processor_enable_title">Włącz CPU</string>
-<string name="ui_processor_enable_msg">Zbieranie informacji...</string>
+<string name="ui_processor_enable_msg">Zbieranie informacji..</string>
 <string name="ui_processor_status_online">Online</string>
 <string name="ui_processor_status_offline">Offline</string>
 
@@ -224,8 +224,8 @@
 <string name="ui_text_exportdone">Zrobione!</string>
 
 <string name="ui_text_zero">0</string>
-<string name="ui_text_refresh">Czekaj...</string>
-<string name="ui_text_kill">Ubijanie %1$d procesów...</string>
+<string name="ui_text_refresh">Czekaj..</string>
+<string name="ui_text_kill">Ubijanie %1$d procesów..</string>
 <!-- Common End -->
 
 </resources>

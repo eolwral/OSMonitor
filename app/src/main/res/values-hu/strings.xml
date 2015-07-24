@@ -12,7 +12,7 @@
 <string name="ui_misc_tab">Egyéb</string>
 <string name="ui_debug_tab">Üzenet</string>
 <string name="ui_notification_tab">Értesítés</string>
-<string name="ui_shortcut_detail">OS Monitor indítása...</string>
+<string name="ui_shortcut_detail">OS Monitor indítása..</string>
 
 <!-- Menu -->
 <string name="ui_menu_setting">Beállítás</string>
@@ -127,7 +127,7 @@
 <string name="ui_processor_freq_min_title">Min Frekvencia</string>
 <string name="ui_processor_enable">Szabad</string>
 <string name="ui_processor_enable_title">Szabad CPU-k</string>
-<string name="ui_processor_enable_msg">Információ kinyerés...</string>
+<string name="ui_processor_enable_msg">Információ kinyerés..</string>
 <string name="ui_processor_status_online">Aktív</string>
 <string name="ui_processor_status_offline">Inaktív</string>
 
@@ -223,8 +223,8 @@
 <string name="ui_text_exportdone">Kész!</string>
 
 <string name="ui_text_zero">0</string>
-<string name="ui_text_refresh">Kérem várjon...</string>
-<string name="ui_text_kill">Folyamatok leállítása...</string>
+<string name="ui_text_refresh">Kérem várjon..</string>
+<string name="ui_text_kill">Folyamatok leállítása..</string>
 <!-- Common End -->
 
 </resources>

@@ -225,6 +225,7 @@
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">חכה בבקשה..</string>
 <string name="ui_text_kill">עוצר %1$d תהליכים..</string>
-<!-- Common End -->
+    <string name="ui_text_notfound">לא נמצא!</string>
+    <!-- Common End -->
 
 </resources>

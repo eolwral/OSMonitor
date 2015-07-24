@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
    <string-array name="ui_message_type">
-      <item>Fő</item>
       <item>Rendszer</item>
       <item>Események</item>
       <item>Kommunikáció</item>
@@ -61,65 +60,11 @@
        <item>OpenStreeMap</item>
     </string-array>
 
-    <string-array name="ui_preference_interval_value" translatable="false">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    
     <string-array name="ui_preference_color_base">
         <item>Zöld</item>
         <item>Kék</item>
     </string-array>
 
-    <string-array name="ui_preference_color_value" translatable="false">
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-            
-    <string-array name="ui_process_prority_value" translatable="false">
-        <item>19</item>
-        <item>18</item>
-        <item>17</item>
-        <item>16</item>
-        <item>15</item>
-        <item>14</item>
-        <item>13</item>
-        <item>12</item>
-        <item>11</item>
-        <item>10</item>
-        <item>9</item>
-        <item>8</item>
-        <item>7</item>
-        <item>6</item>
-        <item>5</item>
-        <item>4</item>
-        <item>3</item>
-        <item>2</item>
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-        <item>-2</item>
-        <item>-3</item>
-        <item>-4</item>
-        <item>-5</item>
-        <item>-6</item>
-        <item>-7</item>
-        <item>-8</item>
-        <item>-9</item>
-        <item>-10</item>
-        <item>-11</item>
-        <item>-12</item>
-        <item>-13</item>
-        <item>-14</item>
-        <item>-15</item>
-        <item>-16</item>
-        <item>-17</item>
-        <item>-18</item>
-        <item>-19</item>
-        <item>-20</item>
-    </string-array>
-    
     <string-array name="ui_preference_logcat_format_entry">
         <item>Minta</item>
         <item>Folyamat</item>
@@ -129,32 +74,14 @@
         <item>Idő</item>
         <item>Hosszúság</item>
         <item>Nyers</item>
-    <item>OS Monitor</item>        
-    </string-array>
-    
-    <string-array name="ui_preference_logcat_format_value" translatable="false">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>0</item>
+        <item>OS Monitor</item>
     </string-array>
     
     <string-array name="ui_preference_dmesg_format_entry">
         <item>Nyers</item>
         <item>OS Monitor</item>
     </string-array>
-    
-    <string-array name="ui_preference_dmesg_format_value" translatable="false">
-        <item>1</item>
-        <item>0</item>
-    </string-array>
-        
+
     <string-array name="ui_preference_notification_customize_entry">
       <item>Memória + Akkumulátor</item>
       <item>Memória + TárIO</item>
@@ -162,11 +89,5 @@
       <item>Hálózat IO</item>
     </string-array>
 
-    <string-array name="ui_preference_notification_customize_value" translatable="false">
-      <item>1</item>
-      <item>2</item>
-      <item>3</item>
-      <item>4</item>
-    </string-array>
-  
+
 </resources>

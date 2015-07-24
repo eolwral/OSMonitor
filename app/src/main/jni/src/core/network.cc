@@ -229,7 +229,7 @@ namespace core {
       char readBuffer[BufferSize];
       memset(readBuffer, 0, BufferSize);
       curMACLen = read(curMAC, readBuffer, 17);
-      strncpy(curMACAddr, readBuffer, 16);
+      strncpy(curMACAddr, readBuffer, 17);
       close(curMAC);
     }
 

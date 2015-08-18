@@ -61,7 +61,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.eolwral.osmonitor.preference.Preference"
+        <activity android:name=".preference.OSMPreference"
                   android:exported="false" />
 
     </application>

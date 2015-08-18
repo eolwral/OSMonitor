@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
@@ -460,7 +461,15 @@ public class OSMonitorService extends Service implements ipcClientListener {
         UserInterfaceUtil.convertToUsage(topUsage[2]) + "% " + topProcess[2]);
 
     // use custom color
-    if (fontColor != -1) {
+    if (fontColor == -1 && CoreUtil.isLollipop()) {
+      osNotification.contentView.setTextColor(R.id.notification_2nd, Color.BLACK);
+      osNotification.contentView.setTextColor(R.id.notification_1nd, Color.BLACK);
+      osNotification.contentView.setTextColor(R.id.notification_cpu, Color.BLACK);
+      osNotification.contentView.setTextColor(R.id.notification_top1st, Color.BLACK);
+      osNotification.contentView.setTextColor(R.id.notification_top2nd, Color.BLACK);
+      osNotification.contentView.setTextColor(R.id.notification_top3nd, Color.BLACK);
+    }
+    else if (fontColor != -1) {
       osNotification.contentView.setTextColor(R.id.notification_2nd, fontColor);
       osNotification.contentView.setTextColor(R.id.notification_1nd, fontColor);
       osNotification.contentView.setTextColor(R.id.notification_cpu, fontColor);

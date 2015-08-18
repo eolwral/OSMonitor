@@ -63,7 +63,7 @@ import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.ipc.ipcCategory;
 import com.eolwral.osmonitor.ipc.ipcData;
 import com.eolwral.osmonitor.ipc.ipcMessage;
-import com.eolwral.osmonitor.preference.Preference;
+import com.eolwral.osmonitor.preference.OSMPreference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
@@ -524,7 +524,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
   }
 
   private void onSettingClick() {
-    Intent settings = new Intent(getActivity(), Preference.class);
+    Intent settings = new Intent(getActivity(), OSMPreference.class);
     settings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(settings);
     return;

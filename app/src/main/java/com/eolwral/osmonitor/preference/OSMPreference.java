@@ -6,6 +6,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
@@ -19,7 +20,7 @@ import com.eolwral.osmonitor.util.CoreUtil;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-public class Preference extends PreferenceActivity {
+public class OSMPreference extends PreferenceActivity {
 
   private SettingsHelper helper = null;
 
@@ -43,8 +44,10 @@ public class Preference extends PreferenceActivity {
       preparePreferenceScreen(prefScreen);
 
       // notification color is disabled on Lollipop
-      if (CoreUtil.isLollipop())
-       prefScreen.findPreference("id_preference_color").setEnabled(false);
+      if (CoreUtil.isLollipop()) {
+        Preference prefColor = prefScreen.findPreference("id_preference_color");
+        prefColor.setEnabled(false);
+      }
     }
   }
 

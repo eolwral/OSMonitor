@@ -1,7 +1,16 @@
 package com.eolwral.osmonitor;
 
-import java.nio.ByteBuffer;
-import java.util.Locale;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
+import android.widget.RemoteViews;
 
 import com.eolwral.osmonitor.core.cpuInfo;
 import com.eolwral.osmonitor.core.cpuInfoList;
@@ -15,23 +24,15 @@ import com.eolwral.osmonitor.ipc.IpcService.ipcClientListener;
 import com.eolwral.osmonitor.ipc.ipcCategory;
 import com.eolwral.osmonitor.ipc.ipcData;
 import com.eolwral.osmonitor.ipc.ipcMessage;
-import com.eolwral.osmonitor.util.ProcessUtil;
-import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.settings.Settings.NotificationType;
 import com.eolwral.osmonitor.settings.Settings.StatusBarColor;
+import com.eolwral.osmonitor.util.CoreUtil;
+import com.eolwral.osmonitor.util.ProcessUtil;
+import com.eolwral.osmonitor.util.UserInterfaceUtil;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
-import android.widget.RemoteViews;
+import java.nio.ByteBuffer;
+import java.util.Locale;
 
 public class OSMonitorService extends Service implements ipcClientListener {
   private static final int NOTIFYID = 20100811;
@@ -95,14 +96,21 @@ public class OSMonitorService extends Service implements ipcClientListener {
 
   private void refreshSettings() {
 
-    switch (settings.getCPUMeterColor()) {
-    case StatusBarColor.GREEN:
-      iconColor = R.drawable.ic_cpu_graph_green;
-      break;
-    case StatusBarColor.BLUE:
-      iconColor = R.drawable.ic_cpu_graph_blue;
-      break;
+    // use notification for meta color
+    if (CoreUtil.isLollipop()) {
+      iconColor = R.drawable.ic_cpu_graph_meta;
     }
+    else {
+      switch (settings.getCPUMeterColor()) {
+        case StatusBarColor.GREEN:
+          iconColor = R.drawable.ic_cpu_graph_green;
+          break;
+        case StatusBarColor.BLUE:
+          iconColor = R.drawable.ic_cpu_graph_blue;
+          break;
+        }
+    }
+
 
     notificationType = settings.getNotificationType();
     fontColor = settings.getNotificationFontColor();
@@ -142,7 +150,13 @@ public class OSMonitorService extends Service implements ipcClientListener {
     nBuilder.setOnlyAlertOnce(true);
     nBuilder.setOngoing(true);
     nBuilder.setContentIntent(contentIntent);
-    nBuilder.setSmallIcon(R.drawable.ic_launcher);
+    nBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+
+    // Use new style icon for Lollipop
+    if (CoreUtil.isLollipop())
+      nBuilder.setSmallIcon(R.drawable.ic_stat_notify);
+    else
+      nBuilder.setSmallIcon(R.drawable.ic_launcher);
 
     if (isSetTop)
       nBuilder.setPriority(NotificationCompat.PRIORITY_MAX);

@@ -53,6 +53,7 @@
         <receiver
             android:name="com.eolwral.osmonitor.BootUpReceiver"
             android:enabled="true"
+            android:exported="false"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -60,7 +61,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.eolwral.osmonitor.preference.Preference" />
+        <activity android:name="com.eolwral.osmonitor.preference.Preference"
+                  android:exported="false" />
 
     </application>
 </manifest>

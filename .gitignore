@@ -32,3 +32,6 @@ local.properties
 .project
 .settings
 .externalToolBuilders
+
+# Mac file
+.DS_Store

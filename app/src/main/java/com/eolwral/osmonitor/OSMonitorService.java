@@ -151,6 +151,8 @@ public class OSMonitorService extends Service implements ipcClientListener {
     nBuilder.setOnlyAlertOnce(true);
     nBuilder.setOngoing(true);
     nBuilder.setContentIntent(contentIntent);
+
+    // Set infos as public
     nBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
 
     // Use new style icon for Lollipop

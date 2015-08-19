@@ -12,6 +12,7 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.util.List;
+import java.lang.reflect.Method;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
@@ -19,8 +20,10 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceActivity;
 
 import com.eolwral.osmonitor.OSMonitorService;
 import com.eolwral.osmonitor.ipc.IpcService;
@@ -471,5 +474,32 @@ public class CoreUtil {
         return true;
     }
     return false;
+  }
+
+  /**
+   * Determined installation location
+   * @param PreferenceActivity activity
+   * @return true == external storage, false == internal stroage
+   */
+  public static boolean isExtraStroage(PreferenceActivity activity)
+  {
+    boolean flag = false;
+    if(Integer.parseInt(Build.VERSION.SDK) >= 8)
+    {
+      // use Reflection to avoid errors (for cupcake 1.5)
+      Method MethodList[] = activity.getClass().getMethods();
+      for(int checkMethod = 0; checkMethod < MethodList.length; checkMethod++)
+      {
+        if(MethodList[checkMethod].getName().indexOf("ApplicationInfo") != -1)
+        {
+          try{
+            if((((ApplicationInfo) MethodList[checkMethod].invoke(activity , new Object[]{})).flags & 0x40000 /* ApplicationInfo.FLAG_EXTERNAL_STORAGE*/ ) != 0 )
+              flag = true;
+          }
+          catch(Exception e) {}
+        }
+      }
+    }
+    return flag;
   }
 }

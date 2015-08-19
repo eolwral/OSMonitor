@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
@@ -40,14 +40,20 @@ public class OSMPreference extends PreferenceActivity {
 
   private void initPreferences() {
     PreferenceScreen prefScreen = getPreferenceScreen();
+
     if (prefScreen != null) {
-      preparePreferenceScreen(prefScreen);
+      // Disable start on boot feature if application installed on extra storage
+      Preference prefBoot = prefScreen.findPreference(Settings.PREFERENCE_AUTOSTART);
+      prefBoot.setEnabled(false);
 
       // notification color is disabled on Lollipop
       if (CoreUtil.isLollipop()) {
-        Preference prefColor = prefScreen.findPreference("id_preference_color");
+        Preference prefColor = prefScreen.findPreference(Settings.PREFERENCE_COLOR);
         prefColor.setEnabled(false);
       }
+
+      preparePreferenceScreen(prefScreen);
+
     }
   }
 
@@ -151,8 +157,9 @@ public class OSMPreference extends PreferenceActivity {
       CheckBoxPreference autoStart = (CheckBoxPreference) getPreferenceScreen()
           .findPreference(Settings.PREFERENCE_AUTOSTART);
 
-      if (helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)
-          || helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false)) {
+      if ((helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)
+          || helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false))
+          && !CoreUtil.isExtraStroage(this)) {
         autoStart.setEnabled(true);
       } else {
         autoStart.setEnabled(false);

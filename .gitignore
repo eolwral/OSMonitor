@@ -35,3 +35,6 @@ local.properties
 
 # Mac file
 .DS_Store
+
+# Debug key
+app/debug.keystore

@@ -9,6 +9,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 
 import com.eolwral.osmonitor.OSMonitorService;
@@ -49,12 +50,39 @@ public class OSMPreference extends PreferenceActivity {
       // notification color is disabled on Lollipop
       if (CoreUtil.isLollipop()) {
         Preference prefColor = prefScreen.findPreference(Settings.PREFERENCE_COLOR);
-        prefColor.setEnabled(false);
+        if (getParent(prefColor) != null)
+          getParent(prefColor).removePreference(prefColor);
       }
 
       preparePreferenceScreen(prefScreen);
-
     }
+  }
+
+  /*
+     Thanks fo Stanislav Bokach
+     http://stackoverflow.com/questions/6177244/how-do-i-get-the-category-of-an-android-preference
+   */
+
+  private PreferenceGroup getParent(Preference preference)
+  {
+    return getParent(getPreferenceScreen(), preference);
+  }
+
+  private PreferenceGroup getParent(PreferenceGroup root, Preference preference)
+  {
+    for (int i = 0; i < root.getPreferenceCount(); i++)
+    {
+      Preference p = root.getPreference(i);
+      if (p == preference)
+        return root;
+      if (PreferenceGroup.class.isInstance(p))
+      {
+        PreferenceGroup parent = getParent((PreferenceGroup)p, preference);
+        if (parent != null)
+          return parent;
+      }
+    }
+    return null;
   }
 
   private void preparePreferenceScreen(PreferenceScreen prefScreen) {

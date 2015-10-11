@@ -41,6 +41,7 @@
     <string-array name="ui_process_menu_item">
        <item>Убиј/ресетуј процес</item>
        <item>Пребаци на процес</item>
+       <item>Пребаци се на апликације инфо</item>
        <item>Прати дневник</item>
        <item>Постави приоритет</item>
     </string-array>

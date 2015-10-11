@@ -1,16 +1,8 @@
 package com.eolwral.osmonitor.ui;
 
-import java.nio.ByteBuffer;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug.MemoryInfo;
 import android.support.v4.app.FragmentManager;
@@ -67,6 +60,15 @@ import com.eolwral.osmonitor.util.CoreUtil;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.google.flatbuffers.FlatBufferBuilder;
+
+import java.nio.ByteBuffer;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 
 public class ProcessFragment extends ListFragment implements ipcClientListener {
 
@@ -544,6 +546,21 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       switchIntent.setComponent(new ComponentName(process, className));
       startActivity(switchIntent);
       getActivity().finish();
+    }
+  }
+
+  private void switchToAppInfo(int pid, String process) {
+
+    try {
+      //Open the specific App Info page:
+      Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+      intent.setData(Uri.parse("package:" + process));
+      startActivity(intent);
+
+    } catch ( ActivityNotFoundException e ) {
+      //Open the generic Apps page:
+      Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+      startActivity(intent);
     }
   }
 
@@ -1166,9 +1183,12 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
           switchToProcess(pid, process);
           break;
         case 2:
-          watchLog(pid, process);
+          switchToAppInfo(pid, process);
           break;
         case 3:
+          watchLog(pid, process);
+          break;
+        case 4:
           setPrority(pid, process, prority);
           break;
 

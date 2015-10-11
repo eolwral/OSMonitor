@@ -44,6 +44,7 @@
     <string-array name="ui_process_menu_item">
        <item>Kill/Reset Process</item>
        <item>Switch to Process</item>
+       <item>Switch to Application Info</item>
        <item>Watch Log</item>
        <item>Set Prority</item>
     </string-array>

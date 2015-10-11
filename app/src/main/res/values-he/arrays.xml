@@ -39,6 +39,7 @@
   <string-array name="ui_process_menu_item">
     <item>לעצור/להתחיל מחדש תהליך</item>
     <item>עבור לתהליך</item>
+    <item>לעבור למידע יישום</item>
     <item>צפה בלוג</item>
     <item>הגדר עדיפות</item>
   </string-array>

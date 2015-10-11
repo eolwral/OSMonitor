@@ -40,6 +40,7 @@
 	<string-array name="ui_process_menu_item">
 		<item>Ubicie/Reset Procesu</item>
 		<item>Przełącz do procesu</item>
+        <item>Przełącz się informacją aplikacji</item>
 		<item>Obejrzyj LOG</item>
 		<item>Ustal priorytet</item>
 	</string-array>

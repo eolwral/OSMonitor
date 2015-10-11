@@ -40,6 +40,7 @@
 	<string-array name="ui_process_menu_item">
 		<item>結束程序</item>
 		<item>切換至程序</item>
+        <item>切換至程序資訊</item>
 		<item>檢視 Log</item>
 		<item>設定優先權</item>
 	</string-array>

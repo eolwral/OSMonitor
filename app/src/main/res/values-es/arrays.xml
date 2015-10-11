@@ -41,6 +41,7 @@
     <string-array name="ui_process_menu_item">
        <item>Matar/Reiniciar proceso</item>
        <item>Cambiar al proceso</item>
+       <item>Cambiar a info aplicación</item>
        <item>Mirar registro</item>
        <item>Fijar prioridad</item>
     </string-array>

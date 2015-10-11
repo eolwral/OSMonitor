@@ -40,6 +40,7 @@
     <string-array name="ui_process_menu_item">
        <item>Leállítás/Újraindítás</item>
        <item>Folyamatra váltás</item>
+       <item>Váltás alkalmazás info</item>
        <item>Log megnézése</item>
        <item>Prioritás állítás</item>
     </string-array>

@@ -43,9 +43,16 @@ public class OSMPreference extends PreferenceActivity {
     PreferenceScreen prefScreen = getPreferenceScreen();
 
     if (prefScreen != null) {
+
       // Disable start on boot feature if application installed on extra storage
-      Preference prefBoot = prefScreen.findPreference(Settings.PREFERENCE_AUTOSTART);
-      prefBoot.setEnabled(false);
+      Preference prefAutoStart = prefScreen.findPreference(Settings.PREFERENCE_AUTOSTART);
+      if ((helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)
+          || helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false))
+          && !CoreUtil.isExtraStroage(this)) {
+        prefAutoStart.setEnabled(true);
+      } else {
+        prefAutoStart.setEnabled(false);
+      }
 
       // notification color is disabled on Lollipop
       if (CoreUtil.isLollipop()) {
@@ -56,6 +63,8 @@ public class OSMPreference extends PreferenceActivity {
 
       preparePreferenceScreen(prefScreen);
     }
+
+
   }
 
   /*
@@ -179,22 +188,25 @@ public class OSMPreference extends PreferenceActivity {
   }
 
   private boolean onPostPreferenceCheck(String key) {
+
+    // Disable start on boot feature if application installed on extra storage
     if (key.equals(Settings.PREFERENCE_CPUUSAGE)
         || key.equals(Settings.PREFERENCE_SHORTCUT)) {
 
-      CheckBoxPreference autoStart = (CheckBoxPreference) getPreferenceScreen()
+      CheckBoxPreference prefAutoStart = (CheckBoxPreference) getPreferenceScreen()
           .findPreference(Settings.PREFERENCE_AUTOSTART);
 
       if ((helper.getBoolean(Settings.PREFERENCE_CPUUSAGE, false)
           || helper.getBoolean(Settings.PREFERENCE_SHORTCUT, false))
           && !CoreUtil.isExtraStroage(this)) {
-        autoStart.setEnabled(true);
+        prefAutoStart.setEnabled(true);
       } else {
-        autoStart.setEnabled(false);
+        prefAutoStart.setEnabled(false);
       }
 
     }
 
+    // check following option if changed
     if (key.equals(Settings.PREFERENCE_CPUUSAGE)
         || key.equals(Settings.PREFERENCE_COLOR)
         || key.equals(Settings.PREFERENCE_ROOT)

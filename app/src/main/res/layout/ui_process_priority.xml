@@ -5,14 +5,14 @@
     android:orientation="vertical" >
 
     <Spinner
-        android:id="@+id/id_process_prority"
+        android:id="@+id/id_process_priority"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/ui_process_prority_value"
+        android:entries="@array/ui_process_priority_value"
         android:gravity="center" />
 
     <Button
-        android:id="@+id/id_process_prority_btn"
+        android:id="@+id/id_process_priority_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

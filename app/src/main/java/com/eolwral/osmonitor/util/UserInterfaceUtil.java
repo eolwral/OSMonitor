@@ -156,7 +156,7 @@ public class UserInterfaceUtil {
    * @param byte
    * @return String
    */
-  public static String getLogprority(byte priority) {
+  public static String getLogpriority(byte priority) {
     switch (priority) {
     case logPriority.SILENT:
       return "SILENT";

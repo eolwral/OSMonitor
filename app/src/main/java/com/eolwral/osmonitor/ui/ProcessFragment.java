@@ -101,7 +101,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
   // tablet
   private boolean tabletLayout = false;
   private int selectedPID = -1;
-  private int selectedPrority = 0;
+  private int selectedPriority = 0;
   private String selectedProcess = "";
   private ViewHolder selectedHolder = null;
 
@@ -245,13 +245,13 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
           watchLog(selectedPID, selectedProcess);
       }
     });
-    buttonAction = (Button) v.findViewById(R.id.id_process_button_setprority);
+    buttonAction = (Button) v.findViewById(R.id.id_process_button_setpriority);
     buttonAction.setText(menuText[3]);
     buttonAction.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
         if (selectedPID != -1 && !selectedProcess.isEmpty())
-          setPrority(selectedPID, selectedProcess, selectedPrority);
+          setPriority(selectedPID, selectedProcess, selectedPriority);
       }
     });
 
@@ -564,20 +564,20 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     }
   }
 
-  private void setPrority(int pid, String process, int prority) {
+  private void setPriority(int pid, String process, int priority) {
     // pass information
-    ProcessProrityFragment newPrority = new ProcessProrityFragment();
+    ProcessPriorityFragment newPriority = new ProcessPriorityFragment();
     Bundle args = new Bundle();
-    args.putInt(ProcessProrityFragment.TARGETPID, pid);
-    args.putString(ProcessProrityFragment.TARGETNAME,
+    args.putInt(ProcessPriorityFragment.TARGETPID, pid);
+    args.putString(ProcessPriorityFragment.TARGETNAME,
         infoHelper.getPackageName(process));
-    args.putInt(ProcessProrityFragment.DEFAULTPRORITY, prority);
-    newPrority.setArguments(args);
+    args.putInt(ProcessPriorityFragment.DEFAULTPRIORITY, priority);
+    newPriority.setArguments(args);
 
     // replace current fragment
     final FragmentManager fragmanger = getActivity()
         .getSupportFragmentManager();
-    newPrority.show(fragmanger, "prority");
+    newPriority.show(fragmanger, "priority");
   }
 
   @Override
@@ -1089,7 +1089,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       // show
       if (targetItem != null && selectedHolder != null) {
         selectedProcess = targetItem.name();
-        selectedPrority = targetItem.priorityLevel();
+        selectedPriority = targetItem.priorityLevel();
         showProcessDetail(selectedHolder, targetItem);
       }
 
@@ -1166,12 +1166,12 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     private class ProcessItemMenu implements DialogInterface.OnClickListener {
       private String process;
       private int pid;
-      private int prority;
+      private int priority;
 
       public ProcessItemMenu(int position) {
         this.process = data.get(position).name();
         this.pid = data.get(position).pid();
-        this.prority = data.get(position).priorityLevel();
+        this.priority = data.get(position).priorityLevel();
       }
 
       public void onClick(DialogInterface dialog, int which) {
@@ -1189,7 +1189,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
           watchLog(pid, process);
           break;
         case 4:
-          setPrority(pid, process, prority);
+          setPriority(pid, process, priority);
           break;
 
         }

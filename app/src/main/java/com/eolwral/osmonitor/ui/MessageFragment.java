@@ -1,14 +1,5 @@
 package com.eolwral.osmonitor.ui;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.ByteBuffer;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -67,6 +58,15 @@ import com.eolwral.osmonitor.preference.OSMPreference;
 import com.eolwral.osmonitor.settings.Settings;
 import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.ByteBuffer;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 public class MessageFragment extends ListFragment implements ipcClientListener {
 
@@ -444,7 +444,7 @@ public class MessageFragment extends ListFragment implements ipcClientListener {
               calendar.getTime())
               + ",");
 
-          logLine.append(UserInterfaceUtil.getLogprority(viewLogcatData.get(index).priority()) + ",");
+          logLine.append(UserInterfaceUtil.getLogpriority(viewLogcatData.get(index).priority()) + ",");
           logLine.append(viewLogcatData.get(index).tag() + ",");
 
           if (viewLogcatData.get(index).pid() == 0)

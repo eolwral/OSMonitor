@@ -81,7 +81,7 @@
         <item>2</item>
     </string-array>
             
-    <string-array name="ui_process_prority_value" translatable="false">
+    <string-array name="ui_process_priority_value" translatable="false">
         <item>19</item>
         <item>18</item>
         <item>17</item>

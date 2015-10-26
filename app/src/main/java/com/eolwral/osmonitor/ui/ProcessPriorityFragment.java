@@ -15,7 +15,7 @@ import com.eolwral.osmonitor.R;
 import com.eolwral.osmonitor.ipc.IpcService;
 import com.eolwral.osmonitor.ipc.ipcCategory;
 
-public class ProcessProrityFragment extends DialogFragment {
+public class ProcessPriorityFragment extends DialogFragment {
 
   // ipc client
   private static IpcService ipcService = IpcService.getInstance();
@@ -23,11 +23,11 @@ public class ProcessProrityFragment extends DialogFragment {
   // set pid
   public final static String TARGETPID = "TargetPID";
   public final static String TARGETNAME = "TargetName";
-  public final static String DEFAULTPRORITY = "DefaultPrority";
+  public final static String DEFAULTPRIORITY = "DefaultPriority";
   private int targetPID = 0;
   private String targetName = "";
-  private int defaultPrority = 0;
-  private int targetPrority = 0;
+  private int defaultPriority = 0;
+  private int targetPriority = 0;
 
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -35,23 +35,23 @@ public class ProcessProrityFragment extends DialogFragment {
     // get pid
     targetPID = getArguments().getInt(TARGETPID);
     targetName = getArguments().getString(TARGETNAME);
-    defaultPrority = getArguments().getInt(DEFAULTPRORITY);
+    defaultPriority = getArguments().getInt(DEFAULTPRIORITY);
   }
 
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
-    View v = inflater.inflate(R.layout.ui_process_prority, container, false);
+    View v = inflater.inflate(R.layout.ui_process_priority, container, false);
 
-    Button setButton = (Button) v.findViewById(R.id.id_process_prority_btn);
-    setButton.setOnClickListener(new SetProrityListener());
+    Button setButton = (Button) v.findViewById(R.id.id_process_priority_btn);
+    setButton.setOnClickListener(new SetPriorityListener());
 
-    Spinner proritySpinner = (Spinner) v.findViewById(R.id.id_process_prority);
-    proritySpinner.setOnItemSelectedListener(new SelectProrityListener());
+    Spinner prioritySpinner = (Spinner) v.findViewById(R.id.id_process_priority);
+    prioritySpinner.setOnItemSelectedListener(new SelectPriorityListener());
 
-    for (int index = 0; index < proritySpinner.getCount(); index++) {
-      if (Integer.parseInt(proritySpinner.getItemAtPosition(index).toString()) == defaultPrority) {
-        proritySpinner.setSelection(index);
+    for (int index = 0; index < prioritySpinner.getCount(); index++) {
+      if (Integer.parseInt(prioritySpinner.getItemAtPosition(index).toString()) == defaultPriority) {
+        prioritySpinner.setSelection(index);
         break;
       }
     }
@@ -61,12 +61,12 @@ public class ProcessProrityFragment extends DialogFragment {
     return v;
   }
 
-  private class SelectProrityListener implements OnItemSelectedListener {
+  private class SelectPriorityListener implements OnItemSelectedListener {
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position,
         long id) {
-      targetPrority = Integer.parseInt(parent.getItemAtPosition(position)
+      targetPriority = Integer.parseInt(parent.getItemAtPosition(position)
           .toString());
     }
 
@@ -75,12 +75,12 @@ public class ProcessProrityFragment extends DialogFragment {
     }
   }
 
-  private class SetProrityListener implements OnClickListener {
+  private class SetPriorityListener implements OnClickListener {
 
     @Override
     public void onClick(View v) {
-      ipcService.sendCommand(ipcCategory.SETPRIORITY, targetPID, targetPrority);
-      ProcessProrityFragment.this.dismiss();
+      ipcService.sendCommand(ipcCategory.SETPRIORITY, targetPID, targetPriority);
+      ProcessPriorityFragment.this.dismiss();
     }
 
   }

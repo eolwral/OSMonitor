@@ -65,6 +65,9 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.5.0.0**
+- Pending.. (A lots of fixes, I will post it later)
+
 **Version 3.4.1.0**
 - Fix SetCPU function (Thanks to Ulrich)
 

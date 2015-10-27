@@ -25,6 +25,9 @@ if you would like to know that how it works, please check Wiki page!
 - Italian - Thanks to Gabriele Zappi
 - German - Thanks to Benko111@XDA
 - Russian - Thanks to equeim
+- Spanish  - Thanks to xphnx
+- Hungarian - Thanks to Zsigmond
+- Serbian - Thanks to pejakm
 - English
 - Chinese
 
@@ -71,6 +74,7 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 - Serbian Language (Thanks to pejakm)
 - Notification Icon for Material UI (Thanks to xphnx)
 - Fix MAC address (Thanks to walek75 and Roy)
+- Add AppInfo for process (Thanks to digi-owl)
 - Fix incorrect status for AutoStart
 
 **Version 3.4.1.0**

@@ -66,7 +66,12 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 ### Change Log ###
 
 **Version 3.5.0.0**
-- Pending.. (A lots of fixes, I will post it later)
+- Spanish Language (Thanks to xphnx)
+- Hungarian Language (Thanks to Zsigmond)
+- Serbian Language (Thanks to pejakm)
+- Notification Icon for Material UI (Thanks to xphnx)
+- Fix MAC address (Thanks to walek75 and Roy)
+- Fix incorrect status for AutoStart
 
 **Version 3.4.1.0**
 - Fix SetCPU function (Thanks to Ulrich)

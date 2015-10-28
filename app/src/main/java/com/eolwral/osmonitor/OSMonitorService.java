@@ -402,24 +402,32 @@ public class OSMonitorService extends Service implements ipcClientListener {
   private void refreshNotification() {
 
 
+    Notification osNotification;
+
     // set current iconLevel
     // Fix: Android 6.0 issue
-    int iconLevel = 0;
+    if (CoreUtil.isMarshmallow()) {
+      int iconLevel = 0;
 
-    if (cpuUsage < 20)
-      iconLevel = 1;
-    else if (cpuUsage < 40)
-      iconLevel = 2;
-    else if (cpuUsage < 60)
-      iconLevel = 3;
-    else if (cpuUsage < 80)
-      iconLevel = 4;
-    else if (cpuUsage < 100)
-      iconLevel = 5;
-    else
-      iconLevel = 6;
+      if (cpuUsage < 20)
+        iconLevel = 1;
+      else if (cpuUsage < 40)
+        iconLevel = 2;
+      else if (cpuUsage < 60)
+        iconLevel = 3;
+      else if (cpuUsage < 80)
+        iconLevel = 4;
+      else if (cpuUsage < 100)
+        iconLevel = 5;
+      else
+        iconLevel = 6;
 
-    Notification osNotification = nBuilder.setSmallIcon(iconColor, iconLevel).build();
+      osNotification = nBuilder.setSmallIcon(iconColor, iconLevel).build();
+    }
+    else {
+      osNotification = nBuilder.build();
+    }
+
     osNotification.contentView = new RemoteViews(getPackageName(), R.layout.ui_notification);
 
     // set contentIntent to fix
@@ -496,6 +504,23 @@ public class OSMonitorService extends Service implements ipcClientListener {
       osNotification.contentView.setTextColor(R.id.notification_top1st, fontColor);
       osNotification.contentView.setTextColor(R.id.notification_top2nd, fontColor);
       osNotification.contentView.setTextColor(R.id.notification_top3nd, fontColor);
+    }
+
+    /* Fix compatible issue for Notification Icon */
+    if (!CoreUtil.isMarshmallow()) {
+      osNotification.icon = iconColor;
+      if (cpuUsage < 20)
+        osNotification.iconLevel = 1;
+      else if (cpuUsage < 40)
+        osNotification.iconLevel = 2;
+      else if (cpuUsage < 60)
+        osNotification.iconLevel = 3;
+      else if (cpuUsage < 80)
+        osNotification.iconLevel = 4;
+      else if (cpuUsage < 100)
+        osNotification.iconLevel = 5;
+      else
+        osNotification.iconLevel = 6;
     }
 
     nManager.notify(NOTIFYID, osNotification);

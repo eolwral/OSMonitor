@@ -118,6 +118,15 @@ public class CoreUtil {
   }
 
   /**
+   * is Android Marshmallow ?
+   *
+   * @return true == yes, false == no
+   */
+  public static boolean isMarshmallow() {
+    return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
+  }
+
+  /**
    * is Cyanogenmod ROM ?
    * @return true == yes, false == no
    */
@@ -303,8 +312,13 @@ public class CoreUtil {
           else
             CoreUtil.runSU(new String [] { "su", "--context", "u:r:init:s0", "-c", "\"" + binary,
                                            binary + ".token", socket, uid, " &\" &" });
-          CoreUtil.runSU(new String[] { "restorecon", binary});
-          CoreUtil.runSU(new String[] { "restorecon", socket});
+
+          if (CoreUtil.isMarshmallow()) {
+            CoreUtil.runSU(new String[]{"restorecon", binary});
+            CoreUtil.runSU(new String[]{"restorecon", socket});
+          }
+          else
+            CoreUtil.runSU(new String [] { "chcon", "u:object_r:app_data_file:s0", binary });
         }
       }
       flag = true;  
@@ -326,10 +340,17 @@ public class CoreUtil {
    */
   private static void restoreSecurityContext(String binary, final Settings settings) {
     // force set security context to avoid permission issue
-    if (settings.isRoot() && isLollipop()) {
-      try {
-        CoreUtil.runSU(new String[] { "restorecon", binary});
-      } catch (Exception e) { }
+    if (settings.isRoot()) {
+      if (isMarshmallow()) {
+        try {
+          CoreUtil.runSU(new String[]{"restorecon", binary});
+        } catch (Exception e) { }
+      }
+      else if (isLollipop()) {
+        try {
+          CoreUtil.runSU(new String[]{"chcon", "u:object_r:app_data_file:s0", binary});
+        } catch (Exception e) { }
+      }
     }
   }
 

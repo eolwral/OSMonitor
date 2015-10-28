@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="ui_appname">Farbeinstellung</string>
+    <string name="ui_appname">OS Monitor</string>
     <string name="ui_global_tab">Allgemein</string>
     <string name="ui_process_tab">Prozesse</string>
     <string name="ui_network_tab">Netzwerk</string>

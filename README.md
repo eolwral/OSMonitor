@@ -68,6 +68,10 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.5.0.1**
+- Fix flawd translation 
+- Improve compatiable for root mode
+
 **Version 3.5.0.0**
 - Spanish Language (Thanks to xphnx)
 - Hungarian Language (Thanks to Zsigmond)

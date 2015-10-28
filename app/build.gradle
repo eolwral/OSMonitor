@@ -11,14 +11,14 @@ android {
             keyPassword "android"
         }
     }
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion "23.0.1"
     defaultConfig {
         applicationId "com.eolwral.osmonitor"
         minSdkVersion 9
         targetSdkVersion 22
-        versionCode 83
-        versionName "3.5.0.0"
+        versionCode 84
+        versionName "3.5.0.1"
         ndk {
             moduleName "osmonitor"
         }

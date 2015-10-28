@@ -2,7 +2,7 @@
 <resources>
 
 <!-- Application -->
-<string name="ui_appname">צג OS Monitor</string>
+<string name="ui_appname">OS Monitor</string>
 
 <!-- Tab -->
 <string name="ui_global_tab">גלובלי</string>

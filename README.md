@@ -69,7 +69,7 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 ### Change Log ###
 
 **Version 3.5.0.5**
-- Fix notification issue
+- Fix notification issue (Thanks to Sigfried)
 
 **Version 3.5.0.1**
 - Fix flawd translation 

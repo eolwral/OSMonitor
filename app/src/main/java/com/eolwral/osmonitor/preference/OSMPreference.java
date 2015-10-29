@@ -55,7 +55,7 @@ public class OSMPreference extends PreferenceActivity {
       }
 
       // notification color is disabled on Lollipop
-      if (CoreUtil.isLollipop()) {
+      if (CoreUtil.isGreaterThanMarshmallow()) {
         Preference prefColor = prefScreen.findPreference(Settings.PREFERENCE_COLOR);
         if (getParent(prefColor) != null)
           getParent(prefColor).removePreference(prefColor);

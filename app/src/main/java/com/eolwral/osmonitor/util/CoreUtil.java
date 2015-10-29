@@ -109,20 +109,29 @@ public class CoreUtil {
   }
 
   /**
-   * is Android Lollipop ?
+   * is it greater than Android IceCreamSandwich ?
+   *
+   * @return true == yes, false == no
+   */
+    public static boolean isHighThanIceCreamSandwich() {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+  }
+
+  /**
+   * is it greater than Android Lollipop ?
    * 
    * @return true == yes, false == no
    */
-  public static boolean isLollipop() {
+  public static boolean isGreaterThanLollipop() {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
   }
 
   /**
-   * is Android Marshmallow ?
+   * is it greater than Android Marshmallow ?
    *
    * @return true == yes, false == no
    */
-  public static boolean isMarshmallow() {
+  public static boolean isGreaterThanMarshmallow() {
     return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
   }
 
@@ -172,7 +181,7 @@ public class CoreUtil {
       else
         assetPath += "_arm";
 
-      if (isLollipop())
+      if (isGreaterThanLollipop())
         assetPath += "_pie";
 
       InputStream binary = context.getAssets().open(assetPath);
@@ -225,7 +234,7 @@ public class CoreUtil {
 
     // use abstract or file system 
     String name = null;
-    if (CoreUtil.isLollipop())
+    if (CoreUtil.isGreaterThanLollipop())
       name = context.getFilesDir().getAbsolutePath() + "/" + socketName;
     else
       name = socketName;
@@ -301,7 +310,7 @@ public class CoreUtil {
         CoreUtil.runSHELL(new String [] { binary, binary + ".token", socket, uid, "&"});
       } else {
 
-        if (!CoreUtil.isLollipop()) {
+        if (!CoreUtil.isGreaterThanLollipop()) {
           CoreUtil.runSU(new String [] { binary, binary + ".token", socket, uid, "&"});
         } else {
           boolean supportSecurityContext = CoreUtil.isSupportSecurityContext();
@@ -313,7 +322,7 @@ public class CoreUtil {
             CoreUtil.runSU(new String [] { "su", "--context", "u:r:init:s0", "-c", "\"" + binary,
                                            binary + ".token", socket, uid, " &\" &" });
 
-          if (CoreUtil.isMarshmallow()) {
+          if (CoreUtil.isGreaterThanMarshmallow()) {
             CoreUtil.runSU(new String[]{"restorecon", binary});
             CoreUtil.runSU(new String[]{"restorecon", socket});
           }
@@ -341,12 +350,12 @@ public class CoreUtil {
   private static void restoreSecurityContext(String binary, final Settings settings) {
     // force set security context to avoid permission issue
     if (settings.isRoot()) {
-      if (isMarshmallow()) {
+      if (isGreaterThanMarshmallow()) {
         try {
           CoreUtil.runSU(new String[]{"restorecon", binary});
         } catch (Exception e) { }
       }
-      else if (isLollipop()) {
+      else if (isGreaterThanLollipop()) {
         try {
           CoreUtil.runSU(new String[]{"chcon", "u:object_r:app_data_file:s0", binary});
         } catch (Exception e) { }

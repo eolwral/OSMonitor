@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.eolwral.osmonitor.core.cpuInfo;
@@ -98,7 +98,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
   private void refreshSettings() {
 
     // use notification for meta color
-    if (CoreUtil.isLollipop()) {
+    if (CoreUtil.isGreaterThanMarshmallow()) {
       iconColor = R.drawable.ic_cpu_graph_meta;
     }
     else {
@@ -157,7 +157,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
     nBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
 
     // Use new style icon for Lollipop
-    if (CoreUtil.isLollipop())
+    if (CoreUtil.isGreaterThanMarshmallow())
       nBuilder.setSmallIcon(R.drawable.ic_stat_notify);
     else
       nBuilder.setSmallIcon(R.drawable.ic_launcher);
@@ -406,7 +406,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
 
     // set current iconLevel
     // Fix: Android 6.0 issue
-    if (CoreUtil.isMarshmallow()) {
+    if (CoreUtil.isGreaterThanMarshmallow()) {
       int iconLevel = 0;
 
       if (cpuUsage < 20)
@@ -436,8 +436,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
     osNotification.contentIntent = PendingIntent.getActivity( this.getBaseContext(), 0, notificationIntent, 0);
 
-    osNotification.contentView.setTextViewText(R.id.notification_cpu, "CPU: "
-                                               + UserInterfaceUtil.convertToUsage(cpuUsage) + "%");
+    osNotification.contentView.setTextViewText(R.id.notification_cpu, "CPU: " + UserInterfaceUtil.convertToUsage(cpuUsage) + "%");
     osNotification.contentView.setProgressBar(R.id.notification_cpu_bar, 100, (int) cpuUsage, false);
 
     switch (notificationType) {
@@ -489,7 +488,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
         UserInterfaceUtil.convertToUsage(topUsage[2]) + "% " + topProcess[2]);
 
     // use custom color
-    if (fontColor == -1 && CoreUtil.isLollipop()) {
+    if (fontColor == -1 && !CoreUtil.isHighThanIceCreamSandwich()) {
       osNotification.contentView.setTextColor(R.id.notification_2nd, Color.BLACK);
       osNotification.contentView.setTextColor(R.id.notification_1nd, Color.BLACK);
       osNotification.contentView.setTextColor(R.id.notification_cpu, Color.BLACK);
@@ -507,7 +506,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
     }
 
     /* Fix compatible issue for Notification Icon */
-    if (!CoreUtil.isMarshmallow()) {
+    if (!CoreUtil.isGreaterThanMarshmallow()) {
       osNotification.icon = iconColor;
       if (cpuUsage < 20)
         osNotification.iconLevel = 1;

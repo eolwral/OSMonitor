@@ -18,7 +18,7 @@
 
 <resources>
     <color name="pressed_osmonitor">#CC3574E3</color>
-    <color name="selected_osmonitor">#809DC6FC</color>  
+    <color name="selected_osmonitor">#809DC6FC</color>
     <color name="black_osmonitor">#80444444</color>
     <color name="dkgrey_osmonitor">#80000000</color>
     <color name="ltgrey_osmonitor">#FFD3D3D3</color>

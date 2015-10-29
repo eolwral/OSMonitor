@@ -16,9 +16,9 @@ android {
     defaultConfig {
         applicationId "com.eolwral.osmonitor"
         minSdkVersion 9
-        targetSdkVersion 22
-        versionCode 84
-        versionName "3.5.0.1"
+        targetSdkVersion 20
+        versionCode 88
+        versionName "3.5.0.5"
         ndk {
             moduleName "osmonitor"
         }
@@ -98,5 +98,5 @@ android {
 dependencies {
     compile project(':volley')
     compile project(':colorpicker')
-    compile 'com.android.support:appcompat-v7:22.2.0+'
+    compile 'com.android.support:appcompat-v7:23.1.0+'
 }

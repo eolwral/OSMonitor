@@ -174,7 +174,7 @@
 <string name="ui_preferences_notification">Aggiungi una scorciatoia</string>
 <string name="ui_preferences_notification_deatil">Mostra un icona di lancio nell\'area notifiche</string>
 <string name="ui_preferences_color">colore monitor CPU</string>
-<string name="ui_preferences_color_detail">blu o verde</string>
+<string name="ui_preferences_color_detail">blu, verde o bianco</string>
 <string name="ui_preferences_expert">Modalità Esperto</string>
 <string name="ui_preferences_expert_detail">mostra tutte le informazioni dettagliate senza riepilogo</string>
 <string name="ui_preferences_root">Abilita privilegi di root</string>

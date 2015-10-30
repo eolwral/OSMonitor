@@ -174,7 +174,7 @@
 <string name="ui_preferences_notification">Añadir un atajo</string>
 <string name="ui_preferences_notification_deatil">muestra un icono atajo en el área de notificaciones </string>
 <string name="ui_preferences_color">Color de medidor de CPU</string>
-<string name="ui_preferences_color_detail">azul o verde</string>
+<string name="ui_preferences_color_detail">azul, verde o blanco</string>
 <string name="ui_preferences_expert">Modo experto</string>
 <string name="ui_preferences_expert_detail">muestra los procesos nativos de linux</string>
 <string name="ui_preferences_root">Habilitar privilegios root</string>

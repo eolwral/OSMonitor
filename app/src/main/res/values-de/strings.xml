@@ -119,7 +119,7 @@
     <string name="ui_preferences_notification">Details anzeigen</string>
     <string name="ui_preferences_notification_deatil">Zeigt Werte in Benachrichtigungsbereich an</string>
     <string name="ui_preferences_color">Farbe der CPU-Lastanzeige</string>
-    <string name="ui_preferences_color_detail">Blau oder Grün</string>
+    <string name="ui_preferences_color_detail">Blau, Grün oder Weiß</string>
     <string name="ui_preferences_expert">Expertenmodus</string>
     <string name="ui_preferences_expert_detail">Native Linuxprozesse anzeigen</string>
     <string name="ui_preferences_root">Rootrechte aktivieren</string>

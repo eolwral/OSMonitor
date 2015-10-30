@@ -174,7 +174,7 @@
 <string name="ui_preferences_notification">Dodaj skrót</string>
 <string name="ui_preferences_notification_deatil">Pokaż ikonę skrótu w powiadomieniach</string>
 <string name="ui_preferences_color">Kolor miernika CPU</string>
-<string name="ui_preferences_color_detail">Niebieski lub zielony</string>
+<string name="ui_preferences_color_detail">Niebieski, zielony lub biały</string>
 <string name="ui_preferences_expert">Tryb eksperta</string>
 <string name="ui_preferences_expert_detail">Pokaż procesy macierzyste Linuxa</string>
 <string name="ui_preferences_root">Włącz przywileje roota</string>

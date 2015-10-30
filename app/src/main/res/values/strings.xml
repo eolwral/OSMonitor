@@ -174,7 +174,7 @@
 <string name="ui_preferences_notification">Add a shortcut</string>
 <string name="ui_preferences_notification_deatil">show a shortcut icon in notification area </string>
 <string name="ui_preferences_color">CPU meter color</string>
-<string name="ui_preferences_color_detail">blue or green</string>
+<string name="ui_preferences_color_detail">blue, green or white</string>
 <string name="ui_preferences_expert">Expert mode</string>
 <string name="ui_preferences_expert_detail">Show native linux processes</string>
 <string name="ui_preferences_root">Enable root privilege</string>

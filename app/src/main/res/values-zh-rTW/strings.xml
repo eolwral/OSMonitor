@@ -175,7 +175,7 @@
 <string name="ui_preferences_notification">捷徑圖示</string>
 <string name="ui_preferences_notification_deatil">在通知區顯示捷徑</string>
 <string name="ui_preferences_color">CPU 圖示顏色</string>
-<string name="ui_preferences_color_detail">藍或綠</string>
+<string name="ui_preferences_color_detail">藍, 綠或白</string>
 <string name="ui_preferences_expert">專家模式</string>
 <string name="ui_preferences_expert_detail">不進行資料整理, 顯示原始資料</string>
 <string name="ui_preferences_root">啟用 root 權限</string>

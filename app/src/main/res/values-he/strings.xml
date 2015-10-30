@@ -175,7 +175,7 @@
 <string name="ui_preferences_notification">הוסף קישור</string>
 <string name="ui_preferences_notification_deatil">הצג קישור בחלון ההודעות</string>
 <string name="ui_preferences_color">צבע מודד CPU</string>
-<string name="ui_preferences_color_detail">כחול או ירוק</string>
+<string name="ui_preferences_color_detail">כחול, ירוק או לבן</string>
 <string name="ui_preferences_expert">מצב למתקדמים</string>
 <string name="ui_preferences_expert_detail">הצג את כל המידע בלי תקציר</string>
 <string name="ui_preferences_root">אפשר הרשאות root</string>

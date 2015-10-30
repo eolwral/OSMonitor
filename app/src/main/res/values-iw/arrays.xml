@@ -58,6 +58,7 @@
   <string-array name="ui_preference_color_base">
     <item>ירוק</item>
     <item>כחול</item>
+    <item>לבן</item>
   </string-array>
   
   <string-array name="ui_preference_logcat_format_entry">

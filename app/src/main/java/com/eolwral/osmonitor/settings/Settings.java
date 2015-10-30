@@ -16,6 +16,7 @@ public class Settings {
   public class StatusBarColor {
     public final static int GREEN = 1;
     public final static int BLUE = 2;
+    public final static int WHITE = 3;
   }
 
   // singleton
@@ -23,7 +24,7 @@ public class Settings {
 
   private SettingsHelper helper = null;
 
-  public final static String PREFRENCE_INTERVAL = "id_preference_interval";
+  public final static String PREFFRENCE_INTERVAL = "id_preference_interval";
   public final static String PREFERENCE_TEMPVALUE = "id_preference_tempvalue";
   public final static String PREFERENCE_AUTOSTART = "id_preference_autostart";
   public final static String PREFERENCE_ROOT = "id_preference_root";
@@ -92,7 +93,7 @@ public class Settings {
    * @return interval (seconds)
    */
   public int getInterval() {
-    String interval = helper.getString(PREFRENCE_INTERVAL, "2");
+    String interval = helper.getString(PREFFRENCE_INTERVAL, "2");
     return Integer.parseInt(interval);
   }
 

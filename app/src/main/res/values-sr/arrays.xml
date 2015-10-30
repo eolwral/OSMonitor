@@ -65,6 +65,7 @@
     <string-array name="ui_preference_color_base">
         <item>Зелена</item>
         <item>Плава</item>
+        <item>Бела</item>
     </string-array>
 
     <string-array name="ui_preference_logcat_format_entry">

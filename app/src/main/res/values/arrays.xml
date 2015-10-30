@@ -74,11 +74,13 @@
     <string-array name="ui_preference_color_base">
         <item>Green</item>
         <item>Blue</item>
+        <item>White</item>
     </string-array>
 
     <string-array name="ui_preference_color_value" translatable="false">
         <item>1</item>
         <item>2</item>
+        <item>3</item>
     </string-array>
             
     <string-array name="ui_process_priority_value" translatable="false">

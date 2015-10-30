@@ -109,6 +109,8 @@ public class OSMonitorService extends Service implements ipcClientListener {
         case StatusBarColor.BLUE:
           iconColor = R.drawable.ic_cpu_graph_blue;
           break;
+        case StatusBarColor.WHITE:
+          iconColor = R.drawable.ic_cpu_graph_meta;
         }
     }
 
@@ -488,7 +490,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
         UserInterfaceUtil.convertToUsage(topUsage[2]) + "% " + topProcess[2]);
 
     // use custom color
-    if (fontColor == -1 && !CoreUtil.isHighThanIceCreamSandwich()) {
+    if (fontColor == -1 && !CoreUtil.isGreaterThanIceCreamSandwich()) {
       osNotification.contentView.setTextColor(R.id.notification_2nd, Color.BLACK);
       osNotification.contentView.setTextColor(R.id.notification_1nd, Color.BLACK);
       osNotification.contentView.setTextColor(R.id.notification_cpu, Color.BLACK);

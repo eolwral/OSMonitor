@@ -173,7 +173,7 @@
 <string name="ui_preferences_autostart">自动启动</string>
 <string name="ui_preferences_autostart_detail">跟着系统一起启动</string>
 <string name="ui_preferences_color">CPU 图示颜色</string>
-<string name="ui_preferences_color_detail">蓝或绿</string>
+<string name="ui_preferences_color_detail">蓝, 绿或白</string>
 <string name="ui_preferences_expert">专家模式</string>
 <string name="ui_preferences_expert_detail">不进行数据整理, 显示原始数据</string>
 <string name="ui_preferences_root">启用 root 权限</string>

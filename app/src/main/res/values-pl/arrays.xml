@@ -6,88 +6,89 @@
         <item>Zdarzenia</item>
         <item>Dmesg</item>
     </string-array>
-    
+
     <string-array name="ui_message_dmesg_level">
-		<item>Diagnostyczne (Debug)</item>
-		<item>Informacje (Information)</item>
-		<item>Uwagi (Notice)</item>
-		<item>Ostrzeżenia (Warning)</item>
-		<item>Alarmy (Alert)</item>
-		<item>Awaryjne (Emergency)</item>
-		<item>Błędy (Error)</item>
-		<item>Krytyczne (Critical)</item>
-	</string-array>
-
-	<string-array name="ui_message_logcat_level">
-		<item>Diagnostyczne (Debug)</item>
-		<item>Szczegółowe (Verbose)</item>
-		<item>Informacje (Information)</item>
-		<item>Ostrzeżenia (Warning)</item>
-		<item>Błędy (Error)</item>
-		<item>Krytyczne (Fatal)</item>
+        <item>Diagnostyczne (Debug)</item>
+        <item>Informacje (Information)</item>
+        <item>Uwagi (Notice)</item>
+        <item>Ostrzeżenia (Warning)</item>
+        <item>Alarmy (Alert)</item>
+        <item>Awaryjne (Emergency)</item>
+        <item>Błędy (Error)</item>
+        <item>Krytyczne (Critical)</item>
     </string-array>
-    
-	<string-array name="ui_misc_item">
-		<item>System</item>
-		<item>Bateria</item>
-		<item>CPU</item>
-		<item>Pamięć</item>
-		<item>Swap</item>
-		<item>Sieć</item>
-	<!-- 	<item>Dysk</item>  -->
-	</string-array>
-	
-	<string-array name="ui_process_menu_item">
-		<item>Ubicie/Reset Procesu</item>
-		<item>Przełącz do procesu</item>
-        <item>Przełącz się informacją aplikacji</item>
-		<item>Obejrzyj LOG</item>
-		<item>Ustal priorytet</item>
-	</string-array>
-	
-	<string-array name="ui_message_menu_item">
-		<item>Znajdź procesu</item>
-		<item>Wybierz Wpis</item>
-	</string-array>
 
-	<string-array name="ui_preference_interval">
-		<item>Często</item>
-		<item>Normalnie</item>
-		<item>Rzadko</item>
-	</string-array>
-	
-	<string-array name="ui_preference_map_value">
-	    <item>GoogleMap</item>
-	    <item>OpenStreeMap</item>
-	</string-array>
-	
-	<string-array name="ui_preference_color_base">
-		<item>Zielony</item>
-		<item>Niebieski</item>
-	</string-array>
-	
-	<string-array name="ui_preference_logcat_format_entry">
-		<item>Brief</item>
-		<item>Process</item>
-		<item>Tag</item>
-		<item>Thread</item>
-		<item>Thread Time</item>
-		<item>Time</item>
-		<item>Long</item>
-		<item>Raw</item>
-        <item>OS Monitor</item>		
-	</string-array>
-	
-	<string-array name="ui_preference_dmesg_format_entry">
-		<item>Raw</item>
-		<item>OS Monitor</item>
-	</string-array>
-	
+    <string-array name="ui_message_logcat_level">
+        <item>Diagnostyczne (Debug)</item>
+        <item>Szczegółowe (Verbose)</item>
+        <item>Informacje (Information)</item>
+        <item>Ostrzeżenia (Warning)</item>
+        <item>Błędy (Error)</item>
+        <item>Krytyczne (Fatal)</item>
+    </string-array>
+
+    <string-array name="ui_misc_item">
+        <item>System</item>
+        <item>Bateria</item>
+        <item>CPU</item>
+        <item>Pamięć</item>
+        <item>Swap</item>
+        <item>Sieć</item>
+        <!-- 	<item>Dysk</item>  -->
+    </string-array>
+
+    <string-array name="ui_process_menu_item">
+        <item>Ubicie/Reset Procesu</item>
+        <item>Przełącz do procesu</item>
+        <item>Przełącz się informacją aplikacji</item>
+        <item>Obejrzyj LOG</item>
+        <item>Ustal priorytet</item>
+    </string-array>
+
+    <string-array name="ui_message_menu_item">
+        <item>Znajdź procesu</item>
+        <item>Wybierz Wpis</item>
+    </string-array>
+
+    <string-array name="ui_preference_interval">
+        <item>Często</item>
+        <item>Normalnie</item>
+        <item>Rzadko</item>
+    </string-array>
+
+    <string-array name="ui_preference_map_value">
+        <item>GoogleMap</item>
+        <item>OpenStreeMap</item>
+    </string-array>
+
+    <string-array name="ui_preference_color_base">
+        <item>Zielony</item>
+        <item>Niebieski</item>
+        <item>Biały</item>
+    </string-array>
+
+    <string-array name="ui_preference_logcat_format_entry">
+        <item>Brief</item>
+        <item>Process</item>
+        <item>Tag</item>
+        <item>Thread</item>
+        <item>Thread Time</item>
+        <item>Time</item>
+        <item>Long</item>
+        <item>Raw</item>
+        <item>OS Monitor</item>
+    </string-array>
+
+    <string-array name="ui_preference_dmesg_format_entry">
+        <item>Raw</item>
+        <item>OS Monitor</item>
+    </string-array>
+
     <string-array name="ui_preference_notification_customize_entry">
-	    <item>Pamięć + Bateria</item>
+        <item>Pamięć + Bateria</item>
         <item>Pamięć + Dysk IO</item>
-	    <item>Bateria + Dysk IO</item>
+        <item>Bateria + Dysk IO</item>
         <item>Sieć IO</item>
     </string-array>
-		
+
 </resources>

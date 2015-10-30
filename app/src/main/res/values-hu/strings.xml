@@ -174,7 +174,7 @@
 <string name="ui_preferences_notification">Ikon hozzáadása</string>
 <string name="ui_preferences_notification_deatil">Ikon mutatása az értesítési sávban</string>
 <string name="ui_preferences_color">CPU mérő színe</string>
-<string name="ui_preferences_color_detail">Kék vagy Zöld</string>
+<string name="ui_preferences_color_detail">kék, zöld vagy fehér</string>
 <string name="ui_preferences_expert">Haladó mód</string>
 <string name="ui_preferences_expert_detail">Natíve linux folyamatok mutatása</string>
 <string name="ui_preferences_root">Root hozzáférés engdeélyezése</string>

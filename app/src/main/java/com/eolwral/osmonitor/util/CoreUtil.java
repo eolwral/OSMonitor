@@ -113,7 +113,7 @@ public class CoreUtil {
    *
    * @return true == yes, false == no
    */
-    public static boolean isHighThanIceCreamSandwich() {
+    public static boolean isGreaterThanIceCreamSandwich() {
     return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
   }
 

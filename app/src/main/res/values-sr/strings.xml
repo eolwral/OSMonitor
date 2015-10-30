@@ -174,7 +174,7 @@
 <string name="ui_preferences_notification">Додај пречицу</string>
 <string name="ui_preferences_notification_deatil">Приказ иконе у траци обавештења</string>
 <string name="ui_preferences_color">Боја ЦПУ мерача</string>
-<string name="ui_preferences_color_detail">Плава или зелена</string>
+<string name="ui_preferences_color_detail">плава, зелена или бела</string>
 <string name="ui_preferences_expert">Режим за стручњаке</string>
 <string name="ui_preferences_expert_detail">Приказ системских процеса Линукса</string>
 <string name="ui_preferences_root">Корени приступ</string>

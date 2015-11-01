@@ -17,8 +17,8 @@ android {
         applicationId "com.eolwral.osmonitor"
         minSdkVersion 9
         targetSdkVersion 20
-        versionCode 88
-        versionName "3.5.0.5"
+        versionCode 89
+        versionName "3.5.0.6"
         ndk {
             moduleName "osmonitor"
         }

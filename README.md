@@ -68,6 +68,10 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 
 ### Change Log ###
 
+**Version 3.5.0.6**
+- Add a option for notification's background color
+- Strip image's inforamtion and adjust color
+
 **Version 3.5.0.5**
 - Fix notification issue (Thanks to Sigfried)
 

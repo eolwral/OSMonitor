@@ -225,6 +225,7 @@
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">Attendere prego..</string>
 <string name="ui_text_kill">Uccido %1$d processi..</string>
-<!-- Common End -->
+    <string name="ui_preferences_notification_background">Colore di sfondo di notifica</string>
+    <!-- Common End -->
 
 </resources>

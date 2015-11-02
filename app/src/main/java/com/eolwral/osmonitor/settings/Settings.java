@@ -42,6 +42,7 @@ public class Settings {
   public final static String PREFERENCE_CPUUSAGE = "id_preference_cpuusage";
   public final static String PREFERENCE_COLOR = "id_preference_color";
   public final static String PREFERENCE_NOTIFICATION_COLOR = "id_preference_notification_fontcolor";
+  public final static String PREFERENCE_NOTIFICATION_BACKGROUND = "id_preference_notification_background_color";
   public final static String PREFERENCE_NOTIFICATION_TOP = "id_preference_notification_top";
   public final static String PREFERENCE_NOTIFICATION_CUSTOMIZE = "id_preference_notification_customize";
 
@@ -243,6 +244,15 @@ public class Settings {
    */
   public int getNotificationFontColor() {
     return helper.getInteger(PREFERENCE_NOTIFICATION_COLOR, -1);
+  }
+
+  /**
+   * get background color for notification
+   *
+   * @return color
+   */
+  public int getNotificationBackgroundColor() {
+    return helper.getInteger(PREFERENCE_NOTIFICATION_BACKGROUND, -1);
   }
 
   /**

@@ -225,6 +225,7 @@
     <string name="ui_text_zero">0</string>
     <string name="ui_text_refresh">Подождите..</string>
     <string name="ui_text_kill">Killing %1$d processes..</string>
+    <string name="ui_preferences_notification_background">Цвет фона Уведомление</string>
     <!-- Common End -->
 
 </resources>

@@ -162,4 +162,5 @@
     <string name="ui_text_zero">0</string>
     <string name="ui_text_refresh">Bitte warten..</string>
     <string name="ui_text_kill">Terminiere %1$d Prozesse..</string>
+    <string name="ui_preferences_notification_background">Hintergrundfarbe Benachrichtigung</string>
 </resources>

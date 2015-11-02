@@ -47,6 +47,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
   // process
   private int iconColor = 0;
   private int fontColor = 0;
+  private int backgroundColor = 0;
   private boolean isSetTop = false;
   private float cpuUsage = 0;
   private float ioWaitUsage = 0;
@@ -117,6 +118,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
 
     notificationType = settings.getNotificationType();
     fontColor = settings.getNotificationFontColor();
+    backgroundColor = settings.getNotificationBackgroundColor();
     isSetTop = settings.isNotificationOnTop();
     useCelsius = settings.isUseCelsius();
     
@@ -489,7 +491,7 @@ public class OSMonitorService extends Service implements ipcClientListener {
     osNotification.contentView.setTextViewText(R.id.notification_top3nd,
         UserInterfaceUtil.convertToUsage(topUsage[2]) + "% " + topProcess[2]);
 
-    // use custom color
+    // use customize font color
     if (fontColor == -1 && !CoreUtil.isGreaterThanIceCreamSandwich()) {
       osNotification.contentView.setTextColor(R.id.notification_2nd, Color.BLACK);
       osNotification.contentView.setTextColor(R.id.notification_1nd, Color.BLACK);
@@ -506,6 +508,12 @@ public class OSMonitorService extends Service implements ipcClientListener {
       osNotification.contentView.setTextColor(R.id.notification_top2nd, fontColor);
       osNotification.contentView.setTextColor(R.id.notification_top3nd, fontColor);
     }
+
+    // use customize background color
+    if (backgroundColor != -1) {
+      osNotification.contentView.setInt(R.id.custom_notification, "setBackgroundColor", backgroundColor);
+    }
+
 
     /* Fix compatible issue for Notification Icon */
     if (!CoreUtil.isGreaterThanMarshmallow()) {

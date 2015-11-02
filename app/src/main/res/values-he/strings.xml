@@ -226,6 +226,7 @@
 <string name="ui_text_refresh">חכה בבקשה..</string>
 <string name="ui_text_kill">עוצר %1$d תהליכים..</string>
     <string name="ui_text_notfound">לא נמצא!</string>
+    <string name="ui_preferences_notification_background">צבע רקע הודעה</string>
     <!-- Common End -->
 
 </resources>

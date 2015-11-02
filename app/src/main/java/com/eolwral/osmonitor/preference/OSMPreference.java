@@ -213,6 +213,7 @@ public class OSMPreference extends PreferenceActivity {
         || key.equals(Settings.PREFERENCE_TEMPVALUE)
         || key.equals(Settings.PREFERENCE_SHORTCUT)
         || key.equals(Settings.PREFERENCE_NOTIFICATION_COLOR)
+        || key.equals(Settings.PREFERENCE_NOTIFICATION_BACKGROUND)
         || key.equals(Settings.PREFERENCE_NOTIFICATION_TOP)
         || key.equals(Settings.PREFERENCE_NOTIFICATION_CUSTOMIZE)) {
 

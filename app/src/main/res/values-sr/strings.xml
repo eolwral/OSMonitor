@@ -225,6 +225,7 @@
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">Сачекајте..</string>
 <string name="ui_text_kill">Убијам %1$d процеса..</string>
-<!-- Common End -->
+    <string name="ui_preferences_notification_background">Боја позадине Обавештење</string>
+    <!-- Common End -->
 
 </resources>

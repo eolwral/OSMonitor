@@ -61,6 +61,15 @@
             android:summary="@string/ui_preferences_notificaiton_color_detail"
             android:title="@string/ui_preferences_notificaiton_color" />
 
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:defaultValue="0xFFCCCCCC"
+            android:persistent="false"
+            android:dependency="id_preference_cpuusage"
+            android:key="id_preference_notification_background_color"
+            android:summary="@string/ui_preferences_notificaiton_color_detail"
+            android:title="@string/ui_preferences_notification_background" />
+
+
          <CheckBoxPreference
             android:defaultValue="false"
             android:persistent="false"

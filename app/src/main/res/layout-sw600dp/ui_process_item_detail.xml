@@ -275,6 +275,13 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content" />
 
+          <!-- custom added -->
+          <Button
+              android:id="@+id/id_process_button_forceClose"
+              style="?android:attr/buttonStyleSmall"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+
           <Button
               android:id="@+id/id_process_button_switch"
               style="?android:attr/buttonStyleSmall"

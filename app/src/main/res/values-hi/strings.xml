@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Application -->
+<string name="ui_appname">OS Monitor</string>
+
+<!-- Tab -->
+<string name="ui_global_tab">Global</string>
+<string name="ui_process_tab">Process</string>
+<string name="ui_network_tab">Network</string>
+<string name="ui_connection_tab">Connection</string>
+<string name="ui_misc_tab">Misc</string>
+<string name="ui_debug_tab">Message</string>
+<string name="ui_notification_tab">Notification</string>
+<string name="ui_shortcut_detail">Click to start OS Monitor..</string>
+
+<!-- Menu -->
+<string name="ui_menu_setting">Setting</string>
+<string name="ui_menu_tools">Tools</string>
+<string name="ui_menu_sort">Sort</string>
+<string name="ui_menu_search">Search</string>
+<string name="ui_menu_stop">Stop</string>
+<string name="ui_menu_type">Type</string>
+<string name="ui_menu_help">Help</string>
+<string name="ui_menu_logexport">Export</string>
+<string name="ui_menu_exit">Exit</string>
+
+<!-- Process Tab Start -->
+ 
+<!-- Header -->
+<string name="ui_process_count">Process:</string>
+<string name="ui_process_cpuusage">CPU Usage:</string>
+
+<!-- Footer -->
+<string name="ui_process_memorytotal">Memory Total:</string>
+<string name="ui_process_memoryfree">Free:</string>
+
+<!-- Process Detail -->
+<string name="ui_process_sort_usage">Usage</string>
+<string name="ui_process_sort_memory">Memory</string>
+<string name="ui_process_sort_pid">PID</string>
+<string name="ui_process_sort_name">Name</string>
+<string name="ui_process_sort_cputime">CPUTime</string>
+<string name="ui_process_sort_status">Status</string>
+
+<!-- Process Detail -->
+<string name="ui_process_detail_process">Process</string>
+<string name="ui_process_detail_memory">Memory</string>
+<string name="ui_process_detail_ppid">PPID</string>
+<string name="ui_process_detail_thread">Thread</string>
+<string name="ui_process_detail_stime">STime</string>
+<string name="ui_process_detail_utime">UTime</string>
+<string name="ui_process_detail_nice">Nice</string>
+<string name="ui_process_detail_user">User</string>
+<string name="ui_process_detail_status">Status</string>
+<string name="ui_process_detail_cputime">CPU Time</string>
+<string name="ui_process_detail_time">Start</string>
+
+<!-- Process Status -->
+<string name="ui_process_status_zombie">Zombie</string>
+<string name="ui_process_status_sleep">Sleep</string>
+<string name="ui_process_status_running">Running</string>
+<string name="ui_process_status_waitio">Wait IO</string>
+<string name="ui_process_status_stop">Stop</string>
+<string name="ui_process_status_unknown">Unknown</string>
+
+<!-- Process Tab End -->
+
+
+<!-- Connection Tab Start -->
+
+<!-- Header -->
+<string name="ui_connection_protocol">Proto</string>
+<string name="ui_connection_localremote">Local/Remote IP</string>
+<string name="ui_connection_status">Status</string>
+
+<!-- Connection Tab End -->
+
+<!-- Network Tab Start -->
+
+<!-- Header -->
+<string name="ui_network_interface">Interface</string>
+<string name="ui_network_ip4">IPv4</string>
+<string name="ui_network_ip6">IPv6</string>
+
+<!-- Additional -->
+<string name="ui_network_mac">MAC</string>
+<string name="ui_network_rx">Rx</string>
+<string name="ui_network_tx">Tx</string>
+<string name="ui_network_status">Status</string>
+
+<!-- Status -->
+<string name="ui_network_status_up">up</string>
+<string name="ui_network_status_down">down</string>
+<string name="ui_network_status_broadcast">broadcast</string>
+<string name="ui_network_status_loopback">loopback</string>
+<string name="ui_network_status_p2p">point-to-point</string>
+<string name="ui_network_status_promisc">promisc</string>
+<string name="ui_network_status_running">running</string>
+<string name="ui_network_status_multicast">multicast</string>
+
+<!-- Network Tab End -->
+
+<!-- Misc Tab Start -->
+<string name="ui_misc_more">More</string>
+
+<!-- Memory -->
+<string name="ui_memory_title">Memory</string>
+<string name="ui_swap_title">Swap</string>
+<string name="ui_memory_total">Total</string>
+<string name="ui_memory_free">Free</string>
+<string name="ui_memory_shared">Shared</string>
+<string name="ui_memory_buffered">Buffered</string>
+<string name="ui_memory_cached">Cached</string>
+
+<!-- Uptime -->
+<string name="ui_system_uptime">Uptime</string>
+
+<!-- CPU -->
+<string name="ui_processor_freq">Frequency</string>
+<string name="ui_processor_scal">Scaling</string>
+<string name="ui_processor_cur">Current</string>
+<string name="ui_processor_gov">Governor</string>
+<string name="ui_processor_status">Status</string>
+<string name="ui_processor_core">Core</string>
+<string name="ui_processor_freq_max_title">Frequency Max</string>
+<string name="ui_processor_freq_min_title">Frequency Min</string>
+<string name="ui_processor_enable">Enable</string>
+<string name="ui_processor_enable_title">Enable CPUs</string>
+<string name="ui_processor_enable_msg">Gathering Information..</string>
+<string name="ui_processor_status_online">Online</string>
+<string name="ui_processor_status_offline">Offline</string>
+
+<!-- Battery -->
+<string name="ui_battery">Battery</string>
+<string name="ui_battery_health">Health</string>
+<string name="ui_battery_technology">Technology</string>
+<string name="ui_battery_capacity">Capacity</string>
+<string name="ui_battery_voltage">Voltage</string>
+<string name="ui_battery_temperature">Temperature</string>
+<string name="ui_battery_acpower">AC Power</string>
+<string name="ui_battery_usbpower">USB Power</string>
+<string name="ui_battery_status">Status</string>
+<string name="ui_battery_online">OnLine</string>
+<string name="ui_battery_offline">OffLine</string>
+<string name="ui_battery_status_unknown">Unknown</string>
+<string name="ui_battery_status_charging">Charging</string>
+<string name="ui_battery_status_discharging">DisCharging</string>
+<string name="ui_battery_status_notcharging">Not Charging</string>
+<string name="ui_battery_status_full">Full</string>
+<string name="ui_battery_health_dead">Dead</string>
+<string name="ui_battery_health_good">Good</string>
+<string name="ui_battery_health_overheat">Over Heat</string>
+<string name="ui_battery_health_overvoltage">Over Voltage</string>
+<string name="ui_battery_health_unknown">Unknown</string>
+<string name="ui_battery_health_failure">Unspecified Failure</string>
+
+<!-- Misc Tab End -->
+
+<!-- Message Tab Start -->
+
+<!-- Header -->
+<string name="ui_message_count">Message:</string>
+
+<!-- Message Tab End -->
+
+<!-- Preferences Start -->
+<string name="ui_preferences_update">Update interval</string>
+<string name="ui_preferences_update_detail">time delay between update of the data</string>
+<string name="ui_preferences_autostart">Autostart</string>
+<string name="ui_preferences_autostart_detail">start CPU meter or shortcut on bootup</string>
+<string name="ui_preferences_cpuusage">Show CPU usage</string>
+<string name="ui_preferences_cpuusage_detail">show an animated CPU meter icon in notification area</string>
+<string name="ui_preferences_notification">Add a shortcut</string>
+<string name="ui_preferences_notification_deatil">show a shortcut icon in notification area </string>
+<string name="ui_preferences_color">CPU meter color</string>
+<string name="ui_preferences_color_detail">blue, green or white</string>
+<string name="ui_preferences_expert">Expert mode</string>
+<string name="ui_preferences_expert_detail">Show native linux processes</string>
+<string name="ui_preferences_root">Enable root privilege</string>
+<string name="ui_preferences_root_detail">grant root permission to execute privilege command</string>
+<string name="ui_preferences_tempvalue">Show Celsius</string>
+<string name="ui_preferences_tempvalue_detail">toggle Celsius/Fahrenheit units</string>
+<string name="ui_preferences_notification_customize">Customize notification</string>
+<string name="ui_preferences_notification_customize_detail">choose information to show on notification widget </string>
+<string name="ui_preferences_map">Map Type</string>
+<string name="ui_preferences_map_detail">choose GoogleMap or OpenStreeMap</string>
+<string name="ui_preferences_setcpu">Set CPU on boot</string>
+<string name="ui_preferences_setcpu_detail">set the processor settings on boot</string>
+<string name="ui_preferences_setcpu_data">Set frequency and governor</string>
+<string name="ui_preferences_notificaiton_color">Notification font color</string>
+<string name="ui_preferences_notificaiton_color_detail">click and choose</string>
+<string name="ui_preferences_notificaiton_top">Keep notification on top </string>
+<string name="ui_preferences_notificaiton_top_detail">raise the notification priority (Android 4.1.2 or later)</string>
+<string name="ui_preferences_logcat_format">Logcat Format</string>
+<string name="ui_preferences_logcat_format_detail">log format to use when displaying log entries.</string>
+<string name="ui_preferences_dmesg_format">Dmesg Format</string>
+<string name="ui_preferences_dmesg_format_detail">dmesg format to use when displaying log entries.</string>
+<string name="ui_preferences_logcat_message_color">Logcat Message Color</string>
+<string name="ui_preferences_dmesg_message_color">Dmesg Message Color</string>
+<string name="ui_preferences_message_color_detail">message color to use when displaying log entries.</string>
+<string name="ui_preferences_message_emergency_color">Emergency </string>
+<string name="ui_preferences_message_alert_color">Alert </string>
+<string name="ui_preferences_message_critical_color">Critical </string>
+<string name="ui_preferences_message_verbose_color">Verbose </string>
+<string name="ui_preferences_message_warning_color">Warning</string>
+<string name="ui_preferences_message_notice_color">Notice</string>
+<string name="ui_preferences_message_info_color">Information</string>
+<string name="ui_preferences_message_debug_color">Debug</string>
+<string name="ui_preferences_message_error_color">Error</string>
+<string name="ui_preferences_message_fatal_color">Fatal</string>
+
+<!-- Preferences End -->
+
+<!-- Common Start -->
+<string name="ui_text_okay">OKay</string>
+<string name="ui_text_cancel">Cancel</string>
+<string name="ui_text_default">Default</string>
+<string name="ui_text_notfound">Not Found!</string>
+
+<string name="ui_text_filename">FileName</string>
+<string name="ui_text_fileexist">File Exists!</string>
+<string name="ui_text_exportdone">Done!</string>
+
+<string name="ui_text_zero">0</string>
+<string name="ui_text_refresh">Please wait..</string>
+<string name="ui_text_kill">Killing %d processes..</string>
+    <string name="ui_preferences_notification_background">Notification background color</string>
+    <!-- Common End -->
+
+</resources>

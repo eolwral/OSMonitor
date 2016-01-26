@@ -29,7 +29,7 @@
  
 <!-- Header -->
 <string name="ui_process_count">प्रक्रिया:</string>
-<string name="ui_process_cpuusage">CPU का उपयोग:</string>
+<string name="ui_process_cpuusage">सीपीयू  का उपयोग:</string>
 
 <!-- Footer -->
 <string name="ui_process_memorytotal">कुल स्मृति क्षमता:</string>
@@ -40,7 +40,7 @@
 <string name="ui_process_sort_memory">मेमोरी</string>
 <string name="ui_process_sort_pid">PID</string>
 <string name="ui_process_sort_name">नाम</string>
-<string name="ui_process_sort_cputime">CPUसमय</string>
+<string name="ui_process_sort_cputime">सीपीयू समय</string>
 <string name="ui_process_sort_status">स्थिति</string>
 
 <!-- Process Detail -->
@@ -53,7 +53,7 @@
 <string name="ui_process_detail_nice">अच्छा</string>
 <string name="ui_process_detail_user">उपयोगकर्ता</string>
 <string name="ui_process_detail_status">स्थिति</string>
-<string name="ui_process_detail_cputime">CPU समय</string>
+<string name="ui_process_detail_cputime">सीपीयू  समय</string>
 <string name="ui_process_detail_time">प्रारंभ</string>
 
 <!-- Process Status -->
@@ -126,7 +126,7 @@
 <string name="ui_processor_freq_max_title">अधिकतम आवृत्ति</string>
 <string name="ui_processor_freq_min_title">न्यूनतम आवृत्ति</string>
 <string name="ui_processor_enable">सक्षम</string>
-<string name="ui_processor_enable_title">CPUs सक्षम करें</string>
+<string name="ui_processor_enable_title">सीपीयू  सक्षम करें</string>
 <string name="ui_processor_enable_msg">सूचना इकट्ठा कर रहा है..</string>
 <string name="ui_processor_status_online">ऑनलाइन</string>
 <string name="ui_processor_status_offline">ऑफ़लाइन</string>

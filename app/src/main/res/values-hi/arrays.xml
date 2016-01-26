@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+   <string-array name="ui_message_type">
+      <item>Main</item>
+      <item>System</item>
+      <item>Events</item>
+      <item>Radio</item>
+      <item>Dmesg</item>
+   </string-array>
+    
+   <string-array name="ui_message_dmesg_level">
+       <item>Debug</item>
+       <item>Information</item>
+       <item>Notice</item>
+       <item>Warning</item>
+       <item>Alert</item>
+       <item>Emergency</item>
+       <item>Error</item>
+       <item>Critical</item>
+    </string-array>
+
+    <string-array name="ui_message_logcat_level">
+       <item>Debug</item>
+       <item>Verbose</item>
+       <item>Information</item>
+       <item>Warning</item>
+       <item>Error</item>
+       <item>Fatal</item>
+    </string-array>
+    
+    <string-array name="ui_misc_item">
+       <item>System</item>
+       <item>Battery</item>
+       <item>CPU</item>
+       <item>Memory</item>
+       <item>Swap</item>
+       <item>Network</item>
+    <!--     <item>Disk</item>  -->
+    </string-array>
+    
+    <string-array name="ui_process_menu_item">
+       <item>Kill/Reset Process</item>
+       <item>Switch to Process</item>
+       <item>Switch to Application Info</item>
+       <item>Watch Log</item>
+       <item>Set Prority</item>
+    </string-array>
+
+    <string-array name="ui_message_menu_item">
+        <item>Find Process</item>
+        <item>Select Log Entry</item>
+    </string-array>
+    
+    <string-array name="ui_preference_interval">
+        <item>Fast</item>
+        <item>Normal</item>
+        <item>Slow</item>
+    </string-array>
+    
+    <string-array name="ui_preference_map_value">
+       <item>GoogleMap</item>
+       <item>OpenStreeMap</item>
+    </string-array>
+
+    <string-array name="ui_preference_interval_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    
+    <string-array name="ui_preference_color_base">
+        <item>Green</item>
+        <item>Blue</item>
+        <item>White</item>
+    </string-array>
+
+    <string-array name="ui_preference_color_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+            
+    <string-array name="ui_process_priority_value" translatable="false">
+        <item>19</item>
+        <item>18</item>
+        <item>17</item>
+        <item>16</item>
+        <item>15</item>
+        <item>14</item>
+        <item>13</item>
+        <item>12</item>
+        <item>11</item>
+        <item>10</item>
+        <item>9</item>
+        <item>8</item>
+        <item>7</item>
+        <item>6</item>
+        <item>5</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-2</item>
+        <item>-3</item>
+        <item>-4</item>
+        <item>-5</item>
+        <item>-6</item>
+        <item>-7</item>
+        <item>-8</item>
+        <item>-9</item>
+        <item>-10</item>
+        <item>-11</item>
+        <item>-12</item>
+        <item>-13</item>
+        <item>-14</item>
+        <item>-15</item>
+        <item>-16</item>
+        <item>-17</item>
+        <item>-18</item>
+        <item>-19</item>
+        <item>-20</item>
+    </string-array>
+    
+    <string-array name="ui_preference_logcat_format_entry">
+        <item>Brief</item>
+        <item>Process</item>
+        <item>Tag</item>
+        <item>Thread</item>
+        <item>Thread Time</item>
+        <item>Time</item>
+        <item>Long</item>
+        <item>Raw</item>
+    <item>OS Monitor</item>        
+    </string-array>
+    
+    <string-array name="ui_preference_logcat_format_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>0</item>
+    </string-array>
+    
+    <string-array name="ui_preference_dmesg_format_entry">
+        <item>Raw</item>
+        <item>OS Monitor</item>
+    </string-array>
+    
+    <string-array name="ui_preference_dmesg_format_value" translatable="false">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+        
+    <string-array name="ui_preference_notification_customize_entry">
+      <item>Memory + Battery</item>
+      <item>Memory + DiskIO</item>
+      <item>Battery + DiskIO</item>
+      <item>Network IO</item>
+    </string-array>
+
+    <string-array name="ui_preference_notification_customize_value" translatable="false">
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+    </string-array>
+  
+</resources>

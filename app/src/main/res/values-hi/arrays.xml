@@ -4,65 +4,65 @@
     tools:ignore="MissingTranslation">
 
    <string-array name="ui_message_type">
-      <item>Main</item>
-      <item>System</item>
-      <item>Events</item>
-      <item>Radio</item>
+      <item>मुख्य​</item>
+      <item>प्रणाली</item>
+      <item>घटनाएँ</item>
+      <item>रेडिओ</item>
       <item>Dmesg</item>
    </string-array>
     
    <string-array name="ui_message_dmesg_level">
-       <item>Debug</item>
-       <item>Information</item>
-       <item>Notice</item>
-       <item>Warning</item>
-       <item>Alert</item>
-       <item>Emergency</item>
-       <item>Error</item>
-       <item>Critical</item>
+       <item>डीबग​</item>
+       <item>जानकारी</item>
+       <item>सूचना</item>
+       <item>खतरे की सूचना</item>
+       <item>चेतावनी</item>
+       <item>आपातकाल​</item>
+       <item>त्रुटि</item>
+       <item>संकटपूर्ण</item>
     </string-array>
 
     <string-array name="ui_message_logcat_level">
-       <item>Debug</item>
-       <item>Verbose</item>
-       <item>Information</item>
-       <item>Warning</item>
-       <item>Error</item>
-       <item>Fatal</item>
+       <item>डीबग​</item>
+       <item>वाचाल</item>
+       <item>जानकारी</item>
+       <item>खतरे की सूचना</item>
+       <item>त्रुटि</item>
+       <item>घातक​</item>
     </string-array>
     
     <string-array name="ui_misc_item">
-       <item>System</item>
-       <item>Battery</item>
-       <item>CPU</item>
-       <item>Memory</item>
-       <item>Swap</item>
-       <item>Network</item>
+       <item>प्रणाली</item>
+       <item>संगठित ऊर्जा</item>
+       <item>सीपीयू</item>
+       <item>स्मृति</item>
+       <item>विनिमय</item>
+       <item>संजाल</item>
     <!--     <item>Disk</item>  -->
     </string-array>
     
     <string-array name="ui_process_menu_item">
-       <item>Kill/Reset Process</item>
-       <item>Switch to Process</item>
-       <item>Switch to Application Info</item>
-       <item>Watch Log</item>
-       <item>Set Prority</item>
+       <item>प्रक्रिया को बंद/पूर्व नियोजित करें</item>
+       <item>प्रक्रियाओं में जाएँ</item>
+       <item>ऐप जानकारी में जाएं </item>
+       <item>घटनाओं की सूची</item>
+       <item>प्रमुखता नियोजन</item>
     </string-array>
 
     <string-array name="ui_message_menu_item">
-        <item>Find Process</item>
-        <item>Select Log Entry</item>
+        <item>प्रक्रिया ढूंढें</item>
+        <item>घटनाओं की सूची चुनें</item>
     </string-array>
     
     <string-array name="ui_preference_interval">
-        <item>Fast</item>
-        <item>Normal</item>
-        <item>Slow</item>
+        <item>जल्दी</item>
+        <item>सम गति</item>
+        <item>धीमी गति</item>
     </string-array>
     
     <string-array name="ui_preference_map_value">
-       <item>GoogleMap</item>
-       <item>OpenStreeMap</item>
+       <item>गूगल के नक्शे</item>
+       <item>ओपन स्ट्रीट नक्शे</item>
     </string-array>
 
     <string-array name="ui_preference_interval_value" translatable="false">
@@ -72,9 +72,9 @@
     </string-array>
     
     <string-array name="ui_preference_color_base">
-        <item>Green</item>
-        <item>Blue</item>
-        <item>White</item>
+        <item>हरा</item>
+        <item>नीला</item>
+        <item>सफेद</item>
     </string-array>
 
     <string-array name="ui_preference_color_value" translatable="false">
@@ -127,15 +127,15 @@
     </string-array>
     
     <string-array name="ui_preference_logcat_format_entry">
-        <item>Brief</item>
-        <item>Process</item>
-        <item>Tag</item>
-        <item>Thread</item>
-        <item>Thread Time</item>
-        <item>Time</item>
-        <item>Long</item>
-        <item>Raw</item>
-    <item>OS Monitor</item>        
+        <item>संक्षिप्त</item>
+        <item>प्रक्रिया</item>
+        <item>नामांकन</item>
+        <item>धागा</item>
+        <item>धागा समय</item>
+        <item>समय</item>
+        <item>लम्बा</item>
+        <item>अनिर्मित</item>
+    <item>OS मॉनिटर</item>        
     </string-array>
     
     <string-array name="ui_preference_logcat_format_value" translatable="false">
@@ -152,8 +152,8 @@
     </string-array>
     
     <string-array name="ui_preference_dmesg_format_entry">
-        <item>Raw</item>
-        <item>OS Monitor</item>
+        <item>अनिर्मित</item>
+        <item>OS मॉनिटर</item>
     </string-array>
     
     <string-array name="ui_preference_dmesg_format_value" translatable="false">
@@ -162,10 +162,10 @@
     </string-array>
         
     <string-array name="ui_preference_notification_customize_entry">
-      <item>Memory + Battery</item>
-      <item>Memory + DiskIO</item>
-      <item>Battery + DiskIO</item>
-      <item>Network IO</item>
+      <item>स्मृति + संगठित ऊर्जा</item>
+      <item>स्मृति + डिस्कIO</item>
+      <item>संगठित ऊर्जा + डिस्कIO</item>
+      <item>संजाल IO</item>
     </string-array>
 
     <string-array name="ui_preference_notification_customize_value" translatable="false">

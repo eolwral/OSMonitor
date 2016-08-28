@@ -66,7 +66,7 @@
        <item>ओपन स्ट्रीट नक्शे</item>
     </string-array>
 
-    <string-array name="ui_preference_interval_value" translatable="false">
+    <string-array name="ui_preference_interval_value">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -78,13 +78,13 @@
         <item>सफेद</item>
     </string-array>
 
-    <string-array name="ui_preference_color_value" translatable="false">
+    <string-array name="ui_preference_color_value">
         <item>1</item>
         <item>2</item>
         <item>3</item>
     </string-array>
             
-    <string-array name="ui_process_priority_value" translatable="false">
+    <string-array name="ui_process_priority_value">
         <item>19</item>
         <item>18</item>
         <item>17</item>
@@ -139,7 +139,7 @@
     <item>OS मॉनिटर</item>        
     </string-array>
     
-    <string-array name="ui_preference_logcat_format_value" translatable="false">
+    <string-array name="ui_preference_logcat_format_value">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -157,7 +157,7 @@
         <item>OS मॉनिटर</item>
     </string-array>
     
-    <string-array name="ui_preference_dmesg_format_value" translatable="false">
+    <string-array name="ui_preference_dmesg_format_value">
         <item>1</item>
         <item>0</item>
     </string-array>
@@ -169,7 +169,7 @@
       <item>संजाल IO</item>
     </string-array>
 
-    <string-array name="ui_preference_notification_customize_value" translatable="false">
+    <string-array name="ui_preference_notification_customize_value">
       <item>1</item>
       <item>2</item>
       <item>3</item>

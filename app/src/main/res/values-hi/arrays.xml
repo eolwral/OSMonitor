@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+   <string-array name="ui_message_type">
+      <item>मुख्य​</item>
+      <item>प्रणाली</item>
+      <item>घटनाएँ</item>
+      <item>रेडिओ</item>
+      <item>Dmesg</item>
+   </string-array>
+    
+   <string-array name="ui_message_dmesg_level">
+       <item>डीबग​</item>
+       <item>जानकारी</item>
+       <item>सूचना</item>
+       <item>खतरे की सूचना</item>
+       <item>चेतावनी</item>
+       <item>आपातकाल​</item>
+       <item>त्रुटि</item>
+       <item>संकटपूर्ण</item>
+    </string-array>
+
+    <string-array name="ui_message_logcat_level">
+       <item>डीबग​</item>
+       <item>वाचाल</item>
+       <item>जानकारी</item>
+       <item>खतरे की सूचना</item>
+       <item>त्रुटि</item>
+       <item>घातक​</item>
+    </string-array>
+    
+    <string-array name="ui_misc_item">
+       <item>प्रणाली</item>
+       <item>संगठित ऊर्जा</item>
+       <item>सीपीयू</item>
+       <item>स्मृति</item>
+       <item>विनिमय</item>
+       <item>संजाल</item>
+    <!--     <item>Disk</item>  -->
+    </string-array>
+    
+    <string-array name="ui_process_menu_item">
+       <item>प्रक्रिया को बंद/पूर्व नियोजित करें</item>
+       <item>प्रक्रियाओं में जाएँ</item>
+       <item>ऐप जानकारी में जाएं </item>
+       <item>घटनाओं की सूची</item>
+       <item>प्रमुखता नियोजन</item>
+    </string-array>
+
+    <string-array name="ui_message_menu_item">
+        <item>प्रक्रिया ढूंढें</item>
+        <item>घटनाओं की सूची चुनें</item>
+    </string-array>
+    
+    <string-array name="ui_preference_interval">
+        <item>जल्दी</item>
+        <item>सम गति</item>
+        <item>धीमी गति</item>
+    </string-array>
+    
+    <string-array name="ui_preference_map_value">
+       <item>गूगल के नक्शे</item>
+       <item>ओपन स्ट्रीट नक्शे</item>
+    </string-array>
+
+    <string-array name="ui_preference_interval_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    
+    <string-array name="ui_preference_color_base">
+        <item>हरा</item>
+        <item>नीला</item>
+        <item>सफेद</item>
+    </string-array>
+
+    <string-array name="ui_preference_color_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+            
+    <string-array name="ui_process_priority_value" translatable="false">
+        <item>19</item>
+        <item>18</item>
+        <item>17</item>
+        <item>16</item>
+        <item>15</item>
+        <item>14</item>
+        <item>13</item>
+        <item>12</item>
+        <item>11</item>
+        <item>10</item>
+        <item>9</item>
+        <item>8</item>
+        <item>7</item>
+        <item>6</item>
+        <item>5</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-2</item>
+        <item>-3</item>
+        <item>-4</item>
+        <item>-5</item>
+        <item>-6</item>
+        <item>-7</item>
+        <item>-8</item>
+        <item>-9</item>
+        <item>-10</item>
+        <item>-11</item>
+        <item>-12</item>
+        <item>-13</item>
+        <item>-14</item>
+        <item>-15</item>
+        <item>-16</item>
+        <item>-17</item>
+        <item>-18</item>
+        <item>-19</item>
+        <item>-20</item>
+    </string-array>
+    
+    <string-array name="ui_preference_logcat_format_entry">
+        <item>संक्षिप्त</item>
+        <item>प्रक्रिया</item>
+        <item>नामांकन</item>
+        <item>धागा</item>
+        <item>धागा समय</item>
+        <item>समय</item>
+        <item>लम्बा</item>
+        <item>अनिर्मित</item>
+    <item>OS मॉनिटर</item>        
+    </string-array>
+    
+    <string-array name="ui_preference_logcat_format_value" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>0</item>
+    </string-array>
+    
+    <string-array name="ui_preference_dmesg_format_entry">
+        <item>अनिर्मित</item>
+        <item>OS मॉनिटर</item>
+    </string-array>
+    
+    <string-array name="ui_preference_dmesg_format_value" translatable="false">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
+        
+    <string-array name="ui_preference_notification_customize_entry">
+      <item>स्मृति + संगठित ऊर्जा</item>
+      <item>स्मृति + डिस्कIO</item>
+      <item>संगठित ऊर्जा + डिस्कIO</item>
+      <item>संजाल IO</item>
+    </string-array>
+
+    <string-array name="ui_preference_notification_customize_value" translatable="false">
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+    </string-array>
+  
+</resources>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!-- Application -->
+<string name="ui_appname">OS मॉनिटर</string>
+
+<!-- Tab -->
+<string name="ui_global_tab">वैश्विक</string>
+<string name="ui_process_tab">प्रक्रिया</string>
+<string name="ui_network_tab">संजाल</string>
+<string name="ui_connection_tab">संपर्क</string>
+<string name="ui_misc_tab">अतिरिक्त</string>
+<string name="ui_debug_tab">संदेश</string>
+<string name="ui_notification_tab">अधिसूचना</string>
+<string name="ui_shortcut_detail">OS मॉनिटर शुरू करने हेतु दबाएँ..</string>
+
+<!-- Menu -->
+<string name="ui_menu_setting">सेटिंग्स</string>
+<string name="ui_menu_tools">उपकरण</string>
+<string name="ui_menu_sort">छांटना</string>
+<string name="ui_menu_search">खोज</string>
+<string name="ui_menu_stop">रुकें</string>
+<string name="ui_menu_type">प्रकार</string>
+<string name="ui_menu_help">मदद</string>
+<string name="ui_menu_logexport">निर्यात</string>
+<string name="ui_menu_exit">प्रस्थान</string>
+
+<!-- Process Tab Start -->
+ 
+<!-- Header -->
+<string name="ui_process_count">प्रक्रिया:</string>
+<string name="ui_process_cpuusage">सीपीयू  का उपयोग:</string>
+
+<!-- Footer -->
+<string name="ui_process_memorytotal">कुल स्मृति क्षमता:</string>
+<string name="ui_process_memoryfree">उपलब्ध:</string>
+
+<!-- Process Detail -->
+<string name="ui_process_sort_usage">उपयोग</string>
+<string name="ui_process_sort_memory">मेमोरी</string>
+<string name="ui_process_sort_pid">PID</string>
+<string name="ui_process_sort_name">नाम</string>
+<string name="ui_process_sort_cputime">सीपीयू समय</string>
+<string name="ui_process_sort_status">स्थिति</string>
+
+<!-- Process Detail -->
+<string name="ui_process_detail_process">प्रक्रिया</string>
+<string name="ui_process_detail_memory">मेमोरी</string>
+<string name="ui_process_detail_ppid">PPID</string>
+<string name="ui_process_detail_thread">सूत्र</string>
+<string name="ui_process_detail_stime">Sसमय</string>
+<string name="ui_process_detail_utime">Uसमय</string>
+<string name="ui_process_detail_nice">अच्छा</string>
+<string name="ui_process_detail_user">उपयोगकर्ता</string>
+<string name="ui_process_detail_status">स्थिति</string>
+<string name="ui_process_detail_cputime">सीपीयू  समय</string>
+<string name="ui_process_detail_time">प्रारंभ</string>
+
+<!-- Process Status -->
+<string name="ui_process_status_zombie">ज़ोंबी</string>
+<string name="ui_process_status_sleep">निद्रा</string>
+<string name="ui_process_status_running">दौड़ रहा</string>
+<string name="ui_process_status_waitio">प्रतीक्षा IO</string>
+<string name="ui_process_status_stop">रुकें</string>
+<string name="ui_process_status_unknown">अज्ञात</string>
+
+<!-- Process Tab End -->
+
+
+<!-- Connection Tab Start -->
+
+<!-- Header -->
+<string name="ui_connection_protocol">प्रोटोकॉल</string>
+<string name="ui_connection_localremote">स्थानीय/दूरस्थ IP</string>
+<string name="ui_connection_status">स्थिति</string>
+
+<!-- Connection Tab End -->
+
+<!-- Network Tab Start -->
+
+<!-- Header -->
+<string name="ui_network_interface">अंतरापृष्ठ</string>
+<string name="ui_network_ip4">IPv4</string>
+<string name="ui_network_ip6">IPv6</string>
+
+<!-- Additional -->
+<string name="ui_network_mac">MAC</string>
+<string name="ui_network_rx">Rx</string>
+<string name="ui_network_tx">Tx</string>
+<string name="ui_network_status">स्थिति</string>
+
+<!-- Status -->
+<string name="ui_network_status_up">ऊपर</string>
+<string name="ui_network_status_down">नीचे</string>
+<string name="ui_network_status_broadcast">प्रसार</string>
+<string name="ui_network_status_loopback">loopback</string>
+<string name="ui_network_status_p2p">बिंदु से बिंदु</string>
+<string name="ui_network_status_promisc">promisc</string>
+<string name="ui_network_status_running">चल रहा</string>
+<string name="ui_network_status_multicast">multicast</string>
+
+<!-- Network Tab End -->
+
+<!-- Misc Tab Start -->
+<string name="ui_misc_more">अधिक</string>
+
+<!-- Memory -->
+<string name="ui_memory_title">स्मृति</string>
+<string name="ui_swap_title">विनिमय</string>
+<string name="ui_memory_total">कुल</string>
+<string name="ui_memory_free">उपलब्ध</string>
+<string name="ui_memory_shared">साझा</string>
+<string name="ui_memory_buffered">बफर मेमोरी</string>
+<string name="ui_memory_cached">कैश मेमोरी</string>
+
+<!-- Uptime -->
+<string name="ui_system_uptime">कार्यरत समय</string>
+
+<!-- CPU -->
+<string name="ui_processor_freq">आवृत्ति</string>
+<string name="ui_processor_scal">स्केलिंग</string>
+<string name="ui_processor_cur">वर्तमान</string>
+<string name="ui_processor_gov">शासक</string>
+<string name="ui_processor_status">स्थिति</string>
+<string name="ui_processor_core">कोर</string>
+<string name="ui_processor_freq_max_title">अधिकतम आवृत्ति</string>
+<string name="ui_processor_freq_min_title">न्यूनतम आवृत्ति</string>
+<string name="ui_processor_enable">सक्षम</string>
+<string name="ui_processor_enable_title">सीपीयू  सक्षम करें</string>
+<string name="ui_processor_enable_msg">सूचना इकट्ठा कर रहा है..</string>
+<string name="ui_processor_status_online">ऑनलाइन</string>
+<string name="ui_processor_status_offline">ऑफ़लाइन</string>
+
+<!-- Battery -->
+<string name="ui_battery">बैटरी</string>
+<string name="ui_battery_health">सेहत</string>
+<string name="ui_battery_technology">प्रौद्योगिकी</string>
+<string name="ui_battery_capacity">क्षमता</string>
+<string name="ui_battery_voltage">वोल्टेज</string>
+<string name="ui_battery_temperature">तापमान</string>
+<string name="ui_battery_acpower">AC शक्ति</string>
+<string name="ui_battery_usbpower">USB शक्ति</string>
+<string name="ui_battery_status">स्थिति</string>
+<string name="ui_battery_online">ऑनलाइन</string>
+<string name="ui_battery_offline">ऑफ़लाइन</string>
+<string name="ui_battery_status_unknown">अज्ञात</string>
+<string name="ui_battery_status_charging">चार्जिंग</string>
+<string name="ui_battery_status_discharging">चार्ज खो रहा</string>
+<string name="ui_battery_status_notcharging">चार्ज नहीं हो रहा</string>
+<string name="ui_battery_status_full">पूरा</string>
+<string name="ui_battery_health_dead">मर गया</string>
+<string name="ui_battery_health_good">अच्छा</string>
+<string name="ui_battery_health_overheat">ज़रूरत से ज़्यादा गरम</string>
+<string name="ui_battery_health_overvoltage">ज़रूरत से ज़्यादा वोल्टेज</string>
+<string name="ui_battery_health_unknown">अज्ञात</string>
+<string name="ui_battery_health_failure">अनिर्दिष्ट असफलता</string>
+
+<!-- Misc Tab End -->
+
+<!-- Message Tab Start -->
+
+<!-- Header -->
+<string name="ui_message_count">संदेश:</string>
+
+<!-- Message Tab End -->
+
+<!-- Preferences Start -->
+<string name="ui_preferences_update">आधुनिकीकरण अंतराल</string>
+<string name="ui_preferences_update_detail">आधुनिकीकरण के बीच का समय</string>
+<string name="ui_preferences_autostart">स्वतः चालू</string>
+<string name="ui_preferences_autostart_detail">सीपीयू मीटर शुरू  या फोन शुरू होने पर शॉर्टकट</string>
+<string name="ui_preferences_cpuusage">सीपीयू प्रयोग देखे</string>
+<string name="ui_preferences_cpuusage_detail">सूचना क्षेत्र में एक एनिमेटेड सीपीयू मीटर आइकन दिखाने</string>
+<string name="ui_preferences_notification">एक शॉर्टकट जोड़ें</string>
+<string name="ui_preferences_notification_deatil">सूचना क्षेत्र में एक शॉर्टकट चिह्न दिखाने</string>
+<string name="ui_preferences_color">सीपीयू मीटर रंग</string>
+<string name="ui_preferences_color_detail">नीला , हरा या सफ़ेद</string>
+<string name="ui_preferences_expert">विशेषज्ञ मोड</string>
+<string name="ui_preferences_expert_detail">घरेलू लिनक्स प्रक्रियाओं को दिखाएँ </string>
+<string name="ui_preferences_root">रूट सक्षम करें</string>
+<string name="ui_preferences_root_detail">विशेषाधिकार आदेश पर अमल के लिए रूट की अनुमति दे</string>
+<string name="ui_preferences_tempvalue">सेल्सियस में तापमान दिखाएँ</string>
+<string name="ui_preferences_tempvalue_detail">सेल्सियस / फारेनहाइट मापदंड के बीच बदलें</string>
+<string name="ui_preferences_notification_customize">अधिसूचना रुचि के अनुसार बनाइये</string>
+<string name="ui_preferences_notification_customize_detail">अधिसूचना विजेट पर दिखाने के लिए जानकारी का चयन</string>
+<string name="ui_preferences_map">नक्शा प्रकार</string>
+<string name="ui_preferences_map_detail">गूगल नक्शा या ओपन स्ट्रीट नक्शा का चयन करें</string>
+<string name="ui_preferences_setcpu">फोन चालू होने पर सीपीयू निश्चित करें</string>
+<string name="ui_preferences_setcpu_detail">प्रक्रमक विकल्पों को फोन चालू होने पर निश्चित करें</string>
+<string name="ui_preferences_setcpu_data">आवृत्ति और गवर्नर को निश्चित करें</string>
+<string name="ui_preferences_notificaiton_color">अधिसूचना लिखावट रंग</string>
+<string name="ui_preferences_notificaiton_color_detail">दबाएं और चुनें</string>
+<string name="ui_preferences_notificaiton_top">अधिसूचनाओं को ऊपर रखें</string>
+<string name="ui_preferences_notificaiton_top_detail">अधिसूचना प्राथमिकता उठाना (Android 4.1.2 or later)</string>
+<string name="ui_preferences_logcat_format">Logcat प्रारूप</string>
+<string name="ui_preferences_logcat_format_detail">लॉग प्रविष्टियों को दिखाने के समय लॉग प्रारूप.</string>
+<string name="ui_preferences_dmesg_format">Dmesg प्रारूप</string>
+<string name="ui_preferences_dmesg_format_detail">लॉग प्रविष्टियों को दिखाने के समय dmesg प्रारूप.</string>
+<string name="ui_preferences_logcat_message_color">Logcat संदेश रंग</string>
+<string name="ui_preferences_dmesg_message_color">Dmesg संदेश रंग</string>
+<string name="ui_preferences_message_color_detail">लॉग प्रविष्टियों को दिखाने के समय संदेश का रंग.</string>
+<string name="ui_preferences_message_emergency_color">आपातकाल </string>
+<string name="ui_preferences_message_alert_color">चेतावनी </string>
+<string name="ui_preferences_message_critical_color">नाजुक </string>
+<string name="ui_preferences_message_verbose_color">वाचाल </string>
+<string name="ui_preferences_message_warning_color">खतरे की सूचना</string>
+<string name="ui_preferences_message_notice_color">सूचना</string>
+<string name="ui_preferences_message_info_color">जानकारी</string>
+<string name="ui_preferences_message_debug_color">डीबग</string>
+<string name="ui_preferences_message_error_color">त्रुटि</string>
+<string name="ui_preferences_message_fatal_color">घातक</string>
+
+<!-- Preferences End -->
+
+<!-- Common Start -->
+<string name="ui_text_okay">ठीक है</string>
+<string name="ui_text_cancel">रद्द</string>
+<string name="ui_text_default">पूर्व निर्धारित</string>
+<string name="ui_text_notfound">नहीं मिला!</string>
+
+<string name="ui_text_filename">संचिका नाम</string>
+<string name="ui_text_fileexist">संचिका मौजूद!</string>
+<string name="ui_text_exportdone">हो गया!</string>
+
+<string name="ui_text_zero">0</string>
+<string name="ui_text_refresh">कृपया रुकें..</string>
+<string name="ui_text_kill">प्रक्रिया %d को मार रहा है..</string>
+    <string name="ui_preferences_notification_background">अधिसूचना पृष्ठभूमि रंग</string>
+    <!-- Common End -->
+
+</resources>

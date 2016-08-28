@@ -1,6 +1,9 @@
 OS Monitor for Android  [![Build Status](https://drone.io/github.com/eolwral/OSMonitor/status.png)](https://drone.io/github.com/eolwral/OSMonitor/latest) [![Coverity Scan Build Status](https://scan.coverity.com/projects/3432/badge.svg)](https://scan.coverity.com/projects/3432)
 =======
 
+#### Going to Mainitenance Mode (2016/08/29)
+Due to Android 7.0's security enhancement, OS Monitor won't work any more, I decide to move the project into manitenance mode, it won't support Android 7.0 and following version.
+
 #### How to become a Beta Tester
 1. [Join this community](https://plus.google.com/communities/104176911627256834500)
 2. [Opt-in link](https://play.google.com/apps/testing/com.eolwral.osmonitor)
@@ -28,13 +31,9 @@ if you would like to know that how it works, please check Wiki page!
 - Spanish  - Thanks to xphnx
 - Hungarian - Thanks to Zsigmond
 - Serbian - Thanks to pejakm
+- Hindi - Thanks to chaitanya-lakkundi
 - English
 - Chinese
-
-### Ongoing ###
-
-- Keep logcat/dmesg as long as possible. (Working)
-- Offer a feature to monitor and save data for long term.
 
 ### Developed By ###
 
@@ -67,6 +66,13 @@ wiki - https://github.com/eolwral/OSMonitor/wiki
 ----------
 
 ### Change Log ###
+
+**Version 3.5.0.7**
+- Merge 'Force Close' feature for process view (Thanks to Venryx)
+- Hindi Language (Thanks to chaitanya-lakkundi)
+- Fix 2 FC issues
+- Use new NDK
+- Set "maxSdkVersion" as API 23 (it won't support Android 7.0)
 
 **Version 3.5.0.6**
 - Add a option for notification's background color

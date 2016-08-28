@@ -66,67 +66,12 @@
        <item>ओपन स्ट्रीट नक्शे</item>
     </string-array>
 
-    <string-array name="ui_preference_interval_value">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    
     <string-array name="ui_preference_color_base">
         <item>हरा</item>
         <item>नीला</item>
         <item>सफेद</item>
     </string-array>
 
-    <string-array name="ui_preference_color_value">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-            
-    <string-array name="ui_process_priority_value">
-        <item>19</item>
-        <item>18</item>
-        <item>17</item>
-        <item>16</item>
-        <item>15</item>
-        <item>14</item>
-        <item>13</item>
-        <item>12</item>
-        <item>11</item>
-        <item>10</item>
-        <item>9</item>
-        <item>8</item>
-        <item>7</item>
-        <item>6</item>
-        <item>5</item>
-        <item>4</item>
-        <item>3</item>
-        <item>2</item>
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-        <item>-2</item>
-        <item>-3</item>
-        <item>-4</item>
-        <item>-5</item>
-        <item>-6</item>
-        <item>-7</item>
-        <item>-8</item>
-        <item>-9</item>
-        <item>-10</item>
-        <item>-11</item>
-        <item>-12</item>
-        <item>-13</item>
-        <item>-14</item>
-        <item>-15</item>
-        <item>-16</item>
-        <item>-17</item>
-        <item>-18</item>
-        <item>-19</item>
-        <item>-20</item>
-    </string-array>
-    
     <string-array name="ui_preference_logcat_format_entry">
         <item>संक्षिप्त</item>
         <item>प्रक्रिया</item>
@@ -138,30 +83,12 @@
         <item>अनिर्मित</item>
     <item>OS मॉनिटर</item>        
     </string-array>
-    
-    <string-array name="ui_preference_logcat_format_value">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>0</item>
-    </string-array>
-    
+
     <string-array name="ui_preference_dmesg_format_entry">
         <item>अनिर्मित</item>
         <item>OS मॉनिटर</item>
     </string-array>
-    
-    <string-array name="ui_preference_dmesg_format_value">
-        <item>1</item>
-        <item>0</item>
-    </string-array>
-        
+
     <string-array name="ui_preference_notification_customize_entry">
       <item>स्मृति + संगठित ऊर्जा</item>
       <item>स्मृति + डिस्कIO</item>
@@ -169,11 +96,4 @@
       <item>संजाल IO</item>
     </string-array>
 
-    <string-array name="ui_preference_notification_customize_value">
-      <item>1</item>
-      <item>2</item>
-      <item>3</item>
-      <item>4</item>
-    </string-array>
-  
 </resources>

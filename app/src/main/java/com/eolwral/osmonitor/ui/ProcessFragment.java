@@ -19,6 +19,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.MenuItemCompat.OnActionExpandListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,6 +62,8 @@ import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.google.flatbuffers.FlatBufferBuilder;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -226,6 +229,17 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       }
     });
 
+    // custom added
+    buttonAction = (Button) v.findViewById(R.id.id_process_button_forceClose);
+    buttonAction.setText("Force Close");
+    buttonAction.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (selectedPID != -1 && !selectedProcess.isEmpty())
+          forceCloseProcess(selectedPID, selectedProcess);
+      }
+    });
+
     buttonAction = (Button) v.findViewById(R.id.id_process_button_switch);
     buttonAction.setText(menuText[1]);
     buttonAction.setOnClickListener(new OnClickListener() {
@@ -236,8 +250,10 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       }
     });
 
+    // custom changed: (fixed incorrect text)
+
     buttonAction = (Button) v.findViewById(R.id.id_process_button_watchlog);
-    buttonAction.setText(menuText[2]);
+    buttonAction.setText(menuText[3]);
     buttonAction.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -246,7 +262,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
       }
     });
     buttonAction = (Button) v.findViewById(R.id.id_process_button_setpriority);
-    buttonAction.setText(menuText[3]);
+    buttonAction.setText(menuText[4]);
     buttonAction.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -507,6 +523,30 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
   private void killProcess(int pid, String process) {
     CoreUtil.killProcess(pid, getActivity());
     ((ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE)).restartPackage(process);
+  }
+
+  // custom added
+  private void forceCloseProcess(int pid, String process) {
+    // String[] commands = {"am force-stop " + process + ";" + infoHelper.getPackageName(process)};
+    String packageName = process.contains(":") ? process.substring(0, process.indexOf(":")) : process;
+    String[] commands = {"am force-stop " + packageName};
+    //Log.d("VCustom", commands[0]);
+    RunAsRoot(commands);
+  }
+  public void RunAsRoot(String[] cmds){
+    try {
+      Process p = Runtime.getRuntime().exec("su");
+      DataOutputStream os = new DataOutputStream(p.getOutputStream());
+      for (String tmpCmd : cmds) {
+        os.writeBytes(tmpCmd + "\n");
+      }
+      os.writeBytes("exit\n");
+      os.flush();
+    }
+    catch(IOException ex)
+    {
+      // ha! do nothing
+    }
   }
 
   private void watchLog(int pid, String process) {

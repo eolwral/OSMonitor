@@ -280,7 +280,8 @@ public class ProcessorPreference extends DialogPreference implements
 
       // set minimum value 
       minSeekBar.setSelection(0);
-      setdata.get(0).minFreq = Integer.parseInt(freqList[0]);
+      if (freqList.length > 0)
+        setdata.get(0).minFreq = Integer.parseInt(freqList[0]);
 
       for (int i = 0; i < freqList.length; i++) {
         if (setdata.get(position).minFreq == Integer.parseInt(freqList[i])) {

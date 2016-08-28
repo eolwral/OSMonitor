@@ -44,6 +44,7 @@
        <item>Cambiar a info aplicación</item>
        <item>Mirar registro</item>
        <item>Fijar prioridad</item>
+       <item>Fuerza Cerrar</item>
     </string-array>
 
     <string-array name="ui_message_menu_item">

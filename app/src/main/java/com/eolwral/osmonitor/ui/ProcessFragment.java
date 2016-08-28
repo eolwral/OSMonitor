@@ -19,7 +19,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.SimpleArrayMap;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.MenuItemCompat.OnActionExpandListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,8 +61,6 @@ import com.eolwral.osmonitor.util.ProcessUtil;
 import com.eolwral.osmonitor.util.UserInterfaceUtil;
 import com.google.flatbuffers.FlatBufferBuilder;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -231,7 +228,7 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
 
     // custom added
     buttonAction = (Button) v.findViewById(R.id.id_process_button_forceClose);
-    buttonAction.setText("Force Close");
+    buttonAction.setText(menuText[5]);
     buttonAction.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -525,28 +522,13 @@ public class ProcessFragment extends ListFragment implements ipcClientListener {
     ((ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE)).restartPackage(process);
   }
 
-  // custom added
+  // added by Venryx
   private void forceCloseProcess(int pid, String process) {
-    // String[] commands = {"am force-stop " + process + ";" + infoHelper.getPackageName(process)};
     String packageName = process.contains(":") ? process.substring(0, process.indexOf(":")) : process;
     String[] commands = {"am force-stop " + packageName};
-    //Log.d("VCustom", commands[0]);
-    RunAsRoot(commands);
-  }
-  public void RunAsRoot(String[] cmds){
     try {
-      Process p = Runtime.getRuntime().exec("su");
-      DataOutputStream os = new DataOutputStream(p.getOutputStream());
-      for (String tmpCmd : cmds) {
-        os.writeBytes(tmpCmd + "\n");
-      }
-      os.writeBytes("exit\n");
-      os.flush();
-    }
-    catch(IOException ex)
-    {
-      // ha! do nothing
-    }
+      CoreUtil.runSU(commands);
+    } catch (Exception e) { }
   }
 
   private void watchLog(int pid, String process) {

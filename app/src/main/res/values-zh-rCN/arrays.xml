@@ -43,6 +43,7 @@
         <item>切换至程序资讯</item>
         <item>检视 Log</item>
         <item>设定优先权</item>
+        <item>强制关闭</item>
     </string-array>
 
     <string-array name="ui_message_menu_item">

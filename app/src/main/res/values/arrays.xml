@@ -46,7 +46,8 @@
        <item>Switch to Process</item>
        <item>Switch to Application Info</item>
        <item>Watch Log</item>
-       <item>Set Prority</item>
+       <item>Set Priority</item>
+       <item>Force Close</item>
     </string-array>
 
     <string-array name="ui_message_menu_item">

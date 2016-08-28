@@ -43,6 +43,7 @@
         <item>Przełącz się informacją aplikacji</item>
         <item>Obejrzyj LOG</item>
         <item>Ustal priorytet</item>
+        <item>Siła Close</item>
     </string-array>
 
     <string-array name="ui_message_menu_item">

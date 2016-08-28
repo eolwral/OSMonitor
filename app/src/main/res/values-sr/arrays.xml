@@ -44,6 +44,7 @@
        <item>Пребаци се на апликације инфо</item>
        <item>Прати дневник</item>
        <item>Постави приоритет</item>
+       <item>force Цлосе</item>
     </string-array>
 
     <string-array name="ui_message_menu_item">

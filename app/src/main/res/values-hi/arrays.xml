@@ -47,6 +47,7 @@
        <item>ऐप जानकारी में जाएं </item>
        <item>घटनाओं की सूची</item>
        <item>प्रमुखता नियोजन</item>
+       <item>फोर्स बंद</item>
     </string-array>
 
     <string-array name="ui_message_menu_item">

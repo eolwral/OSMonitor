@@ -43,6 +43,7 @@
        <item>Váltás alkalmazás info</item>
        <item>Log megnézése</item>
        <item>Prioritás állítás</item>
+       <item>Force bezárása</item>
     </string-array>
 
     <string-array name="ui_message_menu_item">

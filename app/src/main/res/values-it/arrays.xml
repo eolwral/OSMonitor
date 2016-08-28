@@ -43,6 +43,7 @@
         <item>Passa a info applicazione</item>
 		<item>Vedi Log</item>
 		<item>Imposta Priorità</item>
+		<item>Forza Chiudi</item>
 	</string-array>
 	
 	<string-array name="ui_message_menu_item">

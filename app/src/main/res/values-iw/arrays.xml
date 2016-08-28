@@ -42,6 +42,7 @@
     <item>החלף ל מידע יישום</item>
     <item>צפה בלוג</item>
     <item>הגדר עדיפות</item>
+    <item>חיל סגור</item>
   </string-array>
  
 <string-array name="ui_message_menu_item">

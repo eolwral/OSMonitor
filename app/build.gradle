@@ -12,13 +12,14 @@ android {
         }
     }
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.eolwral.osmonitor"
         minSdkVersion 9
         targetSdkVersion 20
-        versionCode 89
-        versionName "3.5.0.6"
+        maxSdkVersion 23
+        versionCode 90
+        versionName "3.5.0.7"
         ndk {
             moduleName "osmonitor"
         }

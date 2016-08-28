@@ -62,6 +62,7 @@
         </receiver>
 
         <activity android:name=".preference.OSMPreference"
+                  android:theme="@style/Theme.OSmonitor.Preference"
                   android:exported="false" />
 
     </application>

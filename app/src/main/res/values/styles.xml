@@ -29,7 +29,13 @@
         <item name="actionModeBackground">@drawable/cab_background_top_osmonitor</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_osmonitor</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Osmonitor</item>
-        
+    </style>
+
+    <style name="Theme.OSmonitor.Preference" parent="@style/Theme.AppCompat">
+        <item name="colorPrimary">#DDDDDD</item>
+        <item name="colorPrimaryDark">#DDDDDD</item>
+        <item name="colorAccent">#DDDDDD</item>
+        <item name="android:textColorSecondary">#DDDDDD</item>
     </style>
 
     <style name="ActionBar.Solid.Osmonitor" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -101,8 +107,12 @@
       <item name="android:minHeight">5dip</item>
       <item name="android:maxHeight">10dip</item>
     </style>
-    
-     <style name="osmonitor_NotificationText" parent="android:TextAppearance.StatusBar.EventContent" />
+
+    <style name="osmonitor_preferenceCheckBoX" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:background">#FF0000</item>
+    </style>
+
+    <style name="osmonitor_NotificationText" parent="android:TextAppearance.StatusBar.EventContent" />
     <style name="osmonitor_NotificationTitle" parent="android:TextAppearance.StatusBar.EventContent.Title" />
         
         

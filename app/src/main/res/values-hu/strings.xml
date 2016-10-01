@@ -5,8 +5,8 @@
 <string name="ui_appname">OS Monitor</string>
 
 <!-- Tab -->
-<string name="ui_global_tab">Teljes</string>
-<string name="ui_process_tab">Művelet</string>
+<string name="ui_global_tab">Általános</string>
+<string name="ui_process_tab">Folyamatok</string>
 <string name="ui_network_tab">Hálózat</string>
 <string name="ui_connection_tab">Kapcsolatok</string>
 <string name="ui_misc_tab">Egyéb</string>
@@ -28,7 +28,7 @@
 <!-- Start Process Detail -->
  
 <!-- Header -->
-<string name="ui_process_count">Feladat:</string>
+<string name="ui_process_count">Folyamat:</string>
 <string name="ui_process_cpuusage">CPU használat:</string>
 
 <!-- Footer -->
@@ -50,7 +50,7 @@
 <string name="ui_process_detail_thread">Végrehajtás</string>
 <string name="ui_process_detail_stime">SIdő</string>
 <string name="ui_process_detail_utime">UIdő</string>
-<string name="ui_process_detail_nice">Szép</string>
+<string name="ui_process_detail_nice">Nice</string>
 <string name="ui_process_detail_user">Felhasználó</string>
 <string name="ui_process_detail_status">Állapot</string>
 <string name="ui_process_detail_cputime">CPU Idő</string>
@@ -58,8 +58,8 @@
 
 <!-- Process Status -->
 <string name="ui_process_status_zombie">Zombi</string>
-<string name="ui_process_status_sleep">Alvás</string>
-<string name="ui_process_status_running">Futtatás</string>
+<string name="ui_process_status_sleep">Alszik</string>
+<string name="ui_process_status_running">Fut</string>
 <string name="ui_process_status_waitio">IO várás</string>
 <string name="ui_process_status_stop">Stop</string>
 <string name="ui_process_status_unknown">Ismeretlen</string>
@@ -146,14 +146,14 @@
 <string name="ui_battery_status_unknown">Ismertelen</string>
 <string name="ui_battery_status_charging">Töltés</string>
 <string name="ui_battery_status_discharging">Kisütés</string>
-<string name="ui_battery_status_notcharging">Nem Tölt</string>
+<string name="ui_battery_status_notcharging">Nem tölt</string>
 <string name="ui_battery_status_full">Teljes</string>
 <string name="ui_battery_health_dead">Halott</string>
 <string name="ui_battery_health_good">Jó</string>
 <string name="ui_battery_health_overheat">Túlmelegedés</string>
 <string name="ui_battery_health_overvoltage">Túlfeszültség</string>
 <string name="ui_battery_health_unknown">Ismeretlen</string>
-<string name="ui_battery_health_failure">Maghatározhatatlan Hiba</string>
+<string name="ui_battery_health_failure">Maghatározhatatlan hiba</string>
 
 <!-- Misc Tab End -->
 
@@ -225,7 +225,7 @@
 <string name="ui_text_zero">0</string>
 <string name="ui_text_refresh">Kérem várjon..</string>
 <string name="ui_text_kill">Folyamatok leállítása..</string>
-    <string name="ui_preferences_notification_background">Bejelentés háttérszín</string>
+    <string name="ui_preferences_notification_background">Értesítés háttérszín</string>
     <!-- Common End -->
 
 </resources>
